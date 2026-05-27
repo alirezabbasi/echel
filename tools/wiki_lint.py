@@ -11,10 +11,13 @@ REQUIRED_WIKI_FILES = [
     "project-brief.md",
     "log.md",
     "index.md",
-    "knowledge/source-ingest-flow.md",
-    "knowledge/query-to-artifact-flow.md",
-    "knowledge/session-development-flow.md",
-    "knowledge/wiki-lint-flow.md",
+    "project.md",
+    "problem.md",
+    "users.md",
+    "solution.md",
+    "scope.md",
+    "roadmap.md",
+    "architecture.md",
 ]
 
 TASK_REQUIRED_HEADERS = [

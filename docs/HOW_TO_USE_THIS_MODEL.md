@@ -57,9 +57,12 @@ Echel is designed so code and understanding evolve together, not separately.
 1. Run `make session-bootstrap`.
 2. Run `python3 tools/echel.py status` to see product state.
 3. Run `python3 tools/echel.py clarify` when product intent is still incomplete.
-4. Run `python3 tools/echel.py next` to choose the next work item.
-5. Implement the smallest safe change with tests.
-6. Update canonical wiki pages and task status.
-7. Run `make wiki-health`.
-8. Sync `docs/development/state` and `docs/development/work.md`.
-9. Commit changes with clear scope.
+4. Record clarification answers with `python3 tools/echel.py clarify --field <key> --answer "..."`.
+5. Run `python3 tools/echel.py plan` to synthesize MVP work.
+6. Run `python3 tools/echel.py next` to choose the next work item.
+7. Run `python3 tools/echel.py packet` to generate agent-ready implementation context.
+8. Implement the smallest safe change with tests.
+9. Update canonical wiki pages and task status.
+10. Run `make wiki-health`.
+11. Sync `docs/development/state` and `docs/development/work.md`.
+12. Commit changes with clear scope.

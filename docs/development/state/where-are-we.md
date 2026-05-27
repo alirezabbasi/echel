@@ -25,7 +25,7 @@ Last updated: 2026-05-27
 - Enforcing integrity through `echel doctor` drift and evidence/gate reporting.
 - Using `wiki/knowledge`, `wiki/decisions`, `wiki/work`, and `wiki/reports` as the project memory model.
 - Using `WIKI_ROOT` so Echel can operate from `echel-core/` while maintaining root-level product memory.
-- Starting Phase 1 product-owner workflows through `define`, `clarify`, `plan`, `status`, and `next`.
+- Completed Phase 1 deterministic product-owner workflows through `define`, `clarify`, `plan`, `status`, `next`, and `packet`.
 
 ## Next
 

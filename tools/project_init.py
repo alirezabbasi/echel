@@ -51,22 +51,29 @@ def copy_core_template(repo_root: Path, echel_core_dir: Path) -> None:
 
 
 def copy_project_wiki_template(repo_root: Path, workspace_dir: Path) -> None:
-    src = repo_root / "wiki"
+    _ = repo_root
     dst = workspace_dir / "wiki"
-    if not src.exists():
-        return
-    if not dst.exists():
-        shutil.copytree(src, dst)
-        return
+    dst.mkdir(parents=True, exist_ok=True)
+    for folder in ["knowledge", "decisions", "work", "reports"]:
+        (dst / folder).mkdir(parents=True, exist_ok=True)
+    (dst / "project-brief.md").write_text(
+        """---
+type: project-brief
+status: active
+---
+# Project Brief
 
-    for item in src.rglob("*"):
-        rel = item.relative_to(src)
-        target = dst / rel
-        if item.is_dir():
-            target.mkdir(parents=True, exist_ok=True)
-        elif not target.exists():
-            target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(item, target)
+This wiki is the product-owned memory for the software being built with Echel.
+
+## Ownership
+
+- Product knowledge, decisions, tasks, reports, and evolving context live here.
+- Echel framework method, tools, prompts, and schemas live under `echel-core/`.
+""",
+        encoding="utf-8",
+    )
+    (dst / "log.md").write_text("---\ntype: log\nstatus: active\n---\n# Log\n", encoding="utf-8")
+    (dst / "index.md").write_text("---\ntype: index\nstatus: active\n---\n# Index\n", encoding="utf-8")
 
 
 def write_generated_core_config(echel_core_dir: Path) -> None:
@@ -87,6 +94,22 @@ def write_generated_core_config(echel_core_dir: Path) -> None:
 """,
         encoding="utf-8",
     )
+
+
+def reset_generated_core_state(echel_core_dir: Path) -> None:
+    work = echel_core_dir / "docs" / "development" / "work.md"
+    if work.exists():
+        work.write_text(
+            """# Work
+
+## Backlog
+
+## In Progress
+
+## Done
+""",
+            encoding="utf-8",
+        )
 
 
 def copy_existing_source(source_dir: Path, workspace_dir: Path) -> None:
@@ -353,6 +376,7 @@ def main() -> int:
     copy_core_template(repo_root, echel_core_dir)
     copy_project_wiki_template(repo_root, workspace_dir)
     write_generated_core_config(echel_core_dir)
+    reset_generated_core_state(echel_core_dir)
     ensure_workspace_gitignore(workspace_dir)
     write_project_identity_files(workspace_dir, args.name, args.mode, args.source)
     update_project_wiki_context(

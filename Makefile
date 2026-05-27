@@ -1,4 +1,4 @@
-.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
+.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project verify-phase1 echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-packet echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
 
 session-bootstrap:
 	python3 tools/session_bootstrap.py
@@ -32,6 +32,9 @@ init-wizard:
 init-project:
 	python3 tools/project_init.py --name "$${NAME:?Set NAME=<project-name>}" --mode "$${MODE:-scratch}" --dest "$${DEST:-.}" $${SOURCE:+--source "$$SOURCE"}
 
+verify-phase1:
+	python3 tools/verify_phase1.py
+
 echel-start:
 	python3 tools/echel.py start
 
@@ -39,7 +42,7 @@ echel-define:
 	python3 tools/echel.py define $${NAME:+--name "$$NAME"} $${PROBLEM:+--problem "$$PROBLEM"} $${SOLUTION:+--solution "$$SOLUTION"} $${DIRECTION:+--direction "$$DIRECTION"} $${USERS:+--users "$$USERS"} $${SUCCESS:+--success "$$SUCCESS"}
 
 echel-clarify:
-	python3 tools/echel.py clarify
+	python3 tools/echel.py clarify $${FIELD:+--field "$$FIELD"} $${ANSWER:+--answer "$$ANSWER"}
 
 echel-plan:
 	python3 tools/echel.py plan $${TITLE:+--title "$$TITLE"} $${GOAL:+--goal "$$GOAL"}
@@ -49,6 +52,9 @@ echel-status:
 
 echel-next:
 	python3 tools/echel.py next
+
+echel-packet:
+	python3 tools/echel.py packet $${TASK:+--task "$$TASK"}
 
 echel-doctor:
 	python3 tools/echel.py doctor

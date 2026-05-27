@@ -19,11 +19,14 @@ from echel.migration_planner import plan_waves
 from echel.platform.runtime import ensure_platform_config, load_platform_config
 from echel.primitives import validate_decisions, validate_tasks
 from echel.product import (
+    answer_clarification,
     clarification_questions,
     create_plan_task,
+    generate_work_packet,
     ensure_product_pages,
     next_task,
     product_status,
+    synthesize_mvp_plan,
     update_project_definition,
 )
 from echel.workspace import apply_workspace_move, plan_workspace_move, write_impact_preview
@@ -81,8 +84,19 @@ def cmd_define(
     return 0
 
 
-def cmd_clarify(repo_root: Path) -> int:
+def cmd_clarify(repo_root: Path, field: str | None, answer: str | None) -> int:
     cfg = _load(repo_root)
+    if field or answer:
+        if not field or not answer:
+            print("clarify requires both --field and --answer", file=sys.stderr)
+            return 2
+        try:
+            path = answer_clarification(repo_root, cfg, field, answer)
+        except ValueError as exc:
+            print(str(exc), file=sys.stderr)
+            return 2
+        print(f"Updated clarification `{field}`: {path}")
+        return 0
     questions = clarification_questions(repo_root, cfg)
     print("Clarification Queue")
     if not questions:
@@ -96,11 +110,10 @@ def cmd_clarify(repo_root: Path) -> int:
 def cmd_plan(repo_root: Path, title: str | None, goal: str | None) -> int:
     cfg = _load(repo_root)
     if not title:
-        ensure_product_pages(repo_root, cfg, "Product")
-        print("Planning Recommendations")
-        for question in clarification_questions(repo_root, cfg)[:5]:
-            print(f"- Clarify: {question}")
-        print("- Create a work item with: echel plan --title \"Define MVP\" --goal \"Clarify MVP scope and acceptance criteria\"")
+        roadmap, task = synthesize_mvp_plan(repo_root, cfg)
+        print("Synthesized MVP plan")
+        print(f"- Roadmap: {roadmap}")
+        print(f"- Work item: {task}")
         return 0
     path = create_plan_task(repo_root, cfg, title=title, goal=goal)
     print(f"Created product work item: {path}")
@@ -120,6 +133,17 @@ def cmd_next(repo_root: Path) -> int:
         print(task)
         return 0
     print("No open task found.")
+    return 0
+
+
+def cmd_packet(repo_root: Path, task_id: str | None) -> int:
+    cfg = _load(repo_root)
+    try:
+        path = generate_work_packet(repo_root, cfg, task_id)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    print(f"Generated work packet: {path}")
     return 0
 
 
@@ -378,7 +402,9 @@ def build_parser() -> argparse.ArgumentParser:
     define.add_argument("--users")
     define.add_argument("--success")
 
-    sub.add_parser("clarify")
+    clarify = sub.add_parser("clarify")
+    clarify.add_argument("--field")
+    clarify.add_argument("--answer")
 
     plan = sub.add_parser("plan")
     plan.add_argument("--title")
@@ -386,6 +412,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("status")
     sub.add_parser("next")
+    packet = sub.add_parser("packet")
+    packet.add_argument("--task")
 
     close = sub.add_parser("close-task")
     close.add_argument("task_id")
@@ -460,13 +488,15 @@ def main(argv: list[str] | None = None) -> int:
             success=args.success,
         )
     if args.cmd == "clarify":
-        return cmd_clarify(root)
+        return cmd_clarify(root, field=args.field, answer=args.answer)
     if args.cmd == "plan":
         return cmd_plan(root, title=args.title, goal=args.goal)
     if args.cmd == "status":
         return cmd_status(root)
     if args.cmd == "next":
         return cmd_next(root)
+    if args.cmd == "packet":
+        return cmd_packet(root, task_id=args.task)
     if args.cmd == "close-task":
         return cmd_close_task(root, args.task_id)
     if args.cmd == "sync-memory":

@@ -190,10 +190,11 @@ Product-owner commands:
 
 1. `python3 tools/echel.py define --problem "..." --solution "..." --direction "..."`
 2. `python3 tools/echel.py clarify` lists missing product decisions.
-3. `python3 tools/echel.py plan` suggests planning actions.
-4. `python3 tools/echel.py plan --title "Define MVP" --goal "..."`
+3. `python3 tools/echel.py clarify --field mvp --answer "- First useful slice"` records a product answer.
+4. `python3 tools/echel.py plan` synthesizes an MVP roadmap and next work item.
 5. `python3 tools/echel.py status` summarizes product state.
 6. `python3 tools/echel.py next` selects the next open work item.
+7. `python3 tools/echel.py packet` generates an agent-ready work packet.
 
 Operator commands:
 
@@ -221,6 +222,8 @@ Operator commands:
 - LLM behavior contracts + runtime adapters:
   - `python3 tools/echel.py contracts check --current <state> --target <state>`
   - `python3 tools/echel.py adapters list`
+- Phase 1 verification:
+  - `make verify-phase1`
 
 ## Platform MVP Sprint 1 (Self-Hosted Web Interface)
 
