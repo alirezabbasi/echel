@@ -236,6 +236,8 @@ Operator commands:
   - `make verify-phase2`
 - Phase 3 verification:
   - `make verify-phase3`
+- Phase 4 verification:
+  - `make verify-phase4`
 
 ## Platform MVP Sprint 1 (Self-Hosted Web Interface)
 
@@ -254,3 +256,5 @@ What Sprint 1 includes:
   - `openai_compatible`
 - Multi-thread chat storage
 - Chat-driven Echel command bridge via `/echel ...` messages for safe command subset
+- Product cockpit dashboard over product memory, graph, roadmap, work, packets, reviews, risks, and decisions
+- Cockpit action bridge for safe product commands

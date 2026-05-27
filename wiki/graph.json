@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-05-27T20:35:43Z",
+  "generated_at": "2026-05-27T20:43:16Z",
   "nodes": [
     {
       "id": "component:agent-command-surface",
@@ -360,6 +360,90 @@
       "summary": "Add verification for Phase 3 behavior inside a generated project."
     },
     {
+      "id": "task:TASK-0034",
+      "type": "task",
+      "title": "TASK-0034 - Cockpit Information Architecture",
+      "source": "work/TASK-0034-cockpit-information-architecture.md",
+      "summary": "Define the product cockpit views for non-technical product steering."
+    },
+    {
+      "id": "task:TASK-0035",
+      "type": "task",
+      "title": "TASK-0035 - Cockpit Data API",
+      "source": "work/TASK-0035-cockpit-data-api.md",
+      "summary": "Expose product status, graph, roadmap, tasks, risks, packets, reviews, and decisions through a stable local API."
+    },
+    {
+      "id": "task:TASK-0036",
+      "type": "task",
+      "title": "TASK-0036 - Product Status Dashboard",
+      "source": "work/TASK-0036-product-status-dashboard.md",
+      "summary": "Build the cockpit dashboard for product readiness and next action."
+    },
+    {
+      "id": "task:TASK-0037",
+      "type": "task",
+      "title": "TASK-0037 - Clarification Queue View",
+      "source": "work/TASK-0037-clarification-queue-view.md",
+      "summary": "Add a cockpit view for answering open product clarification questions."
+    },
+    {
+      "id": "task:TASK-0038",
+      "type": "task",
+      "title": "TASK-0038 - Roadmap And Work Queue View",
+      "source": "work/TASK-0038-roadmap-and-work-queue-view.md",
+      "summary": "Show roadmap sections and work queue in the cockpit."
+    },
+    {
+      "id": "task:TASK-0039",
+      "type": "task",
+      "title": "TASK-0039 - Graph Explorer View",
+      "source": "work/TASK-0039-graph-explorer-view.md",
+      "summary": "Add a readable product graph explorer to the cockpit."
+    },
+    {
+      "id": "task:TASK-0040",
+      "type": "task",
+      "title": "TASK-0040 - Build Packet View",
+      "source": "work/TASK-0040-build-packet-view.md",
+      "summary": "Let users inspect generated build packet artifacts from the cockpit."
+    },
+    {
+      "id": "task:TASK-0041",
+      "type": "task",
+      "title": "TASK-0041 - Review Report View",
+      "source": "work/TASK-0041-review-report-view.md",
+      "summary": "Let users inspect review report artifacts from the cockpit."
+    },
+    {
+      "id": "task:TASK-0042",
+      "type": "task",
+      "title": "TASK-0042 - Risk And Decision Views",
+      "source": "work/TASK-0042-risk-and-decision-views.md",
+      "summary": "Show product risks and decisions in the cockpit."
+    },
+    {
+      "id": "task:TASK-0043",
+      "type": "task",
+      "title": "TASK-0043 - Cockpit Command Bridge",
+      "source": "work/TASK-0043-cockpit-command-bridge.md",
+      "summary": "Wire cockpit actions to safe Echel commands."
+    },
+    {
+      "id": "task:TASK-0044",
+      "type": "task",
+      "title": "TASK-0044 - Cockpit UX Polish",
+      "source": "work/TASK-0044-cockpit-ux-polish.md",
+      "summary": "Make the cockpit feel like a product steering surface rather than a markdown browser."
+    },
+    {
+      "id": "task:TASK-0045",
+      "type": "task",
+      "title": "TASK-0045 - Phase 4 Generated-Project Verification",
+      "source": "work/TASK-0045-phase4-generated-project-verification.md",
+      "summary": "Add generated-project verification for the cockpit data and command surface."
+    },
+    {
       "id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
       "type": "user",
       "title": "Business owners, product experts, domain experts, and AI-assisted engineering teams",
@@ -626,6 +710,66 @@
     {
       "from_id": "product:root",
       "to_id": "task:TASK-0033",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0034",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0035",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0036",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0037",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0038",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0039",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0040",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0041",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0042",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0043",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0044",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0045",
       "type": "planned_as"
     },
     {
@@ -1130,6 +1274,186 @@
     },
     {
       "from_id": "task:TASK-0033",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0034",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0034",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0034",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0035",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0035",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0035",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0036",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0036",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0036",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0037",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0037",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0037",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0038",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0038",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0038",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0039",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0039",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0039",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0040",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0040",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0040",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0041",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0041",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0041",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0042",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0042",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0042",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0043",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0043",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0043",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0044",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0044",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0044",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0045",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0045",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0045",
       "to_id": "requirement:product-graph",
       "type": "delivers"
     },

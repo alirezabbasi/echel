@@ -1,4 +1,4 @@
-.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project verify-phase1 verify-phase2 verify-phase3 echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-packet echel-build echel-review echel-graph-build echel-graph-validate echel-graph-report echel-feature-add echel-risk-add echel-link echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
+.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project verify-phase1 verify-phase2 verify-phase3 verify-phase4 echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-packet echel-build echel-review echel-graph-build echel-graph-validate echel-graph-report echel-feature-add echel-risk-add echel-link echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
 
 session-bootstrap:
 	python3 tools/session_bootstrap.py
@@ -40,6 +40,9 @@ verify-phase2:
 
 verify-phase3:
 	python3 tools/verify_phase3.py
+
+verify-phase4:
+	python3 tools/verify_phase4.py
 
 echel-start:
 	python3 tools/echel.py start

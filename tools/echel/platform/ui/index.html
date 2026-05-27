@@ -3,135 +3,188 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Echel Platform</title>
+  <title>Echel Cockpit</title>
   <style>
-    :root { --bg:#0f172a; --panel:#111827; --line:#374151; --text:#e5e7eb; --muted:#9ca3af; --accent:#22c55e; }
-    body { margin:0; font-family: ui-sans-serif,system-ui,sans-serif; background: radial-gradient(circle at 20% 10%, #1f2937, var(--bg)); color: var(--text); }
-    .wrap { display:grid; grid-template-columns: 320px 1fr; min-height:100vh; }
-    .side { border-right:1px solid var(--line); padding:16px; background: rgba(17,24,39,0.9); }
-    .main { display:flex; flex-direction:column; }
-    h1 { font-size:20px; margin:0 0 12px; }
-    h2 { font-size:14px; margin:14px 0 8px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
-    input, select, button { width:100%; box-sizing:border-box; padding:10px; margin:6px 0; border-radius:8px; border:1px solid var(--line); background:#0b1220; color:var(--text); }
-    button { cursor:pointer; background:linear-gradient(90deg,#14532d,#166534); border:none; }
-    button:hover { filter:brightness(1.1); }
-    .threads button { text-align:left; background:#0b1220; border:1px solid var(--line); }
-    #chat { flex:1; overflow:auto; padding:16px; }
-    .msg { max-width:80%; padding:12px; border-radius:10px; margin:8px 0; white-space:pre-wrap; }
-    .user { margin-left:auto; background:#1d4ed8; }
-    .assistant { background:#1f2937; }
-    .composer { display:grid; grid-template-columns: 1fr 140px; gap:8px; padding:12px; border-top:1px solid var(--line); }
-    .row { display:grid; grid-template-columns: 1fr 1fr; gap:8px; }
+    :root {
+      --bg:#f6f7f9; --surface:#ffffff; --subtle:#eef1f4; --line:#d7dce2;
+      --text:#17202a; --muted:#657181; --accent:#0f766e; --accent-2:#b45309;
+      --danger:#b91c1c; --ok:#15803d; --ink:#27313d;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--bg); color:var(--text); letter-spacing:0; }
+    .app { display:grid; grid-template-columns: 248px 1fr; min-height:100vh; }
+    aside { background:#202833; color:#f8fafc; padding:18px 14px; display:flex; flex-direction:column; gap:18px; }
+    .brand { font-size:20px; font-weight:700; }
+    nav { display:grid; gap:4px; }
+    nav button { display:flex; align-items:center; gap:10px; width:100%; min-height:38px; border:0; border-radius:6px; padding:9px 10px; background:transparent; color:#cbd5e1; text-align:left; cursor:pointer; }
+    nav button.active, nav button:hover { background:#334155; color:white; }
+    main { display:grid; grid-template-rows:auto 1fr; min-width:0; }
+    header { background:var(--surface); border-bottom:1px solid var(--line); padding:14px 22px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    h1 { margin:0; font-size:22px; line-height:1.2; }
+    h2 { margin:0 0 10px; font-size:14px; color:var(--ink); }
+    h3 { margin:0 0 8px; font-size:13px; color:var(--muted); text-transform:uppercase; }
+    button, input, select { font:inherit; }
+    .toolbar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .btn { border:1px solid var(--line); background:var(--surface); color:var(--text); border-radius:6px; min-height:34px; padding:7px 10px; cursor:pointer; }
+    .btn.primary { background:var(--accent); border-color:var(--accent); color:white; }
+    .btn.warn { background:var(--accent-2); border-color:var(--accent-2); color:white; }
+    .content { padding:18px 22px 28px; overflow:auto; }
+    .grid { display:grid; gap:14px; }
+    .cols-4 { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+    .cols-3 { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .cols-2 { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .panel { background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:14px; min-width:0; }
+    .metric { display:grid; gap:4px; }
+    .metric strong { font-size:26px; }
+    .muted { color:var(--muted); }
+    .pill { display:inline-flex; align-items:center; min-height:24px; padding:3px 8px; border-radius:999px; background:var(--subtle); color:var(--ink); font-size:12px; }
+    .pill.ok { background:#dcfce7; color:var(--ok); }
+    .pill.danger { background:#fee2e2; color:var(--danger); }
+    .list { display:grid; gap:8px; }
+    .item { border:1px solid var(--line); border-radius:6px; padding:10px; background:#fbfcfd; }
+    .item-title { font-weight:650; margin-bottom:4px; }
+    .split { display:grid; grid-template-columns: minmax(0, 1fr) 360px; gap:14px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px; white-space:pre-wrap; overflow:auto; }
+    .nodes { display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:8px; }
+    .node { border:1px solid var(--line); border-left:4px solid var(--accent); background:white; border-radius:6px; padding:9px; min-height:72px; }
+    .node small { color:var(--muted); display:block; overflow-wrap:anywhere; }
+    .form { display:grid; gap:8px; }
+    input, select { min-height:36px; border:1px solid var(--line); border-radius:6px; background:white; color:var(--text); padding:8px; width:100%; }
+    .chat-shell { display:grid; grid-template-columns:320px 1fr; gap:14px; }
+    .messages { min-height:420px; max-height:58vh; overflow:auto; background:white; border:1px solid var(--line); border-radius:8px; padding:12px; }
+    .msg { padding:10px; border-radius:6px; margin:8px 0; white-space:pre-wrap; }
+    .user { background:#dbeafe; margin-left:12%; }
+    .assistant { background:#f1f5f9; margin-right:12%; }
+    .hidden { display:none; }
+    @media (max-width: 980px) {
+      .app { grid-template-columns:1fr; }
+      aside { position:static; }
+      .cols-4, .cols-3, .cols-2, .split, .chat-shell { grid-template-columns:1fr; }
+      header { align-items:flex-start; flex-direction:column; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <aside class="side">
-      <h1>Echel Platform</h1>
-      <h2>Provider</h2>
-      <input id="p-name" placeholder="name (openai-main)" />
-      <div class="row">
-        <select id="p-type">
-          <option value="openai">openai</option>
-          <option value="anthropic">anthropic</option>
-          <option value="openai_compatible">openai_compatible</option>
-        </select>
-        <input id="p-model" placeholder="model" />
-      </div>
-      <input id="p-base" placeholder="base url" />
-      <input id="p-key" type="password" placeholder="api key" />
-      <button onclick="connectProvider()">Connect Provider</button>
-      <select id="provider-select"></select>
-
-      <h2>Threads</h2>
-      <input id="thread-title" placeholder="thread title" />
-      <button onclick="createThread()">Create Thread</button>
-      <div id="thread-list" class="threads"></div>
+  <div class="app">
+    <aside>
+      <div class="brand">Echel Cockpit</div>
+      <nav id="nav"></nav>
     </aside>
-    <main class="main">
-      <div id="chat"></div>
-      <div class="composer">
-        <input id="message" placeholder="Type message or /echel doctor" />
-        <button onclick="sendMessage()">Send</button>
-      </div>
+    <main>
+      <header>
+        <div>
+          <h1 id="title">Product</h1>
+          <div class="muted" id="subtitle"></div>
+        </div>
+        <div class="toolbar">
+          <button class="btn" onclick="runCommand('status')">Status</button>
+          <button class="btn" onclick="runCommand('next')">Next</button>
+          <button class="btn primary" onclick="runCommand('build')">Build</button>
+          <button class="btn warn" onclick="runCommand('review')">Review</button>
+        </div>
+      </header>
+      <section class="content" id="view"></section>
     </main>
   </div>
 <script>
+let state = null;
+let active = 'dashboard';
 let currentThread = null;
+const tabs = [
+  ['dashboard','#','Dashboard'], ['clarify','?','Clarify'], ['roadmap','>','Roadmap'],
+  ['work','+','Work'], ['graph','o','Graph'], ['packets','[]','Packets'],
+  ['reviews','*','Reviews'], ['risks','!','Risks'], ['decisions','D','Decisions'], ['chat','~','Chat']
+];
 
+function esc(s){return String(s ?? '').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
 async function api(path, opts={}) {
   const res = await fetch(path, {headers:{'Content-Type':'application/json'}, ...opts});
-  if(!res.ok) {
-    const t = await res.text();
-    throw new Error(t);
-  }
+  if(!res.ok) throw new Error(await res.text());
   return res.json();
 }
-
-function renderMessages(rows) {
-  const chat = document.getElementById('chat');
-  chat.innerHTML = rows.map(r => `<div class="msg ${r.role}">${escapeHtml(r.content)}</div>`).join('');
-  chat.scrollTop = chat.scrollHeight;
+async function load() {
+  state = await api('/api/cockpit');
+  document.getElementById('title').textContent = state.project.title;
+  document.getElementById('subtitle').textContent = state.project.direction || state.project.problem || '';
+  renderNav();
+  render();
 }
-
-function escapeHtml(str){return str.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
-
-async function loadProviders() {
-  const rows = await api('/api/providers');
-  const sel = document.getElementById('provider-select');
-  sel.innerHTML = rows.map(p => `<option value="${p.id}">${p.name} (${p.model})</option>`).join('');
+function renderNav(){
+  document.getElementById('nav').innerHTML = tabs.map(([id,icon,label]) =>
+    `<button class="${active===id?'active':''}" onclick="active='${id}';renderNav();render();"><span>${icon}</span><span>${label}</span></button>`
+  ).join('');
 }
-
-async function connectProvider() {
-  await api('/api/providers/connect', {method:'POST', body: JSON.stringify({
-    name: document.getElementById('p-name').value,
-    provider_type: document.getElementById('p-type').value,
-    base_url: document.getElementById('p-base').value,
-    model: document.getElementById('p-model').value,
-    api_key: document.getElementById('p-key').value,
-  })});
-  await loadProviders();
+function metric(label, value, cls=''){return `<div class="panel metric"><span class="muted">${label}</span><strong class="${cls}">${esc(value)}</strong></div>`}
+function list(items, empty='None'){return items.length ? `<div class="list">${items.join('')}</div>` : `<div class="muted">${empty}</div>`}
+function render(){
+  const v = document.getElementById('view');
+  if(active==='dashboard') v.innerHTML = dashboard();
+  if(active==='clarify') v.innerHTML = clarify();
+  if(active==='roadmap') v.innerHTML = roadmap();
+  if(active==='work') v.innerHTML = work();
+  if(active==='graph') v.innerHTML = graph();
+  if(active==='packets') v.innerHTML = reports('packets');
+  if(active==='reviews') v.innerHTML = reports('reviews');
+  if(active==='risks') v.innerHTML = risks();
+  if(active==='decisions') v.innerHTML = decisions();
+  if(active==='chat') { v.innerHTML = chat(); initChat(); }
 }
-
-async function loadThreads() {
-  const rows = await api('/api/threads');
-  const el = document.getElementById('thread-list');
-  el.innerHTML = rows.map(t => `<button onclick="openThread(${t.id})">#${t.id} ${escapeHtml(t.title)}</button>`).join('');
+function dashboard(){
+  const r = state.readiness;
+  return `<div class="grid">
+    <div class="grid cols-4">
+      ${metric('Open Questions', r.clarification_open)}
+      ${metric('MVP', r.mvp_ready ? 'Ready' : 'Clarify', r.mvp_ready ? 'ok' : 'danger')}
+      ${metric('Open Tasks', r.open_tasks)}
+      ${metric('Graph Issues', `${r.graph_critical} critical / ${r.graph_major} major`, r.graph_critical ? 'danger' : 'ok')}
+    </div>
+    <div class="split">
+      <div class="panel"><h2>Product Brief</h2><div class="list">
+        <div class="item"><div class="item-title">Problem</div>${esc(state.project.problem || 'TBD')}</div>
+        <div class="item"><div class="item-title">Solution</div>${esc(state.project.solution || 'TBD')}</div>
+        <div class="item"><div class="item-title">Success</div>${esc(state.project.success || 'TBD')}</div>
+      </div></div>
+      <div class="panel"><h2>Next Action</h2><div class="item mono">${esc(state.work.next || 'No open task')}</div><div class="toolbar"><button class="btn primary" onclick="runCommand('plan')">Plan</button><button class="btn" onclick="runCommand('graph-report')">Graph Report</button></div></div>
+    </div>
+  </div>`;
 }
-
-async function createThread() {
-  const title = document.getElementById('thread-title').value || 'New Thread';
-  const res = await api('/api/threads', {method:'POST', body: JSON.stringify({title})});
-  await loadThreads();
-  await openThread(res.thread_id);
+function clarify(){
+  return `<div class="split"><div class="panel"><h2>Clarification Queue</h2>${list(state.clarifications.map(q =>
+    `<div class="item"><div class="item-title">${esc(q.key)}</div>${esc(q.question)}</div>`), 'No open questions')}</div>
+    <div class="panel"><h2>Answer</h2><div class="form"><select id="clarify-field">${state.clarifications.map(q=>`<option value="${esc(q.key)}">${esc(q.key)}</option>`).join('')}</select><input id="clarify-answer" placeholder="Answer" /><button class="btn primary" onclick="answerClarification()">Save</button><pre class="mono" id="cmd-out"></pre></div></div></div>`;
 }
-
-async function openThread(id) {
-  currentThread = id;
-  const rows = await api(`/api/threads/${id}/messages`);
-  renderMessages(rows);
+function roadmap(){
+  return `<div class="grid cols-2">${['now','mvp','next','later'].map(k=>`<div class="panel"><h2>${k.toUpperCase()}</h2>${list((state.roadmap[k]||[]).map(x=>`<div class="item">${esc(x)}</div>`))}</div>`).join('')}</div>`;
 }
-
-async function sendMessage() {
-  if(!currentThread){ alert('Create/open a thread first'); return; }
-  const input = document.getElementById('message');
-  const message = input.value.trim();
-  if(!message) return;
-  input.value = '';
-
-  const providerId = document.getElementById('provider-select').value;
-  await api('/api/chat', {method:'POST', body: JSON.stringify({
-    thread_id: currentThread,
-    provider_id: providerId ? Number(providerId) : null,
-    message,
-  })});
-  await openThread(currentThread);
+function work(){
+  return `<div class="panel"><h2>Work Queue</h2>${list(state.work.tasks.map(t=>`<div class="item"><span class="pill ${t.status==='done'?'ok':''}">${esc(t.status)}</span><div class="item-title">${esc(t.title)}</div><div class="muted">${esc(t.objective)}</div></div>`))}</div>`;
 }
-
-(async function init(){
-  await loadProviders();
-  await loadThreads();
-})();
+function graph(){
+  const grouped = {};
+  state.graph.nodes.forEach(n => (grouped[n.type] ||= []).push(n));
+  return `<div class="split"><div class="panel"><h2>Graph Explorer</h2><div class="nodes">${Object.keys(grouped).sort().map(type => grouped[type].slice(0,18).map(n=>`<div class="node"><strong>${esc(n.title)}</strong><small>${esc(type)} · ${esc(n.id)}</small></div>`).join('')).join('')}</div></div><div class="panel"><h2>Graph Summary</h2><pre class="mono">${esc(state.graph.summary)}</pre></div></div>`;
+}
+function reports(kind){
+  const rows = state.work[kind] || [];
+  return `<div class="panel"><h2>${kind === 'packets' ? 'Build Packets' : 'Review Reports'}</h2>${list(rows.map(r=>`<div class="item"><div class="item-title">${esc(r.title)}</div><div class="muted">${esc(r.path)}</div></div>`))}</div>`;
+}
+function risks(){return `<div class="panel"><h2>Risks</h2>${list(state.risks.map(r=>`<div class="item"><div class="item-title">${esc(r.title)}</div>${esc(r.summary)}</div>`))}</div>`}
+function decisions(){return `<div class="panel"><h2>Decisions</h2>${list(state.decisions.map(d=>`<div class="item"><div class="item-title">${esc(d.title)}</div><div class="muted">${esc(d.path)}</div></div>`))}</div>`}
+function chat(){
+  return `<div class="chat-shell"><div class="panel"><h2>Provider</h2><input id="p-name" placeholder="name" /><select id="p-type"><option value="openai">openai</option><option value="anthropic">anthropic</option><option value="openai_compatible">openai_compatible</option></select><input id="p-model" placeholder="model" /><input id="p-base" placeholder="base url" /><input id="p-key" type="password" placeholder="api key" /><button class="btn primary" onclick="connectProvider()">Connect</button><select id="provider-select"></select><h2>Threads</h2><input id="thread-title" placeholder="title" /><button class="btn" onclick="createThread()">Create</button><div id="thread-list" class="list"></div></div><div><div id="chat-messages" class="messages"></div><div class="toolbar"><input id="message" placeholder="Message" /><button class="btn primary" onclick="sendMessage()">Send</button></div></div></div>`;
+}
+async function command(action,args={}){ const res = await api('/api/cockpit/command',{method:'POST',body:JSON.stringify({action,args})}); await load(); return res; }
+async function runCommand(action){ const res = await command(action); alert(res.output || (res.ok ? 'Done' : 'Failed')); }
+async function answerClarification(){ const res = await command('clarify',{field:document.getElementById('clarify-field').value, answer:document.getElementById('clarify-answer').value}); document.getElementById('cmd-out').textContent = res.output; }
+async function loadProviders(){ const rows = await api('/api/providers'); document.getElementById('provider-select').innerHTML = rows.map(p=>`<option value="${p.id}">${esc(p.name)} (${esc(p.model)})</option>`).join(''); }
+async function connectProvider(){ await api('/api/providers/connect',{method:'POST',body:JSON.stringify({name:pval('p-name'),provider_type:pval('p-type'),base_url:pval('p-base'),model:pval('p-model'),api_key:pval('p-key')})}); await loadProviders(); }
+function pval(id){ return document.getElementById(id).value; }
+async function loadThreads(){ const rows = await api('/api/threads'); document.getElementById('thread-list').innerHTML = rows.map(t=>`<button class="btn" onclick="openThread(${t.id})">#${t.id} ${esc(t.title)}</button>`).join(''); }
+async function createThread(){ const res = await api('/api/threads',{method:'POST',body:JSON.stringify({title:pval('thread-title') || 'New Thread'})}); await loadThreads(); await openThread(res.thread_id); }
+async function openThread(id){ currentThread=id; const rows=await api(`/api/threads/${id}/messages`); document.getElementById('chat-messages').innerHTML=rows.map(r=>`<div class="msg ${r.role}">${esc(r.content)}</div>`).join(''); }
+async function sendMessage(){ if(!currentThread) return; const message=pval('message').trim(); if(!message) return; document.getElementById('message').value=''; const providerId=pval('provider-select'); await api('/api/chat',{method:'POST',body:JSON.stringify({thread_id:currentThread, provider_id:providerId ? Number(providerId) : null, message})}); await openThread(currentThread); }
+async function initChat(){ await loadProviders(); await loadThreads(); }
+load().catch(err => { document.getElementById('view').innerHTML = `<div class="panel danger">${esc(err.message)}</div>`; });
 </script>
 </body>
 </html>

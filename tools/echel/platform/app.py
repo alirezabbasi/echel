@@ -9,6 +9,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+from .cockpit import cockpit_snapshot, run_cockpit_command
 from .providers import ProviderError, chat
 from .storage import PlatformStore
 
@@ -37,6 +38,11 @@ class ChatIn(BaseModel):
     message: str
 
 
+class CockpitCommandIn(BaseModel):
+    action: str
+    args: dict = {}
+
+
 def _run_echel_command(repo_root: Path, command_line: str) -> tuple[int, str]:
     allowed_prefixes = [
         "start",
@@ -45,6 +51,12 @@ def _run_echel_command(repo_root: Path, command_line: str) -> tuple[int, str]:
         "migration plan",
         "conformance run",
         "adapters list",
+        "status",
+        "next",
+        "plan",
+        "build",
+        "review",
+        "graph report",
     ]
     cmd = command_line.strip()
     if not any(cmd.startswith(prefix) for prefix in allowed_prefixes):
@@ -75,6 +87,15 @@ def create_app(repo_root: Path) -> FastAPI:
     @app.get("/api/health")
     def health() -> dict:
         return {"ok": True}
+
+    @app.get("/api/cockpit")
+    def cockpit() -> dict:
+        return cockpit_snapshot(runtime.repo_root)
+
+    @app.post("/api/cockpit/command")
+    def cockpit_command(payload: CockpitCommandIn) -> dict:
+        result = run_cockpit_command(runtime.repo_root, payload.action, payload.args)
+        return {"ok": result.ok, "code": result.code, "output": result.output}
 
     @app.get("/api/providers")
     def list_providers() -> list[dict]:

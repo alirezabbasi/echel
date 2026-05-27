@@ -90,6 +90,11 @@ status: active
 - Added packet and review schemas, evidence obligations, memory update checklists, and graph-aware next-task selection.
 - Added `make verify-phase3` to validate the build/review loop inside generated projects.
 
+## [2026-05-28] phase-4 | product-cockpit
+- Added cockpit snapshot and safe command APIs for product state and product actions.
+- Replaced the chat-first platform UI with a cockpit-first interface covering dashboard, clarifications, roadmap, work, graph, packets, reviews, risks, decisions, and chat.
+- Added cockpit API schema, Phase 4 guide, and `make verify-phase4`.
+
 ## [2026-05-27] clarify | product-flow
 - Answered `mvp` clarification.
 

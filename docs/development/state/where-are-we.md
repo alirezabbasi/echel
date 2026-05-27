@@ -28,6 +28,7 @@ Last updated: 2026-05-27
 - Completed Phase 1 deterministic product-owner workflows through `define`, `clarify`, `plan`, `status`, `next`, and `packet`.
 - Completed Phase 2 product graph workflows through `graph`, `feature`, `risk`, and `link` commands.
 - Completed Phase 3 graph-backed work packets and review reports through `build` and `review`.
+- Completed Phase 4 product cockpit foundation over the wiki, graph, work, packets, reviews, risks, and decisions.
 
 ## Next
 
@@ -35,7 +36,7 @@ Last updated: 2026-05-27
 2. Add differential conformance tooling and CI summary outputs.
 3. Add migration planner, runtime adapters, and safety rails.
 4. Continue reducing duplicated documentation content inside the simplified structure.
-5. Expand graph-backed packet/review flow into milestone readiness and release proof packs.
+5. Expand cockpit workflows into milestone readiness and release proof packs.
 
 ## Risks/Blocks
 

@@ -42,3 +42,15 @@
 - [x] TASK-0031 Agent memory update checklist
 - [x] TASK-0032 Phase 3 user guide
 - [x] TASK-0033 Phase 3 generated-project verification
+- [x] TASK-0034 Cockpit information architecture
+- [x] TASK-0035 Cockpit data API
+- [x] TASK-0036 Product status dashboard
+- [x] TASK-0037 Clarification queue view
+- [x] TASK-0038 Roadmap and work queue view
+- [x] TASK-0039 Graph explorer view
+- [x] TASK-0040 Build packet view
+- [x] TASK-0041 Review report view
+- [x] TASK-0042 Risk and decision views
+- [x] TASK-0043 Cockpit command bridge
+- [x] TASK-0044 Cockpit UX polish
+- [x] TASK-0045 Phase 4 generated-project verification
