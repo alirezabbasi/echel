@@ -40,7 +40,9 @@ status: active
 - [[reports/conformance-report|Conformance Report]]
 - [[reports/echel-v2-product-direction-review|Echel V2 Product Direction Review]]
 - [[reports/product-graph-report|Product Graph Report]]
+- [[reports/reviews/TASK-0001-initialize-project-wiki-review|Task 0001 Initialize Project Wiki Review]]
 - [[reports/wiki-health-report|Wiki Health Report]]
+- [[reports/work-packets/TASK-0001-initialize-project-wiki-packet|Task 0001 Initialize Project Wiki Packet]]
 
 ## Root
 
@@ -79,3 +81,14 @@ status: active
 - [[work/TASK-0020-add-relationship-commands|Task 0020 Add Relationship Commands]]
 - [[work/TASK-0021-add-product-graph-reports|Task 0021 Add Product Graph Reports]]
 - [[work/TASK-0022-add-phase2-verification|Task 0022 Add Phase2 Verification]]
+- [[work/TASK-0023-graph-backed-work-packet-context|Task 0023 Graph Backed Work Packet Context]]
+- [[work/TASK-0024-work-packet-schema|Task 0024 Work Packet Schema]]
+- [[work/TASK-0025-build-command-alias|Task 0025 Build Command Alias]]
+- [[work/TASK-0026-review-command|Task 0026 Review Command]]
+- [[work/TASK-0027-evidence-obligations-per-task|Task 0027 Evidence Obligations Per Task]]
+- [[work/TASK-0028-implementation-handoff-artifact|Task 0028 Implementation Handoff Artifact]]
+- [[work/TASK-0029-review-report-artifact|Task 0029 Review Report Artifact]]
+- [[work/TASK-0030-graph-aware-next-task-selection|Task 0030 Graph Aware Next Task Selection]]
+- [[work/TASK-0031-agent-memory-update-checklist|Task 0031 Agent Memory Update Checklist]]
+- [[work/TASK-0032-phase3-user-guide|Task 0032 Phase3 User Guide]]
+- [[work/TASK-0033-phase3-generated-project-verification|Task 0033 Phase3 Generated Project Verification]]

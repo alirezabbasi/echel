@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 
 from .config import ProjectConfig, resolve_symbolic_path
+from .graph import build_graph, validate_graph, write_graph_report
 
 
 PRODUCT_FILES = {
@@ -370,6 +371,8 @@ def generate_work_packet(repo_root: Path, cfg: ProjectConfig, task_id: str | Non
     task = _find_task(root, task_id)
     if task is None:
         raise ValueError("no open task found for work packet")
+    write_graph_report(repo_root, cfg)
+    graph = build_graph(repo_root, cfg)
     packet_dir = root / "reports" / "work-packets"
     packet_dir.mkdir(parents=True, exist_ok=True)
     packet = packet_dir / f"{task.stem}-packet.md"
@@ -391,11 +394,17 @@ task: {task.stem}
 - Users: {_compact(_section_body((root / "users.md").read_text(encoding="utf-8"), "Primary Users"))}
 - Solution: {_compact(_section_body((root / "solution.md").read_text(encoding="utf-8"), "Solution Concept"))}
 
+## Graph Context
+{_graph_context(graph, task.stem)}
+
 ## Task Objective
 {_section_body(task_text, "Objective") or "TBD"}
 
 ## Acceptance Criteria
 {_section_body(task_text, "Acceptance Criteria") or "- TBD"}
+
+## Evidence Obligations
+{_evidence_obligations(task_text)}
 
 ## Constraints
 - Preserve product memory in `wiki/`.
@@ -408,6 +417,8 @@ task: {task.stem}
 ## Required Memory Updates
 - Update the task artifact.
 - Update affected product pages.
+- Update graph relationships if the implementation changes features, risks, decisions, requirements, or architecture.
+- Generate or refresh the product graph report.
 - Append `wiki/log.md`.
 
 ## Agent Instructions
@@ -417,6 +428,68 @@ Implement the smallest safe slice that satisfies the task objective. Verify befo
     )
     _append_log(root, "packet", f"Generated work packet [[reports/work-packets/{task.stem}-packet]].")
     return packet
+
+
+def generate_review_report(repo_root: Path, cfg: ProjectConfig, task_id: str | None = None) -> Path:
+    root = wiki_root(repo_root, cfg)
+    ensure_product_pages(repo_root, cfg, "Product")
+    task = _find_task(root, task_id)
+    if task is None and task_id:
+        matches = sorted((root / "work").glob(f"{task_id}-*.md"))
+        task = matches[0] if matches else None
+    if task is None:
+        raise ValueError("no task found for review")
+    write_graph_report(repo_root, cfg)
+    graph = build_graph(repo_root, cfg)
+    issues = validate_graph(graph)
+    report_dir = root / "reports" / "reviews"
+    report_dir.mkdir(parents=True, exist_ok=True)
+    report = report_dir / f"{task.stem}-review.md"
+    task_text = task.read_text(encoding="utf-8")
+    evidence_links = sorted(set(re.findall(r"\bEVID-[A-Z0-9\-]{3,}\b", task_text)))
+    checks = [
+        ("Acceptance criteria present", not _is_tbd(_section_body(task_text, "Acceptance Criteria"))),
+        ("Definition of Done present", "## Definition of Done" in task_text),
+        ("Verification commands present", "## Verification Commands" in task_text),
+        ("Graph has no critical issues", not any(issue.severity == "critical" for issue in issues)),
+        ("Evidence referenced", bool(evidence_links)),
+    ]
+    report.write_text(
+        f"""---
+type: review
+status: active
+task: {task.stem}
+---
+# Review - {task.stem}
+
+## Task
+{_read_title(task)}
+
+## Outcome
+{"ready for closure review" if all(passed for _, passed in checks[:-1]) else "needs follow-up"}
+
+## Review Checks
+{chr(10).join(f"- [{'x' if passed else ' '}] {label}" for label, passed in checks)}
+
+## Graph Context
+{_graph_context(graph, task.stem)}
+
+## Graph Issues
+{chr(10).join(f"- **{issue.severity}** {issue.message}" for issue in issues) if issues else "- None"}
+
+## Evidence
+{chr(10).join(f"- {item}" for item in evidence_links) if evidence_links else "- No evidence IDs are referenced yet. Add evidence before closing the task."}
+
+## Missing Work
+{_review_missing_work(checks)}
+
+## Recommended Next Action
+- Address unchecked review items, then run verification and close the task through `echel close-task`.
+""",
+        encoding="utf-8",
+    )
+    _append_log(root, "review", f"Generated review report [[reports/reviews/{task.stem}-review]].")
+    return report
 
 
 def product_status(repo_root: Path, cfg: ProjectConfig) -> str:
@@ -456,10 +529,33 @@ def product_status(repo_root: Path, cfg: ProjectConfig) -> str:
 
 def next_task(repo_root: Path, cfg: ProjectConfig) -> str | None:
     root = wiki_root(repo_root, cfg)
-    task = _find_task(root, None)
+    graph = build_graph(repo_root, cfg)
+    task = _graph_preferred_task(root, graph) or _find_task(root, None)
     if task is None:
         return None
     return f"{task.stem}: {_read_title(task) or task.stem}"
+
+
+def _graph_preferred_task(root: Path, graph: dict) -> Path | None:
+    tasks = []
+    requirement_ids = {n.get("id") for n in graph.get("nodes", []) if isinstance(n, dict) and n.get("type") == "requirement"}
+    risk_ids = {n.get("id") for n in graph.get("nodes", []) if isinstance(n, dict) and n.get("type") == "risk"}
+    for path in sorted((root / "work").glob("TASK-*.md")):
+        text = path.read_text(encoding="utf-8")
+        if "status: done" in text:
+            continue
+        task_id = path.name.split("-", 2)
+        node_id = f"task:{'-'.join(task_id[:2])}" if len(task_id) >= 2 else ""
+        edges = [e for e in graph.get("edges", []) if isinstance(e, dict) and e.get("from_id") == node_id]
+        score = 0
+        score += sum(3 for e in edges if e.get("to_id") in requirement_ids)
+        score += sum(2 for e in edges if e.get("to_id") in risk_ids)
+        if "TBD" in text:
+            score -= 1
+        tasks.append((score, path))
+    if not tasks:
+        return None
+    return sorted(tasks, key=lambda item: (-item[0], item[1].name))[0][1]
 
 
 def _find_task(root: Path, task_id: str | None) -> Path | None:
@@ -494,6 +590,65 @@ def _format_answer(answer: str) -> str:
     if "\n" in stripped or stripped.startswith("- "):
         return stripped
     return stripped
+
+
+def _graph_context(graph: dict, task_stem: str) -> str:
+    nodes = [n for n in graph.get("nodes", []) if isinstance(n, dict)]
+    edges = [e for e in graph.get("edges", []) if isinstance(e, dict)]
+    node_by_id = {str(n.get("id")): n for n in nodes}
+    task_id = task_stem.split("-", 2)
+    task_node = f"task:{'-'.join(task_id[:2])}" if len(task_id) >= 2 else ""
+    related_ids = {task_node, "product:root", "problem:primary", "solution:primary"}
+    for edge in edges:
+        if edge.get("from_id") == task_node:
+            related_ids.add(str(edge.get("to_id")))
+        if edge.get("to_id") == task_node:
+            related_ids.add(str(edge.get("from_id")))
+    for node in nodes:
+        if node.get("type") in {"user", "need", "feature", "component", "decision", "risk"}:
+            related_ids.add(str(node.get("id")))
+
+    grouped: dict[str, list[str]] = {}
+    for node_id in sorted(related_ids):
+        node = node_by_id.get(node_id)
+        if not node:
+            continue
+        node_type = str(node.get("type", "unknown"))
+        grouped.setdefault(node_type, []).append(f"- `{node_id}`: {node.get('title')}")
+    if not grouped:
+        return "- No graph context available. Run `echel graph build`."
+    lines = []
+    for node_type in ["problem", "user", "need", "solution", "feature", "requirement", "component", "decision", "risk", "task", "product"]:
+        items = grouped.get(node_type)
+        if not items:
+            continue
+        lines.append(f"### {node_type.title()}")
+        lines.extend(items[:8])
+        if len(items) > 8:
+            lines.append(f"- ...and {len(items) - 8} more")
+        lines.append("")
+    return "\n".join(lines).rstrip()
+
+
+def _evidence_obligations(task_text: str) -> str:
+    verification = _section_body(task_text, "Verification Commands")
+    obligations = [
+        "- Record command output or generated reports for every verification command.",
+        "- Register durable evidence before task closure when implementation work is complete.",
+        "- Link evidence IDs from the task artifact before running `echel close-task`.",
+    ]
+    if verification:
+        obligations.append("- Treat the verification commands in this packet as the minimum evidence checklist.")
+    else:
+        obligations.append("- Add explicit verification commands before implementation is considered reviewable.")
+    return "\n".join(obligations)
+
+
+def _review_missing_work(checks: list[tuple[str, bool]]) -> str:
+    missing = [label for label, passed in checks if not passed]
+    if not missing:
+        return "- None"
+    return "\n".join(f"- {item}" for item in missing)
 
 
 def _compact(value: str) -> str:

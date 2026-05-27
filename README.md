@@ -195,12 +195,14 @@ Product-owner commands:
 5. `python3 tools/echel.py status` summarizes product state.
 6. `python3 tools/echel.py next` selects the next open work item.
 7. `python3 tools/echel.py packet` generates an agent-ready work packet.
-8. `python3 tools/echel.py graph build` writes the product relationship graph.
-9. `python3 tools/echel.py graph validate` checks graph integrity.
-10. `python3 tools/echel.py graph report` writes a readable product graph report.
-11. `python3 tools/echel.py feature add --title "..."` records a product capability.
-12. `python3 tools/echel.py risk add --title "..." --mitigation "..."` records a product risk.
-13. `python3 tools/echel.py link --from <node-id> --to <node-id>` records a manual product relationship.
+8. `python3 tools/echel.py build` prepares a graph-backed agent implementation packet.
+9. `python3 tools/echel.py review` generates a task review report.
+10. `python3 tools/echel.py graph build` writes the product relationship graph.
+11. `python3 tools/echel.py graph validate` checks graph integrity.
+12. `python3 tools/echel.py graph report` writes a readable product graph report.
+13. `python3 tools/echel.py feature add --title "..."` records a product capability.
+14. `python3 tools/echel.py risk add --title "..." --mitigation "..."` records a product risk.
+15. `python3 tools/echel.py link --from <node-id> --to <node-id>` records a manual product relationship.
 
 Operator commands:
 
@@ -232,6 +234,8 @@ Operator commands:
   - `make verify-phase1`
 - Phase 2 verification:
   - `make verify-phase2`
+- Phase 3 verification:
+  - `make verify-phase3`
 
 ## Platform MVP Sprint 1 (Self-Hosted Web Interface)
 

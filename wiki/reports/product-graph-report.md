@@ -7,8 +7,8 @@ status: active
 
 # Product Graph
 
-- Nodes: 41
-- Edges: 111
+- Nodes: 52
+- Edges: 155
 - Critical issues: 0
 - Major issues: 0
 - Minor issues: 0
@@ -23,7 +23,7 @@ status: active
 - requirement: 3
 - risk: 1
 - solution: 1
-- task: 22
+- task: 33
 - user: 1
 
 ## Issues
@@ -37,6 +37,6 @@ status: active
 - feature: 1
 - requirement: 3
 - component: 4
-- task: 22
+- task: 33
 - decision: 4
 - risk: 1

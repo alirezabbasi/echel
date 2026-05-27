@@ -34,6 +34,7 @@ from echel.product import (
     clarification_questions,
     create_plan_task,
     generate_work_packet,
+    generate_review_report,
     ensure_product_pages,
     next_task,
     product_status,
@@ -159,6 +160,28 @@ def cmd_packet(repo_root: Path, task_id: str | None) -> int:
         print(str(exc), file=sys.stderr)
         return 2
     print(f"Generated work packet: {path}")
+    return 0
+
+
+def cmd_build(repo_root: Path, task_id: str | None) -> int:
+    cfg = _load(repo_root)
+    try:
+        path = generate_work_packet(repo_root, cfg, task_id)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    print(f"Prepared agent build packet: {path}")
+    return 0
+
+
+def cmd_review(repo_root: Path, task_id: str | None) -> int:
+    cfg = _load(repo_root)
+    try:
+        path = generate_review_report(repo_root, cfg, task_id)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    print(f"Generated review report: {path}")
     return 0
 
 
@@ -477,6 +500,10 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("next")
     packet = sub.add_parser("packet")
     packet.add_argument("--task")
+    build = sub.add_parser("build")
+    build.add_argument("--task")
+    review = sub.add_parser("review")
+    review.add_argument("--task")
 
     graph = sub.add_parser("graph")
     graph_sub = graph.add_subparsers(dest="graph_cmd", required=True)
@@ -585,6 +612,10 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_next(root)
     if args.cmd == "packet":
         return cmd_packet(root, task_id=args.task)
+    if args.cmd == "build":
+        return cmd_build(root, task_id=args.task)
+    if args.cmd == "review":
+        return cmd_review(root, task_id=args.task)
     if args.cmd == "graph":
         return cmd_graph(root, args.graph_cmd)
     if args.cmd == "feature" and args.feature_cmd == "add":

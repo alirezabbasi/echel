@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-05-27T20:27:00Z",
+  "generated_at": "2026-05-27T20:35:43Z",
   "nodes": [
     {
       "id": "component:agent-command-surface",
@@ -283,6 +283,83 @@
       "summary": "Add a generated-project verification loop for the Phase 2 graph workflow."
     },
     {
+      "id": "task:TASK-0023",
+      "type": "task",
+      "title": "TASK-0023 - Graph-Backed Work Packet Context",
+      "source": "work/TASK-0023-graph-backed-work-packet-context.md",
+      "summary": "Upgrade work packets so agents receive related product graph context."
+    },
+    {
+      "id": "task:TASK-0024",
+      "type": "task",
+      "title": "TASK-0024 - Work Packet Schema",
+      "source": "work/TASK-0024-work-packet-schema.md",
+      "summary": "Define the canonical structure for agent work packets."
+    },
+    {
+      "id": "task:TASK-0025",
+      "type": "task",
+      "title": "TASK-0025 - Build Command Alias",
+      "source": "work/TASK-0025-build-command-alias.md",
+      "summary": "Add `echel build` as the product-facing command for preparing implementation packets."
+    },
+    {
+      "id": "task:TASK-0026",
+      "type": "task",
+      "title": "TASK-0026 - Review Command",
+      "source": "work/TASK-0026-review-command.md",
+      "summary": "Add `echel review` for evaluating work against acceptance criteria, evidence expectations, and graph integrity."
+    },
+    {
+      "id": "task:TASK-0027",
+      "type": "task",
+      "title": "TASK-0027 - Evidence Obligations Per Task",
+      "source": "work/TASK-0027-evidence-obligations-per-task.md",
+      "summary": "Connect generated packets to explicit evidence duties."
+    },
+    {
+      "id": "task:TASK-0028",
+      "type": "task",
+      "title": "TASK-0028 - Implementation Handoff Artifact",
+      "source": "work/TASK-0028-implementation-handoff-artifact.md",
+      "summary": "Generate durable implementation handoff artifacts for AI coding agents."
+    },
+    {
+      "id": "task:TASK-0029",
+      "type": "task",
+      "title": "TASK-0029 - Review Report Artifact",
+      "source": "work/TASK-0029-review-report-artifact.md",
+      "summary": "Generate durable review artifacts for implementation readiness."
+    },
+    {
+      "id": "task:TASK-0030",
+      "type": "task",
+      "title": "TASK-0030 - Graph-Aware Next Task Selection",
+      "source": "work/TASK-0030-graph-aware-next-task-selection.md",
+      "summary": "Use graph signals when selecting the next open task."
+    },
+    {
+      "id": "task:TASK-0031",
+      "type": "task",
+      "title": "TASK-0031 - Agent Memory Update Checklist",
+      "source": "work/TASK-0031-agent-memory-update-checklist.md",
+      "summary": "Ensure packets tell agents which memory surfaces must be updated after work."
+    },
+    {
+      "id": "task:TASK-0032",
+      "type": "task",
+      "title": "TASK-0032 - Phase 3 User Guide",
+      "source": "work/TASK-0032-phase3-user-guide.md",
+      "summary": "Document the Phase 3 loop from planning to build packet, implementation, review, and memory updates."
+    },
+    {
+      "id": "task:TASK-0033",
+      "type": "task",
+      "title": "TASK-0033 - Phase 3 Generated-Project Verification",
+      "source": "work/TASK-0033-phase3-generated-project-verification.md",
+      "summary": "Add verification for Phase 3 behavior inside a generated project."
+    },
+    {
       "id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
       "type": "user",
       "title": "Business owners, product experts, domain experts, and AI-assisted engineering teams",
@@ -494,6 +571,61 @@
     {
       "from_id": "product:root",
       "to_id": "task:TASK-0022",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0023",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0024",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0025",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0026",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0027",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0028",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0029",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0030",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0031",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0032",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0033",
       "type": "planned_as"
     },
     {
@@ -833,6 +965,171 @@
     },
     {
       "from_id": "task:TASK-0022",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0023",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0023",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0023",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0024",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0024",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0024",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0025",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0025",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0025",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0026",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0026",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0026",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0027",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0027",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0027",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0028",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0028",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0028",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0029",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0029",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0029",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0030",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0030",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0030",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0031",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0031",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0031",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0032",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0032",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0032",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0033",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0033",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0033",
       "to_id": "requirement:product-graph",
       "type": "delivers"
     },

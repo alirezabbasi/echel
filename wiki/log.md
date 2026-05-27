@@ -84,6 +84,12 @@ status: active
 - Added relationship commands for features, risks, and manual links.
 - Added `make verify-phase2` to validate the graph workflow inside generated projects.
 
+## [2026-05-28] phase-3 | graph-backed-agent-work
+- Added graph-backed agent work packets through `echel build`.
+- Added review reports through `echel review`.
+- Added packet and review schemas, evidence obligations, memory update checklists, and graph-aware next-task selection.
+- Added `make verify-phase3` to validate the build/review loop inside generated projects.
+
 ## [2026-05-27] clarify | product-flow
 - Answered `mvp` clarification.
 
@@ -92,3 +98,9 @@ status: active
 
 ## [2026-05-27] clarify | product-flow
 - Answered `components` clarification.
+
+## [2026-05-27] packet | product-flow
+- Generated work packet [[reports/work-packets/TASK-0001-initialize-project-wiki-packet]].
+
+## [2026-05-27] review | product-flow
+- Generated review report [[reports/reviews/TASK-0001-initialize-project-wiki-review]].

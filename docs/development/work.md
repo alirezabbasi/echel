@@ -31,3 +31,14 @@
 - [x] TASK-0020 Add relationship commands
 - [x] TASK-0021 Add product graph reports
 - [x] TASK-0022 Add Phase 2 verification
+- [x] TASK-0023 Graph-backed work packet context
+- [x] TASK-0024 Work packet schema
+- [x] TASK-0025 Build command alias
+- [x] TASK-0026 Review command
+- [x] TASK-0027 Evidence obligations per task
+- [x] TASK-0028 Implementation handoff artifact
+- [x] TASK-0029 Review report artifact
+- [x] TASK-0030 Graph-aware next task selection
+- [x] TASK-0031 Agent memory update checklist
+- [x] TASK-0032 Phase 3 user guide
+- [x] TASK-0033 Phase 3 generated-project verification
