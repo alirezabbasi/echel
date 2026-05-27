@@ -8,7 +8,7 @@ status: draft
 A product memory and orchestration platform that helps domain experts guide AI-native software development from intent to verified work.
 
 ## Core Capabilities
-- TBD
+- Product memory graph
 
 ## Differentiation
-TBD
+A typed relationship map connecting product intent, users, needs, requirements, work, decisions, risks, and architecture.

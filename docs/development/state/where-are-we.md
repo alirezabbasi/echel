@@ -26,6 +26,7 @@ Last updated: 2026-05-27
 - Using `wiki/knowledge`, `wiki/decisions`, `wiki/work`, and `wiki/reports` as the project memory model.
 - Using `WIKI_ROOT` so Echel can operate from `echel-core/` while maintaining root-level product memory.
 - Completed Phase 1 deterministic product-owner workflows through `define`, `clarify`, `plan`, `status`, `next`, and `packet`.
+- Completed Phase 2 product graph workflows through `graph`, `feature`, `risk`, and `link` commands.
 
 ## Next
 
@@ -33,6 +34,7 @@ Last updated: 2026-05-27
 2. Add differential conformance tooling and CI summary outputs.
 3. Add migration planner, runtime adapters, and safety rails.
 4. Continue reducing duplicated documentation content inside the simplified structure.
+5. Expand graph use into dependency-aware planning and agent work-packet scoping.
 
 ## Risks/Blocks
 

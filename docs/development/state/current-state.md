@@ -25,6 +25,7 @@ Last updated: 2026-05-27
 - Resolving product memory paths through `WIKI_ROOT`.
 - Starting V2 Phase 1 with product-first initialization and product-owner commands.
 - Completed deterministic Phase 1 command loop: clarify answers, MVP planning synthesis, work packets, readiness status, and generated-project verification.
+- Completed Phase 2 product graph foundation: graph extraction, storage, validation, reports, graph-aware status/planning, relationship commands, and generated-project verification.
 
 ## Next
 
@@ -33,7 +34,7 @@ Last updated: 2026-05-27
 3. Add migration wave planner and runtime adapters (Python/TypeScript).
 4. Add UX safety rails and phase-specific LLM behavior contracts.
 5. Continue trimming duplicated documentation content now that structural boundaries are clearer.
-6. Start Phase 2 product intelligence graph and relationship validation.
+6. Use the Phase 2 product graph to drive richer task scoping, dependency reasoning, and product continuity checks.
 
 ## Risks/Blocks
 

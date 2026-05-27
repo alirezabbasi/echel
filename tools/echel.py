@@ -14,6 +14,17 @@ from echel.config import ConfigError, load_config, resolve_root_map, resolve_sym
 from echel.contracts import ensure_contracts, validate_transition
 from echel.evidence import ensure_registry, validate_links, validate_registry
 from echel.gates import run_gates
+from echel.graph import (
+    add_feature,
+    add_manual_link,
+    add_risk,
+    build_graph,
+    graph_status,
+    graph_summary,
+    validate_graph,
+    write_graph,
+    write_graph_report,
+)
 from echel.memory_kernel import append_record, contradiction_summary, query_records
 from echel.migration_planner import plan_waves
 from echel.platform.runtime import ensure_platform_config, load_platform_config
@@ -111,9 +122,11 @@ def cmd_plan(repo_root: Path, title: str | None, goal: str | None) -> int:
     cfg = _load(repo_root)
     if not title:
         roadmap, task = synthesize_mvp_plan(repo_root, cfg)
+        report = write_graph_report(repo_root, cfg)
         print("Synthesized MVP plan")
         print(f"- Roadmap: {roadmap}")
         print(f"- Work item: {task}")
+        print(f"- Graph report: {report}")
         return 0
     path = create_plan_task(repo_root, cfg, title=title, goal=goal)
     print(f"Created product work item: {path}")
@@ -123,6 +136,8 @@ def cmd_plan(repo_root: Path, title: str | None, goal: str | None) -> int:
 def cmd_status(repo_root: Path) -> int:
     cfg = _load(repo_root)
     print(product_status(repo_root, cfg))
+    print()
+    print(graph_status(repo_root, cfg))
     return 0
 
 
@@ -144,6 +159,54 @@ def cmd_packet(repo_root: Path, task_id: str | None) -> int:
         print(str(exc), file=sys.stderr)
         return 2
     print(f"Generated work packet: {path}")
+    return 0
+
+
+def cmd_graph(repo_root: Path, graph_cmd: str) -> int:
+    cfg = _load(repo_root)
+    if graph_cmd == "build":
+        path = write_graph(repo_root, cfg)
+        print(f"Product graph written: {path}")
+        return 0
+    if graph_cmd == "show":
+        graph = build_graph(repo_root, cfg)
+        print(graph_summary(graph, validate_graph(graph)))
+        return 0
+    if graph_cmd == "validate":
+        graph = build_graph(repo_root, cfg)
+        issues = validate_graph(graph)
+        if not issues:
+            print("Product graph validation passed")
+            return 0
+        for issue in issues:
+            print(f"- {issue.severity}: {issue.message}")
+        return 1 if any(issue.severity == "critical" for issue in issues) else 0
+    if graph_cmd == "report":
+        path = write_graph_report(repo_root, cfg)
+        print(f"Product graph report written: {path}")
+        return 0
+    print("unknown graph command", file=sys.stderr)
+    return 2
+
+
+def cmd_feature_add(repo_root: Path, title: str, summary: str) -> int:
+    cfg = _load(repo_root)
+    path = add_feature(repo_root, cfg, title=title, summary=summary)
+    print(f"Feature added: {path}")
+    return 0
+
+
+def cmd_risk_add(repo_root: Path, title: str, impact: str, mitigation: str) -> int:
+    cfg = _load(repo_root)
+    path = add_risk(repo_root, cfg, title=title, impact=impact, mitigation=mitigation)
+    print(f"Risk added: {path}")
+    return 0
+
+
+def cmd_link(repo_root: Path, from_id: str, to_id: str, rel: str) -> int:
+    cfg = _load(repo_root)
+    path = add_manual_link(repo_root, cfg, from_id=from_id, to_id=to_id, edge_type=rel)
+    print(f"Relationship added: {path}")
     return 0
 
 
@@ -415,6 +478,31 @@ def build_parser() -> argparse.ArgumentParser:
     packet = sub.add_parser("packet")
     packet.add_argument("--task")
 
+    graph = sub.add_parser("graph")
+    graph_sub = graph.add_subparsers(dest="graph_cmd", required=True)
+    graph_sub.add_parser("build")
+    graph_sub.add_parser("show")
+    graph_sub.add_parser("validate")
+    graph_sub.add_parser("report")
+
+    feature = sub.add_parser("feature")
+    feature_sub = feature.add_subparsers(dest="feature_cmd", required=True)
+    feature_add = feature_sub.add_parser("add")
+    feature_add.add_argument("--title", required=True)
+    feature_add.add_argument("--summary", default="")
+
+    risk = sub.add_parser("risk")
+    risk_sub = risk.add_subparsers(dest="risk_cmd", required=True)
+    risk_add = risk_sub.add_parser("add")
+    risk_add.add_argument("--title", required=True)
+    risk_add.add_argument("--impact", default="")
+    risk_add.add_argument("--mitigation", default="")
+
+    link = sub.add_parser("link")
+    link.add_argument("--from", dest="from_id", required=True)
+    link.add_argument("--to", dest="to_id", required=True)
+    link.add_argument("--rel", default="related_to")
+
     close = sub.add_parser("close-task")
     close.add_argument("task_id")
 
@@ -497,6 +585,14 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_next(root)
     if args.cmd == "packet":
         return cmd_packet(root, task_id=args.task)
+    if args.cmd == "graph":
+        return cmd_graph(root, args.graph_cmd)
+    if args.cmd == "feature" and args.feature_cmd == "add":
+        return cmd_feature_add(root, title=args.title, summary=args.summary)
+    if args.cmd == "risk" and args.risk_cmd == "add":
+        return cmd_risk_add(root, title=args.title, impact=args.impact, mitigation=args.mitigation)
+    if args.cmd == "link":
+        return cmd_link(root, from_id=args.from_id, to_id=args.to_id, rel=args.rel)
     if args.cmd == "close-task":
         return cmd_close_task(root, args.task_id)
     if args.cmd == "sync-memory":

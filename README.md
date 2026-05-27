@@ -195,6 +195,12 @@ Product-owner commands:
 5. `python3 tools/echel.py status` summarizes product state.
 6. `python3 tools/echel.py next` selects the next open work item.
 7. `python3 tools/echel.py packet` generates an agent-ready work packet.
+8. `python3 tools/echel.py graph build` writes the product relationship graph.
+9. `python3 tools/echel.py graph validate` checks graph integrity.
+10. `python3 tools/echel.py graph report` writes a readable product graph report.
+11. `python3 tools/echel.py feature add --title "..."` records a product capability.
+12. `python3 tools/echel.py risk add --title "..." --mitigation "..."` records a product risk.
+13. `python3 tools/echel.py link --from <node-id> --to <node-id>` records a manual product relationship.
 
 Operator commands:
 
@@ -224,6 +230,8 @@ Operator commands:
   - `python3 tools/echel.py adapters list`
 - Phase 1 verification:
   - `make verify-phase1`
+- Phase 2 verification:
+  - `make verify-phase2`
 
 ## Platform MVP Sprint 1 (Self-Hosted Web Interface)
 

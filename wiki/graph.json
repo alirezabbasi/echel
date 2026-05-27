@@ -1,0 +1,850 @@
+{
+  "version": 1,
+  "generated_at": "2026-05-27T20:27:00Z",
+  "nodes": [
+    {
+      "id": "component:agent-command-surface",
+      "type": "component",
+      "title": "Agent command surface",
+      "source": "architecture.md",
+      "summary": "Agent command surface"
+    },
+    {
+      "id": "component:generated-reports",
+      "type": "component",
+      "title": "Generated reports",
+      "source": "architecture.md",
+      "summary": "Generated reports"
+    },
+    {
+      "id": "component:product-graph",
+      "type": "component",
+      "title": "Product graph",
+      "source": "architecture.md",
+      "summary": "Product graph"
+    },
+    {
+      "id": "component:product-wiki",
+      "type": "component",
+      "title": "Product wiki",
+      "source": "architecture.md",
+      "summary": "Product wiki"
+    },
+    {
+      "id": "decision:ADR-0001",
+      "type": "decision",
+      "title": "ADR-0001 \u2014 Adopt LLM Wiki as Project Memory",
+      "source": "decisions/ADR-0001-adopt-llm-wiki-as-project-memory.md",
+      "summary": "Use an Obsidian-readable Markdown wiki as persistent project memory maintained by the LLM agent."
+    },
+    {
+      "id": "decision:ADR-0002",
+      "type": "decision",
+      "title": "ADR-0002 \u2014 Extend Wiki into SDLC Operating System",
+      "source": "decisions/ADR-0002-extend-wiki-into-sdlc-operating-system.md",
+      "summary": "Extend the wiki with tasks, standards, session protocols, ADRs, and quality gates."
+    },
+    {
+      "id": "decision:ADR-0003",
+      "type": "decision",
+      "title": "ADR-0003 \u2014 Simplify Folder Structure for Human Navigation",
+      "source": "decisions/ADR-0003-simplify-folder-structure-for-human-navigation.md",
+      "summary": "Use fewer, purpose-named folders for Echel's visible project memory and development controls.\n\nThe canonical structure is:\n\n- `wiki/knowledge`: concepts, systems, entities, flows, and standards\n- `wiki/decisions`: durable ADRs\n- `wiki/work`: task artifacts\n- `wiki/reports`: analysis, generated checks, and source summaries\n- `docs/development`: operating files for method, work, architecture, governance, automation, and evidence\n- `docs/development/state`: current state, resume snapshots, session history, decision log, and risks\n- `docs/development/bugs`: bug records and debugging evidence"
+    },
+    {
+      "id": "decision:ADR-0004",
+      "type": "decision",
+      "title": "ADR-0004 \u2014 Keep Product Wiki Outside Echel Core",
+      "source": "decisions/ADR-0004-keep-product-wiki-outside-echel-core.md",
+      "summary": "Generated projects keep `wiki/` at the target project repository root and place framework machinery inside `echel-core/`.\n\n`echel-core/project.echel` points `WIKI_ROOT` to `../wiki` so Echel tools can run from `echel-core/` while reading and writing product-owned memory."
+    },
+    {
+      "id": "feature:product-memory-graph",
+      "type": "feature",
+      "title": "Product memory graph",
+      "source": "solution.md",
+      "summary": "Product memory graph"
+    },
+    {
+      "id": "need:keep-product-intent-connected-to-generated-work-across-ai-sessions",
+      "type": "need",
+      "title": "Keep product intent connected to generated work across AI sessions",
+      "source": "users.md",
+      "summary": "Keep product intent connected to generated work across AI sessions"
+    },
+    {
+      "id": "need:reveal-missing-relationships-before-implementation-drifts",
+      "type": "need",
+      "title": "Reveal missing relationships before implementation drifts",
+      "source": "users.md",
+      "summary": "Reveal missing relationships before implementation drifts"
+    },
+    {
+      "id": "problem:primary",
+      "type": "problem",
+      "title": "People lose product direction and development continuity when AI coding sessi...",
+      "source": "problem.md",
+      "summary": "People lose product direction and development continuity when AI coding sessions reset context."
+    },
+    {
+      "id": "product:root",
+      "type": "product",
+      "title": "Echel",
+      "source": "project.md",
+      "summary": "Make Echel the default platform for starting and evolving software products through product-first AI workflows."
+    },
+    {
+      "id": "requirement:graph-aware-planning-and-status",
+      "type": "requirement",
+      "title": "Graph-aware planning and status",
+      "source": "scope.md",
+      "summary": "Graph-aware planning and status"
+    },
+    {
+      "id": "requirement:graph-validation",
+      "type": "requirement",
+      "title": "Graph validation",
+      "source": "scope.md",
+      "summary": "Graph validation"
+    },
+    {
+      "id": "requirement:product-graph",
+      "type": "requirement",
+      "title": "Product graph",
+      "source": "scope.md",
+      "summary": "Product graph"
+    },
+    {
+      "id": "risk:disconnected-product-memory",
+      "type": "risk",
+      "title": "Disconnected product memory",
+      "source": "risks.md",
+      "summary": " - Impact: Agents may execute isolated tasks without preserving product direction. - Mitigation: Build, validate, and report the product graph during planning and status checks. "
+    },
+    {
+      "id": "solution:primary",
+      "type": "solution",
+      "title": "A product memory and orchestration platform that helps domain experts guide A...",
+      "source": "solution.md",
+      "summary": "A product memory and orchestration platform that helps domain experts guide AI-native software development from intent to verified work."
+    },
+    {
+      "id": "task:TASK-0001",
+      "type": "task",
+      "title": "TASK-0001 \u2014 Initialize Project Wiki",
+      "source": "work/TASK-0001-initialize-project-wiki.md",
+      "summary": "Establish baseline project knowledge structure and governance artifacts."
+    },
+    {
+      "id": "task:TASK-0002",
+      "type": "task",
+      "title": "TASK-0002 \u2014 Ingest Existing Codebase",
+      "source": "work/TASK-0002-ingest-existing-codebase.md",
+      "summary": "Convert existing codebase context into structured canonical wiki knowledge."
+    },
+    {
+      "id": "task:TASK-0003",
+      "type": "task",
+      "title": "TASK-0003 \u2014 Run First Wiki Lint and Remediation",
+      "source": "work/TASK-0003-run-first-wiki-lint.md",
+      "summary": "Run lint gates and resolve critical wiki integrity issues."
+    },
+    {
+      "id": "task:TASK-0004",
+      "type": "task",
+      "title": "TASK-0004 \u2014 Define Echel Four-Layer OS Architecture and v1 Contracts",
+      "source": "work/TASK-0004-define-echel-four-layer-os-architecture-and-v1-contracts.md",
+      "summary": "Capture and operationalize the four-layer OS architecture and v1 contracts as executable project standards."
+    },
+    {
+      "id": "task:TASK-0005",
+      "type": "task",
+      "title": "TASK-0005 \u2014 Simplify Knowledge and Development Boundaries",
+      "source": "work/TASK-0005-simplify-knowledge-and-development-boundaries.md",
+      "summary": "Reduce repetition and complexity between `wiki/` and `docs/development/` while preserving Echel's core role as persistent project memory and AI-native development orchestration."
+    },
+    {
+      "id": "task:TASK-0006",
+      "type": "task",
+      "title": "TASK-0006 - Start V2 Phase 1 Product Flow",
+      "source": "work/TASK-0006-start-v2-phase1-product-flow.md",
+      "summary": "Start V2 Phase 1 by making Echel initialization and command flow product-first."
+    },
+    {
+      "id": "task:TASK-0007",
+      "type": "task",
+      "title": "TASK-0007 - Interactive Clarification Flow",
+      "source": "work/TASK-0007-interactive-clarification-flow.md",
+      "summary": "Allow product clarification answers to update product-owned wiki pages."
+    },
+    {
+      "id": "task:TASK-0008",
+      "type": "task",
+      "title": "TASK-0008 - Product-First Wiki Template Cleanup",
+      "source": "work/TASK-0008-product-first-wiki-template-cleanup.md",
+      "summary": "Ensure generated projects start with product memory rather than Echel framework memory."
+    },
+    {
+      "id": "task:TASK-0009",
+      "type": "task",
+      "title": "TASK-0009 - MVP Planning Synthesis",
+      "source": "work/TASK-0009-mvp-planning-synthesis.md",
+      "summary": "Make `echel plan` synthesize an MVP roadmap and next product work item."
+    },
+    {
+      "id": "task:TASK-0010",
+      "type": "task",
+      "title": "TASK-0010 - Agent Work Packet Generation",
+      "source": "work/TASK-0010-agent-work-packet-generation.md",
+      "summary": "Generate agent-ready work packets from the next open product task."
+    },
+    {
+      "id": "task:TASK-0011",
+      "type": "task",
+      "title": "TASK-0011 - Product Status Readiness Model",
+      "source": "work/TASK-0011-product-status-readiness-model.md",
+      "summary": "Upgrade `echel status` into a product readiness summary."
+    },
+    {
+      "id": "task:TASK-0012",
+      "type": "task",
+      "title": "TASK-0012 - Phase 1 User Journey Guide",
+      "source": "work/TASK-0012-phase1-user-journey-guide.md",
+      "summary": "Document the Phase 1 flow from idea to agent work packet."
+    },
+    {
+      "id": "task:TASK-0013",
+      "type": "task",
+      "title": "TASK-0013 - Product Command Tests",
+      "source": "work/TASK-0013-product-command-tests.md",
+      "summary": "Add scripted verification for Phase 1 generated-project behavior."
+    },
+    {
+      "id": "task:TASK-0014",
+      "type": "task",
+      "title": "TASK-0014 - Define Product Graph Schema",
+      "source": "work/TASK-0014-define-product-graph-schema.md",
+      "summary": "Define the canonical product graph shape for nodes, edges, manual links, generated storage, and integrity rules."
+    },
+    {
+      "id": "task:TASK-0015",
+      "type": "task",
+      "title": "TASK-0015 - Add Graph Storage",
+      "source": "work/TASK-0015-add-graph-storage.md",
+      "summary": "Store generated product relationships in product-owned memory."
+    },
+    {
+      "id": "task:TASK-0016",
+      "type": "task",
+      "title": "TASK-0016 - Extract Graph From Wiki",
+      "source": "work/TASK-0016-extract-graph-from-wiki.md",
+      "summary": "Generate product graph nodes and edges from product pages, work items, decisions, risks, and architecture."
+    },
+    {
+      "id": "task:TASK-0017",
+      "type": "task",
+      "title": "TASK-0017 - Validate Graph Integrity",
+      "source": "work/TASK-0017-validate-graph-integrity.md",
+      "summary": "Validate graph coverage, dangling relationships, duplicate node ids, task-to-requirement coverage, and risk mitigation."
+    },
+    {
+      "id": "task:TASK-0018",
+      "type": "task",
+      "title": "TASK-0018 - Add Graph-Aware Status",
+      "source": "work/TASK-0018-add-graph-aware-status.md",
+      "summary": "Extend product status output with graph coverage and graph integrity information."
+    },
+    {
+      "id": "task:TASK-0019",
+      "type": "task",
+      "title": "TASK-0019 - Add Graph-Aware Planning",
+      "source": "work/TASK-0019-add-graph-aware-planning.md",
+      "summary": "Ensure generated planning refreshes the graph report so work planning stays connected to product relationships."
+    },
+    {
+      "id": "task:TASK-0020",
+      "type": "task",
+      "title": "TASK-0020 - Add Relationship Commands",
+      "source": "work/TASK-0020-add-relationship-commands.md",
+      "summary": "Add command-line operations for adding features, risks, and manual graph relationships."
+    },
+    {
+      "id": "task:TASK-0021",
+      "type": "task",
+      "title": "TASK-0021 - Add Product Graph Reports",
+      "source": "work/TASK-0021-add-product-graph-reports.md",
+      "summary": "Generate readable product graph reports for product owners and AI agents."
+    },
+    {
+      "id": "task:TASK-0022",
+      "type": "task",
+      "title": "TASK-0022 - Add Phase 2 Verification",
+      "source": "work/TASK-0022-add-phase2-verification.md",
+      "summary": "Add a generated-project verification loop for the Phase 2 graph workflow."
+    },
+    {
+      "id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
+      "type": "user",
+      "title": "Business owners, product experts, domain experts, and AI-assisted engineering teams",
+      "source": "users.md",
+      "summary": "Business owners, product experts, domain experts, and AI-assisted engineering teams"
+    }
+  ],
+  "edges": [
+    {
+      "from_id": "component:agent-command-surface",
+      "to_id": "feature:product-memory-graph",
+      "type": "supports"
+    },
+    {
+      "from_id": "component:generated-reports",
+      "to_id": "feature:product-memory-graph",
+      "type": "supports"
+    },
+    {
+      "from_id": "component:product-graph",
+      "to_id": "feature:product-memory-graph",
+      "type": "supports"
+    },
+    {
+      "from_id": "component:product-wiki",
+      "to_id": "feature:product-memory-graph",
+      "type": "supports"
+    },
+    {
+      "from_id": "feature:product-memory-graph",
+      "to_id": "need:keep-product-intent-connected-to-generated-work-across-ai-sessions",
+      "type": "satisfies"
+    },
+    {
+      "from_id": "feature:product-memory-graph",
+      "to_id": "need:reveal-missing-relationships-before-implementation-drifts",
+      "type": "satisfies"
+    },
+    {
+      "from_id": "feature:product-memory-graph",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "implements"
+    },
+    {
+      "from_id": "feature:product-memory-graph",
+      "to_id": "requirement:graph-validation",
+      "type": "implements"
+    },
+    {
+      "from_id": "feature:product-memory-graph",
+      "to_id": "requirement:product-graph",
+      "type": "implements"
+    },
+    {
+      "from_id": "problem:primary",
+      "to_id": "solution:primary",
+      "type": "addressed_by"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "decision:ADR-0001",
+      "type": "constrained_by"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "decision:ADR-0002",
+      "type": "constrained_by"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "decision:ADR-0003",
+      "type": "constrained_by"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "decision:ADR-0004",
+      "type": "constrained_by"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "problem:primary",
+      "type": "defines"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "requires"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "requirement:graph-validation",
+      "type": "requires"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "requirement:product-graph",
+      "type": "requires"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "risk:disconnected-product-memory",
+      "type": "has_risk"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0001",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0002",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0003",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0004",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0005",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0006",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0007",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0008",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0009",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0010",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0011",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0012",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0013",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0014",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0015",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0016",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0017",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0018",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0019",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0020",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0021",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0022",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
+      "type": "serves"
+    },
+    {
+      "from_id": "solution:primary",
+      "to_id": "feature:product-memory-graph",
+      "type": "includes"
+    },
+    {
+      "from_id": "task:TASK-0001",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0001",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0001",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0002",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0002",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0002",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0003",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0003",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0003",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0004",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0004",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0004",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0005",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0005",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0005",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0006",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0006",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0006",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0007",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0007",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0007",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0008",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0008",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0008",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0009",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0009",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0009",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0010",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0010",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0010",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0011",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0011",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0011",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0012",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0012",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0012",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0013",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0013",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0013",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0014",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0014",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0014",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0015",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0015",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0015",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0016",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0016",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0016",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0017",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0017",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0017",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0018",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0018",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0018",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0019",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0019",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0019",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0020",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0020",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0020",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0021",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0021",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0021",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0022",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0022",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0022",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
+      "to_id": "need:keep-product-intent-connected-to-generated-work-across-ai-sessions",
+      "type": "has_need"
+    },
+    {
+      "from_id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
+      "to_id": "need:reveal-missing-relationships-before-implementation-drifts",
+      "type": "has_need"
+    }
+  ]
+}

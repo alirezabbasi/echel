@@ -8,7 +8,10 @@ status: draft
 TBD
 
 ## Key Components
-- TBD
+- Product wiki
+- Product graph
+- Agent command surface
+- Generated reports
 
 ## Open Architecture Questions
 - TBD

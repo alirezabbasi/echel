@@ -8,7 +8,8 @@ status: draft
 - Business owners, product experts, domain experts, and AI-assisted engineering teams
 
 ## Needs
-- TBD
+- Keep product intent connected to generated work across AI sessions
+- Reveal missing relationships before implementation drifts
 
 ## Constraints
 - TBD

@@ -39,6 +39,7 @@ status: active
 
 - [[reports/conformance-report|Conformance Report]]
 - [[reports/echel-v2-product-direction-review|Echel V2 Product Direction Review]]
+- [[reports/product-graph-report|Product Graph Report]]
 - [[reports/wiki-health-report|Wiki Health Report]]
 
 ## Root
@@ -48,6 +49,7 @@ status: active
 - [[problem|Problem]]
 - [[project-brief|Project Brief]]
 - [[project|Project]]
+- [[risks|Risks]]
 - [[roadmap|Roadmap]]
 - [[scope|Scope]]
 - [[solution|Solution]]
@@ -68,3 +70,12 @@ status: active
 - [[work/TASK-0011-product-status-readiness-model|Task 0011 Product Status Readiness Model]]
 - [[work/TASK-0012-phase1-user-journey-guide|Task 0012 Phase1 User Journey Guide]]
 - [[work/TASK-0013-product-command-tests|Task 0013 Product Command Tests]]
+- [[work/TASK-0014-define-product-graph-schema|Task 0014 Define Product Graph Schema]]
+- [[work/TASK-0015-add-graph-storage|Task 0015 Add Graph Storage]]
+- [[work/TASK-0016-extract-graph-from-wiki|Task 0016 Extract Graph From Wiki]]
+- [[work/TASK-0017-validate-graph-integrity|Task 0017 Validate Graph Integrity]]
+- [[work/TASK-0018-add-graph-aware-status|Task 0018 Add Graph Aware Status]]
+- [[work/TASK-0019-add-graph-aware-planning|Task 0019 Add Graph Aware Planning]]
+- [[work/TASK-0020-add-relationship-commands|Task 0020 Add Relationship Commands]]
+- [[work/TASK-0021-add-product-graph-reports|Task 0021 Add Product Graph Reports]]
+- [[work/TASK-0022-add-phase2-verification|Task 0022 Add Phase2 Verification]]

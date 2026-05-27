@@ -77,3 +77,18 @@ status: active
 
 ## [2026-05-27] define | product-flow
 - Updated product definition through `echel define`.
+
+## [2026-05-27] phase-2 | product-graph-foundation
+- Added product graph extraction, storage, validation, summary, and report generation.
+- Added graph-aware `status` and planning report refresh.
+- Added relationship commands for features, risks, and manual links.
+- Added `make verify-phase2` to validate the graph workflow inside generated projects.
+
+## [2026-05-27] clarify | product-flow
+- Answered `mvp` clarification.
+
+## [2026-05-27] clarify | product-flow
+- Answered `needs` clarification.
+
+## [2026-05-27] clarify | product-flow
+- Answered `components` clarification.

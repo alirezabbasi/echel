@@ -1,4 +1,4 @@
-.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project verify-phase1 echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-packet echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
+.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project verify-phase1 verify-phase2 echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-packet echel-graph-build echel-graph-validate echel-graph-report echel-feature-add echel-risk-add echel-link echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
 
 session-bootstrap:
 	python3 tools/session_bootstrap.py
@@ -35,6 +35,9 @@ init-project:
 verify-phase1:
 	python3 tools/verify_phase1.py
 
+verify-phase2:
+	python3 tools/verify_phase2.py
+
 echel-start:
 	python3 tools/echel.py start
 
@@ -55,6 +58,24 @@ echel-next:
 
 echel-packet:
 	python3 tools/echel.py packet $${TASK:+--task "$$TASK"}
+
+echel-graph-build:
+	python3 tools/echel.py graph build
+
+echel-graph-validate:
+	python3 tools/echel.py graph validate
+
+echel-graph-report:
+	python3 tools/echel.py graph report
+
+echel-feature-add:
+	python3 tools/echel.py feature add --title "$${TITLE:?Set TITLE=<feature-title>}" $${SUMMARY:+--summary "$$SUMMARY"}
+
+echel-risk-add:
+	python3 tools/echel.py risk add --title "$${TITLE:?Set TITLE=<risk-title>}" $${IMPACT:+--impact "$$IMPACT"} $${MITIGATION:+--mitigation "$$MITIGATION"}
+
+echel-link:
+	python3 tools/echel.py link --from "$${FROM:?Set FROM=<node-id>}" --to "$${TO:?Set TO=<node-id>}" $${REL:+--rel "$$REL"}
 
 echel-doctor:
 	python3 tools/echel.py doctor

@@ -22,3 +22,12 @@
 - [x] TASK-0011 Product status readiness model
 - [x] TASK-0012 Phase 1 user journey guide
 - [x] TASK-0013 Product command tests
+- [x] TASK-0014 Define product graph schema
+- [x] TASK-0015 Add graph storage
+- [x] TASK-0016 Extract graph from wiki
+- [x] TASK-0017 Validate graph integrity
+- [x] TASK-0018 Add graph-aware status
+- [x] TASK-0019 Add graph-aware planning
+- [x] TASK-0020 Add relationship commands
+- [x] TASK-0021 Add product graph reports
+- [x] TASK-0022 Add Phase 2 verification
