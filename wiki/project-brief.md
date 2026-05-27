@@ -32,3 +32,11 @@ The accumulated intelligence includes:
 - `docs/development/` is the operating layer: SDLC method, execution controls, gates, evidence, automation, memory snapshots, and active process state.
 
 These layers should reference each other without duplicating ownership. When the same idea appears in both places, the wiki should hold durable meaning and relationships while development docs should hold operational procedure.
+
+## Initialization Boundary
+
+In generated target projects:
+
+- `wiki/` stays at the project repository root because it belongs to the product being built.
+- `echel-core/` contains the Echel framework, including `docs/development`, tools, prompts, schemas, rules, and automation.
+- `echel-core/project.echel` points `WIKI_ROOT` to `../wiki` so Echel can run from the framework folder while updating product-owned memory.

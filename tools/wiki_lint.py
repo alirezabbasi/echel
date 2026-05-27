@@ -2,18 +2,19 @@
 from pathlib import Path
 import re
 import sys
+from echel_paths import configured_root
 
-WIKI = Path("wiki")
+WIKI = configured_root("WIKI_ROOT", "wiki")
 ISSUES: list[tuple[str, str, str]] = []
 
 REQUIRED_WIKI_FILES = [
-    "wiki/project-brief.md",
-    "wiki/log.md",
-    "wiki/index.md",
-    "wiki/flows/source-ingest-flow.md",
-    "wiki/flows/query-to-artifact-flow.md",
-    "wiki/flows/session-development-flow.md",
-    "wiki/flows/wiki-lint-flow.md",
+    "project-brief.md",
+    "log.md",
+    "index.md",
+    "knowledge/source-ingest-flow.md",
+    "knowledge/query-to-artifact-flow.md",
+    "knowledge/session-development-flow.md",
+    "knowledge/wiki-lint-flow.md",
 ]
 
 TASK_REQUIRED_HEADERS = [
@@ -34,8 +35,8 @@ def add(severity: str, path: str, message: str) -> None:
 
 
 for req in REQUIRED_WIKI_FILES:
-    if not Path(req).exists():
-        add("critical", req, "missing required wiki artifact")
+    if not (WIKI / req).exists():
+        add("critical", str(WIKI / req), "missing required wiki artifact")
 
 files = list(WIKI.rglob("*.md"))
 file_set = {p.relative_to(WIKI).with_suffix("").as_posix() for p in files}
@@ -56,7 +57,7 @@ for p in files:
         else:
             titles[title] = rel
 
-    if rel == "analysis/wiki-health-report.md":
+    if rel == "reports/wiki-health-report.md":
         continue
 
     pos = 0
@@ -88,7 +89,7 @@ for p in files:
         if resolved not in file_set:
             add("critical", rel, f"unresolved wiki link: [[{target}]]")
 
-for task in sorted((WIKI / "tasks").glob("TASK-*.md")):
+for task in sorted((WIKI / "work").glob("TASK-*.md")):
     text = task.read_text(encoding="utf-8")
     rel = task.relative_to(WIKI).as_posix()
     for header in TASK_REQUIRED_HEADERS:
@@ -97,7 +98,7 @@ for task in sorted((WIKI / "tasks").glob("TASK-*.md")):
     if "- [[" not in text.split("## Context", 1)[-1].split("##", 1)[0]:
         add("critical", rel, "context section requires at least one wiki link")
 
-report = WIKI / "analysis/wiki-health-report.md"
+report = WIKI / "reports/wiki-health-report.md"
 report.parent.mkdir(parents=True, exist_ok=True)
 
 critical = [i for i in ISSUES if i[0] == "critical"]

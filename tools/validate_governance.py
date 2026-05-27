@@ -6,12 +6,12 @@ required = [
     "ruleset.md",
     "docs/ruleset.md",
     "docs/development/README.md",
-    "docs/development/02-execution/KANBAN.md",
-    "docs/development/04-memory/CURRENT_STATE.md",
-    "docs/development/04-memory/SESSION_LEDGER.md",
-    "docs/development/04-memory/DECISION_LOG.md",
-    "docs/development/04-memory/RISKS_AND_ASSUMPTIONS.md",
-    "docs/development/debugging/debugcmd.md",
+    "docs/development/work.md",
+    "docs/development/state/current-state.md",
+    "docs/development/state/session-ledger.md",
+    "docs/development/state/decision-log.md",
+    "docs/development/state/risks-and-assumptions.md",
+    "docs/development/bugs/debug-commands.md",
 ]
 
 missing = [p for p in required if not Path(p).exists()]

@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from pathlib import Path
 import re
 
+from .config import load_config, resolve_symbolic_path
+
 
 @dataclass
 class DriftIssue:
@@ -39,11 +41,14 @@ def _parse_where_date(text: str) -> str | None:
 
 def detect_drift(repo_root: Path) -> list[DriftIssue]:
     issues: list[DriftIssue] = []
+    cfg = load_config(repo_root)
+    wiki_root = resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root)
+    memory_root = resolve_symbolic_path("$MEMORY_ROOT", cfg, repo_root)
 
-    task_files = sorted((repo_root / "wiki/tasks").glob("TASK-*.md"))
+    task_files = sorted((wiki_root / "work").glob("TASK-*.md"))
     task_ids = {tid for path in task_files if (tid := _extract_task_id(path))}
 
-    kanban_path = repo_root / "docs/development/02-execution/KANBAN.md"
+    kanban_path = memory_root.parent / "work.md"
     kanban_text = kanban_path.read_text(encoding="utf-8") if kanban_path.exists() else ""
     kanban_states = _parse_kanban_task_states(kanban_text)
 
@@ -65,7 +70,7 @@ def detect_drift(repo_root: Path) -> list[DriftIssue]:
                 severity="major",
                 source=str(kanban_path),
                 message=f"KANBAN references {tid} but task file is missing",
-                suggestion=f"restore `wiki/tasks/{tid}-*.md` or remove stale entry",
+                suggestion=f"restore `{(wiki_root / 'work').as_posix()}/{tid}-*.md` or remove stale entry",
             )
         )
 
@@ -89,8 +94,8 @@ def detect_drift(repo_root: Path) -> list[DriftIssue]:
                 )
             )
 
-    wrw = repo_root / "docs/development/04-memory/WHERE_ARE_WE.md"
-    current = repo_root / "docs/development/04-memory/CURRENT_STATE.md"
+    wrw = memory_root / "where-are-we.md"
+    current = memory_root / "current-state.md"
     if wrw.exists() and current.exists():
         d1 = _parse_where_date(wrw.read_text(encoding="utf-8"))
         d2 = _parse_where_date(current.read_text(encoding="utf-8"))

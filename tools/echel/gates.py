@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Callable
 
 from .coherence import detect_drift
-from .config import ProjectConfig
+from .config import ProjectConfig, resolve_symbolic_path
 from .evidence import ensure_registry, validate_links, validate_registry
 from .primitives import validate_decisions, validate_gate_ids, validate_tasks
 
@@ -35,19 +35,20 @@ def _check_coherence(repo_root: Path, cfg: ProjectConfig) -> list[str]:
 
 
 def _check_evidence_links(repo_root: Path, cfg: ProjectConfig) -> list[str]:
+    wiki_root = resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root)
     reg_path = repo_root / cfg.evidence_registry
     reg = ensure_registry(reg_path)
     failures = [f"{i.severity}: {i.message}" for i in validate_registry(reg, str(reg_path))]
-    link_files = sorted((repo_root / "wiki/tasks").glob("TASK-*.md")) + sorted((repo_root / "wiki/decisions").glob("ADR-*.md"))
+    link_files = sorted((wiki_root / "work").glob("TASK-*.md")) + sorted((wiki_root / "decisions").glob("ADR-*.md"))
     failures.extend(f"{i.severity}: {i.message} [{i.source}]" for i in validate_links(link_files, reg))
     return failures
 
 
 def _check_primitives(repo_root: Path, cfg: ProjectConfig) -> list[str]:
-    _ = cfg
+    wiki_root = resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root)
     fails = []
-    t = validate_tasks(sorted((repo_root / "wiki/tasks").glob("TASK-*.md")))
-    d = validate_decisions(sorted((repo_root / "wiki/decisions").glob("ADR-*.md")))
+    t = validate_tasks(sorted((wiki_root / "work").glob("TASK-*.md")))
+    d = validate_decisions(sorted((wiki_root / "decisions").glob("ADR-*.md")))
     fails.extend(f"{i.severity}: {i.message} [{i.source}]" for i in t)
     fails.extend(f"{i.severity}: {i.message} [{i.source}]" for i in d)
     return fails

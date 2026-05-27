@@ -11,11 +11,11 @@ CORE_ITEMS = [
     "raw",
     "schema",
     "tools",
-    "wiki",
     "LICENSE",
     "ruleset.md",
     "README.md",
     "Makefile",
+    "project.echel",
 ]
 
 
@@ -24,6 +24,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--name", required=True, help="Project/workspace name")
     parser.add_argument("--mode", choices=["scratch", "existing"], required=True)
     parser.add_argument("--source", help="Path to existing codebase (required for existing mode)")
+    parser.add_argument("--problem", default="", help="Initial product problem statement")
+    parser.add_argument("--solution", default="", help="Initial intended solution")
+    parser.add_argument("--direction", default="", help="Initial product direction")
+    parser.add_argument("--users", default="", help="Initial target users")
+    parser.add_argument("--success", default="", help="Initial success criteria")
     parser.add_argument(
         "--dest",
         default=".",
@@ -43,6 +48,45 @@ def copy_core_template(repo_root: Path, echel_core_dir: Path) -> None:
             shutil.copytree(src, dst)
         else:
             shutil.copy2(src, dst)
+
+
+def copy_project_wiki_template(repo_root: Path, workspace_dir: Path) -> None:
+    src = repo_root / "wiki"
+    dst = workspace_dir / "wiki"
+    if not src.exists():
+        return
+    if not dst.exists():
+        shutil.copytree(src, dst)
+        return
+
+    for item in src.rglob("*"):
+        rel = item.relative_to(src)
+        target = dst / rel
+        if item.is_dir():
+            target.mkdir(parents=True, exist_ok=True)
+        elif not target.exists():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(item, target)
+
+
+def write_generated_core_config(echel_core_dir: Path) -> None:
+    config_path = echel_core_dir / "project.echel"
+    config_path.write_text(
+        """{
+  "version": 2,
+  "roots": {
+    "SRC_ROOT": "..",
+    "LANG_ROOT": "tools",
+    "MEMORY_ROOT": "docs/development/state",
+    "WIKI_ROOT": "../wiki"
+  },
+  "migration_map": {},
+  "gate_policy": ".echel/gates.json",
+  "evidence_registry": ".echel/evidence_registry.json"
+}
+""",
+        encoding="utf-8",
+    )
 
 
 def copy_existing_source(source_dir: Path, workspace_dir: Path) -> None:
@@ -94,13 +138,15 @@ def write_project_identity_files(workspace_dir: Path, project_name: str, mode: s
         "## Structure",
         "",
         "- `./`: Project codebase and repository root",
-        "- `./echel-core/`: Internal Echel framework for governance and workflow orchestration",
+        "- `./wiki/`: Product memory, decisions, tasks, reports, and accumulated project intelligence",
+        "- `./echel-core/`: Internal Echel framework for methodology, tools, prompts, schemas, and workflow orchestration",
         "",
         "## Next steps",
         "",
         "1. Start implementing software in this repository root.",
-        "2. Use `./echel-core` for governance and knowledge workflows.",
-        "3. Keep `echel-core/` ignored by this repository's Git history.",
+        "2. Commit and maintain `./wiki` with the product; it is part of the project.",
+        "3. Use `./echel-core` for Echel's operating method and automation.",
+        "4. Keep `echel-core/` ignored by this repository's Git history.",
         "",
         f"Initialization mode: `{mode}`",
     ]
@@ -118,23 +164,164 @@ def write_project_identity_files(workspace_dir: Path, project_name: str, mode: s
         )
 
 
-def update_core_context(echel_core_dir: Path, project_name: str, mode: str, source: str | None) -> None:
-    brief = echel_core_dir / "wiki" / "project-brief.md"
-    if brief.exists() and "# Project Brief" in brief.read_text(encoding="utf-8"):
-        brief.write_text(
-            brief.read_text(encoding="utf-8").replace(
-                "# Project Brief", f"# Project Brief - {project_name}", 1
-            ),
-            encoding="utf-8",
-        )
+def _replace_section_body(text: str, heading: str, body: str) -> str:
+    import re
 
-    log = echel_core_dir / "wiki" / "log.md"
+    pattern = rf"(## {re.escape(heading)}\n)(.*?)(?=\n## |\Z)"
+    if re.search(pattern, text, flags=re.DOTALL):
+        return re.sub(
+            pattern,
+            lambda match: f"{match.group(1)}{body.rstrip()}\n",
+            text,
+            count=1,
+            flags=re.DOTALL,
+        )
+    return text.rstrip() + f"\n\n## {heading}\n{body.rstrip()}\n"
+
+
+def write_product_pages(
+    workspace_dir: Path,
+    project_name: str,
+    problem: str,
+    solution: str,
+    direction: str,
+    users: str,
+    success: str,
+) -> None:
+    wiki = workspace_dir / "wiki"
+    pages = {
+        "project.md": f"""---
+type: product
+status: active
+---
+# {project_name}
+
+## Problem
+{problem or "TBD"}
+
+## Intended Solution
+{solution or "TBD"}
+
+## Product Direction
+{direction or "TBD"}
+
+## Success Criteria
+- {success or "TBD"}
+""",
+        "problem.md": f"""---
+type: product-problem
+status: draft
+---
+# Problem
+
+## Problem Statement
+{problem or "TBD"}
+
+## Why It Matters
+TBD
+""",
+        "users.md": f"""---
+type: product-users
+status: draft
+---
+# Users
+
+## Primary Users
+- {users or "TBD"}
+
+## Needs
+- TBD
+""",
+        "solution.md": f"""---
+type: product-solution
+status: draft
+---
+# Solution
+
+## Solution Concept
+{solution or "TBD"}
+
+## Core Capabilities
+- TBD
+""",
+        "scope.md": """---
+type: product-scope
+status: draft
+---
+# Scope
+
+## MVP
+- TBD
+
+## Later
+- TBD
+
+## Out of Scope
+- TBD
+""",
+        "roadmap.md": """---
+type: roadmap
+status: draft
+---
+# Roadmap
+
+## Now
+- Clarify product intent.
+
+## Next
+- Define MVP work.
+
+## Later
+- TBD
+""",
+        "architecture.md": """---
+type: product-architecture
+status: draft
+---
+# Product Architecture
+
+## System Shape
+TBD
+
+## Key Components
+- TBD
+""",
+    }
+    for rel, content in pages.items():
+        path = wiki / rel
+        path.write_text(content, encoding="utf-8")
+
+
+def update_project_wiki_context(
+    workspace_dir: Path,
+    project_name: str,
+    mode: str,
+    source: str | None,
+    problem: str,
+    solution: str,
+    direction: str,
+    users: str,
+    success: str,
+) -> None:
+    write_product_pages(workspace_dir, project_name, problem, solution, direction, users, success)
+    brief = workspace_dir / "wiki" / "project-brief.md"
+    if brief.exists() and "# Project Brief" in brief.read_text(encoding="utf-8"):
+        text = brief.read_text(encoding="utf-8").replace("# Project Brief", f"# Project Brief - {project_name}", 1)
+        if problem:
+            text = _replace_section_body(text, "Product Problem", problem)
+        if solution:
+            text = _replace_section_body(text, "Intended Solution", solution)
+        if direction:
+            text = _replace_section_body(text, "Product Direction", direction)
+        brief.write_text(text, encoding="utf-8")
+
+    log = workspace_dir / "wiki" / "log.md"
     stamp = datetime.now(timezone.utc).date()
     with log.open("a", encoding="utf-8") as f:
         f.write(
             f"\n## [{stamp}] init | {project_name}\n"
             f"- Initialized project in `{mode}` mode.\n"
-            f"- Generated project-root workspace with internal `echel-core/` orchestration.\n"
+            f"- Generated project-root workspace with `wiki/` as product memory and internal `echel-core/` orchestration.\n"
         )
         if source:
             f.write(f"- Source path: `{source}`.\n")
@@ -164,12 +351,25 @@ def main() -> int:
         workspace_dir.mkdir(parents=True, exist_ok=False)
 
     copy_core_template(repo_root, echel_core_dir)
+    copy_project_wiki_template(repo_root, workspace_dir)
+    write_generated_core_config(echel_core_dir)
     ensure_workspace_gitignore(workspace_dir)
     write_project_identity_files(workspace_dir, args.name, args.mode, args.source)
-    update_core_context(echel_core_dir, args.name, args.mode, args.source)
+    update_project_wiki_context(
+        workspace_dir,
+        args.name,
+        args.mode,
+        args.source,
+        args.problem,
+        args.solution,
+        args.direction,
+        args.users,
+        args.success,
+    )
 
     print(f"Initialized workspace: {workspace_dir}")
     print(f"- Echel framework: {echel_core_dir}")
+    print(f"- Project wiki: {workspace_dir / 'wiki'}")
     print(f"- Project repository root: {workspace_dir}")
     print("Next:")
     print(f"  cd {workspace_dir} && git init")

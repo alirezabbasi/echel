@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
+from echel_paths import configured_root
 
 FILES = [
     "ruleset.md",
@@ -10,23 +11,28 @@ FILES = [
     "schema/LINT.md",
     "schema/TASKS.md",
     "schema/STANDARDS.md",
-    "wiki/index.md",
-    "wiki/project-brief.md",
-    "wiki/log.md",
-    "docs/development/04-memory/WHERE_ARE_WE.md",
-    "docs/development/04-memory/CURRENT_STATE.md",
-    "docs/development/02-execution/KANBAN.md",
+    "$WIKI_ROOT/index.md",
+    "$WIKI_ROOT/project-brief.md",
+    "$WIKI_ROOT/log.md",
+    "docs/development/state/where-are-we.md",
+    "docs/development/state/current-state.md",
+    "docs/development/work.md",
 ]
 
 print("# Session Bootstrap Context\n")
 for file_path in FILES:
-    p = Path(file_path)
-    print(f"## {file_path}")
+    display_path = file_path
+    if file_path.startswith("$WIKI_ROOT/"):
+        p = configured_root("WIKI_ROOT", "wiki") / file_path.removeprefix("$WIKI_ROOT/")
+        display_path = f"wiki/{file_path.removeprefix('$WIKI_ROOT/')}"
+    else:
+        p = Path(file_path)
+    print(f"## {display_path}")
     if not p.exists():
         print("MISSING")
     else:
         text = p.read_text(encoding="utf-8")
-        if file_path.endswith("wiki/log.md"):
+        if display_path.endswith("wiki/log.md"):
             print("\n".join(text.splitlines()[-120:]))
         else:
             print(text[:6000])

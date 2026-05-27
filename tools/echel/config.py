@@ -32,7 +32,8 @@ DEFAULT_CONFIG = {
     "roots": {
         "SRC_ROOT": ".",
         "LANG_ROOT": "tools",
-        "MEMORY_ROOT": "docs/development/04-memory",
+        "MEMORY_ROOT": "docs/development/state",
+        "WIKI_ROOT": "wiki",
     },
     "migration_map": {},
     "gate_policy": ".echel/gates.json",
@@ -74,6 +75,8 @@ def load_config(root: Path | None = None) -> ProjectConfig:
         val = roots.get(key)
         if not isinstance(val, str) or not val:
             raise _err(f"roots.{key} must be a non-empty string")
+    if "WIKI_ROOT" not in roots:
+        roots["WIKI_ROOT"] = "wiki"
 
     migration_map = raw.get("migration_map", {})
     if not isinstance(migration_map, dict):

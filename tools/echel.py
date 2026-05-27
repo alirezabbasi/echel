@@ -10,7 +10,7 @@ import sys
 from echel.adapters import detect_adapters
 from echel.coherence import detect_drift
 from echel.conformance import run_conformance
-from echel.config import ConfigError, load_config, resolve_root_map
+from echel.config import ConfigError, load_config, resolve_root_map, resolve_symbolic_path
 from echel.contracts import ensure_contracts, validate_transition
 from echel.evidence import ensure_registry, validate_links, validate_registry
 from echel.gates import run_gates
@@ -18,6 +18,14 @@ from echel.memory_kernel import append_record, contradiction_summary, query_reco
 from echel.migration_planner import plan_waves
 from echel.platform.runtime import ensure_platform_config, load_platform_config
 from echel.primitives import validate_decisions, validate_tasks
+from echel.product import (
+    clarification_questions,
+    create_plan_task,
+    ensure_product_pages,
+    next_task,
+    product_status,
+    update_project_definition,
+)
 from echel.workspace import apply_workspace_move, plan_workspace_move, write_impact_preview
 
 
@@ -27,6 +35,14 @@ def _load(repo_root: Path):
     except ConfigError as exc:
         print(f"CONFIG_ERROR: {exc}", file=sys.stderr)
         sys.exit(2)
+
+
+def _wiki_root(repo_root: Path, cfg) -> Path:
+    return resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root)
+
+
+def _memory_root(repo_root: Path, cfg) -> Path:
+    return resolve_symbolic_path("$MEMORY_ROOT", cfg, repo_root)
 
 
 def cmd_start(repo_root: Path) -> int:
@@ -39,15 +55,84 @@ def cmd_start(repo_root: Path) -> int:
     return 0
 
 
+def cmd_define(
+    repo_root: Path,
+    name: str | None,
+    problem: str | None,
+    solution: str | None,
+    direction: str | None,
+    users: str | None,
+    success: str | None,
+) -> int:
+    cfg = _load(repo_root)
+    changed = update_project_definition(
+        repo_root,
+        cfg,
+        name=name,
+        problem=problem,
+        solution=solution,
+        direction=direction,
+        users=users,
+        success=success,
+    )
+    print("Product definition updated")
+    for path in changed:
+        print(f"- {path}")
+    return 0
+
+
+def cmd_clarify(repo_root: Path) -> int:
+    cfg = _load(repo_root)
+    questions = clarification_questions(repo_root, cfg)
+    print("Clarification Queue")
+    if not questions:
+        print("- No obvious clarification gaps found.")
+        return 0
+    for idx, question in enumerate(questions, start=1):
+        print(f"{idx}. {question}")
+    return 0
+
+
+def cmd_plan(repo_root: Path, title: str | None, goal: str | None) -> int:
+    cfg = _load(repo_root)
+    if not title:
+        ensure_product_pages(repo_root, cfg, "Product")
+        print("Planning Recommendations")
+        for question in clarification_questions(repo_root, cfg)[:5]:
+            print(f"- Clarify: {question}")
+        print("- Create a work item with: echel plan --title \"Define MVP\" --goal \"Clarify MVP scope and acceptance criteria\"")
+        return 0
+    path = create_plan_task(repo_root, cfg, title=title, goal=goal)
+    print(f"Created product work item: {path}")
+    return 0
+
+
+def cmd_status(repo_root: Path) -> int:
+    cfg = _load(repo_root)
+    print(product_status(repo_root, cfg))
+    return 0
+
+
+def cmd_next(repo_root: Path) -> int:
+    cfg = _load(repo_root)
+    task = next_task(repo_root, cfg)
+    if task:
+        print(task)
+        return 0
+    print("No open task found.")
+    return 0
+
+
 def cmd_doctor(repo_root: Path) -> int:
     cfg = _load(repo_root)
     code = 0
 
     print("## Doctor Report")
     print("\n### Primitive Validation")
+    wiki_root = _wiki_root(repo_root, cfg)
     p_issues = []
-    p_issues.extend(validate_tasks(sorted((repo_root / "wiki/tasks").glob("TASK-*.md"))))
-    p_issues.extend(validate_decisions(sorted((repo_root / "wiki/decisions").glob("ADR-*.md"))))
+    p_issues.extend(validate_tasks(sorted((wiki_root / "work").glob("TASK-*.md"))))
+    p_issues.extend(validate_decisions(sorted((wiki_root / "decisions").glob("ADR-*.md"))))
     if not p_issues:
         print("- OK")
     else:
@@ -59,7 +144,7 @@ def cmd_doctor(repo_root: Path) -> int:
     reg_path = repo_root / cfg.evidence_registry
     reg = ensure_registry(reg_path)
     r_issues = validate_registry(reg, str(reg_path))
-    link_files = sorted((repo_root / "wiki/tasks").glob("TASK-*.md")) + sorted((repo_root / "wiki/decisions").glob("ADR-*.md"))
+    link_files = sorted((wiki_root / "work").glob("TASK-*.md")) + sorted((wiki_root / "decisions").glob("ADR-*.md"))
     l_issues = validate_links(link_files, reg)
     if not r_issues and not l_issues:
         print("- OK")
@@ -107,8 +192,8 @@ def _set_task_status(path: Path, done: bool) -> None:
     path.write_text(text, encoding="utf-8")
 
 
-def _set_kanban_task(repo_root: Path, task_id: str, done: bool) -> None:
-    p = repo_root / "docs/development/02-execution/KANBAN.md"
+def _set_kanban_task(repo_root: Path, cfg, task_id: str, done: bool) -> None:
+    p = _memory_root(repo_root, cfg).parent / "work.md"
     text = p.read_text(encoding="utf-8")
     mark = "x" if done else " "
     updated, count = re.subn(rf"- \[(?: |x)\] ({re.escape(task_id)})\b", rf"- [{mark}] \1", text)
@@ -119,8 +204,7 @@ def _set_kanban_task(repo_root: Path, task_id: str, done: bool) -> None:
 
 def cmd_close_task(repo_root: Path, task_id: str) -> int:
     cfg = _load(repo_root)
-    _ = cfg
-    matches = sorted((repo_root / "wiki/tasks").glob(f"{task_id}-*.md"))
+    matches = sorted((_wiki_root(repo_root, cfg) / "work").glob(f"{task_id}-*.md"))
     if not matches:
         print(f"task not found: {task_id}", file=sys.stderr)
         return 2
@@ -138,7 +222,7 @@ def cmd_close_task(repo_root: Path, task_id: str) -> int:
         return 1
 
     _set_task_status(task_path, done=True)
-    _set_kanban_task(repo_root, task_id, done=True)
+    _set_kanban_task(repo_root, cfg, task_id, done=True)
     print(f"closed {task_id}")
     return 0
 
@@ -153,10 +237,12 @@ def _sync_last_updated(path: Path, target_date: str) -> None:
 
 
 def cmd_sync_memory(repo_root: Path) -> int:
+    cfg = _load(repo_root)
     today = date.today().isoformat()
+    memory_root = _memory_root(repo_root, cfg)
     targets = [
-        repo_root / "docs/development/04-memory/WHERE_ARE_WE.md",
-        repo_root / "docs/development/04-memory/CURRENT_STATE.md",
+        memory_root / "where-are-we.md",
+        memory_root / "current-state.md",
     ]
     for p in targets:
         if p.exists():
@@ -284,6 +370,23 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("start")
     sub.add_parser("doctor")
 
+    define = sub.add_parser("define")
+    define.add_argument("--name")
+    define.add_argument("--problem")
+    define.add_argument("--solution")
+    define.add_argument("--direction")
+    define.add_argument("--users")
+    define.add_argument("--success")
+
+    sub.add_parser("clarify")
+
+    plan = sub.add_parser("plan")
+    plan.add_argument("--title")
+    plan.add_argument("--goal")
+
+    sub.add_parser("status")
+    sub.add_parser("next")
+
     close = sub.add_parser("close-task")
     close.add_argument("task_id")
 
@@ -346,6 +449,24 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_start(root)
     if args.cmd == "doctor":
         return cmd_doctor(root)
+    if args.cmd == "define":
+        return cmd_define(
+            root,
+            name=args.name,
+            problem=args.problem,
+            solution=args.solution,
+            direction=args.direction,
+            users=args.users,
+            success=args.success,
+        )
+    if args.cmd == "clarify":
+        return cmd_clarify(root)
+    if args.cmd == "plan":
+        return cmd_plan(root, title=args.title, goal=args.goal)
+    if args.cmd == "status":
+        return cmd_status(root)
+    if args.cmd == "next":
+        return cmd_next(root)
     if args.cmd == "close-task":
         return cmd_close_task(root, args.task_id)
     if args.cmd == "sync-memory":

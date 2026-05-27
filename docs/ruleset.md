@@ -6,21 +6,21 @@ This file extends `ruleset.md` with operational controls.
 
 - Keep `wiki/index.md` and `wiki/log.md` current.
 - Maintain memory artifacts:
-  - `docs/development/04-memory/CURRENT_STATE.md`
-  - `docs/development/04-memory/SESSION_LEDGER.md`
-  - `docs/development/04-memory/DECISION_LOG.md`
-  - `docs/development/04-memory/RISKS_AND_ASSUMPTIONS.md`
+  - `docs/development/state/current-state.md`
+  - `docs/development/state/session-ledger.md`
+  - `docs/development/state/decision-log.md`
+  - `docs/development/state/risks-and-assumptions.md`
 
 ## Execution Controls
 
-- Execution tracking lives in `docs/development/02-execution/KANBAN.md`.
+- Execution tracking lives in `docs/development/work.md`.
 - Task statuses must match evidence in wiki and development memory docs.
 - Non-completed tasks require explicit Definition of Done.
 
 ## Debugging Controls
 
-- Register every discovered bug in `docs/development/debugging/BUG-00001.md` style.
-- Log development/debug commands in `docs/development/debugging/debugcmd.md` with timestamp, command, purpose, and status.
+- Register every discovered bug in `docs/development/bugs/BUG-00001.md` style.
+- Log development/debug commands in `docs/development/bugs/debug-commands.md` with timestamp, command, purpose, and status.
 
 ## Status Protocol
 
@@ -35,4 +35,4 @@ When asked "Where are we?" (or when running `make wrw`), answer with exactly:
 - Risks/Blocks
 
 Source that answer from current state, session ledger, and kanban documents.
-Keep `docs/development/04-memory/WHERE_ARE_WE.md` synchronized as the concise snapshot artifact for this protocol.
+Keep `docs/development/state/where-are-we.md` synchronized as the concise snapshot artifact for this protocol.

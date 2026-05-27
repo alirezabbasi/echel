@@ -16,11 +16,11 @@ Echel is structured as four integrated layers:
 
 v1 architecture/spec references:
 
-- `docs/development/03-architecture/ECHEL_FOUR_LAYER_OS.md`
+- `docs/development/architecture.md`
 - `schema/EXECUTION.md`
-- `docs/development/06-evidence/EVIDENCE_OS_SPEC.md`
-- `docs/development/05-automation/AUTOMATION_OS_SPEC.md`
-- `docs/development/00-governance/GATE_RUNNER_CONTRACT.md`
+- `docs/development/evidence.md`
+- `docs/development/automation.md`
+- `docs/development/governance.md`
 
 ## Echel Story
 
@@ -97,10 +97,12 @@ make init-project NAME=existing-project MODE=existing DEST=. SOURCE=/path/to/rep
 This creates:
 
 - `<destination>/<project-name>/` as the target software project repository root
+- `<destination>/<project-name>/wiki/` as the product memory that belongs to the target repository
 - `<destination>/<project-name>/echel-core/` as the internal Echel framework folder inside that repository
 
 The generated repository is branded as the target project (name, README, license, and identity).
-`echel-core` orchestrates workflow and governance from inside the project, but it should be ignored in the target project's VCS (`.gitignore`) so only the software project artifact is committed and pushed.
+`wiki/` should be committed with the target project because it contains accumulated product knowledge, context, decisions, tasks, reports, and evolving intelligence.
+`echel-core` orchestrates workflow and governance from inside the project, but it should be ignored in the target project's VCS (`.gitignore`) so framework machinery does not clutter the product repository.
 
 ## How to Start with Echel
 
@@ -134,7 +136,7 @@ This verifies that generated artifacts, links, and governance controls are consi
 
 ### 3) Open the wiki in Obsidian
 
-Open `<project-name>/echel-core/wiki/` as an Obsidian vault.
+Open `<project-name>/wiki/` as an Obsidian vault.
 
 Echel generates linked Markdown (`[[wikilinks]]`) so project relationships are visible in Obsidian's graph and remain navigable as the system grows.
 
@@ -142,7 +144,7 @@ Echel generates linked Markdown (`[[wikilinks]]`) so project relationships are v
 
 Use your coding assistant (Codex, Claude Code, Cursor, etc.) to:
 
-1. read project context from `echel-core/wiki`
+1. read project context from the project `wiki/`
 2. pick or create a task artifact
 3. implement software in the target project repository root (outside `echel-core`)
 4. update linked knowledge artifacts
@@ -154,24 +156,46 @@ The development loop is:
 
 `idea -> structured knowledge -> task -> implementation -> verification -> bug management -> RCA -> updated knowledge`
 
-Detailed operating method: [Operational Loop Methodology](docs/development/01-methodology/OPERATIONAL_LOOP_METHODOLOGY.md)
+Detailed operating method: [Operational Loop Methodology](docs/development/method.md)
 
 Echel is designed so code and understanding evolve together, not separately.
 
 ## Model
 
+In a generated product repository, Echel keeps product-owned memory at the root and framework machinery inside `echel-core/`:
+
 ```text
-raw/      immutable inputs
-wiki/     persistent LLM-maintained knowledge layer
-schema/   agent behavior contract
-prompts/  repeatable workflows
-tools/    automation and quality gates
-docs/     governance and project controls
+wiki/          long-term product memory committed with the project
+  knowledge/  concepts, systems, standards, entities, and flows
+  decisions/  durable architecture and product decisions
+  work/       task artifacts and executable work
+  reports/    generated checks, source summaries, and analysis
+echel-core/    Echel framework, ignored by the product repository
+  docs/development/
+    method.md  how work moves from idea to verified outcome
+    work.md    active backlog and execution board
+    state/     current status, history, decisions, and risks
+    bugs/      bug records and debugging evidence
+  raw/         original framework inputs and reference material
+  schema/      agent and artifact contracts
+  prompts/     repeatable agent workflows
+  tools/       automation and quality gates
 ```
 
 ## v2 MVP CLI Foundation
 
 Echel now includes a declarative project contract and core operator commands:
+
+Product-owner commands:
+
+1. `python3 tools/echel.py define --problem "..." --solution "..." --direction "..."`
+2. `python3 tools/echel.py clarify` lists missing product decisions.
+3. `python3 tools/echel.py plan` suggests planning actions.
+4. `python3 tools/echel.py plan --title "Define MVP" --goal "..."`
+5. `python3 tools/echel.py status` summarizes product state.
+6. `python3 tools/echel.py next` selects the next open work item.
+
+Operator commands:
 
 1. `project.echel` is the project contract file (schema + roots + migration map + gate/evidence paths).
 2. `python3 tools/echel.py start` validates and loads project roots.
@@ -188,8 +212,8 @@ Echel now includes a declarative project contract and core operator commands:
   - `python3 tools/echel.py memory query [--type <type>] [--contradictions] [--text <query>]`
 - Differential conformance framework:
   - `python3 tools/echel.py conformance run`
-  - fixtures in `.echel/conformance/fixtures.json`
-  - report output in `wiki/analysis/conformance-report.md`
+  - fixtures in `.echel/fixtures.json`
+  - report output in `wiki/reports/conformance-report.md`
 - Migration wave planner:
   - `python3 tools/echel.py migration plan`
 - UX safety rails:

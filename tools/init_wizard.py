@@ -13,6 +13,7 @@ def main() -> int:
     print("Echel Initialization Wizard")
     print("This creates a target software project repository where:")
     print("- <project-name>/ is the repository root for your software")
+    print("- <project-name>/wiki/ is the product memory committed with the project")
     print("- <project-name>/echel-core/ is the internal Echel framework\n")
 
     name = ask("Project name")
@@ -30,6 +31,11 @@ def main() -> int:
             source = ask("Path to existing source repo (required)")
 
     dest = ask("Destination parent directory", ".")
+    problem = ask("Problem statement", "")
+    solution = ask("Intended solution", "")
+    direction = ask("Product direction", "")
+    users = ask("Target users", "")
+    success = ask("Success criteria", "")
 
     cmd = [
         "python3",
@@ -43,6 +49,15 @@ def main() -> int:
     ]
     if source:
         cmd.extend(["--source", source])
+    for flag, value in [
+        ("--problem", problem),
+        ("--solution", solution),
+        ("--direction", direction),
+        ("--users", users),
+        ("--success", success),
+    ]:
+        if value:
+            cmd.extend([flag, value])
 
     subprocess.run(cmd, check=True)
     return 0

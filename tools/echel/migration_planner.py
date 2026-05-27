@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from pathlib import Path
 import re
 
+from .config import load_config, resolve_symbolic_path
+
 
 TASK_REF_RE = re.compile(r'\bTASK-\d{4}\b')
 
@@ -46,7 +48,9 @@ def _build_graph(task_files: list[Path]) -> tuple[dict[str, set[str]], dict[str,
 
 
 def plan_waves(repo_root: Path) -> list[Wave]:
-    files = sorted((repo_root / 'wiki/tasks').glob('TASK-*.md'))
+    cfg = load_config(repo_root)
+    wiki_root = resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root)
+    files = sorted((wiki_root / 'work').glob('TASK-*.md'))
     deps, indeg = _build_graph(files)
     rev = defaultdict(set)
     for t, rs in deps.items():

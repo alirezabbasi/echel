@@ -24,9 +24,9 @@ At session start, load:
 4. `wiki/index.md`
 5. `wiki/project-brief.md`
 6. `wiki/log.md` (recent entries)
-7. `docs/development/04-memory/WHERE_ARE_WE.md`
-8. `docs/development/04-memory/CURRENT_STATE.md`
-9. `docs/development/02-execution/KANBAN.md`
+7. `docs/development/state/where-are-we.md`
+8. `docs/development/state/current-state.md`
+9. `docs/development/work.md`
 
 ## Rule 3: Task Discipline
 
@@ -41,8 +41,8 @@ At session start, load:
 ## Rule 5: Governance and Traceability
 
 - Major decisions require ADRs.
-- Bugs must be recorded in `docs/development/debugging/BUG-*.md`.
-- Debug commands must be logged in `docs/development/debugging/debugcmd.md`.
+- Bugs must be recorded in `docs/development/bugs/BUG-*.md`.
+- Debug commands must be logged in `docs/development/bugs/debug-commands.md`.
 
 ## Rule 6: Keep It General-Purpose
 

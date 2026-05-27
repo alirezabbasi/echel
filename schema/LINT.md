@@ -13,5 +13,5 @@
 - Missing contradiction records when declared.
 
 ## Outputs
-- `wiki/analysis/wiki-health-report.md`
+- `wiki/reports/wiki-health-report.md`
 - Non-zero exit code when critical issues exist.

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 from pathlib import Path
+from echel_paths import configured_root
 
-wiki = Path("wiki")
+wiki = configured_root("WIKI_ROOT", "wiki")
 sections: dict[str, list[tuple[str, str]]] = {}
 
 for p in sorted(wiki.rglob("*.md")):

@@ -10,7 +10,7 @@ status: active
 - Hardened workflow automation and knowledge quality gates.
 
 ## [2026-05-06] model | project intelligence compounding
-- Added a canonical model for intelligence and memory compounding in `wiki/systems/project-intelligence-compounding-model.md`.
+- Added a canonical model for intelligence and memory compounding in `wiki/knowledge/project-intelligence-compounding-model.md`.
 - Defined delivery, reliability, and strategy loops with bug-management and RCA feedback paths.
 - Added maturity stages, operating cadence, decision guidance protocol, and measurement model for direction shaping.
 
@@ -48,3 +48,28 @@ status: active
 - Reframed persistent memory as the solution to AI agent token/context limitations across long-running development.
 - Defined the ownership boundary between `wiki/` durable project intelligence and `docs/development/` operating procedure.
 - Added `TASK-0005` to simplify overlapping knowledge and development documentation surfaces.
+
+## [2026-05-27] structure | human-readable-folder-model
+- Consolidated wiki folders into `knowledge`, `decisions`, `work`, and `reports`.
+- Collapsed numbered development subfolders into direct files plus `state` and `bugs`.
+- Moved raw source files and conformance fixtures up one level to remove unnecessary nesting.
+- Added ADR-0003 to preserve the simplified folder model as an intentional product decision.
+
+## [2026-05-27] initialization | product-wiki-at-project-root
+- Updated project initialization so generated repositories keep `wiki/` at the product root.
+- Kept Echel framework files, SDLC methodology, prompts, schemas, tools, and operating docs inside `echel-core/`.
+- Added `WIKI_ROOT` to project configuration so tools can run from `echel-core/` while updating product-owned memory.
+- Added ADR-0004 to preserve the product-wiki/framework-core boundary.
+
+## [2026-05-27] strategy | v2-product-direction-review
+- Reviewed Echel's architecture, workflow, documentation model, tooling, prompts, platform runtime, and current project direction.
+- Added `wiki/reports/echel-v2-product-direction-review.md`.
+- Recommended V2 evolve from framework scaffold into a guided product-creation platform for domain-expert-led AI-native development.
+
+## [2026-05-27] phase-1 | product-flow-commands
+- Started V2 Phase 1 by adding product-first initialization pages.
+- Added `echel define`, `echel clarify`, `echel plan`, `echel status`, and `echel next`.
+- Added Make targets for the product-owner command surface.
+
+## [2026-05-27] define | product-flow
+- Updated product definition through `echel define`.

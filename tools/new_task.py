@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import re
+from echel_paths import configured_root
 
 
 def next_task_number(tasks_dir: Path) -> int:
@@ -16,7 +17,7 @@ def slugify(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")[:80]
 
 
-tasks = Path("wiki/tasks")
+tasks = configured_root("WIKI_ROOT", "wiki") / "work"
 tasks.mkdir(parents=True, exist_ok=True)
 num = next_task_number(tasks)
 title = input("Task title: ").strip()
@@ -34,7 +35,7 @@ status: planned
 # TASK-{num:04d} — {title}
 
 ## Context
-- [[../systems/ai-native-engineering-os]]
+- [[../knowledge/ai-native-engineering-os]]
 
 ## Objective
 TBD

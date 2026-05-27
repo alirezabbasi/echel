@@ -1,4 +1,4 @@
-.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project echel-start echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
+.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
 
 session-bootstrap:
 	python3 tools/session_bootstrap.py
@@ -21,7 +21,7 @@ file-query:
 	python3 tools/file_query.py
 
 ingest-initial:
-	python3 tools/ingest.py raw/sources/initial-source.md --title "Initial source import" --kind source
+	python3 tools/ingest.py raw/initial-source.md --title "Initial source import" --kind source
 
 wrw:
 	python3 tools/wrw.py
@@ -34,6 +34,21 @@ init-project:
 
 echel-start:
 	python3 tools/echel.py start
+
+echel-define:
+	python3 tools/echel.py define $${NAME:+--name "$$NAME"} $${PROBLEM:+--problem "$$PROBLEM"} $${SOLUTION:+--solution "$$SOLUTION"} $${DIRECTION:+--direction "$$DIRECTION"} $${USERS:+--users "$$USERS"} $${SUCCESS:+--success "$$SUCCESS"}
+
+echel-clarify:
+	python3 tools/echel.py clarify
+
+echel-plan:
+	python3 tools/echel.py plan $${TITLE:+--title "$$TITLE"} $${GOAL:+--goal "$$GOAL"}
+
+echel-status:
+	python3 tools/echel.py status
+
+echel-next:
+	python3 tools/echel.py next
 
 echel-doctor:
 	python3 tools/echel.py doctor

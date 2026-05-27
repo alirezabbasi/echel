@@ -55,10 +55,11 @@ Echel is designed so code and understanding evolve together, not separately.
 
 ## Daily loop
 1. Run `make session-bootstrap`.
-2. Run `make wrw` whenever you need a concise "Where Are We?" status snapshot.
-3. Select one task from `wiki/tasks/`.
-4. Implement smallest safe change with tests.
-5. Update canonical wiki pages and task status.
-6. Run `make wiki-health`.
-7. Sync `docs/development` memory and execution docs.
-8. Commit changes with clear scope.
+2. Run `python3 tools/echel.py status` to see product state.
+3. Run `python3 tools/echel.py clarify` when product intent is still incomplete.
+4. Run `python3 tools/echel.py next` to choose the next work item.
+5. Implement the smallest safe change with tests.
+6. Update canonical wiki pages and task status.
+7. Run `make wiki-health`.
+8. Sync `docs/development/state` and `docs/development/work.md`.
+9. Commit changes with clear scope.

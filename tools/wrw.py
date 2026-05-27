@@ -4,10 +4,10 @@ import re
 import sys
 
 
-WHERE_ARE_WE = Path("docs/development/04-memory/WHERE_ARE_WE.md")
-CURRENT_STATE = Path("docs/development/04-memory/CURRENT_STATE.md")
-SESSION_LEDGER = Path("docs/development/04-memory/SESSION_LEDGER.md")
-KANBAN = Path("docs/development/02-execution/KANBAN.md")
+WHERE_ARE_WE = Path("docs/development/state/where-are-we.md")
+CURRENT_STATE = Path("docs/development/state/current-state.md")
+SESSION_LEDGER = Path("docs/development/state/session-ledger.md")
+KANBAN = Path("docs/development/work.md")
 
 REQUIRED_HEADINGS = [
     "## Completed",

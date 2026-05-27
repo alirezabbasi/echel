@@ -5,9 +5,10 @@ import json
 from pathlib import Path
 import subprocess
 
+from .config import load_config, resolve_symbolic_path
 
-FIXTURE_PATH = Path('.echel/conformance/fixtures.json')
-REPORT_PATH = Path('wiki/analysis/conformance-report.md')
+
+FIXTURE_PATH = Path('.echel/fixtures.json')
 
 
 @dataclass
@@ -46,6 +47,8 @@ def _run(cmd: str, cwd: Path) -> tuple[int, str]:
 
 
 def run_conformance(repo_root: Path) -> tuple[list[FixtureResult], Path]:
+    cfg = load_config(repo_root)
+    wiki_root = resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root)
     fixtures = ensure_fixtures(repo_root)
     results: list[FixtureResult] = []
     for fx in fixtures:
@@ -70,7 +73,7 @@ def run_conformance(repo_root: Path) -> tuple[list[FixtureResult], Path]:
         lines.append(f"- New exit: {r.new_exit}")
         lines.append('')
 
-    rp = repo_root / REPORT_PATH
+    rp = wiki_root / 'reports/conformance-report.md'
     rp.parent.mkdir(parents=True, exist_ok=True)
     rp.write_text('\n'.join(lines) + '\n', encoding='utf-8')
     return results, rp

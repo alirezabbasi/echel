@@ -5,60 +5,59 @@ status: active
 
 # Index
 
-## Analysis
-
-- [[analysis/conformance-report|Conformance Report]]
-- [[analysis/wiki-health-report|Wiki Health Report]]
-
-## Concepts
-
-- [[concepts/contradiction-management|Contradiction Management]]
-- [[concepts/evolving-sdlc|Evolving Sdlc]]
-- [[concepts/knowledge-compounding|Knowledge Compounding]]
-- [[concepts/llm-wiki|Llm Wiki]]
-
 ## Decisions
 
 - [[decisions/ADR-0001-adopt-llm-wiki-as-project-memory|Adr 0001 Adopt Llm Wiki As Project Memory]]
 - [[decisions/ADR-0002-extend-wiki-into-sdlc-operating-system|Adr 0002 Extend Wiki Into Sdlc Operating System]]
+- [[decisions/ADR-0003-simplify-folder-structure-for-human-navigation|Adr 0003 Simplify Folder Structure For Human Navigation]]
+- [[decisions/ADR-0004-keep-product-wiki-outside-echel-core|Adr 0004 Keep Product Wiki Outside Echel Core]]
 
-## Entities
+## Knowledge
 
-- [[entities/decision-record|Decision Record]]
-- [[entities/llm-agent|Llm Agent]]
-- [[entities/quality-gate|Quality Gate]]
-- [[entities/raw-sources|Raw Sources]]
-- [[entities/schema|Schema]]
-- [[entities/task-artifact|Task Artifact]]
-- [[entities/wiki|Wiki]]
+- [[knowledge/ai-native-engineering-os|Ai Native Engineering Os]]
+- [[knowledge/codex-development-standard|Codex Development Standard]]
+- [[knowledge/contradiction-management|Contradiction Management]]
+- [[knowledge/decision-record|Decision Record]]
+- [[knowledge/evolving-sdlc|Evolving Sdlc]]
+- [[knowledge/knowledge-compounding|Knowledge Compounding]]
+- [[knowledge/llm-agent|Llm Agent]]
+- [[knowledge/llm-wiki|Llm Wiki]]
+- [[knowledge/project-intelligence-compounding-model|Project Intelligence Compounding Model]]
+- [[knowledge/quality-gate|Quality Gate]]
+- [[knowledge/query-to-artifact-flow|Query To Artifact Flow]]
+- [[knowledge/raw-sources|Raw Sources]]
+- [[knowledge/schema|Schema]]
+- [[knowledge/session-development-flow|Session Development Flow]]
+- [[knowledge/source-ingest-flow|Source Ingest Flow]]
+- [[knowledge/task-artifact|Task Artifact]]
+- [[knowledge/task-definition-standard|Task Definition Standard]]
+- [[knowledge/wiki-lint-flow|Wiki Lint Flow]]
+- [[knowledge/wiki-maintenance-standard|Wiki Maintenance Standard]]
+- [[knowledge/wiki|Wiki]]
 
-## Flows
+## Reports
 
-- [[flows/query-to-artifact-flow|Query To Artifact Flow]]
-- [[flows/session-development-flow|Session Development Flow]]
-- [[flows/source-ingest-flow|Source Ingest Flow]]
-- [[flows/wiki-lint-flow|Wiki Lint Flow]]
+- [[reports/conformance-report|Conformance Report]]
+- [[reports/echel-v2-product-direction-review|Echel V2 Product Direction Review]]
+- [[reports/wiki-health-report|Wiki Health Report]]
 
 ## Root
 
+- [[architecture|Architecture]]
 - [[log|Log]]
+- [[problem|Problem]]
 - [[project-brief|Project Brief]]
+- [[project|Project]]
+- [[roadmap|Roadmap]]
+- [[scope|Scope]]
+- [[solution|Solution]]
+- [[users|Users]]
 
-## Standards
+## Work
 
-- [[standards/codex-development-standard|Codex Development Standard]]
-- [[standards/task-definition-standard|Task Definition Standard]]
-- [[standards/wiki-maintenance-standard|Wiki Maintenance Standard]]
-
-## Systems
-
-- [[systems/ai-native-engineering-os|Ai Native Engineering Os]]
-- [[systems/project-intelligence-compounding-model|Project Intelligence Compounding Model]]
-
-## Tasks
-
-- [[tasks/TASK-0001-initialize-project-wiki|Task 0001 Initialize Project Wiki]]
-- [[tasks/TASK-0002-ingest-existing-codebase|Task 0002 Ingest Existing Codebase]]
-- [[tasks/TASK-0003-run-first-wiki-lint|Task 0003 Run First Wiki Lint]]
-- [[tasks/TASK-0004-define-echel-four-layer-os-architecture-and-v1-contracts|Task 0004 Define Echel Four Layer Os Architecture And V1 Contracts]]
-- [[tasks/TASK-0005-simplify-knowledge-and-development-boundaries|Task 0005 Simplify Knowledge And Development Boundaries]]
+- [[work/TASK-0001-initialize-project-wiki|Task 0001 Initialize Project Wiki]]
+- [[work/TASK-0002-ingest-existing-codebase|Task 0002 Ingest Existing Codebase]]
+- [[work/TASK-0003-run-first-wiki-lint|Task 0003 Run First Wiki Lint]]
+- [[work/TASK-0004-define-echel-four-layer-os-architecture-and-v1-contracts|Task 0004 Define Echel Four Layer Os Architecture And V1 Contracts]]
+- [[work/TASK-0005-simplify-knowledge-and-development-boundaries|Task 0005 Simplify Knowledge And Development Boundaries]]
+- [[work/TASK-0006-start-v2-phase1-product-flow|Task 0006 Start V2 Phase1 Product Flow]]
