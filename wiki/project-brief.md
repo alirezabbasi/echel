@@ -4,12 +4,31 @@ status: active
 ---
 # Project Brief
 
-This wiki is the persistent project memory and execution context.
-It supports both greenfield builds and existing-codebase evolution.
+Echel is a platform for AI-native software development through advanced vibe coding workflows guided by domain experts and AI agents.
+
+It exists to let a business owner, product expert, or domain expert guide product creation by defining requirements, clarifying intent, and steering the vision while Echel and AI agents handle structured execution, software development workflow, and continuity across sessions.
+
+Echel supports both greenfield builds and existing-codebase evolution.
 
 ## Operating model
-- LLM agent maintains structured knowledge artifacts.
-- Humans direct goals, review outputs, and make final decisions.
+- Domain experts provide intent, requirements, product constraints, and direction.
+- AI agents translate that intent into structured tasks, implementation work, verification, and durable project knowledge.
+- Echel maintains the persistent memory, orchestration, and governance layer that keeps work coherent over time.
+- Humans review outcomes and make final product and business decisions.
 
 ## Core promise
-Knowledge, decisions, standards, and execution intent compound over time.
+Echel continuously accumulates project intelligence so software development can keep moving forward coherently instead of resetting whenever an AI context window resets.
+
+The accumulated intelligence includes:
+
+- operational and architectural knowledge generated during development
+- relationships between product, code, decisions, tasks, and standards
+- future planning and design direction
+- evolving context required for long-term continuity
+
+## Knowledge Boundaries
+
+- `wiki/` is the long-term knowledge layer: canonical concepts, architecture, decisions, relationships, plans, and durable project memory.
+- `docs/development/` is the operating layer: SDLC method, execution controls, gates, evidence, automation, memory snapshots, and active process state.
+
+These layers should reference each other without duplicating ownership. When the same idea appears in both places, the wiki should hold durable meaning and relationships while development docs should hold operational procedure.

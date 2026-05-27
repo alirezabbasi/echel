@@ -16,6 +16,8 @@ Project intelligence is the product of disciplined feedback loops:
 
 When this loop is repeated with quality controls, the project evolves from reactive delivery to guided, memory-informed direction setting.
 
+This matters because AI agents have finite context windows. Echel turns transient development conversations, code changes, decisions, and verification evidence into durable intelligence that future sessions can reload instead of rediscover.
+
 ## System Layers
 
 ## 1) Signal Layer
@@ -23,6 +25,7 @@ When this loop is repeated with quality controls, the project evolves from react
 Inputs captured from:
 
 - ideas and feature proposals
+- domain expert requirements and intent clarifications
 - user feedback and support incidents
 - implementation outcomes
 - verification evidence
@@ -44,6 +47,8 @@ Signals are converted into durable wiki artifacts:
 
 Output: a linked memory graph representing current project reality.
 
+The wiki owns durable meaning and relationship structure. Operational procedure should link to this knowledge instead of duplicating it.
+
 ## 3) Execution Layer
 
 Knowledge is transformed into delivery through task artifacts and verification gates:
@@ -53,6 +58,8 @@ Knowledge is transformed into delivery through task artifacts and verification g
 - bug management and RCA capture failure intelligence
 
 Output: validated behavior and operational learnings.
+
+The `docs/development/` tree owns the repeatable SDLC method, execution controls, evidence contracts, automation contracts, and active operating snapshots.
 
 ## 4) Governance Layer
 

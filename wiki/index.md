@@ -61,3 +61,4 @@ status: active
 - [[tasks/TASK-0002-ingest-existing-codebase|Task 0002 Ingest Existing Codebase]]
 - [[tasks/TASK-0003-run-first-wiki-lint|Task 0003 Run First Wiki Lint]]
 - [[tasks/TASK-0004-define-echel-four-layer-os-architecture-and-v1-contracts|Task 0004 Define Echel Four Layer Os Architecture And V1 Contracts]]
+- [[tasks/TASK-0005-simplify-knowledge-and-development-boundaries|Task 0005 Simplify Knowledge And Development Boundaries]]

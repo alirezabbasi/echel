@@ -42,3 +42,9 @@ status: active
 - Added FastAPI-based self-hosted web runtime with local SQLite storage for providers, threads, and messages.
 - Added provider adapter layer for `openai`, `anthropic`, and `openai_compatible` endpoints.
 - Added minimal web UI for provider connection, thread creation, and chat, including `/echel ...` command bridge for safe command subset.
+
+## [2026-05-27] product-framing | ai-native-domain-expert-platform
+- Clarified Echel as a platform for AI-native software development through advanced vibe coding workflows guided by domain experts and AI agents.
+- Reframed persistent memory as the solution to AI agent token/context limitations across long-running development.
+- Defined the ownership boundary between `wiki/` durable project intelligence and `docs/development/` operating procedure.
+- Added `TASK-0005` to simplify overlapping knowledge and development documentation surfaces.
