@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-05-27T20:43:16Z",
+  "generated_at": "2026-05-28T12:05:27Z",
   "nodes": [
     {
       "id": "component:agent-command-surface",
@@ -92,6 +92,13 @@
       "title": "Echel",
       "source": "project.md",
       "summary": "Make Echel the default platform for starting and evolving software products through product-first AI workflows."
+    },
+    {
+      "id": "release:mvp",
+      "type": "release",
+      "title": "MVP",
+      "source": "milestones.md",
+      "summary": " - Type: release - Summary: V2 product-creation platform checkpoint covering product flow, graph, agent packets, cockpit, and readiness. - Status: planned"
     },
     {
       "id": "requirement:graph-aware-planning-and-status",
@@ -444,6 +451,90 @@
       "summary": "Add generated-project verification for the cockpit data and command surface."
     },
     {
+      "id": "task:TASK-0046",
+      "type": "task",
+      "title": "TASK-0046 - Milestone Readiness Model",
+      "source": "work/TASK-0046-milestone-readiness-model.md",
+      "summary": "Define readiness states for idea, MVP, feature, release candidate, and production promotion."
+    },
+    {
+      "id": "task:TASK-0047",
+      "type": "task",
+      "title": "TASK-0047 - Readiness Schema",
+      "source": "work/TASK-0047-readiness-schema.md",
+      "summary": "Add a schema for readiness report structure and readiness gates."
+    },
+    {
+      "id": "task:TASK-0048",
+      "type": "task",
+      "title": "TASK-0048 - Release Node Support In Product Graph",
+      "source": "work/TASK-0048-release-node-support-in-product-graph.md",
+      "summary": "Extend the product graph with milestone and release nodes."
+    },
+    {
+      "id": "task:TASK-0049",
+      "type": "task",
+      "title": "TASK-0049 - Milestone Command",
+      "source": "work/TASK-0049-milestone-command.md",
+      "summary": "Add `echel milestone` for creating or updating milestone and release targets."
+    },
+    {
+      "id": "task:TASK-0050",
+      "type": "task",
+      "title": "TASK-0050 - Readiness Command",
+      "source": "work/TASK-0050-readiness-command.md",
+      "summary": "Add `echel readiness` to generate milestone/release readiness reports."
+    },
+    {
+      "id": "task:TASK-0051",
+      "type": "task",
+      "title": "TASK-0051 - Proof Pack Generation",
+      "source": "work/TASK-0051-proof-pack-generation.md",
+      "summary": "Add `echel proof-pack` to collect tasks, reviews, evidence, graph issues, decisions, risks, and verification commands."
+    },
+    {
+      "id": "task:TASK-0052",
+      "type": "task",
+      "title": "TASK-0052 - Evidence Coverage Validation",
+      "source": "work/TASK-0052-evidence-coverage-validation.md",
+      "summary": "Validate that completed readiness-bound tasks have registered evidence."
+    },
+    {
+      "id": "task:TASK-0053",
+      "type": "task",
+      "title": "TASK-0053 - Risk Gate For Release Readiness",
+      "source": "work/TASK-0053-risk-gate-for-release-readiness.md",
+      "summary": "Block readiness when risks lack mitigation or remain unresolved."
+    },
+    {
+      "id": "task:TASK-0054",
+      "type": "task",
+      "title": "TASK-0054 - Open Review Gate",
+      "source": "work/TASK-0054-open-review-gate.md",
+      "summary": "Warn when review reports are missing or include open checks."
+    },
+    {
+      "id": "task:TASK-0055",
+      "type": "task",
+      "title": "TASK-0055 - Cockpit Readiness View",
+      "source": "work/TASK-0055-cockpit-readiness-view.md",
+      "summary": "Add readiness status, blockers, proof packs, and release summaries to the cockpit."
+    },
+    {
+      "id": "task:TASK-0056",
+      "type": "task",
+      "title": "TASK-0056 - Release Summary Artifact",
+      "source": "work/TASK-0056-release-summary-artifact.md",
+      "summary": "Generate human-readable release summaries."
+    },
+    {
+      "id": "task:TASK-0057",
+      "type": "task",
+      "title": "TASK-0057 - Phase 5 Generated-Project Verification",
+      "source": "work/TASK-0057-phase5-generated-project-verification.md",
+      "summary": "Add generated-project verification for milestone readiness and proof packs."
+    },
+    {
       "id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
       "type": "user",
       "title": "Business owners, product experts, domain experts, and AI-assisted engineering teams",
@@ -526,6 +617,11 @@
       "from_id": "product:root",
       "to_id": "problem:primary",
       "type": "defines"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "release:mvp",
+      "type": "tracks"
     },
     {
       "from_id": "product:root",
@@ -774,8 +870,368 @@
     },
     {
       "from_id": "product:root",
+      "to_id": "task:TASK-0046",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0047",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0048",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0049",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0050",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0051",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0052",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0053",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0054",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0055",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0056",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-0057",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
       "to_id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
       "type": "serves"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "depends_on"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "requirement:graph-validation",
+      "type": "depends_on"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "requirement:product-graph",
+      "type": "depends_on"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0001",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0002",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0003",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0004",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0005",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0006",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0007",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0008",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0009",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0010",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0011",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0012",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0013",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0014",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0015",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0016",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0017",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0018",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0019",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0020",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0021",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0022",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0023",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0024",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0025",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0026",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0027",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0028",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0029",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0030",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0031",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0032",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0033",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0034",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0035",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0036",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0037",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0038",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0039",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0040",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0041",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0042",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0043",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0044",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0045",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0046",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0047",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0048",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0049",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0050",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0051",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0052",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0053",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0054",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0055",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0056",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0057",
+      "type": "includes"
     },
     {
       "from_id": "solution:primary",
@@ -1454,6 +1910,186 @@
     },
     {
       "from_id": "task:TASK-0045",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0046",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0046",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0046",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0047",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0047",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0047",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0048",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0048",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0048",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0049",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0049",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0049",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0050",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0050",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0050",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0051",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0051",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0051",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0052",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0052",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0052",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0053",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0053",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0053",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0054",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0054",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0054",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0055",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0055",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0055",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0056",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0056",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0056",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0057",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0057",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0057",
       "to_id": "requirement:product-graph",
       "type": "delivers"
     },

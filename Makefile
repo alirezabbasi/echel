@@ -1,4 +1,4 @@
-.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project verify-phase1 verify-phase2 verify-phase3 verify-phase4 echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-packet echel-build echel-review echel-graph-build echel-graph-validate echel-graph-report echel-feature-add echel-risk-add echel-link echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
+.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project verify-phase1 verify-phase2 verify-phase3 verify-phase4 verify-phase5 echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-packet echel-build echel-review echel-graph-build echel-graph-validate echel-graph-report echel-feature-add echel-risk-add echel-link echel-milestone echel-readiness echel-proof-pack echel-release-summary echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
 
 session-bootstrap:
 	python3 tools/session_bootstrap.py
@@ -44,6 +44,9 @@ verify-phase3:
 verify-phase4:
 	python3 tools/verify_phase4.py
 
+verify-phase5:
+	python3 tools/verify_phase5.py
+
 echel-start:
 	python3 tools/echel.py start
 
@@ -88,6 +91,18 @@ echel-risk-add:
 
 echel-link:
 	python3 tools/echel.py link --from "$${FROM:?Set FROM=<node-id>}" --to "$${TO:?Set TO=<node-id>}" $${REL:+--rel "$$REL"}
+
+echel-milestone:
+	python3 tools/echel.py milestone --name "$${NAME:?Set NAME=<milestone-name>}" $${KIND:+--kind "$$KIND"} $${SUMMARY:+--summary "$$SUMMARY"}
+
+echel-readiness:
+	python3 tools/echel.py readiness $${TARGET:+--target "$$TARGET"}
+
+echel-proof-pack:
+	python3 tools/echel.py proof-pack $${TARGET:+--target "$$TARGET"}
+
+echel-release-summary:
+	python3 tools/echel.py release-summary $${TARGET:+--target "$$TARGET"}
 
 echel-doctor:
 	python3 tools/echel.py doctor

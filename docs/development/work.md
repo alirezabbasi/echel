@@ -54,3 +54,15 @@
 - [x] TASK-0043 Cockpit command bridge
 - [x] TASK-0044 Cockpit UX polish
 - [x] TASK-0045 Phase 4 generated-project verification
+- [x] TASK-0046 Milestone readiness model
+- [x] TASK-0047 Readiness schema
+- [x] TASK-0048 Release node support in product graph
+- [x] TASK-0049 Milestone command
+- [x] TASK-0050 Readiness command
+- [x] TASK-0051 Proof pack generation
+- [x] TASK-0052 Evidence coverage validation
+- [x] TASK-0053 Risk gate for release readiness
+- [x] TASK-0054 Open review gate
+- [x] TASK-0055 Cockpit readiness view
+- [x] TASK-0056 Release summary artifact
+- [x] TASK-0057 Phase 5 generated-project verification

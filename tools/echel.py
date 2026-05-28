@@ -29,6 +29,7 @@ from echel.memory_kernel import append_record, contradiction_summary, query_reco
 from echel.migration_planner import plan_waves
 from echel.platform.runtime import ensure_platform_config, load_platform_config
 from echel.primitives import validate_decisions, validate_tasks
+from echel.readiness import create_milestone, proof_pack, readiness_report, release_summary
 from echel.product import (
     answer_clarification,
     clarification_questions,
@@ -230,6 +231,38 @@ def cmd_link(repo_root: Path, from_id: str, to_id: str, rel: str) -> int:
     cfg = _load(repo_root)
     path = add_manual_link(repo_root, cfg, from_id=from_id, to_id=to_id, edge_type=rel)
     print(f"Relationship added: {path}")
+    return 0
+
+
+def cmd_milestone(repo_root: Path, name: str, kind: str, summary: str) -> int:
+    cfg = _load(repo_root)
+    try:
+        path = create_milestone(repo_root, cfg, name=name, kind=kind, summary=summary)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    print(f"Milestone updated: {path}")
+    return 0
+
+
+def cmd_readiness(repo_root: Path, target: str) -> int:
+    cfg = _load(repo_root)
+    path = readiness_report(repo_root, cfg, target=target)
+    print(f"Readiness report written: {path}")
+    return 0
+
+
+def cmd_proof_pack(repo_root: Path, target: str) -> int:
+    cfg = _load(repo_root)
+    path = proof_pack(repo_root, cfg, target=target)
+    print(f"Proof pack written: {path}")
+    return 0
+
+
+def cmd_release_summary(repo_root: Path, target: str) -> int:
+    cfg = _load(repo_root)
+    path = release_summary(repo_root, cfg, target=target)
+    print(f"Release summary written: {path}")
     return 0
 
 
@@ -530,6 +563,20 @@ def build_parser() -> argparse.ArgumentParser:
     link.add_argument("--to", dest="to_id", required=True)
     link.add_argument("--rel", default="related_to")
 
+    milestone = sub.add_parser("milestone")
+    milestone.add_argument("--name", required=True)
+    milestone.add_argument("--kind", choices=["milestone", "release"], default="milestone")
+    milestone.add_argument("--summary", default="")
+
+    readiness = sub.add_parser("readiness")
+    readiness.add_argument("--target", default="mvp")
+
+    proof = sub.add_parser("proof-pack")
+    proof.add_argument("--target", default="mvp")
+
+    release = sub.add_parser("release-summary")
+    release.add_argument("--target", default="mvp")
+
     close = sub.add_parser("close-task")
     close.add_argument("task_id")
 
@@ -624,6 +671,14 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_risk_add(root, title=args.title, impact=args.impact, mitigation=args.mitigation)
     if args.cmd == "link":
         return cmd_link(root, from_id=args.from_id, to_id=args.to_id, rel=args.rel)
+    if args.cmd == "milestone":
+        return cmd_milestone(root, name=args.name, kind=args.kind, summary=args.summary)
+    if args.cmd == "readiness":
+        return cmd_readiness(root, target=args.target)
+    if args.cmd == "proof-pack":
+        return cmd_proof_pack(root, target=args.target)
+    if args.cmd == "release-summary":
+        return cmd_release_summary(root, target=args.target)
     if args.cmd == "close-task":
         return cmd_close_task(root, args.task_id)
     if args.cmd == "sync-memory":

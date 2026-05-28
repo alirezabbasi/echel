@@ -95,6 +95,12 @@ status: active
 - Replaced the chat-first platform UI with a cockpit-first interface covering dashboard, clarifications, roadmap, work, graph, packets, reviews, risks, decisions, and chat.
 - Added cockpit API schema, Phase 4 guide, and `make verify-phase4`.
 
+## [2026-05-28] phase-5 | readiness-and-proof-packs
+- Added milestone/release targets, readiness reports, proof packs, and release summaries.
+- Added readiness gates for graph integrity, evidence coverage, risks, and review state.
+- Added cockpit readiness data and view.
+- Added `make verify-phase5`.
+
 ## [2026-05-27] clarify | product-flow
 - Answered `mvp` clarification.
 
@@ -109,3 +115,18 @@ status: active
 
 ## [2026-05-27] review | product-flow
 - Generated review report [[reports/reviews/TASK-0001-initialize-project-wiki-review]].
+
+## [2026-05-28] milestone | readiness
+- Updated release `MVP`.
+
+## [2026-05-28] release | readiness
+- Generated release summary [[reports/releases/mvp-release-summary]].
+
+## [2026-05-28] readiness | readiness
+- Generated readiness report [[reports/readiness/mvp-readiness]].
+
+## [2026-05-28] readiness | readiness
+- Generated readiness report [[reports/readiness/mvp-readiness]].
+
+## [2026-05-28] proof-pack | readiness
+- Generated proof pack [[reports/proof-packs/mvp-proof-pack]].

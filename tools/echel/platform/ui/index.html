@@ -93,7 +93,7 @@ let currentThread = null;
 const tabs = [
   ['dashboard','#','Dashboard'], ['clarify','?','Clarify'], ['roadmap','>','Roadmap'],
   ['work','+','Work'], ['graph','o','Graph'], ['packets','[]','Packets'],
-  ['reviews','*','Reviews'], ['risks','!','Risks'], ['decisions','D','Decisions'], ['chat','~','Chat']
+  ['reviews','*','Reviews'], ['readiness','R','Readiness'], ['risks','!','Risks'], ['decisions','D','Decisions'], ['chat','~','Chat']
 ];
 
 function esc(s){return String(s ?? '').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
@@ -125,6 +125,7 @@ function render(){
   if(active==='graph') v.innerHTML = graph();
   if(active==='packets') v.innerHTML = reports('packets');
   if(active==='reviews') v.innerHTML = reports('reviews');
+  if(active==='readiness') v.innerHTML = readiness();
   if(active==='risks') v.innerHTML = risks();
   if(active==='decisions') v.innerHTML = decisions();
   if(active==='chat') { v.innerHTML = chat(); initChat(); }
@@ -167,6 +168,25 @@ function graph(){
 function reports(kind){
   const rows = state.work[kind] || [];
   return `<div class="panel"><h2>${kind === 'packets' ? 'Build Packets' : 'Review Reports'}</h2>${list(rows.map(r=>`<div class="item"><div class="item-title">${esc(r.title)}</div><div class="muted">${esc(r.path)}</div></div>`))}</div>`;
+}
+function readiness(){
+  const rd = state.readiness_detail || {status:'unknown', issues:[], reports:{readiness:[], proof_packs:[], release_summaries:[]}, states:[]};
+  return `<div class="grid">
+    <div class="grid cols-3">
+      ${metric('Readiness', rd.status)}
+      ${metric('Issues', rd.issues.length)}
+      ${metric('Target', rd.target || 'mvp')}
+    </div>
+    <div class="split">
+      <div class="panel"><h2>Blockers And Warnings</h2>${list(rd.issues.map(i=>`<div class="item"><span class="pill ${i.severity==='blocker'?'danger':''}">${esc(i.severity)}</span><div>${esc(i.message)}</div></div>`), 'No readiness issues')}</div>
+      <div class="panel"><h2>Actions</h2><div class="toolbar"><button class="btn primary" onclick="runCommand('readiness')">Readiness</button><button class="btn" onclick="runCommand('proof-pack')">Proof Pack</button><button class="btn warn" onclick="runCommand('release-summary')">Release Summary</button></div><h2>States</h2>${list((rd.states||[]).map(s=>`<div class="item">${esc(s)}</div>`))}</div>
+    </div>
+    <div class="grid cols-3">
+      <div class="panel"><h2>Readiness Reports</h2>${list((rd.reports.readiness||[]).map(r=>`<div class="item">${esc(r.title)}<div class="muted">${esc(r.path)}</div></div>`))}</div>
+      <div class="panel"><h2>Proof Packs</h2>${list((rd.reports.proof_packs||[]).map(r=>`<div class="item">${esc(r.title)}<div class="muted">${esc(r.path)}</div></div>`))}</div>
+      <div class="panel"><h2>Release Summaries</h2>${list((rd.reports.release_summaries||[]).map(r=>`<div class="item">${esc(r.title)}<div class="muted">${esc(r.path)}</div></div>`))}</div>
+    </div>
+  </div>`;
 }
 function risks(){return `<div class="panel"><h2>Risks</h2>${list(state.risks.map(r=>`<div class="item"><div class="item-title">${esc(r.title)}</div>${esc(r.summary)}</div>`))}</div>`}
 function decisions(){return `<div class="panel"><h2>Decisions</h2>${list(state.decisions.map(d=>`<div class="item"><div class="item-title">${esc(d.title)}</div><div class="muted">${esc(d.path)}</div></div>`))}</div>`}

@@ -28,6 +28,7 @@ Last updated: 2026-05-27
 - Completed Phase 2 product graph foundation: graph extraction, storage, validation, reports, graph-aware status/planning, relationship commands, and generated-project verification.
 - Completed Phase 3 graph-backed agent work packets, product-facing build command, review reports, evidence obligations, graph-aware next-task selection, and generated-project verification.
 - Completed Phase 4 product cockpit foundation: cockpit data API, dashboard, clarification, roadmap, work, graph, packet, review, risk, decision, chat views, safe command bridge, and generated-project verification.
+- Completed Phase 5 milestone and release readiness: milestone command, readiness reports, proof packs, evidence/risk/review gates, release summaries, cockpit readiness view, and generated-project verification.
 
 ## Next
 
@@ -36,7 +37,7 @@ Last updated: 2026-05-27
 3. Add migration wave planner and runtime adapters (Python/TypeScript).
 4. Add UX safety rails and phase-specific LLM behavior contracts.
 5. Continue trimming duplicated documentation content now that structural boundaries are clearer.
-6. Use the product cockpit as the primary surface for milestone readiness, release proof packs, and domain-expert steering.
+6. Use readiness and proof-pack outputs to shape release workflows and production-readiness controls.
 
 ## Risks/Blocks
 

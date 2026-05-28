@@ -203,6 +203,10 @@ Product-owner commands:
 13. `python3 tools/echel.py feature add --title "..."` records a product capability.
 14. `python3 tools/echel.py risk add --title "..." --mitigation "..."` records a product risk.
 15. `python3 tools/echel.py link --from <node-id> --to <node-id>` records a manual product relationship.
+16. `python3 tools/echel.py milestone --name "MVP" --kind release` records a milestone or release target.
+17. `python3 tools/echel.py readiness --target mvp` generates readiness status.
+18. `python3 tools/echel.py proof-pack --target mvp` generates a proof pack.
+19. `python3 tools/echel.py release-summary --target mvp` generates a release summary.
 
 Operator commands:
 
@@ -238,6 +242,8 @@ Operator commands:
   - `make verify-phase3`
 - Phase 4 verification:
   - `make verify-phase4`
+- Phase 5 verification:
+  - `make verify-phase5`
 
 ## Platform MVP Sprint 1 (Self-Hosted Web Interface)
 
@@ -258,3 +264,4 @@ What Sprint 1 includes:
 - Chat-driven Echel command bridge via `/echel ...` messages for safe command subset
 - Product cockpit dashboard over product memory, graph, roadmap, work, packets, reviews, risks, and decisions
 - Cockpit action bridge for safe product commands
+- Cockpit readiness view for milestone status, proof packs, and release summaries

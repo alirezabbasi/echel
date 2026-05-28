@@ -29,6 +29,7 @@ Last updated: 2026-05-27
 - Completed Phase 2 product graph workflows through `graph`, `feature`, `risk`, and `link` commands.
 - Completed Phase 3 graph-backed work packets and review reports through `build` and `review`.
 - Completed Phase 4 product cockpit foundation over the wiki, graph, work, packets, reviews, risks, and decisions.
+- Completed Phase 5 milestone readiness, proof packs, release summaries, and cockpit readiness.
 
 ## Next
 
@@ -36,7 +37,7 @@ Last updated: 2026-05-27
 2. Add differential conformance tooling and CI summary outputs.
 3. Add migration planner, runtime adapters, and safety rails.
 4. Continue reducing duplicated documentation content inside the simplified structure.
-5. Expand cockpit workflows into milestone readiness and release proof packs.
+5. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks
 

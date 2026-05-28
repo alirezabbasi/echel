@@ -119,6 +119,14 @@ def build_graph(repo_root: Path, cfg: ProjectConfig) -> dict:
         add_node(risk)
         add_edge("product:root", risk.id, "has_risk")
 
+    for milestone in _milestone_nodes(root):
+        add_node(milestone)
+        add_edge("product:root", milestone.id, "tracks")
+        for task in [n.id for n in nodes.values() if n.type == "task"]:
+            add_edge(milestone.id, task, "includes")
+        for req in [n.id for n in nodes.values() if n.type == "requirement"]:
+            add_edge(milestone.id, req, "depends_on")
+
     manual = _manual_graph(root)
     for raw in manual.get("nodes", []):
         if isinstance(raw, dict) and {"id", "type", "title"}.issubset(raw):
@@ -240,7 +248,7 @@ def write_graph_report(repo_root: Path, cfg: ProjectConfig) -> Path:
     lines = ["---", "type: analysis", "status: active", "---", "", "# Product Graph Report", "", graph_summary(graph, issues), "", "## Issues"]
     lines.extend([f"- **{i.severity}** {i.message}" for i in issues] or ["- None"])
     lines += ["", "## Coverage"]
-    for node_type in ["problem", "user", "need", "solution", "feature", "requirement", "component", "task", "decision", "risk"]:
+    for node_type in ["problem", "user", "need", "solution", "feature", "requirement", "component", "task", "decision", "risk", "milestone", "release"]:
         count = sum(1 for n in graph.get("nodes", []) if isinstance(n, dict) and n.get("type") == node_type)
         lines.append(f"- {node_type}: {count}")
     report.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -291,6 +299,24 @@ def add_manual_link(repo_root: Path, cfg: ProjectConfig, from_id: str, to_id: st
     return path
 
 
+def add_milestone_node(repo_root: Path, cfg: ProjectConfig, name: str, kind: str, summary: str) -> Path:
+    root = wiki_root(repo_root, cfg)
+    path = root / "milestones.md"
+    if not path.exists():
+        path.write_text("---\ntype: milestones\nstatus: active\n---\n# Milestones\n", encoding="utf-8")
+    text = path.read_text(encoding="utf-8").rstrip()
+    heading = f"## {name}"
+    block = f"{heading}\n\n- Type: {kind}\n- Summary: {summary or 'TBD'}\n- Status: planned\n"
+    if heading in text:
+        pattern = rf"{re.escape(heading)}\n(.*?)(?=\n## |\Z)"
+        text = re.sub(pattern, block.rstrip(), text, count=1, flags=re.DOTALL)
+    else:
+        text += f"\n\n{block.rstrip()}"
+    path.write_text(text + "\n", encoding="utf-8")
+    write_graph(repo_root, cfg)
+    return path
+
+
 def _manual_graph(root: Path) -> dict:
     path = root / "graph.manual.json"
     if not path.exists():
@@ -320,6 +346,32 @@ def _risk_nodes(root: Path) -> list[GraphNode]:
     if current_title:
         nodes.append(GraphNode(f"risk:{_slug(current_title)}", "risk", current_title, "risks.md", " ".join(current_lines)))
     return nodes
+
+
+def _milestone_nodes(root: Path) -> list[GraphNode]:
+    path = root / "milestones.md"
+    if not path.exists():
+        return []
+    nodes = []
+    current_title = ""
+    current_lines: list[str] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("## "):
+            if current_title:
+                nodes.append(_milestone_node(current_title, current_lines))
+            current_title = line[3:].strip()
+            current_lines = []
+        elif current_title:
+            current_lines.append(line.strip())
+    if current_title:
+        nodes.append(_milestone_node(current_title, current_lines))
+    return nodes
+
+
+def _milestone_node(title: str, lines: list[str]) -> GraphNode:
+    summary = " ".join(lines)
+    node_type = "release" if "Type: release" in summary else "milestone"
+    return GraphNode(f"{node_type}:{_slug(title)}", node_type, title, "milestones.md", summary)
 
 
 def _section(path: Path, heading: str) -> str:

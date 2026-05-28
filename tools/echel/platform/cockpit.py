@@ -8,6 +8,7 @@ import subprocess
 from ..config import ConfigError, load_config, resolve_symbolic_path
 from ..graph import build_graph, graph_summary, validate_graph
 from ..product import clarification_gaps, product_status
+from ..readiness import readiness_snapshot
 
 
 @dataclass(frozen=True)
@@ -23,6 +24,9 @@ SAFE_COMMANDS = {
     "build": ["build"],
     "review": ["review"],
     "graph-report": ["graph", "report"],
+    "readiness": ["readiness"],
+    "proof-pack": ["proof-pack"],
+    "release-summary": ["release-summary"],
     "status": ["status"],
     "next": ["next"],
 }
@@ -77,6 +81,7 @@ def cockpit_snapshot(repo_root: Path) -> dict:
         },
         "risks": risks,
         "decisions": decisions,
+        "readiness_detail": readiness_snapshot(repo_root, cfg),
         "status_markdown": product_status(repo_root, cfg),
     }
 
@@ -103,6 +108,8 @@ def _run_safe(repo_root: Path, action: str, args: dict) -> dict:
         cmd.extend(["--field", field, "--answer", answer])
     elif action in {"build", "review"} and args.get("task"):
         cmd.extend(["--task", str(args["task"])])
+    elif action in {"readiness", "proof-pack", "release-summary"} and args.get("target"):
+        cmd.extend(["--target", str(args["target"])])
     proc = subprocess.run(cmd, cwd=repo_root, text=True, capture_output=True)
     return {"code": proc.returncode, "output": (proc.stdout + "\n" + proc.stderr).strip()[:12000]}
 

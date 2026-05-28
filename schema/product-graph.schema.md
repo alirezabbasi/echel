@@ -52,6 +52,8 @@ Core node types:
 - `task`
 - `decision`
 - `risk`
+- `milestone`
+- `release`
 
 ## Edge
 ```json
@@ -81,6 +83,8 @@ Common edge types:
 - `delivers`
 - `constrained_by`
 - `has_risk`
+- `tracks`
+- `depends_on`
 - `related_to`
 
 ## Manual Relationships
