@@ -123,3 +123,4 @@ status: active
 - [[work/TASK-0056-release-summary-artifact|Task 0056 Release Summary Artifact]]
 - [[work/TASK-0057-phase5-generated-project-verification|Task 0057 Phase5 Generated Project Verification]]
 - [[work/TASK-0058-harden-v2-requirements-coverage|Task 0058 Harden V2 Requirements Coverage]]
+- [[work/TASK-0059-rewrite-readme-as-product-overview|Task 0059 Rewrite Readme As Product Overview]]

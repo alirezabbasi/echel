@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-05-28T12:23:31Z",
+  "generated_at": "2026-05-28T12:33:27Z",
   "nodes": [
     {
       "id": "component:agent-command-surface",
@@ -542,6 +542,13 @@
       "summary": "Audit and harden Echel against the seven requested V2 capabilities."
     },
     {
+      "id": "task:TASK-0059",
+      "type": "task",
+      "title": "TASK-0059 - Rewrite README As Product Overview",
+      "source": "work/TASK-0059-rewrite-readme-as-product-overview.md",
+      "summary": "Rewrite the root README as a product-facing overview and move technical details into a linked guide."
+    },
+    {
       "id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
       "type": "user",
       "title": "Business owners, product experts, domain experts, and AI-assisted engineering teams",
@@ -954,6 +961,11 @@
     },
     {
       "from_id": "product:root",
+      "to_id": "task:TASK-0059",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
       "to_id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
       "type": "serves"
     },
@@ -1260,6 +1272,11 @@
     {
       "from_id": "release:mvp",
       "to_id": "task:TASK-0058",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0059",
       "type": "includes"
     },
     {
@@ -2134,6 +2151,21 @@
     },
     {
       "from_id": "task:TASK-0058",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0059",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0059",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0059",
       "to_id": "requirement:product-graph",
       "type": "delivers"
     },

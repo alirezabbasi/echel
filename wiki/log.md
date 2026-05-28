@@ -106,6 +106,10 @@ status: active
 - Added `steer`, richer product-first initialization, workflow/evidence graph nodes, likely files in packets, and cockpit architecture/contradiction/activity views.
 - Added `wiki/reports/v2-requirements-hardening-audit.md`.
 
+## [2026-05-28] docs | product-facing-readme
+- Rewrote `README.md` as a marketing/product overview for Echel.
+- Moved technical setup, command reference, cockpit launch, verification, and operating-method links into `docs/technical-quick-start.md`.
+
 ## [2026-05-27] clarify | product-flow
 - Answered `mvp` clarification.
 
