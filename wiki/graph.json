@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-05-28T12:05:27Z",
+  "generated_at": "2026-05-28T12:23:31Z",
   "nodes": [
     {
       "id": "component:agent-command-surface",
@@ -535,11 +535,25 @@
       "summary": "Add generated-project verification for milestone readiness and proof packs."
     },
     {
+      "id": "task:TASK-0058",
+      "type": "task",
+      "title": "TASK-0058 - Harden V2 Requirements Coverage",
+      "source": "work/TASK-0058-harden-v2-requirements-coverage.md",
+      "summary": "Audit and harden Echel against the seven requested V2 capabilities."
+    },
+    {
       "id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
       "type": "user",
       "title": "Business owners, product experts, domain experts, and AI-assisted engineering teams",
       "source": "users.md",
       "summary": "Business owners, product experts, domain experts, and AI-assisted engineering teams"
+    },
+    {
+      "id": "workflow:domain-expert-defines-intent-echel-clarifies-product-memory-agents-build-from-gr",
+      "type": "workflow",
+      "title": "Domain expert defines intent, Echel clarifies product memory, agents build from graph-backed packets, reviews verify outcomes, readiness certifies release progress.",
+      "source": "workflows.md",
+      "summary": "Domain expert defines intent, Echel clarifies product memory, agents build from graph-backed packets, reviews verify outcomes, readiness certifies release progress."
     }
   ],
   "edges": [
@@ -587,6 +601,11 @@
       "from_id": "feature:product-memory-graph",
       "to_id": "requirement:product-graph",
       "type": "implements"
+    },
+    {
+      "from_id": "feature:product-memory-graph",
+      "to_id": "workflow:domain-expert-defines-intent-echel-clarifies-product-memory-agents-build-from-gr",
+      "type": "enables"
     },
     {
       "from_id": "problem:primary",
@@ -930,6 +949,11 @@
     },
     {
       "from_id": "product:root",
+      "to_id": "task:TASK-0058",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
       "to_id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
       "type": "serves"
     },
@@ -1231,6 +1255,11 @@
     {
       "from_id": "release:mvp",
       "to_id": "task:TASK-0057",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-0058",
       "type": "includes"
     },
     {
@@ -2094,6 +2123,21 @@
       "type": "delivers"
     },
     {
+      "from_id": "task:TASK-0058",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0058",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-0058",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
       "from_id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
       "to_id": "need:keep-product-intent-connected-to-generated-work-across-ai-sessions",
       "type": "has_need"
@@ -2102,6 +2146,11 @@
       "from_id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
       "to_id": "need:reveal-missing-relationships-before-implementation-drifts",
       "type": "has_need"
+    },
+    {
+      "from_id": "workflow:domain-expert-defines-intent-echel-clarifies-product-memory-agents-build-from-gr",
+      "to_id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
+      "type": "serves"
     }
   ]
 }

@@ -17,6 +17,7 @@ PRODUCT_FILES = {
     "scope": "scope.md",
     "roadmap": "roadmap.md",
     "architecture": "architecture.md",
+    "workflows": "workflows.md",
 }
 
 
@@ -171,6 +172,15 @@ TBD
 ## Open Architecture Questions
 - TBD
 """,
+        "workflows": """---
+type: product-workflows
+status: draft
+---
+# Workflows
+
+## Core Workflows
+- TBD
+""",
     }
 
     for key, rel in PRODUCT_FILES.items():
@@ -227,6 +237,34 @@ def update_project_definition(
 
     _append_log(root, "define", "Updated product definition through `echel define`.")
     return changed
+
+
+def steer_product(repo_root: Path, cfg: ProjectConfig, field: str, value: str) -> Path:
+    root = wiki_root(repo_root, cfg)
+    ensure_product_pages(repo_root, cfg, "Product")
+    if field == "direction":
+        path = root / "project.md"
+        text = path.read_text(encoding="utf-8")
+        path.write_text(_replace_section_body(text, "Product Direction", value), encoding="utf-8")
+    elif field == "risk":
+        path = root / "risks.md"
+        if not path.exists():
+            path.write_text("---\ntype: risks\nstatus: active\n---\n# Risks\n", encoding="utf-8")
+        text = path.read_text(encoding="utf-8").rstrip()
+        text += f"\n\n## {value}\n\n- Impact: TBD\n- Mitigation: TBD\n"
+        path.write_text(text + "\n", encoding="utf-8")
+    elif field == "workflow":
+        path = root / "workflows.md"
+        text = path.read_text(encoding="utf-8") if path.exists() else "---\ntype: product-workflows\nstatus: draft\n---\n# Workflows\n\n## Core Workflows\n- TBD\n"
+        body = _section_body(text, "Core Workflows")
+        items = [line for line in body.splitlines() if line.strip() and line.strip() != "- TBD"]
+        items.append(f"- {value}")
+        path.write_text(_replace_section_body(text, "Core Workflows", "\n".join(items)), encoding="utf-8")
+    else:
+        answer_clarification(repo_root, cfg, field, value)
+        path = root / next(item.file for item in CLARIFICATION_FIELDS if item.key == field)
+    _append_log(root, "steer", f"Steered `{field}`.")
+    return path
 
 
 def clarification_questions(repo_root: Path, cfg: ProjectConfig) -> list[str]:
@@ -405,6 +443,9 @@ task: {task.stem}
 
 ## Evidence Obligations
 {_evidence_obligations(task_text)}
+
+## Likely Files
+{_likely_files(root, graph, task)}
 
 ## Constraints
 - Preserve product memory in `wiki/`.
@@ -628,6 +669,27 @@ def _graph_context(graph: dict, task_stem: str) -> str:
             lines.append(f"- ...and {len(items) - 8} more")
         lines.append("")
     return "\n".join(lines).rstrip()
+
+
+def _likely_files(root: Path, graph: dict, task: Path) -> str:
+    try:
+        task_source = str(task.relative_to(root))
+    except ValueError:
+        task_source = task.name
+    sources = {task_source}
+    for node in graph.get("nodes", []):
+        if isinstance(node, dict) and node.get("source"):
+            source = str(node.get("source"))
+            if source != "manual" and (not source.startswith("work/") or source == task_source):
+                sources.add(source)
+    preferred = []
+    for source in sorted(sources):
+        if any(source.endswith(name) for name in ["project.md", "problem.md", "users.md", "solution.md", "scope.md", "architecture.md", "workflows.md"]):
+            preferred.append(source)
+    preferred.extend(source for source in sorted(sources) if source not in preferred and "work/" in source)
+    if not preferred:
+        return "- TBD"
+    return "\n".join(f"- `{source}`" for source in preferred[:12])
 
 
 def _evidence_obligations(task_text: str) -> str:

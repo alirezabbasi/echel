@@ -18,6 +18,7 @@ Work packets are agent-ready implementation handoffs generated from product memo
 - `Task Objective`: implementation goal.
 - `Acceptance Criteria`: reviewable task expectations.
 - `Evidence Obligations`: required verification and evidence duties.
+- `Likely Files`: likely product memory or code files involved.
 - `Constraints`: implementation boundaries.
 - `Verification`: commands or checks to run.
 - `Required Memory Updates`: product memory updates expected after work.
@@ -25,4 +26,3 @@ Work packets are agent-ready implementation handoffs generated from product memo
 
 ## Review Relationship
 Every work packet should be reviewable with `python3 tools/echel.py review`. Review reports are stored in `wiki/reports/reviews/`.
-

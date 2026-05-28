@@ -61,7 +61,7 @@ def main() -> int:
     from echel.platform.cockpit import cockpit_snapshot, run_cockpit_command
 
     snapshot = cockpit_snapshot(core)
-    required = ["project", "readiness", "clarifications", "roadmap", "work", "graph", "risks", "decisions"]
+    required = ["project", "readiness", "clarifications", "roadmap", "work", "graph", "architecture", "contradictions", "agent_activity", "risks", "decisions"]
     missing = [key for key in required if key not in snapshot]
     if missing:
         print(f"phase4 verification failed: missing snapshot keys {missing}", file=sys.stderr)

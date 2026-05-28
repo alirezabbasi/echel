@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 
 from .config import ProjectConfig, resolve_symbolic_path
+from .evidence import ensure_registry
 
 
 GRAPH_FILE = "graph.json"
@@ -99,6 +100,14 @@ def build_graph(repo_root: Path, cfg: ProjectConfig) -> dict:
         for feature in [n.id for n in nodes.values() if n.type == "feature"]:
             add_edge(cid, feature, "supports")
 
+    for workflow in _bullets(_section(root / "workflows.md", "Core Workflows")):
+        wid = f"workflow:{_slug(workflow)}"
+        add_node(GraphNode(wid, "workflow", workflow, "workflows.md", workflow))
+        for user in [n.id for n in nodes.values() if n.type == "user"]:
+            add_edge(wid, user, "serves")
+        for feature in [n.id for n in nodes.values() if n.type == "feature"]:
+            add_edge(feature, wid, "enables")
+
     for task in sorted((root / "work").glob("TASK-*.md")):
         tid = _task_id(task)
         if not tid:
@@ -114,6 +123,19 @@ def build_graph(repo_root: Path, cfg: ProjectConfig) -> dict:
             continue
         add_node(GraphNode(f"decision:{did}", "decision", _title(decision) or did, str(decision.relative_to(root)), _section(decision, "Decision")))
         add_edge("product:root", f"decision:{did}", "constrained_by")
+
+    evidence_registry = ensure_registry(repo_root / cfg.evidence_registry)
+    artifacts = evidence_registry.get("artifacts", {}) if isinstance(evidence_registry, dict) else {}
+    for evid, payload in sorted(artifacts.items()):
+        if not isinstance(payload, dict):
+            continue
+        title = str(payload.get("title") or evid)
+        source = str(payload.get("path") or cfg.evidence_registry)
+        add_node(GraphNode(f"evidence:{evid}", "evidence", title, source, str(payload.get("summary", ""))))
+        add_edge("product:root", f"evidence:{evid}", "has_evidence")
+        for task in [n.id for n in nodes.values() if n.type == "task"]:
+            if evid in task or evid in json.dumps(payload):
+                add_edge(f"evidence:{evid}", task, "verifies")
 
     for risk in _risk_nodes(root):
         add_node(risk)
@@ -248,7 +270,7 @@ def write_graph_report(repo_root: Path, cfg: ProjectConfig) -> Path:
     lines = ["---", "type: analysis", "status: active", "---", "", "# Product Graph Report", "", graph_summary(graph, issues), "", "## Issues"]
     lines.extend([f"- **{i.severity}** {i.message}" for i in issues] or ["- None"])
     lines += ["", "## Coverage"]
-    for node_type in ["problem", "user", "need", "solution", "feature", "requirement", "component", "task", "decision", "risk", "milestone", "release"]:
+    for node_type in ["problem", "user", "need", "solution", "feature", "requirement", "workflow", "component", "task", "evidence", "decision", "risk", "milestone", "release"]:
         count = sum(1 for n in graph.get("nodes", []) if isinstance(n, dict) and n.get("type") == node_type)
         lines.append(f"- {node_type}: {count}")
     report.write_text("\n".join(lines) + "\n", encoding="utf-8")

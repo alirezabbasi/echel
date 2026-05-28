@@ -56,6 +56,7 @@ def _run_echel_command(repo_root: Path, command_line: str) -> tuple[int, str]:
         "plan",
         "build",
         "review",
+        "steer",
         "graph report",
     ]
     cmd = command_line.strip()

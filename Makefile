@@ -1,4 +1,4 @@
-.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project verify-phase1 verify-phase2 verify-phase3 verify-phase4 verify-phase5 echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-packet echel-build echel-review echel-graph-build echel-graph-validate echel-graph-report echel-feature-add echel-risk-add echel-link echel-milestone echel-readiness echel-proof-pack echel-release-summary echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
+.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project verify-phase1 verify-phase2 verify-phase3 verify-phase4 verify-phase5 echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-packet echel-build echel-review echel-steer echel-graph-build echel-graph-validate echel-graph-report echel-feature-add echel-risk-add echel-link echel-milestone echel-readiness echel-proof-pack echel-release-summary echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
 
 session-bootstrap:
 	python3 tools/session_bootstrap.py
@@ -30,7 +30,7 @@ init-wizard:
 	python3 tools/init_wizard.py
 
 init-project:
-	python3 tools/project_init.py --name "$${NAME:?Set NAME=<project-name>}" --mode "$${MODE:-scratch}" --dest "$${DEST:-.}" $${SOURCE:+--source "$$SOURCE"}
+	python3 tools/project_init.py --name "$${NAME:?Set NAME=<project-name>}" --mode "$${MODE:-scratch}" --dest "$${DEST:-.}" $${SOURCE:+--source "$$SOURCE"} $${PROBLEM:+--problem "$$PROBLEM"} $${SOLUTION:+--solution "$$SOLUTION"} $${DIRECTION:+--direction "$$DIRECTION"} $${USERS:+--users "$$USERS"} $${MVP:+--mvp "$$MVP"} $${CONSTRAINTS:+--constraints "$$CONSTRAINTS"} $${RISKS:+--risks "$$RISKS"} $${STACK:+--stack "$$STACK"} $${SUCCESS:+--success "$$SUCCESS"}
 
 verify-phase1:
 	python3 tools/verify_phase1.py
@@ -73,6 +73,9 @@ echel-build:
 
 echel-review:
 	python3 tools/echel.py review $${TASK:+--task "$$TASK"}
+
+echel-steer:
+	python3 tools/echel.py steer --field "$${FIELD:?Set FIELD=<field>}" --value "$${VALUE:?Set VALUE=<value>}"
 
 echel-graph-build:
 	python3 tools/echel.py graph build

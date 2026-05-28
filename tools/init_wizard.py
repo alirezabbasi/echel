@@ -35,6 +35,10 @@ def main() -> int:
     solution = ask("Intended solution", "")
     direction = ask("Product direction", "")
     users = ask("Target users", "")
+    mvp = ask("MVP scope", "")
+    constraints = ask("Constraints", "")
+    risks = ask("Risks", "")
+    stack = ask("Preferred stack", "")
     success = ask("Success criteria", "")
 
     cmd = [
@@ -54,6 +58,10 @@ def main() -> int:
         ("--solution", solution),
         ("--direction", direction),
         ("--users", users),
+        ("--mvp", mvp),
+        ("--constraints", constraints),
+        ("--risks", risks),
+        ("--stack", stack),
         ("--success", success),
     ]:
         if value:

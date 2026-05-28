@@ -48,8 +48,10 @@ Core node types:
 - `solution`
 - `feature`
 - `requirement`
+- `workflow`
 - `component`
 - `task`
+- `evidence`
 - `decision`
 - `risk`
 - `milestone`
@@ -78,9 +80,12 @@ Common edge types:
 - `includes`
 - `implements`
 - `supports`
+- `enables`
 - `requires`
 - `planned_as`
 - `delivers`
+- `has_evidence`
+- `verifies`
 - `constrained_by`
 - `has_risk`
 - `tracks`

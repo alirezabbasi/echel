@@ -70,6 +70,16 @@ Establish baseline project knowledge structure and governance artifacts.
 - Link evidence IDs from the task artifact before running `echel close-task`.
 - Treat the verification commands in this packet as the minimum evidence checklist.
 
+## Likely Files
+- `architecture.md`
+- `problem.md`
+- `project.md`
+- `scope.md`
+- `solution.md`
+- `users.md`
+- `workflows.md`
+- `work/TASK-0001-initialize-project-wiki.md`
+
 ## Constraints
 - Preserve product memory in `wiki/`.
 - Keep Echel framework procedure in `echel-core/`.

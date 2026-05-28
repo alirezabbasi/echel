@@ -7,6 +7,7 @@ import subprocess
 
 from ..config import ConfigError, load_config, resolve_symbolic_path
 from ..graph import build_graph, graph_summary, validate_graph
+from ..memory_kernel import query_records
 from ..product import clarification_gaps, product_status
 from ..readiness import readiness_snapshot
 
@@ -20,6 +21,7 @@ class CommandResult:
 
 SAFE_COMMANDS = {
     "clarify": ["clarify"],
+    "steer": ["steer"],
     "plan": ["plan"],
     "build": ["build"],
     "review": ["review"],
@@ -79,6 +81,21 @@ def cockpit_snapshot(repo_root: Path) -> dict:
             "edges": graph.get("edges", []),
             "issues": [asdict(issue) for issue in graph_issues],
         },
+        "architecture": {
+            "system": _section(wiki / "architecture.md", "System Shape"),
+            "components": _bullets(_section(wiki / "architecture.md", "Key Components")),
+            "stack": _bullets(_section(wiki / "architecture.md", "Preferred Stack")),
+            "workflows": _bullets(_section(wiki / "workflows.md", "Core Workflows")),
+        },
+        "contradictions": [
+            {"id": rec.record_id, "title": rec.title, "type": rec.record_type, "links": rec.links}
+            for rec in query_records(repo_root, contradiction_only=True)
+        ],
+        "agent_activity": {
+            "packets": packets[-10:],
+            "reviews": reviews[-10:],
+            "log": _recent_log(wiki / "log.md"),
+        },
         "risks": risks,
         "decisions": decisions,
         "readiness_detail": readiness_snapshot(repo_root, cfg),
@@ -106,6 +123,12 @@ def _run_safe(repo_root: Path, action: str, args: dict) -> dict:
         if not field or not answer:
             return {"code": 2, "output": "clarify requires field and answer"}
         cmd.extend(["--field", field, "--answer", answer])
+    elif action == "steer":
+        field = str(args.get("field", "")).strip()
+        value = str(args.get("value", "")).strip()
+        if not field or not value:
+            return {"code": 2, "output": "steer requires field and value"}
+        cmd.extend(["--field", field, "--value", value])
     elif action in {"build", "review"} and args.get("task"):
         cmd.extend(["--task", str(args["task"])])
     elif action in {"readiness", "proof-pack", "release-summary"} and args.get("target"):
@@ -192,3 +215,10 @@ def _title(path: Path) -> str:
         if line.startswith("# "):
             return line[2:].strip()
     return ""
+
+
+def _recent_log(path: Path) -> list[str]:
+    if not path.exists():
+        return []
+    headings = [line.strip() for line in path.read_text(encoding="utf-8").splitlines() if line.startswith("## ")]
+    return headings[-10:]

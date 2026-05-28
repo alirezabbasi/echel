@@ -66,3 +66,4 @@
 - [x] TASK-0055 Cockpit readiness view
 - [x] TASK-0056 Release summary artifact
 - [x] TASK-0057 Phase 5 generated-project verification
+- [x] TASK-0058 Harden V2 requirements coverage

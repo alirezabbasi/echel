@@ -44,6 +44,7 @@ status: active
 - [[reports/readiness/mvp-readiness|Mvp Readiness]]
 - [[reports/releases/mvp-release-summary|Mvp Release Summary]]
 - [[reports/reviews/TASK-0001-initialize-project-wiki-review|Task 0001 Initialize Project Wiki Review]]
+- [[reports/v2-requirements-hardening-audit|V2 Requirements Hardening Audit]]
 - [[reports/wiki-health-report|Wiki Health Report]]
 - [[reports/work-packets/TASK-0001-initialize-project-wiki-packet|Task 0001 Initialize Project Wiki Packet]]
 
@@ -60,6 +61,7 @@ status: active
 - [[scope|Scope]]
 - [[solution|Solution]]
 - [[users|Users]]
+- [[workflows|Workflows]]
 
 ## Work
 
@@ -120,3 +122,4 @@ status: active
 - [[work/TASK-0055-cockpit-readiness-view|Task 0055 Cockpit Readiness View]]
 - [[work/TASK-0056-release-summary-artifact|Task 0056 Release Summary Artifact]]
 - [[work/TASK-0057-phase5-generated-project-verification|Task 0057 Phase5 Generated Project Verification]]
+- [[work/TASK-0058-harden-v2-requirements-coverage|Task 0058 Harden V2 Requirements Coverage]]

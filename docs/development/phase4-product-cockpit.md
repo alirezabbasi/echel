@@ -12,8 +12,11 @@ Phase 4 turns Echel's product memory, graph, packets, reviews, risks, decisions,
 - Roadmap
 - Work queue
 - Graph explorer
+- Architecture map
 - Build packets
 - Review reports
+- Contradictions
+- Agent activity
 - Risks
 - Decisions
 - Chat

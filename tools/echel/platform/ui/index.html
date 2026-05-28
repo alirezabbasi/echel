@@ -92,8 +92,8 @@ let active = 'dashboard';
 let currentThread = null;
 const tabs = [
   ['dashboard','#','Dashboard'], ['clarify','?','Clarify'], ['roadmap','>','Roadmap'],
-  ['work','+','Work'], ['graph','o','Graph'], ['packets','[]','Packets'],
-  ['reviews','*','Reviews'], ['readiness','R','Readiness'], ['risks','!','Risks'], ['decisions','D','Decisions'], ['chat','~','Chat']
+  ['work','+','Work'], ['architecture','A','Architecture'], ['graph','o','Graph'], ['packets','[]','Packets'],
+  ['reviews','*','Reviews'], ['readiness','R','Readiness'], ['risks','!','Risks'], ['contradictions','C','Contradictions'], ['activity','@','Activity'], ['decisions','D','Decisions'], ['chat','~','Chat']
 ];
 
 function esc(s){return String(s ?? '').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
@@ -122,11 +122,14 @@ function render(){
   if(active==='clarify') v.innerHTML = clarify();
   if(active==='roadmap') v.innerHTML = roadmap();
   if(active==='work') v.innerHTML = work();
+  if(active==='architecture') v.innerHTML = architecture();
   if(active==='graph') v.innerHTML = graph();
   if(active==='packets') v.innerHTML = reports('packets');
   if(active==='reviews') v.innerHTML = reports('reviews');
   if(active==='readiness') v.innerHTML = readiness();
   if(active==='risks') v.innerHTML = risks();
+  if(active==='contradictions') v.innerHTML = contradictions();
+  if(active==='activity') v.innerHTML = activity();
   if(active==='decisions') v.innerHTML = decisions();
   if(active==='chat') { v.innerHTML = chat(); initChat(); }
 }
@@ -160,6 +163,13 @@ function roadmap(){
 function work(){
   return `<div class="panel"><h2>Work Queue</h2>${list(state.work.tasks.map(t=>`<div class="item"><span class="pill ${t.status==='done'?'ok':''}">${esc(t.status)}</span><div class="item-title">${esc(t.title)}</div><div class="muted">${esc(t.objective)}</div></div>`))}</div>`;
 }
+function architecture(){
+  const a = state.architecture || {components:[], stack:[], workflows:[]};
+  return `<div class="grid cols-2">
+    <div class="panel"><h2>System Shape</h2><div class="item">${esc(a.system || 'TBD')}</div><h2>Components</h2>${list((a.components||[]).map(x=>`<div class="item">${esc(x)}</div>`))}</div>
+    <div class="panel"><h2>Preferred Stack</h2>${list((a.stack||[]).map(x=>`<div class="item">${esc(x)}</div>`))}<h2>Workflows</h2>${list((a.workflows||[]).map(x=>`<div class="item">${esc(x)}</div>`))}</div>
+  </div>`;
+}
 function graph(){
   const grouped = {};
   state.graph.nodes.forEach(n => (grouped[n.type] ||= []).push(n));
@@ -189,6 +199,15 @@ function readiness(){
   </div>`;
 }
 function risks(){return `<div class="panel"><h2>Risks</h2>${list(state.risks.map(r=>`<div class="item"><div class="item-title">${esc(r.title)}</div>${esc(r.summary)}</div>`))}</div>`}
+function contradictions(){return `<div class="panel"><h2>Contradictions</h2>${list((state.contradictions||[]).map(c=>`<div class="item"><div class="item-title">${esc(c.title)}</div><div class="muted">${esc(c.id)} · ${esc(c.type)}</div></div>`), 'No contradictions recorded')}</div>`}
+function activity(){
+  const a = state.agent_activity || {packets:[], reviews:[], log:[]};
+  return `<div class="grid cols-3">
+    <div class="panel"><h2>Packets</h2>${list((a.packets||[]).map(r=>`<div class="item">${esc(r.title)}<div class="muted">${esc(r.path)}</div></div>`))}</div>
+    <div class="panel"><h2>Reviews</h2>${list((a.reviews||[]).map(r=>`<div class="item">${esc(r.title)}<div class="muted">${esc(r.path)}</div></div>`))}</div>
+    <div class="panel"><h2>Recent Log</h2>${list((a.log||[]).map(x=>`<div class="item">${esc(x)}</div>`))}</div>
+  </div>`;
+}
 function decisions(){return `<div class="panel"><h2>Decisions</h2>${list(state.decisions.map(d=>`<div class="item"><div class="item-title">${esc(d.title)}</div><div class="muted">${esc(d.path)}</div></div>`))}</div>`}
 function chat(){
   return `<div class="chat-shell"><div class="panel"><h2>Provider</h2><input id="p-name" placeholder="name" /><select id="p-type"><option value="openai">openai</option><option value="anthropic">anthropic</option><option value="openai_compatible">openai_compatible</option></select><input id="p-model" placeholder="model" /><input id="p-base" placeholder="base url" /><input id="p-key" type="password" placeholder="api key" /><button class="btn primary" onclick="connectProvider()">Connect</button><select id="provider-select"></select><h2>Threads</h2><input id="thread-title" placeholder="title" /><button class="btn" onclick="createThread()">Create</button><div id="thread-list" class="list"></div></div><div><div id="chat-messages" class="messages"></div><div class="toolbar"><input id="message" placeholder="Message" /><button class="btn primary" onclick="sendMessage()">Send</button></div></div></div>`;

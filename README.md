@@ -197,16 +197,17 @@ Product-owner commands:
 7. `python3 tools/echel.py packet` generates an agent-ready work packet.
 8. `python3 tools/echel.py build` prepares a graph-backed agent implementation packet.
 9. `python3 tools/echel.py review` generates a task review report.
-10. `python3 tools/echel.py graph build` writes the product relationship graph.
-11. `python3 tools/echel.py graph validate` checks graph integrity.
-12. `python3 tools/echel.py graph report` writes a readable product graph report.
-13. `python3 tools/echel.py feature add --title "..."` records a product capability.
-14. `python3 tools/echel.py risk add --title "..." --mitigation "..."` records a product risk.
-15. `python3 tools/echel.py link --from <node-id> --to <node-id>` records a manual product relationship.
-16. `python3 tools/echel.py milestone --name "MVP" --kind release` records a milestone or release target.
-17. `python3 tools/echel.py readiness --target mvp` generates readiness status.
-18. `python3 tools/echel.py proof-pack --target mvp` generates a proof pack.
-19. `python3 tools/echel.py release-summary --target mvp` generates a release summary.
+10. `python3 tools/echel.py steer --field direction --value "..."` updates product direction or another product field.
+11. `python3 tools/echel.py graph build` writes the product relationship graph.
+12. `python3 tools/echel.py graph validate` checks graph integrity.
+13. `python3 tools/echel.py graph report` writes a readable product graph report.
+14. `python3 tools/echel.py feature add --title "..."` records a product capability.
+15. `python3 tools/echel.py risk add --title "..." --mitigation "..."` records a product risk.
+16. `python3 tools/echel.py link --from <node-id> --to <node-id>` records a manual product relationship.
+17. `python3 tools/echel.py milestone --name "MVP" --kind release` records a milestone or release target.
+18. `python3 tools/echel.py readiness --target mvp` generates readiness status.
+19. `python3 tools/echel.py proof-pack --target mvp` generates a proof pack.
+20. `python3 tools/echel.py release-summary --target mvp` generates a release summary.
 
 Operator commands:
 
@@ -263,5 +264,6 @@ What Sprint 1 includes:
 - Multi-thread chat storage
 - Chat-driven Echel command bridge via `/echel ...` messages for safe command subset
 - Product cockpit dashboard over product memory, graph, roadmap, work, packets, reviews, risks, and decisions
+- Architecture, contradiction, and agent activity cockpit views
 - Cockpit action bridge for safe product commands
 - Cockpit readiness view for milestone status, proof packs, and release summaries

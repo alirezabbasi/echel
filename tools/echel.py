@@ -39,6 +39,7 @@ from echel.product import (
     ensure_product_pages,
     next_task,
     product_status,
+    steer_product,
     synthesize_mvp_plan,
     update_project_definition,
 )
@@ -183,6 +184,17 @@ def cmd_review(repo_root: Path, task_id: str | None) -> int:
         print(str(exc), file=sys.stderr)
         return 2
     print(f"Generated review report: {path}")
+    return 0
+
+
+def cmd_steer(repo_root: Path, field: str, value: str) -> int:
+    cfg = _load(repo_root)
+    try:
+        path = steer_product(repo_root, cfg, field=field, value=value)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    print(f"Product direction updated: {path}")
     return 0
 
 
@@ -537,6 +549,9 @@ def build_parser() -> argparse.ArgumentParser:
     build.add_argument("--task")
     review = sub.add_parser("review")
     review.add_argument("--task")
+    steer = sub.add_parser("steer")
+    steer.add_argument("--field", required=True)
+    steer.add_argument("--value", required=True)
 
     graph = sub.add_parser("graph")
     graph_sub = graph.add_subparsers(dest="graph_cmd", required=True)
@@ -663,6 +678,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_build(root, task_id=args.task)
     if args.cmd == "review":
         return cmd_review(root, task_id=args.task)
+    if args.cmd == "steer":
+        return cmd_steer(root, field=args.field, value=args.value)
     if args.cmd == "graph":
         return cmd_graph(root, args.graph_cmd)
     if args.cmd == "feature" and args.feature_cmd == "add":

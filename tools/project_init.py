@@ -28,6 +28,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--solution", default="", help="Initial intended solution")
     parser.add_argument("--direction", default="", help="Initial product direction")
     parser.add_argument("--users", default="", help="Initial target users")
+    parser.add_argument("--mvp", default="", help="Initial MVP scope")
+    parser.add_argument("--constraints", default="", help="Initial product/user constraints")
+    parser.add_argument("--risks", default="", help="Initial product risks")
+    parser.add_argument("--stack", default="", help="Initial preferred technical stack")
     parser.add_argument("--success", default="", help="Initial success criteria")
     parser.add_argument(
         "--dest",
@@ -209,6 +213,10 @@ def write_product_pages(
     solution: str,
     direction: str,
     users: str,
+    mvp: str,
+    constraints: str,
+    risks: str,
+    stack: str,
     success: str,
 ) -> None:
     wiki = workspace_dir / "wiki"
@@ -230,6 +238,9 @@ status: active
 
 ## Success Criteria
 - {success or "TBD"}
+
+## Preferred Stack
+- {stack or "TBD"}
 """,
         "problem.md": f"""---
 type: product-problem
@@ -242,6 +253,12 @@ status: draft
 
 ## Why It Matters
 TBD
+
+## Current Alternatives
+TBD
+
+## Risks
+- {risks or "TBD"}
 """,
         "users.md": f"""---
 type: product-users
@@ -254,6 +271,9 @@ status: draft
 
 ## Needs
 - TBD
+
+## Constraints
+- {constraints or "TBD"}
 """,
         "solution.md": f"""---
 type: product-solution
@@ -267,14 +287,14 @@ status: draft
 ## Core Capabilities
 - TBD
 """,
-        "scope.md": """---
+        "scope.md": f"""---
 type: product-scope
 status: draft
 ---
 # Scope
 
 ## MVP
-- TBD
+- {mvp or "TBD"}
 
 ## Later
 - TBD
@@ -297,7 +317,7 @@ status: draft
 ## Later
 - TBD
 """,
-        "architecture.md": """---
+        "architecture.md": f"""---
 type: product-architecture
 status: draft
 ---
@@ -307,6 +327,21 @@ status: draft
 TBD
 
 ## Key Components
+- TBD
+
+## Preferred Stack
+- {stack or "TBD"}
+
+## Open Architecture Questions
+- TBD
+""",
+        "workflows.md": """---
+type: product-workflows
+status: draft
+---
+# Workflows
+
+## Core Workflows
 - TBD
 """,
     }
@@ -324,9 +359,13 @@ def update_project_wiki_context(
     solution: str,
     direction: str,
     users: str,
+    mvp: str,
+    constraints: str,
+    risks: str,
+    stack: str,
     success: str,
 ) -> None:
-    write_product_pages(workspace_dir, project_name, problem, solution, direction, users, success)
+    write_product_pages(workspace_dir, project_name, problem, solution, direction, users, mvp, constraints, risks, stack, success)
     brief = workspace_dir / "wiki" / "project-brief.md"
     if brief.exists() and "# Project Brief" in brief.read_text(encoding="utf-8"):
         text = brief.read_text(encoding="utf-8").replace("# Project Brief", f"# Project Brief - {project_name}", 1)
@@ -336,6 +375,14 @@ def update_project_wiki_context(
             text = _replace_section_body(text, "Intended Solution", solution)
         if direction:
             text = _replace_section_body(text, "Product Direction", direction)
+        if mvp:
+            text = _replace_section_body(text, "MVP", mvp)
+        if constraints:
+            text = _replace_section_body(text, "Constraints", constraints)
+        if risks:
+            text = _replace_section_body(text, "Risks", risks)
+        if stack:
+            text = _replace_section_body(text, "Preferred Stack", stack)
         brief.write_text(text, encoding="utf-8")
 
     log = workspace_dir / "wiki" / "log.md"
@@ -388,6 +435,10 @@ def main() -> int:
         args.solution,
         args.direction,
         args.users,
+        args.mvp,
+        args.constraints,
+        args.risks,
+        args.stack,
         args.success,
     )
 

@@ -12,6 +12,10 @@ python3 tools/echel.py define \
   --solution "..." \
   --direction "..." \
   --users "..." \
+  --mvp "..." \
+  --constraints "..." \
+  --risks "..." \
+  --stack "..." \
   --success "..."
 ```
 

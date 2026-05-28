@@ -13,10 +13,10 @@ target: mvp
 - States: idea clarified, mvp scoped, feature ready, feature verified, release candidate, production ready
 
 ## Coverage
-- Graph nodes: 77
-- Graph edges: 312
-- Tasks: 57
-- Done tasks: 53
+- Graph nodes: 79
+- Graph edges: 319
+- Tasks: 58
+- Done tasks: 54
 - Open tasks: 4
 
 ## Blockers

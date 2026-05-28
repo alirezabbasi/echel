@@ -67,6 +67,7 @@ target: mvp
 - TASK-0055 (done): TASK-0055 - Cockpit Readiness View
 - TASK-0056 (done): TASK-0056 - Release Summary Artifact
 - TASK-0057 (done): TASK-0057 - Phase 5 Generated-Project Verification
+- TASK-0058 (done): TASK-0058 - Harden V2 Requirements Coverage
 
 ## Reviews
 - [[../../reports/reviews/TASK-0001-initialize-project-wiki-review]]

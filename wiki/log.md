@@ -101,6 +101,11 @@ status: active
 - Added cockpit readiness data and view.
 - Added `make verify-phase5`.
 
+## [2026-05-28] audit | v2-requirements-hardening
+- Audited Echel against the seven requested V2 capability areas.
+- Added `steer`, richer product-first initialization, workflow/evidence graph nodes, likely files in packets, and cockpit architecture/contradiction/activity views.
+- Added `wiki/reports/v2-requirements-hardening-audit.md`.
+
 ## [2026-05-27] clarify | product-flow
 - Answered `mvp` clarification.
 
@@ -130,3 +135,24 @@ status: active
 
 ## [2026-05-28] proof-pack | readiness
 - Generated proof pack [[reports/proof-packs/mvp-proof-pack]].
+
+## [2026-05-28] steer | product-flow
+- Steered `workflow`.
+
+## [2026-05-28] packet | product-flow
+- Generated work packet [[reports/work-packets/TASK-0001-initialize-project-wiki-packet]].
+
+## [2026-05-28] release | readiness
+- Generated release summary [[reports/releases/mvp-release-summary]].
+
+## [2026-05-28] readiness | readiness
+- Generated readiness report [[reports/readiness/mvp-readiness]].
+
+## [2026-05-28] proof-pack | readiness
+- Generated proof pack [[reports/proof-packs/mvp-proof-pack]].
+
+## [2026-05-28] readiness | readiness
+- Generated readiness report [[reports/readiness/mvp-readiness]].
+
+## [2026-05-28] packet | product-flow
+- Generated work packet [[reports/work-packets/TASK-0001-initialize-project-wiki-packet]].

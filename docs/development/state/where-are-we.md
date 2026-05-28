@@ -30,6 +30,7 @@ Last updated: 2026-05-27
 - Completed Phase 3 graph-backed work packets and review reports through `build` and `review`.
 - Completed Phase 4 product cockpit foundation over the wiki, graph, work, packets, reviews, risks, and decisions.
 - Completed Phase 5 milestone readiness, proof packs, release summaries, and cockpit readiness.
+- Completed V2 requirements hardening for initialization, commands, graph coverage, packets, cockpit, readiness, and framework-core boundaries.
 
 ## Next
 

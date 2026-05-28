@@ -17,6 +17,9 @@ Required top-level keys:
 - `roadmap`
 - `work`
 - `graph`
+- `architecture`
+- `contradictions`
+- `agent_activity`
 - `risks`
 - `decisions`
 - `status_markdown`
@@ -34,6 +37,7 @@ Request:
 
 Safe actions:
 - `clarify`
+- `steer`
 - `plan`
 - `build`
 - `review`
@@ -52,4 +56,3 @@ Response:
 
 ## Boundary
 The cockpit reads and writes product memory through Echel commands and structured helpers. It should not become an independent source of product truth.
-

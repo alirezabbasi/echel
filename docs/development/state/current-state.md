@@ -29,6 +29,7 @@ Last updated: 2026-05-27
 - Completed Phase 3 graph-backed agent work packets, product-facing build command, review reports, evidence obligations, graph-aware next-task selection, and generated-project verification.
 - Completed Phase 4 product cockpit foundation: cockpit data API, dashboard, clarification, roadmap, work, graph, packet, review, risk, decision, chat views, safe command bridge, and generated-project verification.
 - Completed Phase 5 milestone and release readiness: milestone command, readiness reports, proof packs, evidence/risk/review gates, release summaries, cockpit readiness view, and generated-project verification.
+- Hardened V2 coverage against the requested product-first initialization, product-owner command language, graph, packet, cockpit, readiness, and framework-core boundaries.
 
 ## Next
 
