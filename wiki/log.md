@@ -209,6 +209,11 @@ status: active
 - Command generates or refreshes canon files from PDS with discovery content.
 - Command reports canon status showing which files have TBD sections.
 
+## [2026-07-02] canon-drift | canon
+- Added `echel canon-drift` CLI command detecting contradictions between discovery and canon.
+- Contradictions are recorded as durable memory records with type `canon-drift`.
+- Canon sections marked stale when discovery fields have been updated.
+
 ## [2026-07-01] discover | discovery
 - Updated `problem-statement` in Product Discovery Specification.
 

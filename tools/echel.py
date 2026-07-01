@@ -43,7 +43,7 @@ from echel.product import (
     synthesize_mvp_plan,
     update_project_definition,
 )
-from echel.canon import canon_generate, canon_status, ensure_canon_files
+from echel.canon import canon_generate, canon_status, canon_drift_report, ensure_canon_files
 from echel.discovery import discover_questions, discover_status, discover_update, ensure_discovery_files
 from echel.workspace import apply_workspace_move, plan_workspace_move, write_impact_preview
 
@@ -166,6 +166,12 @@ def cmd_canon(repo_root: Path, force: bool) -> int:
             print(f"- {path}")
     else:
         print("\nCanon files are already up to date.")
+    return 0
+
+
+def cmd_canon_drift(repo_root: Path) -> int:
+    cfg = _load(repo_root)
+    print(canon_drift_report(repo_root, cfg))
     return 0
 
 
@@ -602,6 +608,8 @@ def build_parser() -> argparse.ArgumentParser:
     canon = sub.add_parser("canon")
     canon.add_argument("--force", action="store_true")
 
+    sub.add_parser("canon-drift")
+
     plan = sub.add_parser("plan")
     plan.add_argument("--title")
     plan.add_argument("--goal")
@@ -736,6 +744,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_discover(root, field=args.field, value=args.value)
     if args.cmd == "canon":
         return cmd_canon(root, force=args.force)
+    if args.cmd == "canon-drift":
+        return cmd_canon_drift(root)
     if args.cmd == "plan":
         return cmd_plan(root, title=args.title, goal=args.goal)
     if args.cmd == "status":

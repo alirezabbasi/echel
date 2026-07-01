@@ -6,7 +6,8 @@ from pathlib import Path
 import re
 
 from .config import ProjectConfig, resolve_symbolic_path
-from .discovery import DISCOVERY_FIELDS, discovery_root, _section_body, _is_tbd
+from .discovery import DISCOVERY_FIELDS, PDS_FILE, discovery_root, _section_body, _is_tbd
+from .memory_kernel import append_record, query_records
 
 
 CANON_DIR = "canon"
@@ -127,6 +128,87 @@ def canon_status(repo_root: Path, cfg: ProjectConfig) -> str:
         lines.append("")
         lines.append("Run `echel canon` to refresh from discovery, or `echel canon --force` to override gaps.")
 
+    return "\n".join(lines)
+
+
+@dataclass(frozen=True)
+class CanonDriftIssue:
+    severity: str
+    canon_file: str
+    section: str
+    message: str
+    suggestion: str
+
+
+DRIFT_SECTIONS = [
+    ("product-canon.md", "What This Product Is", "02 Problem", "problem"),
+    ("product-canon.md", "Who This Product Serves", "03 Users", "users"),
+    ("product-canon.md", "Why Customers Would Pay or Adopt", "10 Business Model", "business-model"),
+    ("vision.md", "Vision Statement", "09 Product Vision", "vision"),
+    ("vision.md", "End State", "13 Non-Goals", "non-goals"),
+    ("non-negotiables.md", "Hard Constraints", "14 Constraints", "constraints"),
+]
+
+
+def detect_canon_drift(repo_root: Path, cfg: ProjectConfig) -> list[CanonDriftIssue]:
+    d_root = discovery_root(repo_root, cfg)
+    c_root = canon_root(repo_root, cfg)
+    pds = d_root / PDS_FILE
+    if not pds.exists():
+        return []
+    pds_text = pds.read_text(encoding="utf-8")
+
+    existing_contradictions = {
+        r.title for r in query_records(repo_root, record_type="canon-drift", contradiction_only=True)
+    }
+
+    issues: list[CanonDriftIssue] = []
+    for canon_file, canon_heading, pds_heading, field_key in DRIFT_SECTIONS:
+        canon_path = c_root / canon_file
+        if not canon_path.exists():
+            continue
+        canon_text = canon_path.read_text(encoding="utf-8")
+        canon_body = _section_body(canon_text, canon_heading)
+        pds_body = _extract_pds_section(pds_text, pds_heading)
+
+        if _is_tbd(canon_body) and not _is_tbd(pds_body):
+            title = f"canon-drift:{canon_file}:{field_key}"
+            if title not in existing_contradictions:
+                append_record(
+                    repo_root,
+                    record_type="canon-drift",
+                    title=title,
+                    links=[field_key],
+                    contradiction=True,
+                    payload={
+                        "canon_file": canon_file,
+                        "section": canon_heading,
+                        "message": f"Canon section `{canon_heading}` is TBD but discovery field `{field_key}` has content",
+                    },
+                )
+            issues.append(CanonDriftIssue(
+                severity="warning",
+                canon_file=canon_file,
+                section=canon_heading,
+                message=f"Canon `{canon_heading}` is stale: discovery field `{field_key}` has been updated",
+                suggestion=f"Run `echel canon --force` to refresh, or update `{canon_heading}` manually",
+            ))
+
+    return issues
+
+
+def canon_drift_report(repo_root: Path, cfg: ProjectConfig) -> str:
+    issues = detect_canon_drift(repo_root, cfg)
+    lines = ["# Canon Drift Report", ""]
+    if not issues:
+        lines.append("No canon drift detected. Canon is in sync with discovery.")
+    else:
+        lines.append(f"## {len(issues)} drift issue(s) found\n")
+        for issue in issues:
+            lines.append(f"### [{issue.severity}] {issue.canon_file} - {issue.section}")
+            lines.append(f"- **Issue:** {issue.message}")
+            lines.append(f"- **Action:** {issue.suggestion}")
+            lines.append("")
     return "\n".join(lines)
 
 
