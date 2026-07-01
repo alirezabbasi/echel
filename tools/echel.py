@@ -13,7 +13,7 @@ from echel.conformance import run_conformance
 from echel.config import ConfigError, load_config, resolve_root_map, resolve_symbolic_path
 from echel.contracts import ensure_contracts, validate_transition
 from echel.evidence import ensure_registry, validate_links, validate_registry
-from echel.gates import run_gates
+from echel.gates import run_gates, run_stage_gate
 from echel.graph import (
     add_feature,
     add_manual_link,
@@ -284,8 +284,18 @@ def cmd_milestone(repo_root: Path, name: str, kind: str, summary: str) -> int:
     return 0
 
 
-def cmd_readiness(repo_root: Path, target: str) -> int:
+def cmd_readiness(repo_root: Path, target: str, stage: str | None) -> int:
     cfg = _load(repo_root)
+    if stage:
+        result = run_stage_gate(repo_root, cfg, stage)
+        if result.passed:
+            print(f"{result.gate_id}: PASS")
+        else:
+            print(f"{result.gate_id}: BLOCKED")
+            for failure in result.failures:
+                print(f"  - {failure}")
+            return 1
+        return 0
     path = readiness_report(repo_root, cfg, target=target)
     print(f"Readiness report written: {path}")
     return 0
@@ -616,6 +626,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     readiness = sub.add_parser("readiness")
     readiness.add_argument("--target", default="mvp")
+    readiness.add_argument("--stage", default=None)
 
     proof = sub.add_parser("proof-pack")
     proof.add_argument("--target", default="mvp")
@@ -724,7 +735,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "milestone":
         return cmd_milestone(root, name=args.name, kind=args.kind, summary=args.summary)
     if args.cmd == "readiness":
-        return cmd_readiness(root, target=args.target)
+        return cmd_readiness(root, target=args.target, stage=args.stage)
     if args.cmd == "proof-pack":
         return cmd_proof_pack(root, target=args.target)
     if args.cmd == "release-summary":

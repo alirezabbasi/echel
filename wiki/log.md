@@ -191,5 +191,10 @@ status: active
 - Command updates 28 discoverable PDS fields via `--field` and `--value` arguments.
 - Log entries appended to `wiki/log.md` with discovery label.
 
+## [2026-07-02] gate | discovery
+- Added `GATE-DISCOVERY` gate check in `tools/echel/gates.py` validating 11 required discovery fields.
+- `echel readiness --stage discovery` reports PASS or BLOCKED with remediation messages.
+- `echel doctor` now includes GATE-DISCOVERY in gate evaluation output.
+
 ## [2026-07-01] discover | discovery
 - Updated `problem-statement` in Product Discovery Specification.

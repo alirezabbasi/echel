@@ -7,6 +7,7 @@ from typing import Callable
 
 from .coherence import detect_drift
 from .config import ProjectConfig, resolve_symbolic_path
+from .discovery import DISCOVERY_FIELDS, discovery_root, _section_body, _is_tbd
 from .evidence import ensure_registry, validate_links, validate_registry
 from .primitives import validate_decisions, validate_gate_ids, validate_tasks
 
@@ -54,11 +55,63 @@ def _check_primitives(repo_root: Path, cfg: ProjectConfig) -> list[str]:
     return fails
 
 
+def _check_discovery(repo_root: Path, cfg: ProjectConfig) -> list[str]:
+    root = discovery_root(repo_root, cfg)
+    pds = root / "product-discovery-spec.md"
+    if not pds.exists():
+        return ["discovery not initialized: run `echel discover` to start"]
+    text = pds.read_text(encoding="utf-8")
+    failures: list[str] = []
+    required_fields = [
+        ("problem", "02 Problem", "Problem must be clearly defined"),
+        ("buyers", "04 Buyers", "Buyer must be identified"),
+        ("users", "03 Users", "User must be identified"),
+        ("workflow", "06 Current Workflow", "Current workflow must be documented"),
+        ("success", "11 Success Criteria", "Success criteria must be measurable"),
+        ("non-goals", "13 Non-Goals", "Non-goals must be documented"),
+        ("constraints", "14 Constraints", "Constraints must be documented"),
+        ("risks", "17 Risks", "Risks must be listed"),
+        ("assumptions", "15 Assumptions", "Assumptions must be listed"),
+        ("open-questions", "22 Open Questions", "Open questions must be listed"),
+        ("scope", "12 Scope", "MVP scope must be defined"),
+    ]
+    for key, heading, message in required_fields:
+        body = _section_body(text, heading)
+        if _section_incomplete(body):
+            failures.append(f"discovery field `{key}` is incomplete: {message}")
+    research = root / "research-plan.md"
+    if not research.exists():
+        failures.append("research plan missing: create wiki/discovery/research-plan.md")
+    return failures
+
+
+def _section_incomplete(body: str) -> bool:
+    if not body.strip():
+        return True
+    cleaned = body.strip()
+    if cleaned == "TBD" or cleaned == "- TBD":
+        return True
+    lines = [line.strip() for line in cleaned.splitlines() if line.strip()]
+    content_lines = []
+    for line in lines:
+        if line.startswith("**") or line.startswith("|") or line.startswith("#") or line.startswith("---"):
+            continue
+        if line in {"TBD", "- TBD", "TBD", "fact or observation", "decision or hypothesis", "decision", "assumption or hypothesis", "hypothesis", "assumption", "question"}:
+            continue
+        if line.startswith("- ID:") or line.startswith("- Type:") or line.startswith("- Confidence:"):
+            continue
+        if line.startswith("| `") and "TBD" in line:
+            continue
+        content_lines.append(line)
+    return len(content_lines) == 0
+
+
 CHECKS: dict[str, GateFn] = {
     "schema": _check_schema,
     "coherence": _check_coherence,
     "evidence-links": _check_evidence_links,
     "primitives": _check_primitives,
+    "discovery": _check_discovery,
 }
 
 
@@ -70,6 +123,7 @@ def ensure_policy(path: Path) -> dict:
             "gates": [
                 {"id": "GATE-SCHEMA", "checks": ["schema", "primitives"]},
                 {"id": "GATE-INTEGRITY", "checks": ["coherence", "evidence-links"]},
+                {"id": "GATE-DISCOVERY", "checks": ["discovery"]},
             ],
         }
         path.write_text(json.dumps(default, indent=2) + "\n", encoding="utf-8")
@@ -125,3 +179,15 @@ def run_gates(repo_root: Path, cfg: ProjectConfig) -> tuple[list[GateResult], li
                 gate_by_id[gid].passed = False
                 gate_by_id[gid].failures.extend(f"[{chk}] {failure}" for failure in failures)
     return compiled, []
+
+
+def run_stage_gate(repo_root: Path, cfg: ProjectConfig, stage: str) -> GateResult:
+    check_name = f"discovery" if stage == "discovery" else stage
+    if check_name not in CHECKS:
+        return GateResult(gate_id=f"GATE-{stage.upper()}", passed=False, failures=[f"unknown stage gate: {stage}"])
+    failures = CHECKS[check_name](repo_root, cfg)
+    return GateResult(
+        gate_id=f"GATE-{stage.upper()}",
+        passed=len(failures) == 0,
+        failures=failures,
+    )
