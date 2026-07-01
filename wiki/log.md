@@ -170,3 +170,10 @@ status: active
 
 ## [2026-05-28] packet | product-flow
 - Generated work packet [[reports/work-packets/TASK-0001-initialize-project-wiki-packet]].
+
+## [2026-07-02] schema | traceability
+- Added `schema/traceability.schema.md` as the vNext methodology ID system.
+- Defined 35 ID families covering discovery through operations artifacts.
+- Specified naming rules, artifact object shapes, stage mappings, and traceability chains.
+- Planned six-phase validation logic: format, reference integrity, stage coverage, chain completeness, statement discipline, supersession.
+- Defined graph integration with trace_id index and matrix structure.
