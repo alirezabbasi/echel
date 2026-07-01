@@ -22,16 +22,7 @@ TBD
 TBD
 
 ### Key Benefit
-
-TBD
-
-### Differentiator
-
-TBD
-
-### Alternative
-
-TBD
+**Statement type:** decision or hypothesis **Confidence:** TBD ### Solution Concept TBD ### Core Capabilities TBD ### Differentiation TBD
 
 ## Category Design
 
@@ -60,10 +51,7 @@ TBD
 3. TBD
 
 ### Proof Points
-
-| Message | Proof |
-| --- | --- |
-| TBD | TBD |
+Success metrics: ### Business Success {#S-001} | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-001` | TBD | TBD | TBD | ### Technical Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-002` | TBD | TBD | TBD | ### Operational Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-003` | TBD | TBD | TBD | ### Customer Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-004` | TBD | TBD | TBD | ### Financial Success |
 
 ## Brand Personality
 
@@ -102,3 +90,6 @@ TBD
 - [ ] Differentiator is defensible
 - [ ] Messaging framework is defined
 - [ ] Positioning is validated against customer perception
+
+## Differentiator
+**Statement type:** decision **Confidence:** TBD Where does this product end? What business transformation happens? TBD

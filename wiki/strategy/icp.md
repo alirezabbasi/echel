@@ -8,16 +8,7 @@ stage: strategy
 This document defines the specific customer segment we serve first. The ICP must be concrete enough that a sales or marketing team could identify and reach these customers.
 
 ## Primary ICP
-
-| Field | Value |
-| --- | --- |
-| Segment Name | TBD |
-| Industry | TBD |
-| Company Size | TBD |
-| Role | TBD |
-| Pain Level | TBD |
-| Budget | TBD |
-| Decision Speed | TBD |
+Target users: ### Primary Users {#U-001} | ID | Role | Description | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `U-001` | TBD | TBD | TBD | TBD | ### User Goals TBD ### User Constraints TBD
 
 ## ICP Characteristics
 
@@ -44,21 +35,10 @@ This document defines the specific customer segment we serve first. The ICP must
 - Current workaround: TBD
 
 ## Secondary ICP
-
-| Field | Value |
-| --- | --- |
-| Segment Name | TBD |
-| Industry | TBD |
-| Company Size | TBD |
-| Role | TBD |
+Target buyers: ### Buyer Model {#B-001} | ID | Role | Description | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `B-001` | TBD | TBD | TBD | TBD | ### Economic Buyer Who signs the contract? TBD Who pays? TBD Who approves? TBD Who blocks? TBD Who influences? TBD
 
 ## Anti-ICP
-
-Who we explicitly do NOT serve:
-
-- TBD
-- TBD
-- TBD
+Alternatives: | ID | Alternative | Type | Strength | Weakness | Switching Cost | | --- | --- | --- | --- | --- | --- | | `CMP-001` | TBD | TBD | TBD | TBD | TBD | Current alternatives include not only software but also Excel, email, phone, consultants, legacy systems, custom software, and doing nothing.
 
 ## Discovery References
 

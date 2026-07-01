@@ -10,73 +10,7 @@ This document separates every stakeholder role. Confusing buyer with user is one
 ## Stakeholder Roles
 
 ### Economic Buyer
-
-The person who signs the contract and controls the budget.
-
-| Field | Value |
-| --- | --- |
-| Role Title | TBD |
-| Department | TBD |
-| Reporting Line | TBD |
-| Budget Authority | TBD |
-| Primary Concern | TBD |
-| Success Metric | TBD |
-
-### User
-
-The person who uses the product daily.
-
-| Field | Value |
-| --- | --- |
-| Role Title | TBD |
-| Department | TBD |
-| Daily Tasks | TBD |
-| Pain Points | TBD |
-| Success Metric | TBD |
-
-### Approver
-
-The person who must approve the purchase.
-
-| Field | Value |
-| --- | --- |
-| Role Title | TBD |
-| Department | TBD |
-| Approval Criteria | TBD |
-| Concerns | TBD |
-
-### Influencer
-
-The person who recommends or evaluates the product.
-
-| Field | Value |
-| --- | --- |
-| Role Title | TBD |
-| Department | TBD |
-| Influence Type | TBD |
-| Evaluation Criteria | TBD |
-
-### Blocker
-
-The person who can stop the deal.
-
-| Field | Value |
-| --- | --- |
-| Role Title | TBD |
-| Department | TBD |
-| Blocking Reason | TBD |
-| Mitigation | TBD |
-
-### Operator
-
-The person who operates or supports the product.
-
-| Field | Value |
-| --- | --- |
-| Role Title | TBD |
-| Department | TBD |
-| Operational Tasks | TBD |
-| Success Metric | TBD |
+### Buyer Model {#B-001} | ID | Role | Description | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `B-001` | TBD | TBD | TBD | TBD | ### Economic Buyer Who signs the contract? TBD Who pays? TBD Who approves? TBD Who blocks? TBD Who influences? TBD
 
 ## Stakeholder Matrix
 
@@ -106,3 +40,9 @@ The person who operates or supports the product.
 - [ ] Blocker is identified
 - [ ] Operator is identified
 - [ ] Each role has distinct concerns and success metrics
+
+## User
+### Primary Users {#U-001} | ID | Role | Description | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `U-001` | TBD | TBD | TBD | TBD | ### User Goals TBD ### User Constraints TBD
+
+## Operator
+### Operator Model {#O-001} | ID | Role | Description | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `O-001` | TBD | TBD | TBD | TBD |

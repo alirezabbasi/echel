@@ -223,8 +223,18 @@ status: active
 - Added `wiki/strategy/pricing-and-packaging.md` defining pricing model, tiers, packaging strategy, and revenue projections with hypothesis marking.
 - Added `wiki/strategy/pmf-evidence.md` defining continue/stop criteria, evidence types, collection phases, and decision framework.
 
+## [2026-07-02] strategy | strategy
+- Added `echel strategy` CLI command with `tools/echel/strategy.py` module.
+- Command refuses to run when discovery gate fails unless --force is used.
+- Command generates or refreshes 7 strategy files from PDS with discovery content.
+- Command reports strategy status showing which files have TBD sections.
+- Added `echel strategy-readiness` CLI command reporting pass/block state with remediation messages.
+
 ## [2026-07-01] discover | discovery
 - Updated `problem-statement` in Product Discovery Specification.
 
 ## [2026-07-01] canon | canon
 - Generated or refreshed Product Canon from discovery.
+
+## [2026-07-01] strategy | strategy
+- Generated or refreshed Product Strategy from canon.

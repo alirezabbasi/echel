@@ -8,14 +8,7 @@ stage: strategy
 This document defines how we monetize. All pricing is hypothesis-level unless explicitly validated.
 
 ## Pricing Model
-
-| Field | Value |
-| --- | --- |
-| Model Type | TBD (subscription, usage, license, freemium, marketplace) |
-| Billing Unit | TBD |
-| Billing Frequency | TBD |
-| Statement Type | hypothesis |
-| Confidence | TBD |
+Business model: **Statement type:** assumption or hypothesis **Confidence:** TBD How does money flow? License: TBD SaaS: TBD Subscription: TBD Marketplace: TBD Professional Services: TBD Support: TBD Training: TBD Usage: TBD Revenue Share: TBD
 
 ## Pricing Tiers
 
@@ -68,33 +61,10 @@ This document defines how we monetize. All pricing is hypothesis-level unless ex
 - TBD
 
 ## Pricing Validation
-
-### Price Sensitivity
-
-- Method: TBD
-- Results: TBD
-- Confidence: TBD
-
-### Willingness to Pay
-
-- Method: TBD
-- Results: TBD
-- Confidence: TBD
-
-### Competitive Benchmarking
-
-| Competitor | Their Price | Our Price | Justification |
-| --- | --- | --- | --- |
-| TBD | TBD | TBD | TBD |
+Success criteria: ### Business Success {#S-001} | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-001` | TBD | TBD | TBD | ### Technical Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-002` | TBD | TBD | TBD | ### Operational Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-003` | TBD | TBD | TBD | ### Customer Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-004` | TBD | TBD | TBD | ### Financial Success |
 
 ## Revenue Projections
-
-| Metric | Value | Confidence |
-| --- | --- | --- |
-| ARPU | TBD | hypothesis |
-| LTV | TBD | hypothesis |
-| CAC | TBD | hypothesis |
-| Payback Period | TBD | hypothesis |
+Constraints: | ID | Constraint | Category | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `C-001` | TBD | budget | TBD | TBD | | `C-002` | TBD | time | TBD | TBD | | `C-003` | TBD | people | TBD | TBD | | `C-004` | TBD | technology | TBD | TBD | | `C-005` | TBD | legal | TBD | TBD | | `C-006` | TBD | compliance | TBD | TBD |
 
 ## Discovery References
 

@@ -45,6 +45,7 @@ from echel.product import (
 )
 from echel.canon import canon_generate, canon_status, canon_drift_report, ensure_canon_files
 from echel.discovery import discover_questions, discover_status, discover_update, ensure_discovery_files
+from echel.strategy import strategy_generate, strategy_readiness, strategy_status, ensure_strategy_files
 from echel.workspace import apply_workspace_move, plan_workspace_move, write_impact_preview
 
 
@@ -172,6 +173,38 @@ def cmd_canon(repo_root: Path, force: bool) -> int:
 def cmd_canon_drift(repo_root: Path) -> int:
     cfg = _load(repo_root)
     print(canon_drift_report(repo_root, cfg))
+    return 0
+
+
+def cmd_strategy(repo_root: Path, force: bool) -> int:
+    cfg = _load(repo_root)
+    ensure_strategy_files(repo_root, cfg)
+    print(strategy_status(repo_root, cfg))
+    if force:
+        print("\nForcing strategy generation (bypassing discovery gate).")
+    try:
+        changed = strategy_generate(repo_root, cfg, force=force)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    if changed:
+        print(f"\nUpdated {len(changed)} strategy file(s):")
+        for path in changed:
+            print(f"- {path}")
+    else:
+        print("\nStrategy files are already up to date.")
+    return 0
+
+
+def cmd_strategy_readiness(repo_root: Path) -> int:
+    cfg = _load(repo_root)
+    failures = strategy_readiness(repo_root, cfg)
+    if failures:
+        print("STRATEGY: BLOCKED")
+        for failure in failures:
+            print(f"  - {failure}")
+        return 1
+    print("STRATEGY: PASS")
     return 0
 
 
@@ -610,6 +643,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("canon-drift")
 
+    strategy = sub.add_parser("strategy")
+    strategy.add_argument("--force", action="store_true")
+
+    sub.add_parser("strategy-readiness")
+
     plan = sub.add_parser("plan")
     plan.add_argument("--title")
     plan.add_argument("--goal")
@@ -746,6 +784,10 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_canon(root, force=args.force)
     if args.cmd == "canon-drift":
         return cmd_canon_drift(root)
+    if args.cmd == "strategy":
+        return cmd_strategy(root, force=args.force)
+    if args.cmd == "strategy-readiness":
+        return cmd_strategy_readiness(root)
     if args.cmd == "plan":
         return cmd_plan(root, title=args.title, goal=args.goal)
     if args.cmd == "status":
