@@ -196,5 +196,12 @@ status: active
 - `echel readiness --stage discovery` reports PASS or BLOCKED with remediation messages.
 - `echel doctor` now includes GATE-DISCOVERY in gate evaluation output.
 
+## [2026-07-02] canon | product-canon
+- Added `wiki/canon/product-canon.md` as the primary source of product truth.
+- Added `wiki/canon/vision.md` defining vision statement, business transformation, and non-goals.
+- Added `wiki/canon/product-principles.md` defining core principles and decision framework.
+- Added `wiki/canon/non-negotiables.md` defining hard constraints and requirements.
+- Every canon file includes discovery ID references and quality gate checklists.
+
 ## [2026-07-01] discover | discovery
 - Updated `problem-statement` in Product Discovery Specification.
