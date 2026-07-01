@@ -203,5 +203,14 @@ status: active
 - Added `wiki/canon/non-negotiables.md` defining hard constraints and requirements.
 - Every canon file includes discovery ID references and quality gate checklists.
 
+## [2026-07-02] canon | canon
+- Added `echel canon` CLI command with `tools/echel/canon.py` module.
+- Command refuses to run when discovery gate fails unless --force is used.
+- Command generates or refreshes canon files from PDS with discovery content.
+- Command reports canon status showing which files have TBD sections.
+
 ## [2026-07-01] discover | discovery
 - Updated `problem-statement` in Product Discovery Specification.
+
+## [2026-07-01] canon | canon
+- Generated or refreshed Product Canon from discovery.

@@ -8,20 +8,13 @@ stage: canon
 This document defines where the product ends and what business transformation it enables. Vision must be specific, not buzzword-driven.
 
 ## Vision Statement
-
-TBD
+**Statement type:** decision **Confidence:** TBD Where does this product end? What business transformation happens? TBD
 
 ## Business Transformation
-
-What changes for the customer when this product succeeds?
-
-TBD
+### Business Success {#S-001} | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-001` | TBD | TBD | TBD | ### Technical Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-002` | TBD | TBD | TBD | ### Operational Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-003` | TBD | TBD | TBD | ### Customer Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-004` | TBD | TBD | TBD | ### Financial Success |
 
 ## End State
-
-Where does this product journey end?
-
-TBD
+**Statement type:** decision | ID | Non-Goal | Rationale | | --- | --- | --- | | `NC-001` | TBD | TBD | Without explicit non-goals, scope expands forever.
 
 ## What This Product Is NOT
 

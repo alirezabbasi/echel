@@ -8,10 +8,7 @@ stage: canon
 These are the constraints and requirements that cannot be violated under any circumstances. They override all other considerations.
 
 ## Hard Constraints
-
-| ID | Constraint | Category | Statement Type | Confidence |
-| --- | --- | --- | --- | --- |
-| `C-001` | TBD | TBD | constraint | TBD |
+| ID | Constraint | Category | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `C-001` | TBD | budget | TBD | TBD | | `C-002` | TBD | time | TBD | TBD | | `C-003` | TBD | people | TBD | TBD | | `C-004` | TBD | technology | TBD | TBD | | `C-005` | TBD | legal | TBD | TBD | | `C-006` | TBD | compliance | TBD | TBD |
 
 ## Legal and Compliance Requirements
 
@@ -44,10 +41,7 @@ These are the constraints and requirements that cannot be violated under any cir
 | TBD | TBD | constraint | TBD |
 
 ## What We Must NEVER Do
-
-- TBD
-- TBD
-- TBD
+**Statement type:** decision | ID | Non-Goal | Rationale | | --- | --- | --- | | `NC-001` | TBD | TBD | Without explicit non-goals, scope expands forever.
 
 ## Discovery References
 

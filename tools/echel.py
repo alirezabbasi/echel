@@ -43,6 +43,7 @@ from echel.product import (
     synthesize_mvp_plan,
     update_project_definition,
 )
+from echel.canon import canon_generate, canon_status, ensure_canon_files
 from echel.discovery import discover_questions, discover_status, discover_update, ensure_discovery_files
 from echel.workspace import apply_workspace_move, plan_workspace_move, write_impact_preview
 
@@ -145,6 +146,26 @@ def cmd_discover(repo_root: Path, field: str | None, value: str | None) -> int:
             print(f"{idx}. {question}")
     else:
         print("No open discovery gaps found.")
+    return 0
+
+
+def cmd_canon(repo_root: Path, force: bool) -> int:
+    cfg = _load(repo_root)
+    ensure_canon_files(repo_root, cfg)
+    print(canon_status(repo_root, cfg))
+    if force:
+        print("\nForcing canon generation (bypassing discovery gate).")
+    try:
+        changed = canon_generate(repo_root, cfg, force=force)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    if changed:
+        print(f"\nUpdated {len(changed)} canon file(s):")
+        for path in changed:
+            print(f"- {path}")
+    else:
+        print("\nCanon files are already up to date.")
     return 0
 
 
@@ -578,6 +599,9 @@ def build_parser() -> argparse.ArgumentParser:
     discover.add_argument("--field")
     discover.add_argument("--value")
 
+    canon = sub.add_parser("canon")
+    canon.add_argument("--force", action="store_true")
+
     plan = sub.add_parser("plan")
     plan.add_argument("--title")
     plan.add_argument("--goal")
@@ -710,6 +734,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_clarify(root, field=args.field, answer=args.answer)
     if args.cmd == "discover":
         return cmd_discover(root, field=args.field, value=args.value)
+    if args.cmd == "canon":
+        return cmd_canon(root, force=args.force)
     if args.cmd == "plan":
         return cmd_plan(root, title=args.title, goal=args.goal)
     if args.cmd == "status":
