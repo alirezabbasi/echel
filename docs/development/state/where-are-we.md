@@ -1,6 +1,6 @@
 # Where Are We
 
-Last updated: 2026-05-27
+Last updated: 2026-07-02
 
 ## Completed
 
@@ -31,13 +31,14 @@ Last updated: 2026-05-27
 - Completed Phase 4 product cockpit foundation over the wiki, graph, work, packets, reviews, risks, and decisions.
 - Completed Phase 5 milestone readiness, proof packs, release summaries, and cockpit readiness.
 - Completed V2 requirements hardening for initialization, commands, graph coverage, packets, cockpit, readiness, and framework-core boundaries.
+- Added `docs/development/methodology.md` as the Echel vNext methodology contract for the full Product Discovery Specification to operations lifecycle.
 
 ## Next
 
-1. Add durable memory kernel and contradiction tracking.
-2. Add differential conformance tooling and CI summary outputs.
-3. Add migration planner, runtime adapters, and safety rails.
-4. Continue reducing duplicated documentation content inside the simplified structure.
+1. Add lifecycle stage schema aligned with the vNext methodology contract.
+2. Add traceability ID system for discovery, canon, requirements, domain, architecture, tasks, tests, evidence, release, and operations.
+3. Add Product Discovery Specification templates and discovery quality gate.
+4. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
 5. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks

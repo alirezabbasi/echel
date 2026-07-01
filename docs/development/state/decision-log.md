@@ -35,3 +35,9 @@
 - Decision: Generated projects keep `wiki/` at the target project root while framework files live under `echel-core/`.
 - Context: Product intelligence belongs to the product repository, while Echel methodology and automation belong to the framework.
 - Impact: `project.echel` now includes `WIKI_ROOT`; generated `echel-core/project.echel` points it to `../wiki`.
+
+## DEC-0007
+
+- Decision: Adopt `docs/development/methodology.md` as the Echel vNext methodology contract.
+- Context: The methodology needs to define Echel as an AI-native software engineering operating system, not only a documentation framework or product wiki scaffold.
+- Impact: Future lifecycle schemas, commands, templates, graph nodes, stage gates, cockpit flows, and agent playbooks must align with the ordered lifecycle from Product Discovery Specification through operations and governance.

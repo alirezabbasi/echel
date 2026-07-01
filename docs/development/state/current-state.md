@@ -1,6 +1,6 @@
 # Current State
 
-Last updated: 2026-05-27
+Last updated: 2026-07-02
 
 ## Completed
 
@@ -30,14 +30,15 @@ Last updated: 2026-05-27
 - Completed Phase 4 product cockpit foundation: cockpit data API, dashboard, clarification, roadmap, work, graph, packet, review, risk, decision, chat views, safe command bridge, and generated-project verification.
 - Completed Phase 5 milestone and release readiness: milestone command, readiness reports, proof packs, evidence/risk/review gates, release summaries, cockpit readiness view, and generated-project verification.
 - Hardened V2 coverage against the requested product-first initialization, product-owner command language, graph, packet, cockpit, readiness, and framework-core boundaries.
+- Added the Echel vNext methodology contract as the canonical lifecycle rule set for turning raw product ideas into production-ready repositories.
 
 ## Next
 
-1. Expand durable memory kernel with typed memory records and contradiction flags.
-2. Add differential conformance runner for legacy/new behavior diffing.
-3. Add migration wave planner and runtime adapters (Python/TypeScript).
-4. Add UX safety rails and phase-specific LLM behavior contracts.
-5. Continue trimming duplicated documentation content now that structural boundaries are clearer.
+1. Add lifecycle stage schema for discovery, canon, strategy, requirements, domain, architecture, roadmap, execution, implementation, validation, deployment, operations, and governance.
+2. Add methodology traceability ID system so downstream artifacts preserve source intent.
+3. Add Product Discovery Specification templates and `echel discover` workflow.
+4. Expand product graph and readiness gates to evaluate full methodology stages.
+5. Replace duplicated tool prompts with canonical lifecycle playbooks.
 6. Use readiness and proof-pack outputs to shape release workflows and production-readiness controls.
 
 ## Risks/Blocks

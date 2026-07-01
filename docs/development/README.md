@@ -14,6 +14,7 @@ When a concept appears in both places, use this boundary:
 ## Structure
 
 - `method.md`: how ideas become verified work.
+- `methodology.md`: vNext lifecycle contract from discovery through operations.
 - `work.md`: the active backlog and execution board.
 - `architecture.md`: Echel's system shape and lifecycle model.
 - `governance.md`: delivery controls and gate rules.

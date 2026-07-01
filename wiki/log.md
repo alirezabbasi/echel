@@ -110,6 +110,11 @@ status: active
 - Rewrote `README.md` as a marketing/product overview for Echel.
 - Moved technical setup, command reference, cockpit launch, verification, and operating-method links into `docs/technical-quick-start.md`.
 
+## [2026-07-02] methodology | vnext-contract
+- Added `docs/development/methodology.md` as the canonical vNext lifecycle contract.
+- Defined source-of-truth hierarchy, lifecycle stages, stage gates, traceability expectations, and AI-agent role boundaries.
+- Updated development state and decision log so downstream vNext tasks use the methodology contract as their source of truth.
+
 ## [2026-05-27] clarify | product-flow
 - Answered `mvp` clarification.
 
