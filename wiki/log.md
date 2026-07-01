@@ -115,6 +115,11 @@ status: active
 - Defined source-of-truth hierarchy, lifecycle stages, stage gates, traceability expectations, and AI-agent role boundaries.
 - Updated development state and decision log so downstream vNext tasks use the methodology contract as their source of truth.
 
+## [2026-07-02] schema | lifecycle-stage-contract
+- Added `schema/lifecycle-stage.schema.md` for deterministic vNext stage definitions.
+- Defined canonical stage IDs, required artifacts, gate conditions, allowed transitions, blocking rules, readiness statuses, and backward-transition reason artifacts.
+- Clarified that `schema/EXECUTION.md` governs execution nodes while the new lifecycle schema governs product-stage readiness.
+
 ## [2026-05-27] clarify | product-flow
 - Answered `mvp` clarification.
 

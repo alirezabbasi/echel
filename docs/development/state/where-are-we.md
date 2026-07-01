@@ -32,12 +32,13 @@ Last updated: 2026-07-02
 - Completed Phase 5 milestone readiness, proof packs, release summaries, and cockpit readiness.
 - Completed V2 requirements hardening for initialization, commands, graph coverage, packets, cockpit, readiness, and framework-core boundaries.
 - Added `docs/development/methodology.md` as the Echel vNext methodology contract for the full Product Discovery Specification to operations lifecycle.
+- Added `schema/lifecycle-stage.schema.md` as the deterministic lifecycle stage contract for future stage gates and tooling.
 
 ## Next
 
-1. Add lifecycle stage schema aligned with the vNext methodology contract.
-2. Add traceability ID system for discovery, canon, requirements, domain, architecture, tasks, tests, evidence, release, and operations.
-3. Add Product Discovery Specification templates and discovery quality gate.
+1. Add traceability ID system for discovery, canon, requirements, domain, architecture, tasks, tests, evidence, release, and operations.
+2. Add Product Discovery Specification templates and discovery quality gate.
+3. Implement stage readiness evaluation from the lifecycle stage schema.
 4. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
 5. Expand release readiness into production operation and post-release learning loops.
 

@@ -959,6 +959,8 @@ Every gate result must include:
 
 Backward transitions are allowed when new evidence invalidates upstream assumptions, but they require a decision, contradiction, incident, RCA, or owner update artifact.
 
+The deterministic stage schema is defined in `schema/lifecycle-stage.schema.md`. That schema is the implementation-facing contract for stage IDs, required artifacts, transition rules, gate conditions, and blocking rules.
+
 ## Documentation Synchronization Rules
 
 After every meaningful change:

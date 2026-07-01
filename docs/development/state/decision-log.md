@@ -41,3 +41,9 @@
 - Decision: Adopt `docs/development/methodology.md` as the Echel vNext methodology contract.
 - Context: The methodology needs to define Echel as an AI-native software engineering operating system, not only a documentation framework or product wiki scaffold.
 - Impact: Future lifecycle schemas, commands, templates, graph nodes, stage gates, cockpit flows, and agent playbooks must align with the ordered lifecycle from Product Discovery Specification through operations and governance.
+
+## DEC-0008
+
+- Decision: Define product-level lifecycle stages in `schema/lifecycle-stage.schema.md`.
+- Context: The vNext methodology contract needed a deterministic schema for stage IDs, required artifacts, gate conditions, transitions, and blocking rules before runtime stage evaluation can be built.
+- Impact: Future readiness, graph, cockpit, and CLI work should use this schema as the product-stage contract while `schema/EXECUTION.md` remains focused on execution node behavior.

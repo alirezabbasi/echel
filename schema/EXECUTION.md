@@ -1,5 +1,7 @@
 # Execution Schema (v1)
 
+This schema defines execution node behavior for tasks, stories, incidents, and RCA work. Product-level lifecycle stage readiness is defined separately in `schema/lifecycle-stage.schema.md`.
+
 ## Lifecycle states
 
 `idea`, `discovery`, `design`, `build`, `verify`, `release`, `operate`
