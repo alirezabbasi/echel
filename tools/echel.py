@@ -43,6 +43,7 @@ from echel.product import (
     synthesize_mvp_plan,
     update_project_definition,
 )
+from echel.discovery import discover_questions, discover_status, discover_update, ensure_discovery_files
 from echel.workspace import apply_workspace_move, plan_workspace_move, write_impact_preview
 
 
@@ -118,6 +119,32 @@ def cmd_clarify(repo_root: Path, field: str | None, answer: str | None) -> int:
         return 0
     for idx, question in enumerate(questions, start=1):
         print(f"{idx}. {question}")
+    return 0
+
+
+def cmd_discover(repo_root: Path, field: str | None, value: str | None) -> int:
+    cfg = _load(repo_root)
+    if field or value:
+        if not field or not value:
+            print("discover requires both --field and --value", file=sys.stderr)
+            return 2
+        try:
+            path = discover_update(repo_root, cfg, field, value)
+        except ValueError as exc:
+            print(str(exc), file=sys.stderr)
+            return 2
+        print(f"Updated discovery `{field}`: {path}")
+        return 0
+    ensure_discovery_files(repo_root, cfg)
+    print(discover_status(repo_root, cfg))
+    print()
+    questions = discover_questions(repo_root, cfg)
+    if questions:
+        print("Open Discovery Questions")
+        for idx, question in enumerate(questions, start=1):
+            print(f"{idx}. {question}")
+    else:
+        print("No open discovery gaps found.")
     return 0
 
 
@@ -537,6 +564,10 @@ def build_parser() -> argparse.ArgumentParser:
     clarify.add_argument("--field")
     clarify.add_argument("--answer")
 
+    discover = sub.add_parser("discover")
+    discover.add_argument("--field")
+    discover.add_argument("--value")
+
     plan = sub.add_parser("plan")
     plan.add_argument("--title")
     plan.add_argument("--goal")
@@ -666,6 +697,8 @@ def main(argv: list[str] | None = None) -> int:
         )
     if args.cmd == "clarify":
         return cmd_clarify(root, field=args.field, answer=args.answer)
+    if args.cmd == "discover":
+        return cmd_discover(root, field=args.field, value=args.value)
     if args.cmd == "plan":
         return cmd_plan(root, title=args.title, goal=args.goal)
     if args.cmd == "status":

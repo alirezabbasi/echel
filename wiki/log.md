@@ -184,3 +184,12 @@ status: active
 - Added `wiki/discovery/assumptions.md` tracking assumptions, hypotheses, open questions, and resolved items.
 - Template includes statement type, confidence, and traceability ID fields for every important entry.
 - Quality gate checklist blocks progression to Product Canon if required items are missing.
+
+## [2026-07-02] discover | discovery
+- Added `echel discover` CLI command with `tools/echel/discovery.py` module.
+- Command initializes discovery files, reports readiness percentage, lists open questions.
+- Command updates 28 discoverable PDS fields via `--field` and `--value` arguments.
+- Log entries appended to `wiki/log.md` with discovery label.
+
+## [2026-07-01] discover | discovery
+- Updated `problem-statement` in Product Discovery Specification.
