@@ -177,3 +177,10 @@ status: active
 - Specified naming rules, artifact object shapes, stage mappings, and traceability chains.
 - Planned six-phase validation logic: format, reference integrity, stage coverage, chain completeness, statement discipline, supersession.
 - Defined graph integration with trace_id index and matrix structure.
+
+## [2026-07-02] discovery | product-discovery
+- Added `wiki/discovery/product-discovery-spec.md` as the PDS template with 25 sections.
+- Added `wiki/discovery/research-plan.md` tracking research across market, technology, legal, domain, and competition.
+- Added `wiki/discovery/assumptions.md` tracking assumptions, hypotheses, open questions, and resolved items.
+- Template includes statement type, confidence, and traceability ID fields for every important entry.
+- Quality gate checklist blocks progression to Product Canon if required items are missing.
