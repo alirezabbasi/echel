@@ -214,6 +214,15 @@ status: active
 - Contradictions are recorded as durable memory records with type `canon-drift`.
 - Canon sections marked stale when discovery fields have been updated.
 
+## [2026-07-02] strategy | product-strategy
+- Added `wiki/strategy/icp.md` defining primary and secondary ICP with demographics, behavioral signals, pain indicators, and anti-ICP.
+- Added `wiki/strategy/buyer-user-model.md` separating 6 stakeholder roles: economic buyer, user, approver, influencer, blocker, and operator.
+- Added `wiki/strategy/market-wedge.md` defining the specific market entry point with pain intensity, urgency, willingness to pay, switching cost ratings.
+- Added `wiki/strategy/competitive-analysis.md` mapping direct competitors, indirect competitors, non-software alternatives, and "do nothing".
+- Added `wiki/strategy/positioning.md` defining positioning statement, category design, messaging framework, and brand personality.
+- Added `wiki/strategy/pricing-and-packaging.md` defining pricing model, tiers, packaging strategy, and revenue projections with hypothesis marking.
+- Added `wiki/strategy/pmf-evidence.md` defining continue/stop criteria, evidence types, collection phases, and decision framework.
+
 ## [2026-07-01] discover | discovery
 - Updated `problem-statement` in Product Discovery Specification.
 
