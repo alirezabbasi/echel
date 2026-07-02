@@ -41,14 +41,15 @@ Last updated: 2026-07-02
 - Added the domain command layer that turns requirement rows into generated domain concepts, contexts, aggregates, events, workflows, rules, and graph nodes without replacing authored domain guidance.
 - Added the domain consistency gate so `echel readiness --stage domain` can block architecture until requirement coverage, domain ID integrity, graph coverage, duplicate-meaning checks, and technology-neutral language pass.
 - Added the expanded architecture artifact model under `wiki/architecture/` so architecture can preserve domain boundaries, carry rationale, and prepare for generation and readiness gates.
+- Added the architecture command layer that turns gated domain coverage into generated architecture rows and graph nodes without replacing authored architecture guidance.
 
 ## Next
 
-1. Add `echel architecture` to generate architecture rows from domain and requirements.
-2. Add architecture readiness before roadmap generation.
-3. Implement stage readiness evaluation from the lifecycle stage schema.
-4. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
-5. Expand release readiness into production operation and post-release learning loops.
+1. Add architecture readiness before roadmap generation.
+2. Implement stage readiness evaluation from the lifecycle stage schema.
+3. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
+4. Expand release readiness into production operation and post-release learning loops.
+5. Add roadmap artifact expansion after architecture readiness exists.
 
 ## Risks/Blocks
 

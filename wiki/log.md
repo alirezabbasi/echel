@@ -295,3 +295,6 @@ status: active
 - Added `ADR-0005` to record the vNext architecture artifact model decision.
 - Updated `wiki/architecture.md` as a compatibility summary linking to the expanded architecture surface.
 - Architecture artifacts now carry `ARCH-###` rows, source IDs, rationale, ADR coverage, domain boundary mappings, and downstream handoff notes.
+
+## [2026-07-02] architecture | architecture
+- Generated or refreshed 11 architecture mappings from domain coverage.

@@ -444,6 +444,7 @@ Acceptance criteria:
 Gate rule:
 
 - Do not proceed to roadmap if architecture lacks required decision coverage or violates domain boundaries.
+- `echel architecture` generates architecture mappings only after `GATE-DOMAIN` passes unless explicitly forced. Generated mappings must preserve requirement IDs, domain IDs, rationale, and ADR suggestions.
 
 Prepares next stage by defining build phases around real system structure.
 

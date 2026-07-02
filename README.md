@@ -18,6 +18,7 @@ Echel helps a product move from idea to implementation without losing coherence.
 - Turns gated requirements into domain language before architecture.
 - Blocks architecture when domain language is incomplete, inconsistent, or technology-leaky.
 - Preserves architecture decisions, boundaries, data, APIs, workflows, security, and observability as product memory.
+- Generates architecture mappings from gated domain coverage before roadmap planning.
 - Builds a typed product intelligence graph.
 - Generates graph-backed work packets for AI coding agents.
 - Reviews work against acceptance criteria and evidence expectations.

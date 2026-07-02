@@ -8,6 +8,7 @@ import re
 import sys
 
 from echel.adapters import detect_adapters
+from echel.architecture import architecture_generate, architecture_status, ensure_architecture_files
 from echel.coherence import detect_drift
 from echel.conformance import run_conformance
 from echel.config import ConfigError, load_config, resolve_root_map, resolve_symbolic_path
@@ -247,6 +248,26 @@ def cmd_domain(repo_root: Path, force: bool) -> int:
             print(f"- {path}")
     else:
         print("\nNo domain artifacts changed.")
+    return 0
+
+
+def cmd_architecture(repo_root: Path, force: bool) -> int:
+    cfg = _load(repo_root)
+    ensure_architecture_files(repo_root, cfg)
+    print(architecture_status(repo_root, cfg))
+    if force:
+        print("\nForcing architecture generation (bypassing domain readiness).")
+    try:
+        changed = architecture_generate(repo_root, cfg, force=force)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    if changed:
+        print(f"\nUpdated {len(changed)} architecture artifact(s):")
+        for path in changed:
+            print(f"- {path}")
+    else:
+        print("\nNo architecture artifacts changed.")
     return 0
 
 
@@ -696,6 +717,9 @@ def build_parser() -> argparse.ArgumentParser:
     domain = sub.add_parser("domain")
     domain.add_argument("--force", action="store_true")
 
+    architecture = sub.add_parser("architecture")
+    architecture.add_argument("--force", action="store_true")
+
     plan = sub.add_parser("plan")
     plan.add_argument("--title")
     plan.add_argument("--goal")
@@ -840,6 +864,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_requirements(root, force=args.force)
     if args.cmd == "domain":
         return cmd_domain(root, force=args.force)
+    if args.cmd == "architecture":
+        return cmd_architecture(root, force=args.force)
     if args.cmd == "plan":
         return cmd_plan(root, title=args.title, goal=args.goal)
     if args.cmd == "status":

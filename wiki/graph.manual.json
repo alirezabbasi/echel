@@ -539,6 +539,83 @@
       "title": "BR-211 The domain model must represent `REQ-006` as business language before architecture begins.",
       "source": "domain/policies-and-rules.md",
       "summary": "domain/generated"
+    },
+    {
+      "id": "architecture:ARCH-901",
+      "type": "architecture",
+      "title": "ARCH-901 Preserve NFR-001 through BC-201 quality architecture",
+      "source": "architecture/overview.md",
+      "summary": "`NFR-001` is already covered by DM-201, BC-201, AGG-201, DE-201, and BR-201; architecture must preserve that boundary instead of inventing a new one."
+    },
+    {
+      "id": "architecture:ARCH-902",
+      "type": "architecture",
+      "title": "ARCH-902 Preserve NFR-002 through BC-202 quality architecture",
+      "source": "architecture/overview.md",
+      "summary": "`NFR-002` is already covered by DM-202, BC-202, AGG-202, DE-202, and BR-202; architecture must preserve that boundary instead of inventing a new one."
+    },
+    {
+      "id": "architecture:ARCH-903",
+      "type": "architecture",
+      "title": "ARCH-903 Preserve NFR-003 through BC-203 quality architecture",
+      "source": "architecture/overview.md",
+      "summary": "`NFR-003` is already covered by DM-203, BC-203, AGG-203, DE-203, and BR-203; architecture must preserve that boundary instead of inventing a new one."
+    },
+    {
+      "id": "architecture:ARCH-904",
+      "type": "architecture",
+      "title": "ARCH-904 Preserve NFR-004 through BC-204 quality architecture",
+      "source": "architecture/overview.md",
+      "summary": "`NFR-004` is already covered by DM-204, BC-204, AGG-204, DE-204, and BR-204; architecture must preserve that boundary instead of inventing a new one."
+    },
+    {
+      "id": "architecture:ARCH-905",
+      "type": "architecture",
+      "title": "ARCH-905 Preserve NFR-005 through BC-205 quality architecture",
+      "source": "architecture/overview.md",
+      "summary": "`NFR-005` is already covered by DM-205, BC-205, AGG-205, DE-205, and BR-205; architecture must preserve that boundary instead of inventing a new one."
+    },
+    {
+      "id": "architecture:ARCH-906",
+      "type": "architecture",
+      "title": "ARCH-906 Preserve REQ-001 through BC-206 product architecture",
+      "source": "architecture/overview.md",
+      "summary": "`REQ-001` is already covered by DM-206, BC-206, AGG-206, DE-206, and BR-206; architecture must preserve that boundary instead of inventing a new one."
+    },
+    {
+      "id": "architecture:ARCH-907",
+      "type": "architecture",
+      "title": "ARCH-907 Preserve REQ-002 through BC-207 product architecture",
+      "source": "architecture/overview.md",
+      "summary": "`REQ-002` is already covered by DM-207, BC-207, AGG-207, DE-207, and BR-207; architecture must preserve that boundary instead of inventing a new one."
+    },
+    {
+      "id": "architecture:ARCH-908",
+      "type": "architecture",
+      "title": "ARCH-908 Preserve REQ-003 through BC-208 product architecture",
+      "source": "architecture/overview.md",
+      "summary": "`REQ-003` is already covered by DM-208, BC-208, AGG-208, DE-208, and BR-208; architecture must preserve that boundary instead of inventing a new one."
+    },
+    {
+      "id": "architecture:ARCH-909",
+      "type": "architecture",
+      "title": "ARCH-909 Preserve REQ-004 through BC-209 product architecture",
+      "source": "architecture/overview.md",
+      "summary": "`REQ-004` is already covered by DM-209, BC-209, AGG-209, DE-209, and BR-209; architecture must preserve that boundary instead of inventing a new one."
+    },
+    {
+      "id": "architecture:ARCH-910",
+      "type": "architecture",
+      "title": "ARCH-910 Preserve REQ-005 through BC-210 product architecture",
+      "source": "architecture/overview.md",
+      "summary": "`REQ-005` is already covered by DM-210, BC-210, AGG-210, DE-210, and BR-210; architecture must preserve that boundary instead of inventing a new one."
+    },
+    {
+      "id": "architecture:ARCH-911",
+      "type": "architecture",
+      "title": "ARCH-911 Preserve REQ-006 through BC-211 product architecture",
+      "source": "architecture/overview.md",
+      "summary": "`REQ-006` is already covered by DM-211, BC-211, AGG-211, DE-211, and BR-211; architecture must preserve that boundary instead of inventing a new one."
     }
   ],
   "edges": [
@@ -1476,6 +1553,391 @@
       "from_id": "domain-workflow:WF-DM-211",
       "to_id": "domain-event:DE-211",
       "type": "emits"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "architecture:ARCH-901",
+      "type": "defines"
+    },
+    {
+      "from_id": "requirement:NFR-001",
+      "to_id": "architecture:ARCH-901",
+      "type": "maps_to"
+    },
+    {
+      "from_id": "domain-concept:DM-201",
+      "to_id": "architecture:ARCH-901",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "bounded-context:BC-201",
+      "to_id": "architecture:ARCH-901",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-aggregate:AGG-201",
+      "to_id": "architecture:ARCH-901",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-event:DE-201",
+      "to_id": "architecture:ARCH-901",
+      "type": "informs"
+    },
+    {
+      "from_id": "business-rule:BR-201",
+      "to_id": "architecture:ARCH-901",
+      "type": "constrains"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "architecture:ARCH-902",
+      "type": "defines"
+    },
+    {
+      "from_id": "requirement:NFR-002",
+      "to_id": "architecture:ARCH-902",
+      "type": "maps_to"
+    },
+    {
+      "from_id": "domain-concept:DM-202",
+      "to_id": "architecture:ARCH-902",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "bounded-context:BC-202",
+      "to_id": "architecture:ARCH-902",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-aggregate:AGG-202",
+      "to_id": "architecture:ARCH-902",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-event:DE-202",
+      "to_id": "architecture:ARCH-902",
+      "type": "informs"
+    },
+    {
+      "from_id": "business-rule:BR-202",
+      "to_id": "architecture:ARCH-902",
+      "type": "constrains"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "architecture:ARCH-903",
+      "type": "defines"
+    },
+    {
+      "from_id": "requirement:NFR-003",
+      "to_id": "architecture:ARCH-903",
+      "type": "maps_to"
+    },
+    {
+      "from_id": "domain-concept:DM-203",
+      "to_id": "architecture:ARCH-903",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "bounded-context:BC-203",
+      "to_id": "architecture:ARCH-903",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-aggregate:AGG-203",
+      "to_id": "architecture:ARCH-903",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-event:DE-203",
+      "to_id": "architecture:ARCH-903",
+      "type": "informs"
+    },
+    {
+      "from_id": "business-rule:BR-203",
+      "to_id": "architecture:ARCH-903",
+      "type": "constrains"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "architecture:ARCH-904",
+      "type": "defines"
+    },
+    {
+      "from_id": "requirement:NFR-004",
+      "to_id": "architecture:ARCH-904",
+      "type": "maps_to"
+    },
+    {
+      "from_id": "domain-concept:DM-204",
+      "to_id": "architecture:ARCH-904",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "bounded-context:BC-204",
+      "to_id": "architecture:ARCH-904",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-aggregate:AGG-204",
+      "to_id": "architecture:ARCH-904",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-event:DE-204",
+      "to_id": "architecture:ARCH-904",
+      "type": "informs"
+    },
+    {
+      "from_id": "business-rule:BR-204",
+      "to_id": "architecture:ARCH-904",
+      "type": "constrains"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "architecture:ARCH-905",
+      "type": "defines"
+    },
+    {
+      "from_id": "requirement:NFR-005",
+      "to_id": "architecture:ARCH-905",
+      "type": "maps_to"
+    },
+    {
+      "from_id": "domain-concept:DM-205",
+      "to_id": "architecture:ARCH-905",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "bounded-context:BC-205",
+      "to_id": "architecture:ARCH-905",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-aggregate:AGG-205",
+      "to_id": "architecture:ARCH-905",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-event:DE-205",
+      "to_id": "architecture:ARCH-905",
+      "type": "informs"
+    },
+    {
+      "from_id": "business-rule:BR-205",
+      "to_id": "architecture:ARCH-905",
+      "type": "constrains"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "architecture:ARCH-906",
+      "type": "defines"
+    },
+    {
+      "from_id": "requirement:REQ-001",
+      "to_id": "architecture:ARCH-906",
+      "type": "maps_to"
+    },
+    {
+      "from_id": "domain-concept:DM-206",
+      "to_id": "architecture:ARCH-906",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "bounded-context:BC-206",
+      "to_id": "architecture:ARCH-906",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-aggregate:AGG-206",
+      "to_id": "architecture:ARCH-906",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-event:DE-206",
+      "to_id": "architecture:ARCH-906",
+      "type": "informs"
+    },
+    {
+      "from_id": "business-rule:BR-206",
+      "to_id": "architecture:ARCH-906",
+      "type": "constrains"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "architecture:ARCH-907",
+      "type": "defines"
+    },
+    {
+      "from_id": "requirement:REQ-002",
+      "to_id": "architecture:ARCH-907",
+      "type": "maps_to"
+    },
+    {
+      "from_id": "domain-concept:DM-207",
+      "to_id": "architecture:ARCH-907",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "bounded-context:BC-207",
+      "to_id": "architecture:ARCH-907",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-aggregate:AGG-207",
+      "to_id": "architecture:ARCH-907",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-event:DE-207",
+      "to_id": "architecture:ARCH-907",
+      "type": "informs"
+    },
+    {
+      "from_id": "business-rule:BR-207",
+      "to_id": "architecture:ARCH-907",
+      "type": "constrains"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "architecture:ARCH-908",
+      "type": "defines"
+    },
+    {
+      "from_id": "requirement:REQ-003",
+      "to_id": "architecture:ARCH-908",
+      "type": "maps_to"
+    },
+    {
+      "from_id": "domain-concept:DM-208",
+      "to_id": "architecture:ARCH-908",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "bounded-context:BC-208",
+      "to_id": "architecture:ARCH-908",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-aggregate:AGG-208",
+      "to_id": "architecture:ARCH-908",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-event:DE-208",
+      "to_id": "architecture:ARCH-908",
+      "type": "informs"
+    },
+    {
+      "from_id": "business-rule:BR-208",
+      "to_id": "architecture:ARCH-908",
+      "type": "constrains"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "architecture:ARCH-909",
+      "type": "defines"
+    },
+    {
+      "from_id": "requirement:REQ-004",
+      "to_id": "architecture:ARCH-909",
+      "type": "maps_to"
+    },
+    {
+      "from_id": "domain-concept:DM-209",
+      "to_id": "architecture:ARCH-909",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "bounded-context:BC-209",
+      "to_id": "architecture:ARCH-909",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-aggregate:AGG-209",
+      "to_id": "architecture:ARCH-909",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-event:DE-209",
+      "to_id": "architecture:ARCH-909",
+      "type": "informs"
+    },
+    {
+      "from_id": "business-rule:BR-209",
+      "to_id": "architecture:ARCH-909",
+      "type": "constrains"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "architecture:ARCH-910",
+      "type": "defines"
+    },
+    {
+      "from_id": "requirement:REQ-005",
+      "to_id": "architecture:ARCH-910",
+      "type": "maps_to"
+    },
+    {
+      "from_id": "domain-concept:DM-210",
+      "to_id": "architecture:ARCH-910",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "bounded-context:BC-210",
+      "to_id": "architecture:ARCH-910",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-aggregate:AGG-210",
+      "to_id": "architecture:ARCH-910",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-event:DE-210",
+      "to_id": "architecture:ARCH-910",
+      "type": "informs"
+    },
+    {
+      "from_id": "business-rule:BR-210",
+      "to_id": "architecture:ARCH-910",
+      "type": "constrains"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "architecture:ARCH-911",
+      "type": "defines"
+    },
+    {
+      "from_id": "requirement:REQ-006",
+      "to_id": "architecture:ARCH-911",
+      "type": "maps_to"
+    },
+    {
+      "from_id": "domain-concept:DM-211",
+      "to_id": "architecture:ARCH-911",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "bounded-context:BC-211",
+      "to_id": "architecture:ARCH-911",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-aggregate:AGG-211",
+      "to_id": "architecture:ARCH-911",
+      "type": "preserved_by"
+    },
+    {
+      "from_id": "domain-event:DE-211",
+      "to_id": "architecture:ARCH-911",
+      "type": "informs"
+    },
+    {
+      "from_id": "business-rule:BR-211",
+      "to_id": "architecture:ARCH-911",
+      "type": "constrains"
     }
   ]
 }

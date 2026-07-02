@@ -95,3 +95,9 @@
 - Decision: Adopt `wiki/architecture/` as the expanded vNext architecture artifact model.
 - Context: TASK-0018 needed architecture to become a full lifecycle stage after domain readiness, not a thin `architecture.md` summary. Roadmap, repository factory, task generation, validation, release, and operations need architecture surfaces that preserve domain boundaries and explain major choices.
 - Impact: Architecture is now split into overview, context map, component, data, API, event, workflow, security, and observability documents. `ADR-0005` records the decision, and future `echel architecture` plus architecture gates should generate and validate against this expanded model while keeping `wiki/architecture.md` as a compatibility summary.
+
+## DEC-0017
+
+- Decision: Generate architecture mappings from gated domain coverage into dedicated generated sections.
+- Context: TASK-0019 needed architecture automation to preserve authored TASK-0018 guidance while making requirement-to-domain-to-architecture traceability executable. Architecture generation should refuse unsafe inputs, suggest ADR coverage, and feed the product graph before roadmap work.
+- Impact: `echel architecture` now refuses to run unless `GATE-DOMAIN` passes, unless `--force` is used. It writes generated `ARCH-9xx` rows across the architecture artifact surface, refreshes the compatibility `wiki/architecture.md` summary, and upserts architecture graph nodes plus requirement and domain mapping edges.

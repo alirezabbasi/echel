@@ -5,7 +5,7 @@ status: draft
 # Product Architecture
 
 ## System Shape
-Local-first AI-native software engineering operating system with product-owned Markdown memory, deterministic lifecycle commands, product graph, stage gates, work packets, reviews, proof packs, and local cockpit.
+Local-first AI-native software engineering operating system with product-owned Markdown memory, deterministic lifecycle commands, product graph, stage gates, work packets, reviews, proof packs, local cockpit, and generated architecture mappings from gated domain language.
 
 ## Key Components
 - Product wiki
@@ -16,6 +16,7 @@ Local-first AI-native software engineering operating system with product-owned M
 - Work packet generator
 - Review and evidence layer
 - Local cockpit
+- Architecture artifact surface
 
 ## Expanded Architecture Model
 - [[architecture/overview]]
@@ -29,6 +30,6 @@ Local-first AI-native software engineering operating system with product-owned M
 - [[architecture/observability-architecture]]
 
 ## Open Architecture Questions
-- How much of the expanded architecture model should `echel architecture` generate versus preserve as authored guidance?
+- How should generated architecture mappings be refined into concrete repository modules in TASK-0024?
 - What exact checks belong in the future architecture readiness gate?
-- Which architecture nodes and edges should be added to the product graph in TASK-0019?
+- Which architecture choices need new ADRs after architecture generation?

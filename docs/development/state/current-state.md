@@ -40,14 +40,15 @@ Last updated: 2026-07-02
 - Added `echel domain` command to generate domain mappings from requirements, refresh domain generated sections, and add requirement/domain nodes to the product graph.
 - Added `GATE-DOMAIN` to block architecture when domain artifacts have unmapped requirements, undefined domain IDs, duplicate meanings, missing generated graph nodes, or concrete technology leakage.
 - Added the expanded architecture artifact model under `wiki/architecture/` with overview, context map, component, data, API, event, workflow, security, and observability architecture documents.
+- Added `echel architecture` to generate architecture mappings from gated domain coverage, refresh generated architecture sections, preserve the compatibility architecture summary, and add architecture nodes to the product graph.
 
 ## Next
 
-1. Add `echel architecture` to generate architecture from the gated domain model and requirements.
-2. Add architecture readiness once architecture artifacts are modeled.
-3. Implement lifecycle stage evaluation against `schema/lifecycle-stage.schema.md`.
-4. Expand product graph and readiness gates to evaluate full methodology stages.
-5. Replace duplicated tool prompts with canonical lifecycle playbooks.
+1. Add architecture readiness once architecture artifacts are modeled and generated.
+2. Implement lifecycle stage evaluation against `schema/lifecycle-stage.schema.md`.
+3. Expand product graph and readiness gates to evaluate full methodology stages.
+4. Replace duplicated tool prompts with canonical lifecycle playbooks.
+5. Add roadmap artifact expansion after architecture readiness exists.
 
 ## Risks/Blocks
 
