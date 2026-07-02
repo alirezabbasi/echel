@@ -37,11 +37,12 @@ Last updated: 2026-07-02
 - Re-approved TASK-0003 through TASK-0011 after tightening gates, canon drift handling, template promotion safeguards, and canon-driven strategy generation.
 - Added the requirements command layer that turns canon and strategy into generated requirement rows and graph nodes without replacing hand-authored requirement context.
 - Added the requirements readiness gate so `echel readiness --stage requirements` can block domain and architecture work until MVP requirements are testable, accepted, risk-aware, dependency-aware, scoped, and covered by NFRs.
+- Added first-class domain model templates under `wiki/domain/`, including a complete current requirement-to-domain coverage map and technology-neutral domain guardrails.
 
 ## Next
 
-1. Add domain model templates and wire requirement IDs into domain artifacts.
-2. Add `echel domain` command and domain consistency gate after the templates exist.
+1. Add `echel domain` command to generate and refresh domain artifacts from requirements.
+2. Add domain consistency gate after the command exists.
 3. Implement stage readiness evaluation from the lifecycle stage schema.
 4. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
 5. Expand release readiness into production operation and post-release learning loops.

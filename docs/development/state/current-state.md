@@ -36,11 +36,12 @@ Last updated: 2026-07-02
 - Re-reviewed TASK-0003 through TASK-0011 and remediated lifecycle drift: discovery gate coverage is stricter, canon generation rejects template-only source content, canon drift writes durable artifacts and stale markers, and strategy generation now reads from canon while preserving discovery references.
 - Added `echel requirements` command to initialize, inspect, and generate requirement artifacts from canon and strategy while rejecting vague sources and adding requirement nodes to the product graph.
 - Added `GATE-REQUIREMENTS` to evaluate requirement readiness before domain modeling by checking MVP testability, acceptance criteria, dependencies, risks, explicit out-of-scope records, MVP NFR coverage, and generated requirement graph links.
+- Added `wiki/domain/` templates for domain overview, ubiquitous language, bounded contexts, entities, aggregates, domain events, workflows, and policies/rules with requirement-to-domain coverage.
 
 ## Next
 
-1. Add domain model templates and then connect requirements to domain objects and rules.
-2. Add `echel domain` command to generate domain artifacts from requirement IDs.
+1. Add `echel domain` command to generate domain artifacts from requirement IDs and preserve the seeded domain template structure.
+2. Add domain consistency gate to detect undefined terms, duplicate meanings, unmapped requirements, and technology leakage.
 3. Implement lifecycle stage evaluation against `schema/lifecycle-stage.schema.md`.
 4. Expand product graph and readiness gates to evaluate full methodology stages.
 5. Replace duplicated tool prompts with canonical lifecycle playbooks.

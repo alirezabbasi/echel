@@ -71,3 +71,9 @@
 - Decision: Add `GATE-REQUIREMENTS` as a table-driven readiness gate in the shared gate engine.
 - Context: TASK-0014 needed requirements to become an execution safety layer, not only Markdown artifacts. Downstream domain and architecture work should not proceed from MVP requirements that lack acceptance criteria, dependencies, risks, validation methods, explicit exclusions, or NFR coverage.
 - Impact: `echel readiness --stage requirements` now evaluates requirement artifacts directly, the repo gate policy includes `GATE-REQUIREMENTS`, and generated requirements are checked for product graph coverage when generated IDs are present.
+
+## DEC-0013
+
+- Decision: Introduce `wiki/domain/` as technology-neutral product language and add `AGG-###` to the traceability schema for domain aggregates.
+- Context: TASK-0015 needed first-class domain artifacts between requirements and architecture. Aggregates are required by the methodology, but the traceability schema previously defined domain concepts, bounded contexts, events, and rules without an aggregate ID family.
+- Impact: Domain templates now map every current requirement and NFR to domain concepts, contexts, rules, workflows, events, and aggregates. Architecture work must preserve these domain boundaries, and future `echel domain` automation should generate or refresh rows without introducing implementation choices.

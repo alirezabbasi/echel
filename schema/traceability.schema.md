@@ -32,6 +32,7 @@ Each artifact category has a dedicated prefix and zero-padded numeric suffix.
 | `BR-###` | Business rule | `BR-001` | discovery, domain |
 | `DM-###` | Domain concept or entity | `DM-001` | domain |
 | `BC-###` | Bounded context | `BC-001` | domain |
+| `AGG-###` | Domain aggregate | `AGG-001` | domain |
 | `DE-###` | Domain event | `DE-001` | domain |
 | `REQ-###` | Requirement | `REQ-001` | requirements |
 | `NFR-###` | Non-functional requirement | `NFR-001` | requirements |
@@ -139,6 +140,7 @@ Traceability IDs are assigned within lifecycle stages but may be referenced acro
 | `BR-###` | discovery, domain | requirements, domain, architecture, tasks |
 | `DM-###` | domain | architecture, tasks, tests |
 | `BC-###` | domain | architecture |
+| `AGG-###` | domain | architecture, tasks |
 | `DE-###` | domain | architecture, tasks |
 | `REQ-###` | requirements | domain, architecture, tasks, tests, validation |
 | `NFR-###` | requirements | architecture, tests, validation |
@@ -169,7 +171,7 @@ discovery item (P, U, B, A, H, R, S, BR, Q, C)
   -> canon statement
     -> strategy choice (ICP, PW, CMP, PMF)
       -> requirement (REQ, NFR, AC)
-        -> domain concept (DM, BC, DE, BR)
+        -> domain concept (DM, BC, AGG, DE, BR)
           -> architecture decision (ADR, ARCH)
             -> task (TASK)
               -> test (TEST)

@@ -173,7 +173,7 @@ status: active
 
 ## [2026-07-02] schema | traceability
 - Added `schema/traceability.schema.md` as the vNext methodology ID system.
-- Defined 35 ID families covering discovery through operations artifacts.
+- Defined 36 ID families covering discovery through operations artifacts.
 - Specified naming rules, artifact object shapes, stage mappings, and traceability chains.
 - Planned six-phase validation logic: format, reference integrity, stage coverage, chain completeness, statement discipline, supersession.
 - Defined graph integration with trace_id index and matrix structure.
@@ -261,6 +261,12 @@ status: active
 - `echel readiness --stage requirements` validates MVP requirement testability, acceptance criteria, dependencies, risks, source IDs, explicit out-of-scope records, MVP non-functional requirements, and generated requirement graph coverage.
 - Added the requirements gate to `.echel/gates.json` so `echel doctor` includes it with the other lifecycle gates.
 - Added regression tests for passing generated requirements, missing graph coverage, and missing acceptance criteria.
+
+## [2026-07-02] domain | domain-model
+- Added `wiki/domain/domain-overview.md` with domain modeling rules, technology-neutral guardrails, and requirement-to-domain coverage.
+- Added `wiki/domain/ubiquitous-language.md`, `bounded-contexts.md`, `entities.md`, `aggregates.md`, `domain-events.md`, `workflows.md`, and `policies-and-rules.md`.
+- Mapped current `REQ-###` and `NFR-###` rows to `DM-###`, `BC-###`, `AGG-###`, `DE-###`, and `BR-###` domain artifacts.
+- Added `AGG-###` to `schema/traceability.schema.md` for domain aggregate traceability.
 
 ## [2026-07-01] discover | discovery
 - Updated `problem-statement` in Product Discovery Specification.
