@@ -68,6 +68,17 @@ python3 tools/echel.py review
 python3 tools/echel.py steer --field direction --value "..."
 ```
 
+## Lifecycle Commands
+
+```bash
+python3 tools/echel.py discover
+python3 tools/echel.py canon
+python3 tools/echel.py strategy
+python3 tools/echel.py requirements
+python3 tools/echel.py readiness --stage requirements
+python3 tools/echel.py domain
+```
+
 ## Graph And Memory Commands
 
 ```bash

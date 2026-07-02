@@ -37,11 +37,12 @@ Last updated: 2026-07-02
 - Added `echel requirements` command to initialize, inspect, and generate requirement artifacts from canon and strategy while rejecting vague sources and adding requirement nodes to the product graph.
 - Added `GATE-REQUIREMENTS` to evaluate requirement readiness before domain modeling by checking MVP testability, acceptance criteria, dependencies, risks, explicit out-of-scope records, MVP NFR coverage, and generated requirement graph links.
 - Added `wiki/domain/` templates for domain overview, ubiquitous language, bounded contexts, entities, aggregates, domain events, workflows, and policies/rules with requirement-to-domain coverage.
+- Added `echel domain` command to generate domain mappings from requirements, refresh domain generated sections, and add requirement/domain nodes to the product graph.
 
 ## Next
 
-1. Add `echel domain` command to generate domain artifacts from requirement IDs and preserve the seeded domain template structure.
-2. Add domain consistency gate to detect undefined terms, duplicate meanings, unmapped requirements, and technology leakage.
+1. Add domain consistency gate to detect undefined terms, duplicate meanings, unmapped requirements, and technology leakage.
+2. Expand architecture artifacts after the domain gate exists.
 3. Implement lifecycle stage evaluation against `schema/lifecycle-stage.schema.md`.
 4. Expand product graph and readiness gates to evaluate full methodology stages.
 5. Replace duplicated tool prompts with canonical lifecycle playbooks.

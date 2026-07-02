@@ -77,3 +77,9 @@
 - Decision: Introduce `wiki/domain/` as technology-neutral product language and add `AGG-###` to the traceability schema for domain aggregates.
 - Context: TASK-0015 needed first-class domain artifacts between requirements and architecture. Aggregates are required by the methodology, but the traceability schema previously defined domain concepts, bounded contexts, events, and rules without an aggregate ID family.
 - Impact: Domain templates now map every current requirement and NFR to domain concepts, contexts, rules, workflows, events, and aggregates. Architecture work must preserve these domain boundaries, and future `echel domain` automation should generate or refresh rows without introducing implementation choices.
+
+## DEC-0014
+
+- Decision: Generate domain model updates into explicit generated sections and graph manual nodes.
+- Context: TASK-0016 needed `echel domain` to build on the TASK-0015 templates without overwriting authored domain language. Domain generation must preserve requirement IDs, avoid technology choices, and make the requirement-to-domain chain visible in the product graph.
+- Impact: `echel domain` refuses to run unless requirements readiness passes, unless `--force` is used. It writes generated domain rows for concepts, contexts, aggregates, events, workflows, and business rules, then upserts requirement and domain nodes plus mapping edges into `wiki/graph.manual.json`.

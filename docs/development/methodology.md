@@ -98,6 +98,9 @@ Recommended ID families:
 - `Q-###`: question.
 - `REQ-###`: requirement.
 - `DM-###`: domain concept.
+- `BC-###`: bounded context.
+- `AGG-###`: domain aggregate.
+- `DE-###`: domain event.
 - `ADR-####`: architectural decision.
 - `TASK-####`: execution task.
 - `TEST-###`: test or validation case.

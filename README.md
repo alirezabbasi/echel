@@ -15,6 +15,7 @@ Echel helps a product move from idea to implementation without losing coherence.
 - Captures product intent as structured memory.
 - Clarifies ambiguity before agents build.
 - Turns requirements into roadmap and executable work.
+- Turns gated requirements into domain language before architecture.
 - Builds a typed product intelligence graph.
 - Generates graph-backed work packets for AI coding agents.
 - Reviews work against acceptance criteria and evidence expectations.

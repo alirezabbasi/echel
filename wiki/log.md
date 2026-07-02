@@ -276,3 +276,10 @@ status: active
 
 ## [2026-07-01] strategy | strategy
 - Generated or refreshed Product Strategy from canon.
+
+## [2026-07-02] domain | domain
+- Added `echel domain` CLI command with `tools/echel/domain.py` module.
+- Command refuses to run when requirements readiness fails unless `--force` is used.
+- Command generates or refreshes domain sections from requirement rows without replacing hand-authored domain guidance.
+- Generated rows include `DM-###`, `BC-###`, `AGG-###`, `DE-###`, `WF-DM-###`, and `BR-###` IDs linked back to `REQ-###` and `NFR-###`.
+- Requirement and domain nodes plus mapping edges are added to the product graph through `wiki/graph.manual.json`.

@@ -45,6 +45,7 @@ from echel.product import (
 )
 from echel.canon import canon_generate, canon_status, canon_drift_report, ensure_canon_files
 from echel.discovery import discover_questions, discover_status, discover_update, ensure_discovery_files
+from echel.domain import domain_generate, domain_status, ensure_domain_files
 from echel.requirements import requirements_generate, requirements_status, ensure_requirements_files
 from echel.strategy import strategy_generate, strategy_readiness, strategy_status, ensure_strategy_files
 from echel.workspace import apply_workspace_move, plan_workspace_move, write_impact_preview
@@ -226,6 +227,26 @@ def cmd_requirements(repo_root: Path, force: bool) -> int:
             print(f"- {path}")
     else:
         print("\nNo requirement artifacts changed.")
+    return 0
+
+
+def cmd_domain(repo_root: Path, force: bool) -> int:
+    cfg = _load(repo_root)
+    ensure_domain_files(repo_root, cfg)
+    print(domain_status(repo_root, cfg))
+    if force:
+        print("\nForcing domain generation (bypassing requirements readiness).")
+    try:
+        changed = domain_generate(repo_root, cfg, force=force)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    if changed:
+        print(f"\nUpdated {len(changed)} domain artifact(s):")
+        for path in changed:
+            print(f"- {path}")
+    else:
+        print("\nNo domain artifacts changed.")
     return 0
 
 
@@ -672,6 +693,9 @@ def build_parser() -> argparse.ArgumentParser:
     requirements = sub.add_parser("requirements")
     requirements.add_argument("--force", action="store_true")
 
+    domain = sub.add_parser("domain")
+    domain.add_argument("--force", action="store_true")
+
     plan = sub.add_parser("plan")
     plan.add_argument("--title")
     plan.add_argument("--goal")
@@ -814,6 +838,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_strategy_readiness(root)
     if args.cmd == "requirements":
         return cmd_requirements(root, force=args.force)
+    if args.cmd == "domain":
+        return cmd_domain(root, force=args.force)
     if args.cmd == "plan":
         return cmd_plan(root, title=args.title, goal=args.goal)
     if args.cmd == "status":
