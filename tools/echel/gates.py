@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import json
 from pathlib import Path
+import re
 from typing import Callable
 
 from .coherence import detect_drift
@@ -10,6 +11,7 @@ from .config import ProjectConfig, resolve_symbolic_path
 from .discovery import DISCOVERY_FIELDS, discovery_root, _section_body, _is_tbd
 from .evidence import ensure_registry, validate_links, validate_registry
 from .primitives import validate_decisions, validate_gate_ids, validate_tasks
+from .requirements import AC_FILE, FUNCTIONAL_FILE, MVP_FILE, NFR_FILE, OOS_FILE, PRODUCT_FILE, requirements_root
 
 
 @dataclass
@@ -112,12 +114,200 @@ def _section_incomplete(body: str) -> bool:
     return len(content_lines) == 0
 
 
+def _check_requirements(repo_root: Path, cfg: ProjectConfig) -> list[str]:
+    root = requirements_root(repo_root, cfg)
+    if not root.exists():
+        return ["requirements not initialized: run `echel requirements` to start"]
+
+    failures: list[str] = []
+    required_files = [PRODUCT_FILE, FUNCTIONAL_FILE, NFR_FILE, MVP_FILE, OOS_FILE, AC_FILE]
+    missing = [name for name in required_files if not (root / name).exists()]
+    if missing:
+        return [f"requirements artifact missing: wiki/requirements/{name}" for name in missing]
+
+    product_rows = _requirement_rows(root / PRODUCT_FILE)
+    functional_rows = _requirement_rows(root / FUNCTIONAL_FILE)
+    nfr_rows = _requirement_rows(root / NFR_FILE)
+    mvp_rows = _table_rows(root / MVP_FILE)
+    oos_rows = _table_rows(root / OOS_FILE)
+    ac_rows = _table_rows(root / AC_FILE)
+
+    req_rows = _dedupe_rows(product_rows + functional_rows, "ID")
+    all_requirement_rows = req_rows + _dedupe_rows(nfr_rows, "ID")
+    mvp_ids = _mvp_requirement_ids(req_rows, nfr_rows, mvp_rows)
+    ac_ids = _valid_ids(ac_rows, "ID", r"AC-\d{3}")
+    graph_ids = _requirement_graph_ids(repo_root, cfg)
+
+    if not mvp_ids:
+        failures.append("MVP scope is empty: add MVP REQ-### or NFR-### rows to requirements artifacts")
+
+    for row in all_requirement_rows:
+        rid = row.get("ID", "")
+        if rid not in mvp_ids:
+            continue
+        if _blank_or_tbd(row.get("Acceptance", "")):
+            failures.append(f"{rid} is not testable: acceptance criteria link is missing")
+        elif _linked_ids(row.get("Acceptance", ""), r"AC-\d{3}") - ac_ids:
+            missing_ac = sorted(_linked_ids(row.get("Acceptance", ""), r"AC-\d{3}") - ac_ids)
+            failures.append(f"{rid} references missing acceptance criteria: {', '.join(missing_ac)}")
+        if _blank_or_tbd(_validation_method(row)):
+            failures.append(f"{rid} is not testable: validation or verification method is missing")
+        if _blank_or_tbd(row.get("Dependencies", "")):
+            failures.append(f"{rid} has unknown dependencies: use `None` only when there is no dependency")
+        if _blank_or_tbd(row.get("Risks", "")):
+            failures.append(f"{rid} has no linked risk or risk statement")
+        if _blank_or_tbd(row.get("Source IDs", "")):
+            failures.append(f"{rid} has no upstream source IDs")
+
+    for rid in sorted(_generated_requirement_ids(all_requirement_rows)):
+        if rid not in graph_ids:
+            failures.append(f"{rid} is missing from the product graph: rerun `echel requirements` after source updates")
+
+    mvp_nfrs = [row for row in nfr_rows if row.get("ID", "") in mvp_ids or row.get("Phase", "").upper() == "MVP"]
+    if not mvp_nfrs:
+        failures.append("non-functional requirements are missing for MVP scope")
+    for row in mvp_nfrs:
+        rid = row.get("ID", "")
+        if _blank_or_tbd(row.get("Target", "")):
+            failures.append(f"{rid} has no measurable non-functional target")
+        if _blank_or_tbd(_validation_method(row)):
+            failures.append(f"{rid} has no verification method")
+
+    explicit_oos = [row for row in oos_rows if _valid_id(row.get("ID", ""), r"OOS-\d{3}")]
+    if not explicit_oos:
+        failures.append("out-of-scope is not explicit: add at least one OOS-### record")
+    for row in explicit_oos:
+        oid = row.get("ID", "")
+        for field in ["Item", "Rationale", "Related Requirements", "Revisit Trigger"]:
+            if _blank_or_tbd(row.get(field, "")):
+                failures.append(f"{oid} is incomplete: `{field}` must be populated")
+
+    if not ac_ids:
+        failures.append("acceptance criteria are missing: add AC-### rows")
+    for row in ac_rows:
+        aid = row.get("ID", "")
+        if not _valid_id(aid, r"AC-\d{3}"):
+            continue
+        for field in ["Requirement IDs", "Criterion", "Evidence Required", "Validation Method"]:
+            if _blank_or_tbd(row.get(field, "")):
+                failures.append(f"{aid} is incomplete: `{field}` must be populated")
+
+    return failures
+
+
+def _requirement_rows(path: Path) -> list[dict[str, str]]:
+    return [
+        row for row in _table_rows(path)
+        if _valid_id(row.get("ID", ""), r"(?:REQ|NFR)-\d{3}")
+    ]
+
+
+def _table_rows(path: Path) -> list[dict[str, str]]:
+    text = path.read_text(encoding="utf-8")
+    rows: list[dict[str, str]] = []
+    lines = text.splitlines()
+    idx = 0
+    while idx < len(lines):
+        line = lines[idx].strip()
+        if not line.startswith("|") or not line.endswith("|"):
+            idx += 1
+            continue
+        headers = _split_table_line(line)
+        if idx + 1 >= len(lines) or not _is_separator_row(lines[idx + 1]):
+            idx += 1
+            continue
+        idx += 2
+        while idx < len(lines):
+            row_line = lines[idx].strip()
+            if not row_line.startswith("|") or not row_line.endswith("|"):
+                break
+            values = _split_table_line(row_line)
+            row = {headers[pos]: values[pos] if pos < len(values) else "" for pos in range(len(headers))}
+            rows.append(row)
+            idx += 1
+        continue
+    return rows
+
+
+def _split_table_line(line: str) -> list[str]:
+    return [cell.strip().strip("`") for cell in line.strip().strip("|").split("|")]
+
+
+def _is_separator_row(line: str) -> bool:
+    cells = _split_table_line(line.strip())
+    return bool(cells) and all(re.fullmatch(r":?-{3,}:?", cell.strip()) for cell in cells)
+
+
+def _dedupe_rows(rows: list[dict[str, str]], key: str) -> list[dict[str, str]]:
+    seen: set[str] = set()
+    deduped: list[dict[str, str]] = []
+    for row in rows:
+        value = row.get(key, "")
+        if value in seen:
+            continue
+        seen.add(value)
+        deduped.append(row)
+    return deduped
+
+
+def _mvp_requirement_ids(req_rows: list[dict[str, str]], nfr_rows: list[dict[str, str]], mvp_rows: list[dict[str, str]]) -> set[str]:
+    ids = {row.get("ID", "") for row in req_rows + nfr_rows if row.get("Phase", "").upper() == "MVP"}
+    ids.update(row.get("Requirement ID", "") for row in mvp_rows)
+    return {rid for rid in ids if _valid_id(rid, r"(?:REQ|NFR)-\d{3}")}
+
+
+def _valid_ids(rows: list[dict[str, str]], key: str, pattern: str) -> set[str]:
+    return {row.get(key, "") for row in rows if _valid_id(row.get(key, ""), pattern)}
+
+
+def _valid_id(value: str, pattern: str) -> bool:
+    return re.fullmatch(pattern, value.strip()) is not None
+
+
+def _linked_ids(value: str, pattern: str) -> set[str]:
+    return set(re.findall(pattern, value))
+
+
+def _generated_requirement_ids(rows: list[dict[str, str]]) -> set[str]:
+    return {row.get("ID", "") for row in rows if re.fullmatch(r"(?:REQ|NFR)-1\d\d", row.get("ID", ""))}
+
+
+def _requirement_graph_ids(repo_root: Path, cfg: ProjectConfig) -> set[str]:
+    path = resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root) / "graph.manual.json"
+    if not path.exists():
+        return set()
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return set()
+    nodes = raw.get("nodes", []) if isinstance(raw, dict) else []
+    ids: set[str] = set()
+    for node in nodes:
+        if not isinstance(node, dict):
+            continue
+        node_id = str(node.get("id", ""))
+        match = re.fullmatch(r"requirement:((?:REQ|NFR)-\d{3})", node_id)
+        if match:
+            ids.add(match.group(1))
+    return ids
+
+
+def _validation_method(row: dict[str, str]) -> str:
+    return row.get("Validation Method", "") or row.get("Test Method", "") or row.get("Verification Method", "")
+
+
+def _blank_or_tbd(value: str) -> bool:
+    cleaned = value.strip().strip("`")
+    return not cleaned or cleaned.upper() == "TBD" or "TBD" in cleaned.upper()
+
+
 CHECKS: dict[str, GateFn] = {
     "schema": _check_schema,
     "coherence": _check_coherence,
     "evidence-links": _check_evidence_links,
     "primitives": _check_primitives,
     "discovery": _check_discovery,
+    "requirements": _check_requirements,
 }
 
 
@@ -130,6 +320,7 @@ def ensure_policy(path: Path) -> dict:
                 {"id": "GATE-SCHEMA", "checks": ["schema", "primitives"]},
                 {"id": "GATE-INTEGRITY", "checks": ["coherence", "evidence-links"]},
                 {"id": "GATE-DISCOVERY", "checks": ["discovery"]},
+                {"id": "GATE-REQUIREMENTS", "checks": ["requirements"]},
             ],
         }
         path.write_text(json.dumps(default, indent=2) + "\n", encoding="utf-8")

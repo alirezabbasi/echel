@@ -36,8 +36,8 @@ Acceptance criteria turn requirements into verifiable conditions. Every criterio
 
 ## Readiness Checklist
 
-- [ ] Every MVP `REQ-###` has at least one acceptance criterion.
-- [ ] Every MVP `NFR-###` has at least one acceptance criterion.
-- [ ] Every criterion states evidence required.
-- [ ] Every criterion states validation method.
-- [ ] Acceptance criteria can be used by future QA and proof-pack workflows.
+- [x] Every MVP `REQ-###` has at least one acceptance criterion.
+- [x] Every MVP `NFR-###` has at least one acceptance criterion.
+- [x] Every criterion states evidence required.
+- [x] Every criterion states validation method.
+- [x] Acceptance criteria can be used by future QA and proof-pack workflows.

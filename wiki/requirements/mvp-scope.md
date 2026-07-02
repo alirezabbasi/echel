@@ -35,13 +35,13 @@ Create a requirements model that preserves intent, separates delivery phases, an
 | --- | --- | --- | --- |
 | REQ-005 | V1 | Model must exist before CLI automation | TASK-0013 |
 | REQ-006 | V1 | Agent-consumable parsing belongs with command implementation | TASK-0013 |
-| NFR-005 | V1 | Parser constraints should be validated by implementation | TASK-0013 and TASK-0014 |
+| NFR-005 | V1 | Broader parser constraints belong to future traceability tooling; requirement generation and gate validation are now in place | TASK-0031 traceability matrix and future graph upgrades |
 
 ## MVP Exit Criteria
 
-- [ ] Requirement model documents exist under `wiki/requirements/`.
-- [ ] MVP and deferred scope are visibly separated.
-- [ ] Every MVP requirement has source IDs.
-- [ ] Every MVP requirement has acceptance criteria.
-- [ ] Every MVP requirement has dependencies, risks, and verification method.
-- [ ] Deferred automation work is linked to future tasks.
+- [x] Requirement model documents exist under `wiki/requirements/`.
+- [x] MVP and deferred scope are visibly separated.
+- [x] Every MVP requirement has source IDs.
+- [x] Every MVP requirement has acceptance criteria.
+- [x] Every MVP requirement has dependencies, risks, and verification method.
+- [x] Deferred automation work is linked to future tasks.

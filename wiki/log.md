@@ -256,6 +256,12 @@ status: active
 - Vague upstream source language is rejected before requirement rows are written.
 - Requirement and NFR nodes plus source edges are added to the product graph through `wiki/graph.manual.json`.
 
+## [2026-07-02] gate | requirements
+- Added `GATE-REQUIREMENTS` in `tools/echel/gates.py`.
+- `echel readiness --stage requirements` validates MVP requirement testability, acceptance criteria, dependencies, risks, source IDs, explicit out-of-scope records, MVP non-functional requirements, and generated requirement graph coverage.
+- Added the requirements gate to `.echel/gates.json` so `echel doctor` includes it with the other lifecycle gates.
+- Added regression tests for passing generated requirements, missing graph coverage, and missing acceptance criteria.
+
 ## [2026-07-01] discover | discovery
 - Updated `problem-statement` in Product Discovery Specification.
 

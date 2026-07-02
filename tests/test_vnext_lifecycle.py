@@ -187,6 +187,44 @@ Old canon problem
             self.assertIn("too vague", str(ctx.exception))
             self.assertIn("best platform", str(ctx.exception))
 
+    def test_requirements_gate_passes_generated_requirements(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+
+            result = run_stage_gate(repo, cfg, "requirements")
+
+            self.assertTrue(result.passed, "\n".join(result.failures))
+
+    def test_requirements_gate_blocks_missing_generated_graph_nodes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            (repo / "wiki/graph.manual.json").unlink()
+
+            result = run_stage_gate(repo, cfg, "requirements")
+
+            self.assertFalse(result.passed)
+            self.assertIn("REQ-101 is missing from the product graph", "\n".join(result.failures))
+
+    def test_requirements_gate_blocks_missing_acceptance_criteria(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            ac_path = repo / "wiki/requirements/acceptance-criteria.md"
+            ac_path.write_text(ac_path.read_text(encoding="utf-8").replace("| AC-101 |", "| AC-999 |", 1), encoding="utf-8")
+
+            result = run_stage_gate(repo, cfg, "requirements")
+
+            self.assertFalse(result.passed)
+            self.assertIn("REQ-101 references missing acceptance criteria", "\n".join(result.failures))
+
 
 def write_requirements_sources(repo: Path, canon_is: str = "A workflow control product for regulated operators.") -> None:
     write(

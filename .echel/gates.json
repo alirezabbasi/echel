@@ -20,6 +20,12 @@
       "checks": [
         "discovery"
       ]
+    },
+    {
+      "id": "GATE-REQUIREMENTS",
+      "checks": [
+        "requirements"
+      ]
     }
   ]
 }

@@ -49,8 +49,8 @@ Each functional requirement must include:
 
 ## Readiness Checklist
 
-- [ ] Every functional requirement is observable.
-- [ ] Every functional requirement has a source ID.
-- [ ] Every functional requirement has a linked acceptance criterion.
-- [ ] Every MVP functional requirement has a test method.
-- [ ] Later-phase functional requirements are clearly marked outside MVP scope.
+- [x] Every functional requirement is observable.
+- [x] Every functional requirement has a source ID.
+- [x] Every functional requirement has a linked acceptance criterion.
+- [x] Every MVP functional requirement has a test method.
+- [x] Later-phase functional requirements are clearly marked outside MVP scope.

@@ -38,4 +38,4 @@ Non-functional requirements define quality attributes and operational constraint
 - [ ] Every `NFR-###` row has source IDs.
 - [ ] Every `NFR-###` row has verification method.
 - [ ] Every MVP `NFR-###` row links to acceptance criteria.
-- [ ] Automation-readiness constraints are marked for TASK-0013/TASK-0014 follow-up.
+- [x] Automation-readiness constraints are covered by TASK-0013 generation and TASK-0014 requirements gate checks.

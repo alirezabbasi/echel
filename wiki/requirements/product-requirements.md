@@ -57,9 +57,13 @@ MVP requirements are the minimum set required before Echel can safely move from 
 
 ## Readiness Checklist
 
-- [ ] All `REQ-###` rows have source IDs.
-- [ ] All `REQ-###` rows have priority and phase.
-- [ ] All `REQ-###` rows have dependencies and risks.
-- [ ] All `REQ-###` rows link to `AC-###` rows.
-- [ ] MVP and later scope are separated.
-- [ ] No requirement is accepted without a validation method.
+- [x] All `REQ-###` rows have source IDs.
+- [x] All `REQ-###` rows have priority and phase.
+- [x] All `REQ-###` rows have dependencies and risks.
+- [x] All `REQ-###` rows link to `AC-###` rows.
+- [x] MVP and later scope are separated.
+- [x] No requirement is accepted without a validation method.
+
+## Readiness Gate
+
+`GATE-REQUIREMENTS` evaluates this model through `echel readiness --stage requirements`. The gate parses the requirement tables directly and blocks downstream domain work when MVP `REQ-###` or `NFR-###` rows are missing source IDs, acceptance links, validation methods, dependency statements, risk statements, explicit out-of-scope records, MVP non-functional coverage, or generated requirement graph links.

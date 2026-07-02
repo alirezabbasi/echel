@@ -35,11 +35,12 @@ Last updated: 2026-07-02
 - Added the vNext traceability schema, discovery templates and command, discovery gate, canon templates and commands, strategy templates and commands, and requirements model templates.
 - Re-reviewed TASK-0003 through TASK-0011 and remediated lifecycle drift: discovery gate coverage is stricter, canon generation rejects template-only source content, canon drift writes durable artifacts and stale markers, and strategy generation now reads from canon while preserving discovery references.
 - Added `echel requirements` command to initialize, inspect, and generate requirement artifacts from canon and strategy while rejecting vague sources and adding requirement nodes to the product graph.
+- Added `GATE-REQUIREMENTS` to evaluate requirement readiness before domain modeling by checking MVP testability, acceptance criteria, dependencies, risks, explicit out-of-scope records, MVP NFR coverage, and generated requirement graph links.
 
 ## Next
 
-1. Add requirements readiness gate to block downstream lifecycle stages when requirements are incomplete.
-2. Add domain model templates and then connect requirements to domain objects and rules.
+1. Add domain model templates and then connect requirements to domain objects and rules.
+2. Add `echel domain` command to generate domain artifacts from requirement IDs.
 3. Implement lifecycle stage evaluation against `schema/lifecycle-stage.schema.md`.
 4. Expand product graph and readiness gates to evaluate full methodology stages.
 5. Replace duplicated tool prompts with canonical lifecycle playbooks.
@@ -49,4 +50,4 @@ Last updated: 2026-07-02
 - If execution/evidence schemas are adopted inconsistently, gate determinism will degrade.
 - If new folders are added without a unique purpose, Echel may become harder for domain experts to navigate again.
 - Force-generating from incomplete discovery remains risky; gates should keep treating template `TBD` content as incomplete.
-- Requirements generation remains blocked until strategy is meaningful unless explicitly forced.
+- Requirements generation remains blocked until strategy is meaningful unless explicitly forced; the requirements gate now verifies the resulting artifacts before downstream domain work.

@@ -65,3 +65,9 @@
 - Decision: Generate requirements into explicit generated sections and graph manual nodes instead of overwriting hand-authored requirement model context.
 - Context: TASK-0012 established human-readable requirement model documents, while TASK-0013 needed automation that derives requirements from canon and strategy.
 - Impact: `echel requirements` preserves authored requirement guidance, writes generated requirement/NFR/MVP/OOS/acceptance sections, rejects vague source language, marks phases, and adds requirement nodes plus source edges to `wiki/graph.manual.json` before regenerating `wiki/graph.json`.
+
+## DEC-0012
+
+- Decision: Add `GATE-REQUIREMENTS` as a table-driven readiness gate in the shared gate engine.
+- Context: TASK-0014 needed requirements to become an execution safety layer, not only Markdown artifacts. Downstream domain and architecture work should not proceed from MVP requirements that lack acceptance criteria, dependencies, risks, validation methods, explicit exclusions, or NFR coverage.
+- Impact: `echel readiness --stage requirements` now evaluates requirement artifacts directly, the repo gate policy includes `GATE-REQUIREMENTS`, and generated requirements are checked for product graph coverage when generated IDs are present.
