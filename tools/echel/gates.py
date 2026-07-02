@@ -14,6 +14,61 @@ from .primitives import validate_decisions, validate_gate_ids, validate_tasks
 from .requirements import AC_FILE, FUNCTIONAL_FILE, MVP_FILE, NFR_FILE, OOS_FILE, PRODUCT_FILE, requirements_root
 
 
+DOMAIN_FILES = [
+    "domain-overview.md",
+    "ubiquitous-language.md",
+    "bounded-contexts.md",
+    "entities.md",
+    "aggregates.md",
+    "domain-events.md",
+    "workflows.md",
+    "policies-and-rules.md",
+]
+
+DOMAIN_ID_PATTERNS = {
+    "DM": r"DM-\d{3}",
+    "BC": r"BC-\d{3}",
+    "AGG": r"AGG-\d{3}",
+    "DE": r"DE-\d{3}",
+    "WF": r"WF-DM-\d{3}",
+    "BR": r"BR-\d{3}",
+}
+
+TECH_LEAKAGE_TERMS = [
+    "api",
+    "aws",
+    "azure",
+    "backend",
+    "container",
+    "database",
+    "django",
+    "docker",
+    "endpoint",
+    "fastapi",
+    "frontend",
+    "gcp",
+    "graphql",
+    "grpc",
+    "http",
+    "json",
+    "kafka",
+    "kubernetes",
+    "lambda",
+    "microservice",
+    "postgres",
+    "postgresql",
+    "python",
+    "react",
+    "redis",
+    "rest",
+    "s3",
+    "server",
+    "sqlite",
+    "terraform",
+    "yaml",
+]
+
+
 @dataclass
 class GateResult:
     gate_id: str
@@ -292,6 +347,181 @@ def _requirement_graph_ids(repo_root: Path, cfg: ProjectConfig) -> set[str]:
     return ids
 
 
+def _check_domain(repo_root: Path, cfg: ProjectConfig) -> list[str]:
+    wiki = resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root)
+    root = wiki / "domain"
+    if not root.exists():
+        return ["domain model not initialized: run `echel domain` to start"]
+
+    failures: list[str] = []
+    missing = [name for name in DOMAIN_FILES if not (root / name).exists()]
+    if missing:
+        return [f"domain artifact missing: wiki/domain/{name}" for name in missing]
+
+    requirement_ids = _domain_required_requirement_ids(repo_root, cfg)
+    coverage = _domain_requirement_coverage(root / "domain-overview.md")
+    for rid in sorted(requirement_ids):
+        item = coverage.get(rid)
+        if not item:
+            failures.append(f"{rid} is not mapped in domain-overview: run `echel domain` or add domain coverage")
+            continue
+        if item.get("Coverage Status", "").lower() != "covered":
+            failures.append(f"{rid} domain coverage is not marked Covered")
+        for field, pattern in [
+            ("Domain Concept", r"DM-\d{3}"),
+            ("Bounded Context", r"BC-\d{3}"),
+            ("Rule", r"BR-\d{3}"),
+        ]:
+            if not _linked_ids(item.get(field, ""), pattern):
+                failures.append(f"{rid} domain coverage is missing `{field}`")
+
+    definitions = _domain_defined_ids(root)
+    references = _domain_referenced_ids(root)
+    for family, refs in references.items():
+        missing_refs = sorted(refs - definitions.get(family, set()))
+        for ref in missing_refs:
+            failures.append(f"{ref} is referenced in domain artifacts but not defined")
+
+    failures.extend(_domain_language_failures(root / "ubiquitous-language.md"))
+    failures.extend(_domain_technology_leakage(root))
+
+    graph_ids = _domain_graph_ids(repo_root, cfg)
+    generated_ids: set[str] = set()
+    for family, ids in definitions.items():
+        generated_ids.update(id_ for id_ in ids if re.fullmatch(_domain_pattern(family), id_) and _is_generated_domain_id(id_))
+    for did in sorted(generated_ids):
+        if did not in graph_ids:
+            failures.append(f"{did} is missing from the product graph: rerun `echel domain` after domain updates")
+
+    return failures
+
+
+def _domain_required_requirement_ids(repo_root: Path, cfg: ProjectConfig) -> set[str]:
+    root = requirements_root(repo_root, cfg)
+    rows = _dedupe_rows(_requirement_rows(root / PRODUCT_FILE), "ID") + _dedupe_rows(_requirement_rows(root / FUNCTIONAL_FILE), "ID")
+    nfr_rows = _dedupe_rows(_requirement_rows(root / NFR_FILE), "ID")
+    return {row.get("ID", "") for row in rows + nfr_rows if _valid_id(row.get("ID", ""), r"(?:REQ|NFR)-\d{3}")}
+
+
+def _domain_requirement_coverage(path: Path) -> dict[str, dict[str, str]]:
+    coverage: dict[str, dict[str, str]] = {}
+    for row in _table_rows(path):
+        rid = row.get("Requirement ID", "")
+        if _valid_id(rid, r"(?:REQ|NFR)-\d{3}"):
+            coverage[rid] = row
+    return coverage
+
+
+def _domain_defined_ids(root: Path) -> dict[str, set[str]]:
+    definitions = {family: set() for family in DOMAIN_ID_PATTERNS}
+    file_map = {
+        "DM": ["domain-overview.md", "ubiquitous-language.md", "entities.md"],
+        "BC": ["bounded-contexts.md"],
+        "AGG": ["aggregates.md"],
+        "DE": ["domain-events.md"],
+        "WF": ["workflows.md"],
+        "BR": ["policies-and-rules.md"],
+    }
+    for family, names in file_map.items():
+        pattern = _domain_pattern(family)
+        for name in names:
+            for row in _table_rows(root / name):
+                for key in ["ID", "Context ID"]:
+                    value = row.get(key, "")
+                    if _valid_id(value, pattern):
+                        definitions[family].add(value)
+                if family == "DM":
+                    definitions[family].update(_linked_ids(row.get("Domain Concept", ""), pattern))
+                if family == "BC":
+                    definitions[family].update(_linked_ids(row.get("Bounded Context", ""), pattern))
+                if family == "AGG":
+                    definitions[family].update(_linked_ids(row.get("Aggregate", ""), pattern))
+                if family == "DE":
+                    definitions[family].update(_linked_ids(row.get("Event", ""), pattern))
+                if family == "BR":
+                    definitions[family].update(_linked_ids(row.get("Rule", ""), pattern))
+    return definitions
+
+
+def _domain_referenced_ids(root: Path) -> dict[str, set[str]]:
+    refs = {family: set() for family in DOMAIN_ID_PATTERNS}
+    for name in DOMAIN_FILES:
+        for row in _table_rows(root / name):
+            text = " ".join(row.values())
+            for family, pattern in DOMAIN_ID_PATTERNS.items():
+                refs[family].update(_linked_ids(text, pattern))
+    return refs
+
+
+def _domain_language_failures(path: Path) -> list[str]:
+    failures: list[str] = []
+    terms: dict[str, tuple[str, str]] = {}
+    definitions: dict[str, str] = {}
+    for row in _table_rows(path):
+        did = row.get("ID", "")
+        term = row.get("Term", "").strip()
+        definition = row.get("Definition", "").strip()
+        if not _valid_id(did, r"DM-\d{3}") or _blank_or_tbd(term) or _blank_or_tbd(definition):
+            continue
+        key = re.sub(r"\s+", " ", term.lower())
+        normalized_definition = re.sub(r"\s+", " ", definition.lower())
+        if key in terms and terms[key][1] != normalized_definition:
+            failures.append(f"{term} has duplicate meanings in ubiquitous language: {terms[key][0]} and {did}")
+        terms[key] = (did, normalized_definition)
+        if normalized_definition in definitions and definitions[normalized_definition] != did:
+            failures.append(f"{did} duplicates the meaning of {definitions[normalized_definition]} in ubiquitous language")
+        definitions[normalized_definition] = did
+    return failures
+
+
+def _domain_technology_leakage(root: Path) -> list[str]:
+    failures: list[str] = []
+    pattern = re.compile(r"\b(" + "|".join(re.escape(term) for term in TECH_LEAKAGE_TERMS) + r")\b", re.IGNORECASE)
+    for name in DOMAIN_FILES:
+        for row in _table_rows(root / name):
+            if _technology_constraint_row(row):
+                continue
+            text = " ".join(row.values())
+            leaked = sorted({match.group(1).lower() for match in pattern.finditer(text)})
+            if leaked:
+                row_id = row.get("ID") or row.get("Requirement ID") or row.get("Context ID") or "domain row"
+                failures.append(f"{row_id} contains technology leakage in domain model: {', '.join(leaked)}")
+    return failures
+
+
+def _technology_constraint_row(row: dict[str, str]) -> bool:
+    joined = " ".join(row.values()).lower()
+    return "constraint" in joined and not _blank_or_tbd(row.get("Source IDs", ""))
+
+
+def _domain_graph_ids(repo_root: Path, cfg: ProjectConfig) -> set[str]:
+    path = resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root) / "graph.manual.json"
+    if not path.exists():
+        return set()
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return set()
+    nodes = raw.get("nodes", []) if isinstance(raw, dict) else []
+    ids: set[str] = set()
+    for node in nodes:
+        if not isinstance(node, dict):
+            continue
+        node_id = str(node.get("id", ""))
+        for prefix in ["domain-concept", "bounded-context", "domain-aggregate", "domain-event", "domain-workflow", "business-rule"]:
+            if node_id.startswith(f"{prefix}:"):
+                ids.add(node_id.split(":", 1)[1])
+    return ids
+
+
+def _domain_pattern(family: str) -> str:
+    return DOMAIN_ID_PATTERNS[family]
+
+
+def _is_generated_domain_id(value: str) -> bool:
+    return re.fullmatch(r"(?:DM|BC|AGG|DE|BR)-2\d\d|WF-DM-2\d\d", value) is not None
+
+
 def _validation_method(row: dict[str, str]) -> str:
     return row.get("Validation Method", "") or row.get("Test Method", "") or row.get("Verification Method", "")
 
@@ -308,6 +538,7 @@ CHECKS: dict[str, GateFn] = {
     "primitives": _check_primitives,
     "discovery": _check_discovery,
     "requirements": _check_requirements,
+    "domain": _check_domain,
 }
 
 
@@ -321,6 +552,7 @@ def ensure_policy(path: Path) -> dict:
                 {"id": "GATE-INTEGRITY", "checks": ["coherence", "evidence-links"]},
                 {"id": "GATE-DISCOVERY", "checks": ["discovery"]},
                 {"id": "GATE-REQUIREMENTS", "checks": ["requirements"]},
+                {"id": "GATE-DOMAIN", "checks": ["domain"]},
             ],
         }
         path.write_text(json.dumps(default, indent=2) + "\n", encoding="utf-8")

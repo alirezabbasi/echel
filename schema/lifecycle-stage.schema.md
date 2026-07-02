@@ -339,6 +339,8 @@ Gate conditions:
 - bounded contexts have responsibilities and forbidden responsibilities
 - workflows and policies are documented
 - technology decisions are absent unless marked as constraints
+- generated domain IDs are present in the product graph
+- every referenced domain concept, context, aggregate, event, workflow, and rule ID is defined
 
 Allowed next:
 

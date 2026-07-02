@@ -39,14 +39,15 @@ Last updated: 2026-07-02
 - Added the requirements readiness gate so `echel readiness --stage requirements` can block domain and architecture work until MVP requirements are testable, accepted, risk-aware, dependency-aware, scoped, and covered by NFRs.
 - Added first-class domain model templates under `wiki/domain/`, including a complete current requirement-to-domain coverage map and technology-neutral domain guardrails.
 - Added the domain command layer that turns requirement rows into generated domain concepts, contexts, aggregates, events, workflows, rules, and graph nodes without replacing authored domain guidance.
+- Added the domain consistency gate so `echel readiness --stage domain` can block architecture until requirement coverage, domain ID integrity, graph coverage, duplicate-meaning checks, and technology-neutral language pass.
 
 ## Next
 
-1. Add domain consistency gate using the generated domain artifacts and graph nodes.
-2. Expand architecture artifacts once the domain stage can be gated.
-3. Implement stage readiness evaluation from the lifecycle stage schema.
-4. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
-5. Expand release readiness into production operation and post-release learning loops.
+1. Expand architecture artifacts now that the domain stage can be gated.
+2. Implement stage readiness evaluation from the lifecycle stage schema.
+3. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
+4. Expand release readiness into production operation and post-release learning loops.
+5. Add architecture readiness before roadmap generation.
 
 ## Risks/Blocks
 

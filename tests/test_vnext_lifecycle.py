@@ -258,6 +258,71 @@ Old canon problem
 
             self.assertIn("requirements readiness failed", str(ctx.exception))
 
+    def test_domain_gate_passes_generated_domain_model(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            domain_generate(repo, cfg)
+
+            result = run_stage_gate(repo, cfg, "domain")
+
+            self.assertTrue(result.passed, "\n".join(result.failures))
+
+    def test_domain_gate_blocks_unmapped_requirement(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            domain_generate(repo, cfg)
+            overview = repo / "wiki/domain/domain-overview.md"
+            overview.write_text(overview.read_text(encoding="utf-8").replace("| REQ-101 |", "| REQ-999 |", 1), encoding="utf-8")
+
+            result = run_stage_gate(repo, cfg, "domain")
+
+            self.assertFalse(result.passed)
+            self.assertIn("REQ-101 is not mapped", "\n".join(result.failures))
+
+    def test_domain_gate_blocks_undefined_domain_reference(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            domain_generate(repo, cfg)
+            language = repo / "wiki/domain/ubiquitous-language.md"
+            language.write_text(language.read_text(encoding="utf-8").replace("BC-201", "BC-999", 1), encoding="utf-8")
+
+            result = run_stage_gate(repo, cfg, "domain")
+
+            self.assertFalse(result.passed)
+            self.assertIn("BC-999 is referenced", "\n".join(result.failures))
+
+    def test_domain_gate_blocks_duplicate_meaning_and_technology_leakage(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            domain_generate(repo, cfg)
+            language = repo / "wiki/domain/ubiquitous-language.md"
+            text = language.read_text(encoding="utf-8")
+            text = text.replace(
+                "| DM-201 | Non Negotiables Concept | Domain concept derived from `NFR-101`: Non-Negotiables. | Concept | NFR-101 | BC-201, BR-201 | Generated |",
+                "| DM-201 | Non Negotiables Concept | Domain concept derived from `NFR-101`: Non-Negotiables. | Concept | NFR-101 | BC-201, BR-201 | Generated |\n"
+                "| DM-999 | Non Negotiables Concept | A PostgreSQL table for storing workflow records. | Concept | REQ-101 | DM-201 | Draft |",
+            )
+            language.write_text(text, encoding="utf-8")
+
+            result = run_stage_gate(repo, cfg, "domain")
+            failures = "\n".join(result.failures)
+
+            self.assertFalse(result.passed)
+            self.assertIn("Non Negotiables Concept has duplicate meanings", failures)
+            self.assertIn("technology leakage", failures)
+
 
 def write_requirements_sources(repo: Path, canon_is: str = "A workflow control product for regulated operators.") -> None:
     write(

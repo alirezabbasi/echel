@@ -83,3 +83,9 @@
 - Decision: Generate domain model updates into explicit generated sections and graph manual nodes.
 - Context: TASK-0016 needed `echel domain` to build on the TASK-0015 templates without overwriting authored domain language. Domain generation must preserve requirement IDs, avoid technology choices, and make the requirement-to-domain chain visible in the product graph.
 - Impact: `echel domain` refuses to run unless requirements readiness passes, unless `--force` is used. It writes generated domain rows for concepts, contexts, aggregates, events, workflows, and business rules, then upserts requirement and domain nodes plus mapping edges into `wiki/graph.manual.json`.
+
+## DEC-0015
+
+- Decision: Add `GATE-DOMAIN` as the architecture-entry consistency gate.
+- Context: TASK-0017 needed domain modeling to become an execution safety layer, not only generated Markdown. Architecture must not proceed from undefined terms, duplicate meanings, unmapped requirements, missing generated graph nodes, or concrete technology choices hidden inside domain language.
+- Impact: `echel readiness --stage domain` now validates domain artifacts before architecture work. The repository gate policy includes `GATE-DOMAIN`, and downstream architecture tasks can depend on a passed domain stage rather than only the presence of `wiki/domain/` files.

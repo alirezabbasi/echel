@@ -26,6 +26,12 @@
       "checks": [
         "requirements"
       ]
+    },
+    {
+      "id": "GATE-DOMAIN",
+      "checks": [
+        "domain"
+      ]
     }
   ]
 }

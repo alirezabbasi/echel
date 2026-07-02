@@ -283,3 +283,9 @@ status: active
 - Command generates or refreshes domain sections from requirement rows without replacing hand-authored domain guidance.
 - Generated rows include `DM-###`, `BC-###`, `AGG-###`, `DE-###`, `WF-DM-###`, and `BR-###` IDs linked back to `REQ-###` and `NFR-###`.
 - Requirement and domain nodes plus mapping edges are added to the product graph through `wiki/graph.manual.json`.
+
+## [2026-07-02] gate | domain
+- Added `GATE-DOMAIN` in `tools/echel/gates.py`.
+- `echel readiness --stage domain` validates requirement-to-domain coverage, undefined domain ID references, duplicate meanings, generated domain graph coverage, and concrete technology leakage.
+- Added the domain gate to `.echel/gates.json` so `echel doctor` includes it with the other lifecycle gates.
+- Added regression tests for passing generated domain models, unmapped requirements, undefined references, duplicate meanings, and technology leakage.

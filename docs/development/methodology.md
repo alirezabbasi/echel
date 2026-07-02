@@ -390,6 +390,7 @@ Acceptance criteria:
 Gate rule:
 
 - Do not proceed to architecture if domain terms, boundaries, or business rules are unstable.
+- `GATE-DOMAIN` must pass before architecture work. It checks requirement coverage, domain ID reference integrity, duplicate meanings, undefined references, generated graph coverage, and concrete technology leakage.
 
 Prepares next stage by giving architecture stable semantic boundaries.
 

@@ -77,6 +77,7 @@ python3 tools/echel.py strategy
 python3 tools/echel.py requirements
 python3 tools/echel.py readiness --stage requirements
 python3 tools/echel.py domain
+python3 tools/echel.py readiness --stage domain
 ```
 
 ## Graph And Memory Commands
