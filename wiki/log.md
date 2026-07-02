@@ -248,6 +248,14 @@ status: active
 - Added `wiki/requirements/acceptance-criteria.md` to map `REQ-###` and `NFR-###` items to verifiable criteria.
 - Preserved source links to discovery, canon, strategy, and traceability artifacts for downstream automation.
 
+## [2026-07-02] requirements | requirements
+- Added `echel requirements` CLI command with `tools/echel/requirements.py` module.
+- Command initializes requirement artifacts, reports generated requirement status, and refuses to generate when strategy readiness fails unless `--force` is used.
+- Requirements are generated from canon and strategy into dedicated generated sections without replacing hand-authored model guidance.
+- Generated requirements include priority, phase, source IDs, dependencies, risks, acceptance criteria, and validation methods.
+- Vague upstream source language is rejected before requirement rows are written.
+- Requirement and NFR nodes plus source edges are added to the product graph through `wiki/graph.manual.json`.
+
 ## [2026-07-01] discover | discovery
 - Updated `problem-statement` in Product Discovery Specification.
 

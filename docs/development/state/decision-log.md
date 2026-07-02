@@ -59,3 +59,9 @@
 - Decision: Treat canon as the immediate source for strategy generation and reject template-only content as lifecycle progress.
 - Context: Review of TASK-0003 through TASK-0011 found that strategy generation read directly from discovery, canon drift was only memory-backed, discovery gate coverage was narrower than intended, and generated canon/strategy files could contain `TBD` boilerplate presented as real content.
 - Impact: Discovery gates now check operator, business value, and non-template research content; canon generation only promotes meaningful source sections; canon drift writes `wiki/canon/canon-drift.md` and stale markers; strategy templates and generation reference canon as their immediate upstream source while keeping discovery traceability.
+
+## DEC-0011
+
+- Decision: Generate requirements into explicit generated sections and graph manual nodes instead of overwriting hand-authored requirement model context.
+- Context: TASK-0012 established human-readable requirement model documents, while TASK-0013 needed automation that derives requirements from canon and strategy.
+- Impact: `echel requirements` preserves authored requirement guidance, writes generated requirement/NFR/MVP/OOS/acceptance sections, rejects vague source language, marks phases, and adds requirement nodes plus source edges to `wiki/graph.manual.json` before regenerating `wiki/graph.json`.

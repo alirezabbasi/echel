@@ -11,6 +11,7 @@ from echel.canon import canon_generate, canon_status, detect_canon_drift, ensure
 from echel.config import load_config
 from echel.discovery import ensure_discovery_files
 from echel.gates import run_stage_gate
+from echel.requirements import requirements_generate, requirements_status
 from echel.strategy import strategy_generate, ensure_strategy_files
 
 
@@ -152,6 +153,145 @@ Old canon problem
             self.assertIn("operators", failures)
             self.assertIn("business-model", failures)
             self.assertIn("research plan is incomplete", failures)
+
+    def test_requirements_generation_marks_phase_and_adds_graph_nodes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+
+            changed = requirements_generate(repo, cfg, force=True)
+
+            self.assertTrue(changed)
+            product = (repo / "wiki/requirements/product-requirements.md").read_text(encoding="utf-8")
+            functional = (repo / "wiki/requirements/functional-requirements.md").read_text(encoding="utf-8")
+            graph = (repo / "wiki/graph.json").read_text(encoding="utf-8")
+            manual = (repo / "wiki/graph.manual.json").read_text(encoding="utf-8")
+            self.assertIn("REQ-101", product)
+            self.assertIn("| P0 | MVP |", product)
+            self.assertIn("REQ-104", functional)
+            self.assertIn("| P1 | V1 |", functional)
+            self.assertIn("requirement:REQ-101", graph)
+            self.assertIn("trace:ICP-001", manual)
+            self.assertIn("Graph requirement nodes", requirements_status(repo, cfg))
+
+    def test_requirements_generation_rejects_vague_sources(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo, canon_is="The best platform for modern seamless operations.")
+
+            with self.assertRaises(ValueError) as ctx:
+                requirements_generate(repo, cfg, force=True)
+
+            self.assertIn("too vague", str(ctx.exception))
+            self.assertIn("best platform", str(ctx.exception))
+
+
+def write_requirements_sources(repo: Path, canon_is: str = "A workflow control product for regulated operators.") -> None:
+    write(
+        repo / "wiki/canon/product-canon.md",
+        f"""---
+type: product-canon
+status: draft
+stage: canon
+---
+# Product Canon
+
+## What This Product Is
+{canon_is}
+
+## What This Product Is Not
+Consumer social network and general-purpose marketplace.
+
+## Who This Product Serves
+Operations teams at regulated B2B companies.
+
+## Why Customers Would Pay or Adopt
+Customers pay to reduce manual handoffs and preserve audit-ready operational memory.
+""",
+    )
+    write(
+        repo / "wiki/canon/vision.md",
+        """# Product Vision
+
+## Business Transformation
+Teams can turn repeated operational work into auditable, AI-assisted delivery flows.
+""",
+    )
+    write(
+        repo / "wiki/canon/product-principles.md",
+        """# Product Principles
+
+## Principles in Practice
+Evidence before automation and explicit source memory before execution.
+""",
+    )
+    write(
+        repo / "wiki/canon/non-negotiables.md",
+        """# Non-Negotiables
+
+## Hard Constraints
+Audit trails must preserve source decisions before downstream implementation.
+""",
+    )
+    write(
+        repo / "wiki/strategy/icp.md",
+        """# Ideal Customer Profile
+
+## Primary ICP
+Mid-market regulated operations teams with repeated approval workflows.
+""",
+    )
+    write(
+        repo / "wiki/strategy/buyer-user-model.md",
+        """# Buyer and User Model
+
+## Economic Buyer
+Operations leader accountable for audit cost and delivery throughput.
+
+## User
+Operations specialist who executes repeated handoff workflows.
+
+## Operator
+Platform owner responsible for workflow reliability and access control.
+""",
+    )
+    write(
+        repo / "wiki/strategy/market-wedge.md",
+        """# Market Wedge
+
+## Wedge Definition
+First wedge is approval-heavy operational workflows with audit evidence gaps.
+""",
+    )
+    write(
+        repo / "wiki/strategy/positioning.md",
+        """# Positioning
+
+## Positioning Statement
+For regulated operations teams, the product preserves operational memory while coordinating AI-assisted delivery.
+""",
+    )
+    write(
+        repo / "wiki/strategy/pricing-and-packaging.md",
+        """# Pricing and Packaging
+
+## Pricing Model
+Subscription pricing based on active workflows and retained audit history.
+""",
+    )
+    write(
+        repo / "wiki/strategy/pmf-evidence.md",
+        """# PMF Evidence
+
+## Continue Criteria
+Teams complete repeated workflows faster while retaining audit evidence.
+
+## Stop Criteria
+Users cannot connect workflow memory to execution decisions.
+""",
+    )
 
 
 if __name__ == "__main__":
