@@ -32,15 +32,16 @@ Last updated: 2026-07-02
 - Hardened V2 coverage against the requested product-first initialization, product-owner command language, graph, packet, cockpit, readiness, and framework-core boundaries.
 - Added the Echel vNext methodology contract as the canonical lifecycle rule set for turning raw product ideas into production-ready repositories.
 - Added `schema/lifecycle-stage.schema.md` to define deterministic vNext stage IDs, required artifacts, gate conditions, transitions, and blocking rules.
+- Added the vNext traceability schema, discovery templates and command, discovery gate, canon templates and commands, strategy templates and commands, and requirements model templates.
 
 ## Next
 
-1. Add methodology traceability ID system so downstream artifacts preserve source intent.
-2. Add Product Discovery Specification templates and `echel discover` workflow.
-3. Implement lifecycle stage evaluation against `schema/lifecycle-stage.schema.md`.
-4. Expand product graph and readiness gates to evaluate full methodology stages.
-5. Replace duplicated tool prompts with canonical lifecycle playbooks.
-6. Use readiness and proof-pack outputs to shape release workflows and production-readiness controls.
+1. Add `echel requirements` command to initialize, inspect, and update requirements model artifacts.
+2. Add requirements readiness gate to block downstream lifecycle stages when requirements are incomplete.
+3. Add domain model templates and then connect requirements to domain objects and rules.
+4. Implement lifecycle stage evaluation against `schema/lifecycle-stage.schema.md`.
+5. Expand product graph and readiness gates to evaluate full methodology stages.
+6. Replace duplicated tool prompts with canonical lifecycle playbooks.
 
 ## Risks/Blocks
 

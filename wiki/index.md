@@ -5,12 +5,25 @@ status: active
 
 # Index
 
+## Canon
+
+- [[canon/non-negotiables|Non Negotiables]]
+- [[canon/product-canon|Product Canon]]
+- [[canon/product-principles|Product Principles]]
+- [[canon/vision|Vision]]
+
 ## Decisions
 
 - [[decisions/ADR-0001-adopt-llm-wiki-as-project-memory|Adr 0001 Adopt Llm Wiki As Project Memory]]
 - [[decisions/ADR-0002-extend-wiki-into-sdlc-operating-system|Adr 0002 Extend Wiki Into Sdlc Operating System]]
 - [[decisions/ADR-0003-simplify-folder-structure-for-human-navigation|Adr 0003 Simplify Folder Structure For Human Navigation]]
 - [[decisions/ADR-0004-keep-product-wiki-outside-echel-core|Adr 0004 Keep Product Wiki Outside Echel Core]]
+
+## Discovery
+
+- [[discovery/assumptions|Assumptions]]
+- [[discovery/product-discovery-spec|Product Discovery Spec]]
+- [[discovery/research-plan|Research Plan]]
 
 ## Knowledge
 
@@ -48,6 +61,15 @@ status: active
 - [[reports/wiki-health-report|Wiki Health Report]]
 - [[reports/work-packets/TASK-0001-initialize-project-wiki-packet|Task 0001 Initialize Project Wiki Packet]]
 
+## Requirements
+
+- [[requirements/acceptance-criteria|Acceptance Criteria]]
+- [[requirements/functional-requirements|Functional Requirements]]
+- [[requirements/mvp-scope|Mvp Scope]]
+- [[requirements/non-functional-requirements|Non Functional Requirements]]
+- [[requirements/out-of-scope|Out Of Scope]]
+- [[requirements/product-requirements|Product Requirements]]
+
 ## Root
 
 - [[architecture|Architecture]]
@@ -62,6 +84,16 @@ status: active
 - [[solution|Solution]]
 - [[users|Users]]
 - [[workflows|Workflows]]
+
+## Strategy
+
+- [[strategy/buyer-user-model|Buyer User Model]]
+- [[strategy/competitive-analysis|Competitive Analysis]]
+- [[strategy/icp|Icp]]
+- [[strategy/market-wedge|Market Wedge]]
+- [[strategy/pmf-evidence|Pmf Evidence]]
+- [[strategy/positioning|Positioning]]
+- [[strategy/pricing-and-packaging|Pricing And Packaging]]
 
 ## Work
 

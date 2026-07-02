@@ -230,6 +230,14 @@ status: active
 - Command reports strategy status showing which files have TBD sections.
 - Added `echel strategy-readiness` CLI command reporting pass/block state with remediation messages.
 
+## [2026-07-02] requirements | requirement-model
+- Added `wiki/requirements/product-requirements.md` as the primary product requirement register.
+- Added `wiki/requirements/functional-requirements.md` and `wiki/requirements/non-functional-requirements.md` with testable requirement fields.
+- Added `wiki/requirements/mvp-scope.md` to separate MVP scope from later phases.
+- Added `wiki/requirements/out-of-scope.md` to record explicit exclusions and revisit triggers.
+- Added `wiki/requirements/acceptance-criteria.md` to map `REQ-###` and `NFR-###` items to verifiable criteria.
+- Preserved source links to discovery, canon, strategy, and traceability artifacts for downstream automation.
+
 ## [2026-07-01] discover | discovery
 - Updated `problem-statement` in Product Discovery Specification.
 

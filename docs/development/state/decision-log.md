@@ -47,3 +47,9 @@
 - Decision: Define product-level lifecycle stages in `schema/lifecycle-stage.schema.md`.
 - Context: The vNext methodology contract needed a deterministic schema for stage IDs, required artifacts, gate conditions, transitions, and blocking rules before runtime stage evaluation can be built.
 - Impact: Future readiness, graph, cockpit, and CLI work should use this schema as the product-stage contract while `schema/EXECUTION.md` remains focused on execution node behavior.
+
+## DEC-0009
+
+- Decision: Introduce `wiki/requirements/` as the vNext requirements model before requirements automation.
+- Context: Echel needs a stable, human-readable bridge from discovery, canon, and strategy into domain, architecture, planning, implementation, QA, and release work.
+- Impact: Requirements now use stable IDs, source links, priority, phase, dependencies, risks, acceptance criteria, and verification methods. TASK-0013 can build `echel requirements` on top of these structures, and TASK-0014 can add a readiness gate without inventing the model during implementation.

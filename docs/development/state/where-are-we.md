@@ -33,14 +33,16 @@ Last updated: 2026-07-02
 - Completed V2 requirements hardening for initialization, commands, graph coverage, packets, cockpit, readiness, and framework-core boundaries.
 - Added `docs/development/methodology.md` as the Echel vNext methodology contract for the full Product Discovery Specification to operations lifecycle.
 - Added `schema/lifecycle-stage.schema.md` as the deterministic lifecycle stage contract for future stage gates and tooling.
+- Added traceability, discovery, canon, strategy, and requirements model artifacts needed to preserve product intent from idea through execution planning.
 
 ## Next
 
-1. Add traceability ID system for discovery, canon, requirements, domain, architecture, tasks, tests, evidence, release, and operations.
-2. Add Product Discovery Specification templates and discovery quality gate.
-3. Implement stage readiness evaluation from the lifecycle stage schema.
-4. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
-5. Expand release readiness into production operation and post-release learning loops.
+1. Add `echel requirements` command for deterministic requirements initialization, status, and updates.
+2. Add requirements readiness gate before downstream domain and architecture stages.
+3. Add domain model templates and wire requirement IDs into domain artifacts.
+4. Implement stage readiness evaluation from the lifecycle stage schema.
+5. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
+6. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks
 
