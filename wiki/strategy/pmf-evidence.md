@@ -70,6 +70,14 @@ Success signals: ### Business Success {#S-001} | ID | Criterion | Type | Confide
 ## Decision Framework
 Risk signals: | ID | Risk | Category | Impact | Likelihood | Mitigation | Statement Type | Confidence | | --- | --- | --- | --- | --- | --- | --- | --- | | `R-001` | TBD | business | TBD | TBD | TBD | TBD | TBD | | `R-002` | TBD | technical | TBD | TBD | TBD | TBD | TBD | | `R-003` | TBD | operational | TBD | TBD | TBD | TBD | TBD | | `R-004` | TBD | financial | TBD | TBD | TBD | TBD | TBD | | `R-005` | TBD | market | TBD | TBD | TBD | TBD | TBD | | `R-006` | TBD | execution | TBD | TBD | TBD | TBD | TBD | |
 
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| vision.md | Business Transformation |
+| product-principles.md | Principles in Practice |
+| product-canon.md | Strategic Risks |
+
 ## Discovery References
 
 | ID | Source | Section |
@@ -88,4 +96,7 @@ Risk signals: | ID | Risk | Category | Impact | Likelihood | Mitigation | Statem
 - [ ] Decision framework is explicit
 
 ## Stop Criteria
-If assumptions fail: **Statement type:** assumption | ID | Assumption | Confidence | Impact if Wrong | Validation Method | | --- | --- | --- | --- | --- | | `A-001` | TBD | TBD | TBD | TBD |
+
+- TBD
+- TBD
+- TBD

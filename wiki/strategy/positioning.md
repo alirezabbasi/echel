@@ -22,7 +22,8 @@ TBD
 TBD
 
 ### Key Benefit
-**Statement type:** decision or hypothesis **Confidence:** TBD ### Solution Concept TBD ### Core Capabilities TBD ### Differentiation TBD
+
+TBD
 
 ## Category Design
 
@@ -51,7 +52,10 @@ TBD
 3. TBD
 
 ### Proof Points
-Success metrics: ### Business Success {#S-001} | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-001` | TBD | TBD | TBD | ### Technical Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-002` | TBD | TBD | TBD | ### Operational Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-003` | TBD | TBD | TBD | ### Customer Success | ID | Criterion | Type | Confidence | | --- | --- | --- | --- | | `S-004` | TBD | TBD | TBD | ### Financial Success |
+
+| Message | Proof |
+| --- | --- |
+| TBD | TBD |
 
 ## Brand Personality
 
@@ -75,6 +79,14 @@ Success metrics: ### Business Success {#S-001} | ID | Criterion | Type | Confide
 - Buyer readiness: TBD
 - Timing: TBD
 
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | What This Product Is |
+| vision.md | Vision Statement |
+| vision.md | Business Transformation |
+
 ## Discovery References
 
 | ID | Source | Section |
@@ -90,6 +102,3 @@ Success metrics: ### Business Success {#S-001} | ID | Criterion | Type | Confide
 - [ ] Differentiator is defensible
 - [ ] Messaging framework is defined
 - [ ] Positioning is validated against customer perception
-
-## Differentiator
-**Statement type:** decision **Confidence:** TBD Where does this product end? What business transformation happens? TBD

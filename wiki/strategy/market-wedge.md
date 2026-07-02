@@ -20,7 +20,8 @@ This document defines the specific market entry point. A wedge is the smallest, 
 ## First Use Case
 
 ### The Problem We Solve
-**Statement type:** fact or observation **Confidence:** TBD ### Problem Statement {#P-001} ID: `P-001` Type: TBD Confidence: TBD TBD ### Current Process TBD ### Current Pain TBD ### Why Existing Solutions Fail TBD ### Cost of Doing Nothing TBD ### Evidence TBD ### Urgency TBD ### Who Experiences It TBD ### Frequency TBD ### Severity TBD
+
+TBD
 
 ## Wedge Strength
 
@@ -58,6 +59,14 @@ After winning the wedge, we expand to:
 2. TBD
 3. TBD
 
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | What This Product Is |
+| product-canon.md | Why This Product Exists |
+| product-canon.md | What This Product Is Not |
+
 ## Discovery References
 
 | ID | Source | Section |
@@ -77,7 +86,9 @@ After winning the wedge, we expand to:
 - [ ] Expansion path is defined
 
 ## What They Do Today
-### Pain Point {#PP-001} | ID | Description | Frequency | Business Cost | Operational Cost | Workaround | Root Cause | Importance | Statement Type | Confidence | | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | | `PP-001` | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
+
+TBD
 
 ## Why That Is Broken
-Current alternatives: | ID | Alternative | Type | Strength | Weakness | Switching Cost | | --- | --- | --- | --- | --- | --- | | `CMP-001` | TBD | TBD | TBD | TBD | TBD | Current alternatives include not only software but also Excel, email, phone, consultants, legacy systems, custom software, and doing nothing.
+
+TBD

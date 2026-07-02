@@ -192,9 +192,10 @@ status: active
 - Log entries appended to `wiki/log.md` with discovery label.
 
 ## [2026-07-02] gate | discovery
-- Added `GATE-DISCOVERY` gate check in `tools/echel/gates.py` validating 11 required discovery fields.
+- Added `GATE-DISCOVERY` gate check in `tools/echel/gates.py` validating required discovery fields.
 - `echel readiness --stage discovery` reports PASS or BLOCKED with remediation messages.
 - `echel doctor` now includes GATE-DISCOVERY in gate evaluation output.
+- Later remediation expanded the gate to cover operator, measurable business value, and non-template research content.
 
 ## [2026-07-02] canon | product-canon
 - Added `wiki/canon/product-canon.md` as the primary source of product truth.
@@ -208,11 +209,13 @@ status: active
 - Command refuses to run when discovery gate fails unless --force is used.
 - Command generates or refreshes canon files from PDS with discovery content.
 - Command reports canon status showing which files have TBD sections.
+- Later remediation prevents template-only `TBD` discovery sections from being promoted into canon as product truth.
 
 ## [2026-07-02] canon-drift | canon
 - Added `echel canon-drift` CLI command detecting contradictions between discovery and canon.
 - Contradictions are recorded as durable memory records with type `canon-drift`.
-- Canon sections marked stale when discovery fields have been updated.
+- Canon sections are marked stale when discovery fields have been updated.
+- Later remediation added durable `wiki/canon/canon-drift.md` artifact entries for detected drift.
 
 ## [2026-07-02] strategy | product-strategy
 - Added `wiki/strategy/icp.md` defining primary and secondary ICP with demographics, behavioral signals, pain indicators, and anti-ICP.
@@ -222,13 +225,20 @@ status: active
 - Added `wiki/strategy/positioning.md` defining positioning statement, category design, messaging framework, and brand personality.
 - Added `wiki/strategy/pricing-and-packaging.md` defining pricing model, tiers, packaging strategy, and revenue projections with hypothesis marking.
 - Added `wiki/strategy/pmf-evidence.md` defining continue/stop criteria, evidence types, collection phases, and decision framework.
+- Later remediation added explicit canon references to every strategy artifact while preserving discovery references.
 
 ## [2026-07-02] strategy | strategy
 - Added `echel strategy` CLI command with `tools/echel/strategy.py` module.
 - Command refuses to run when discovery gate fails unless --force is used.
-- Command generates or refreshes 7 strategy files from PDS with discovery content.
+- Command generates or refreshes 7 strategy files from canon-derived content.
 - Command reports strategy status showing which files have TBD sections.
 - Added `echel strategy-readiness` CLI command reporting pass/block state with remediation messages.
+
+## [2026-07-02] review-remediation | lifecycle
+- Re-reviewed TASK-0003 through TASK-0011 against their objectives and acceptance criteria.
+- Hardened discovery gating, canon generation, canon drift durability, and canon-driven strategy generation.
+- Cleaned previously generated template noise from canon and strategy wiki artifacts.
+- Added regression tests in `tests/test_vnext_lifecycle.py`.
 
 ## [2026-07-02] requirements | requirement-model
 - Added `wiki/requirements/product-requirements.md` as the primary product requirement register.

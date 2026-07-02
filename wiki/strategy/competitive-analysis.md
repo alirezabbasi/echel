@@ -8,7 +8,10 @@ stage: strategy
 This document maps all alternatives customers use today, not only direct competitors. The biggest competitor is often "do nothing."
 
 ## Direct Competitors
-| ID | Alternative | Type | Strength | Weakness | Switching Cost | | --- | --- | --- | --- | --- | --- | | `CMP-001` | TBD | TBD | TBD | TBD | TBD | Current alternatives include not only software but also Excel, email, phone, consultants, legacy systems, custom software, and doing nothing.
+
+| ID | Name | Strength | Weakness | Pricing | Market Share |
+| --- | --- | --- | --- | --- | --- |
+| `CMP-001` | TBD | TBD | TBD | TBD | TBD |
 
 ## Indirect Competitors
 
@@ -23,7 +26,12 @@ This document maps all alternatives customers use today, not only direct competi
 | `CMP-003` | TBD | TBD | TBD |
 
 ## Do Nothing
-Cost of doing nothing: **Statement type:** fact or observation **Confidence:** TBD ### Problem Statement {#P-001} ID: `P-001` Type: TBD Confidence: TBD TBD ### Current Process TBD ### Current Pain TBD ### Why Existing Solutions Fail TBD ### Cost of Doing Nothing TBD ### Evidence TBD ### Urgency TBD ### Who Experiences It TBD ### Frequency TBD ### Severity TBD
+
+| Field | Value |
+| --- | --- |
+| Why customers do nothing | TBD |
+| Cost of doing nothing | TBD |
+| Trigger to change | TBD |
 
 ## Competitive Positioning
 
@@ -56,6 +64,13 @@ TBD
 | Competitor | Their Likely Response | Our Counter |
 | --- | --- | --- |
 | TBD | TBD | TBD |
+
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | What This Product Is Not |
+| product-canon.md | Why This Product Exists |
 
 ## Discovery References
 

@@ -66,7 +66,9 @@ def _check_discovery(repo_root: Path, cfg: ProjectConfig) -> list[str]:
         ("problem", "02 Problem", "Problem must be clearly defined"),
         ("buyers", "04 Buyers", "Buyer must be identified"),
         ("users", "03 Users", "User must be identified"),
+        ("operators", "05 Operators", "Operator must be identified"),
         ("workflow", "06 Current Workflow", "Current workflow must be documented"),
+        ("business-model", "10 Business Model", "Business value must be measurable"),
         ("success", "11 Success Criteria", "Success criteria must be measurable"),
         ("non-goals", "13 Non-Goals", "Non-goals must be documented"),
         ("constraints", "14 Constraints", "Constraints must be documented"),
@@ -82,6 +84,8 @@ def _check_discovery(repo_root: Path, cfg: ProjectConfig) -> list[str]:
     research = root / "research-plan.md"
     if not research.exists():
         failures.append("research plan missing: create wiki/discovery/research-plan.md")
+    elif "TBD" in research.read_text(encoding="utf-8"):
+        failures.append("research plan is incomplete: add at least one meaningful research item")
     return failures
 
 
@@ -90,6 +94,8 @@ def _section_incomplete(body: str) -> bool:
         return True
     cleaned = body.strip()
     if cleaned == "TBD" or cleaned == "- TBD":
+        return True
+    if "TBD" in cleaned:
         return True
     lines = [line.strip() for line in cleaned.splitlines() if line.strip()]
     content_lines = []

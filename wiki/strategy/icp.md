@@ -8,7 +8,8 @@ stage: strategy
 This document defines the specific customer segment we serve first. The ICP must be concrete enough that a sales or marketing team could identify and reach these customers.
 
 ## Primary ICP
-Target users: ### Primary Users {#U-001} | ID | Role | Description | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `U-001` | TBD | TBD | TBD | TBD | ### User Goals TBD ### User Constraints TBD
+
+TBD
 
 ## ICP Characteristics
 
@@ -35,10 +36,19 @@ Target users: ### Primary Users {#U-001} | ID | Role | Description | Statement T
 - Current workaround: TBD
 
 ## Secondary ICP
-Target buyers: ### Buyer Model {#B-001} | ID | Role | Description | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `B-001` | TBD | TBD | TBD | TBD | ### Economic Buyer Who signs the contract? TBD Who pays? TBD Who approves? TBD Who blocks? TBD Who influences? TBD
+
+TBD
 
 ## Anti-ICP
-Alternatives: | ID | Alternative | Type | Strength | Weakness | Switching Cost | | --- | --- | --- | --- | --- | --- | | `CMP-001` | TBD | TBD | TBD | TBD | TBD | Current alternatives include not only software but also Excel, email, phone, consultants, legacy systems, custom software, and doing nothing.
+
+TBD
+
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | Who This Product Serves |
+| product-canon.md | Why Customers Would Pay or Adopt |
 
 ## Discovery References
 

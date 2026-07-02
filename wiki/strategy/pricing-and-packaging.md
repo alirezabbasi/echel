@@ -8,7 +8,14 @@ stage: strategy
 This document defines how we monetize. All pricing is hypothesis-level unless explicitly validated.
 
 ## Pricing Model
-Business model: **Statement type:** assumption or hypothesis **Confidence:** TBD How does money flow? License: TBD SaaS: TBD Subscription: TBD Marketplace: TBD Professional Services: TBD Support: TBD Training: TBD Usage: TBD Revenue Share: TBD
+
+| Field | Value |
+| --- | --- |
+| Model Type | TBD (subscription, usage, license, freemium, marketplace) |
+| Billing Unit | TBD |
+| Billing Frequency | TBD |
+| Statement Type | hypothesis |
+| Confidence | TBD |
 
 ## Pricing Tiers
 
@@ -65,6 +72,14 @@ Success criteria: ### Business Success {#S-001} | ID | Criterion | Type | Confid
 
 ## Revenue Projections
 Constraints: | ID | Constraint | Category | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `C-001` | TBD | budget | TBD | TBD | | `C-002` | TBD | time | TBD | TBD | | `C-003` | TBD | people | TBD | TBD | | `C-004` | TBD | technology | TBD | TBD | | `C-005` | TBD | legal | TBD | TBD | | `C-006` | TBD | compliance | TBD | TBD |
+
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | Why Customers Would Pay or Adopt |
+| non-negotiables.md | Hard Constraints |
+| vision.md | Business Transformation |
 
 ## Discovery References
 

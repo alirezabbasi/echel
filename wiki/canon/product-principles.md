@@ -14,10 +14,27 @@ These are the core principles that guide every product decision. They must not b
 | TBD | TBD | decision | TBD |
 
 ## Decision Framework
-Constraints: | ID | Constraint | Category | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `C-001` | TBD | budget | TBD | TBD | | `C-002` | TBD | time | TBD | TBD | | `C-003` | TBD | people | TBD | TBD | | `C-004` | TBD | technology | TBD | TBD | | `C-005` | TBD | legal | TBD | TBD | | `C-006` | TBD | compliance | TBD | TBD |
+
+When principles conflict, use this hierarchy:
+
+1. Customer value over internal convenience
+2. Simplicity over feature breadth
+3. Evidence over assumption
+4. Durability over speed
 
 ## Principles in Practice
-Key assumptions: **Statement type:** assumption | ID | Assumption | Confidence | Impact if Wrong | Validation Method | | --- | --- | --- | --- | --- | | `A-001` | TBD | TBD | TBD | TBD |
+
+### How We Say No
+
+TBD
+
+### How We Handle Trade-offs
+
+TBD
+
+### What We Do When Principles Conflict
+
+TBD
 
 ## Discovery References
 

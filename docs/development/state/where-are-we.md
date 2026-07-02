@@ -34,6 +34,7 @@ Last updated: 2026-07-02
 - Added `docs/development/methodology.md` as the Echel vNext methodology contract for the full Product Discovery Specification to operations lifecycle.
 - Added `schema/lifecycle-stage.schema.md` as the deterministic lifecycle stage contract for future stage gates and tooling.
 - Added traceability, discovery, canon, strategy, and requirements model artifacts needed to preserve product intent from idea through execution planning.
+- Re-approved TASK-0003 through TASK-0011 after tightening gates, canon drift handling, template promotion safeguards, and canon-driven strategy generation.
 
 ## Next
 
@@ -48,3 +49,4 @@ Last updated: 2026-07-02
 
 - Contract drift across docs/schema/tools could weaken deterministic validation if not gated.
 - Adding new folders without a unique purpose could reintroduce navigation complexity.
+- Template-derived content must not be promoted into canon or strategy as product truth.

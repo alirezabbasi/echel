@@ -53,3 +53,9 @@
 - Decision: Introduce `wiki/requirements/` as the vNext requirements model before requirements automation.
 - Context: Echel needs a stable, human-readable bridge from discovery, canon, and strategy into domain, architecture, planning, implementation, QA, and release work.
 - Impact: Requirements now use stable IDs, source links, priority, phase, dependencies, risks, acceptance criteria, and verification methods. TASK-0013 can build `echel requirements` on top of these structures, and TASK-0014 can add a readiness gate without inventing the model during implementation.
+
+## DEC-0010
+
+- Decision: Treat canon as the immediate source for strategy generation and reject template-only content as lifecycle progress.
+- Context: Review of TASK-0003 through TASK-0011 found that strategy generation read directly from discovery, canon drift was only memory-backed, discovery gate coverage was narrower than intended, and generated canon/strategy files could contain `TBD` boilerplate presented as real content.
+- Impact: Discovery gates now check operator, business value, and non-template research content; canon generation only promotes meaningful source sections; canon drift writes `wiki/canon/canon-drift.md` and stale markers; strategy templates and generation reference canon as their immediate upstream source while keeping discovery traceability.

@@ -33,6 +33,7 @@ Last updated: 2026-07-02
 - Added the Echel vNext methodology contract as the canonical lifecycle rule set for turning raw product ideas into production-ready repositories.
 - Added `schema/lifecycle-stage.schema.md` to define deterministic vNext stage IDs, required artifacts, gate conditions, transitions, and blocking rules.
 - Added the vNext traceability schema, discovery templates and command, discovery gate, canon templates and commands, strategy templates and commands, and requirements model templates.
+- Re-reviewed TASK-0003 through TASK-0011 and remediated lifecycle drift: discovery gate coverage is stricter, canon generation rejects template-only source content, canon drift writes durable artifacts and stale markers, and strategy generation now reads from canon while preserving discovery references.
 
 ## Next
 
@@ -47,3 +48,4 @@ Last updated: 2026-07-02
 
 - If execution/evidence schemas are adopted inconsistently, gate determinism will degrade.
 - If new folders are added without a unique purpose, Echel may become harder for domain experts to navigate again.
+- Force-generating from incomplete discovery remains risky; gates should keep treating template `TBD` content as incomplete.

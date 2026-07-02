@@ -6,7 +6,8 @@ from pathlib import Path
 import re
 
 from .config import ProjectConfig, resolve_symbolic_path
-from .discovery import discovery_root, _section_body, _is_tbd
+from .canon import canon_root
+from .discovery import _section_body, _is_tbd
 
 
 STRATEGY_DIR = "strategy"
@@ -137,57 +138,56 @@ def strategy_generate(repo_root: Path, cfg: ProjectConfig, force: bool = False) 
             )
 
     root = ensure_strategy_files(repo_root, cfg)
-    d_root = discovery_root(repo_root, cfg)
-    pds = d_root / "product-discovery-spec.md"
-    pds_text = pds.read_text(encoding="utf-8") if pds.exists() else ""
+    c_root = canon_root(repo_root, cfg)
+    canon_sources = _read_canon_sources(c_root)
 
     changed: list[Path] = []
 
     icp_path = root / "icp.md"
     icp_text = icp_path.read_text(encoding="utf-8")
-    new_icp = _populate_icp(icp_text, pds_text)
+    new_icp = _populate_icp(icp_text, canon_sources)
     if new_icp != icp_text:
         icp_path.write_text(new_icp, encoding="utf-8")
         changed.append(icp_path)
 
     buyer_path = root / "buyer-user-model.md"
     buyer_text = buyer_path.read_text(encoding="utf-8")
-    new_buyer = _populate_buyer(buyer_text, pds_text)
+    new_buyer = _populate_buyer(buyer_text, canon_sources)
     if new_buyer != buyer_text:
         buyer_path.write_text(new_buyer, encoding="utf-8")
         changed.append(buyer_path)
 
     wedge_path = root / "market-wedge.md"
     wedge_text = wedge_path.read_text(encoding="utf-8")
-    new_wedge = _populate_wedge(wedge_text, pds_text)
+    new_wedge = _populate_wedge(wedge_text, canon_sources)
     if new_wedge != wedge_text:
         wedge_path.write_text(new_wedge, encoding="utf-8")
         changed.append(wedge_path)
 
     comp_path = root / "competitive-analysis.md"
     comp_text = comp_path.read_text(encoding="utf-8")
-    new_comp = _populate_competitive(comp_text, pds_text)
+    new_comp = _populate_competitive(comp_text, canon_sources)
     if new_comp != comp_text:
         comp_path.write_text(new_comp, encoding="utf-8")
         changed.append(comp_path)
 
     pos_path = root / "positioning.md"
     pos_text = pos_path.read_text(encoding="utf-8")
-    new_pos = _populate_positioning(pos_text, pds_text)
+    new_pos = _populate_positioning(pos_text, canon_sources)
     if new_pos != pos_text:
         pos_path.write_text(new_pos, encoding="utf-8")
         changed.append(pos_path)
 
     pricing_path = root / "pricing-and-packaging.md"
     pricing_text = pricing_path.read_text(encoding="utf-8")
-    new_pricing = _populate_pricing(pricing_text, pds_text)
+    new_pricing = _populate_pricing(pricing_text, canon_sources)
     if new_pricing != pricing_text:
         pricing_path.write_text(new_pricing, encoding="utf-8")
         changed.append(pricing_path)
 
     pmf_path = root / "pmf-evidence.md"
     pmf_text = pmf_path.read_text(encoding="utf-8")
-    new_pmf = _populate_pmf(pmf_text, pds_text)
+    new_pmf = _populate_pmf(pmf_text, canon_sources)
     if new_pmf != pmf_text:
         pmf_path.write_text(new_pmf, encoding="utf-8")
         changed.append(pmf_path)
@@ -196,10 +196,10 @@ def strategy_generate(repo_root: Path, cfg: ProjectConfig, force: bool = False) 
     return changed
 
 
-def _populate_icp(icp_text: str, pds_text: str) -> str:
-    users = _compact(_extract_pds_section(pds_text, "03 Users"))
-    buyers = _compact(_extract_pds_section(pds_text, "04 Buyers"))
-    competition = _compact(_extract_pds_section(pds_text, "18 Competitive Landscape"))
+def _populate_icp(icp_text: str, canon_sources: dict[str, str]) -> str:
+    users = _meaningful(canon_sources.get("serves", ""))
+    buyers = _meaningful(canon_sources.get("adoption", ""))
+    competition = _meaningful(canon_sources.get("not", ""))
 
     if not _is_tbd(users):
         icp_text = _replace_section(icp_text, "Primary ICP", f"Target users: {users}")
@@ -211,10 +211,10 @@ def _populate_icp(icp_text: str, pds_text: str) -> str:
     return icp_text
 
 
-def _populate_buyer(buyer_text: str, pds_text: str) -> str:
-    users = _compact(_extract_pds_section(pds_text, "03 Users"))
-    buyers = _compact(_extract_pds_section(pds_text, "04 Buyers"))
-    operators = _compact(_extract_pds_section(pds_text, "05 Operators"))
+def _populate_buyer(buyer_text: str, canon_sources: dict[str, str]) -> str:
+    users = _meaningful(canon_sources.get("serves", ""))
+    buyers = _meaningful(canon_sources.get("adoption", ""))
+    operators = _meaningful(canon_sources.get("non_negotiables", ""))
 
     if not _is_tbd(buyers):
         buyer_text = _replace_section(buyer_text, "Economic Buyer", buyers)
@@ -226,10 +226,10 @@ def _populate_buyer(buyer_text: str, pds_text: str) -> str:
     return buyer_text
 
 
-def _populate_wedge(wedge_text: str, pds_text: str) -> str:
-    problem = _compact(_extract_pds_section(pds_text, "02 Problem"))
-    pain = _compact(_extract_pds_section(pds_text, "07 Pain Points"))
-    competition = _compact(_extract_pds_section(pds_text, "18 Competitive Landscape"))
+def _populate_wedge(wedge_text: str, canon_sources: dict[str, str]) -> str:
+    problem = _meaningful(canon_sources.get("is", ""))
+    pain = _meaningful(canon_sources.get("exists", ""))
+    competition = _meaningful(canon_sources.get("not", ""))
 
     if not _is_tbd(problem):
         wedge_text = _replace_section(wedge_text, "The Problem We Solve", problem)
@@ -241,9 +241,9 @@ def _populate_wedge(wedge_text: str, pds_text: str) -> str:
     return wedge_text
 
 
-def _populate_competitive(comp_text: str, pds_text: str) -> str:
-    competition = _compact(_extract_pds_section(pds_text, "18 Competitive Landscape"))
-    problem = _compact(_extract_pds_section(pds_text, "02 Problem"))
+def _populate_competitive(comp_text: str, canon_sources: dict[str, str]) -> str:
+    competition = _meaningful(canon_sources.get("not", ""))
+    problem = _meaningful(canon_sources.get("exists", ""))
 
     if not _is_tbd(competition):
         comp_text = _replace_section(comp_text, "Direct Competitors", competition)
@@ -253,10 +253,10 @@ def _populate_competitive(comp_text: str, pds_text: str) -> str:
     return comp_text
 
 
-def _populate_positioning(pos_text: str, pds_text: str) -> str:
-    solution = _compact(_extract_pds_section(pds_text, "08 Proposed Solution"))
-    vision = _compact(_extract_pds_section(pds_text, "09 Product Vision"))
-    success = _compact(_extract_pds_section(pds_text, "11 Success Criteria"))
+def _populate_positioning(pos_text: str, canon_sources: dict[str, str]) -> str:
+    solution = _meaningful(canon_sources.get("is", ""))
+    vision = _meaningful(canon_sources.get("vision", ""))
+    success = _meaningful(canon_sources.get("transformation", ""))
 
     if not _is_tbd(solution):
         pos_text = _replace_section(pos_text, "Key Benefit", solution)
@@ -268,10 +268,10 @@ def _populate_positioning(pos_text: str, pds_text: str) -> str:
     return pos_text
 
 
-def _populate_pricing(pricing_text: str, pds_text: str) -> str:
-    business = _compact(_extract_pds_section(pds_text, "10 Business Model"))
-    constraints = _compact(_extract_pds_section(pds_text, "14 Constraints"))
-    success = _compact(_extract_pds_section(pds_text, "11 Success Criteria"))
+def _populate_pricing(pricing_text: str, canon_sources: dict[str, str]) -> str:
+    business = _meaningful(canon_sources.get("adoption", ""))
+    constraints = _meaningful(canon_sources.get("non_negotiables", ""))
+    success = _meaningful(canon_sources.get("transformation", ""))
 
     if not _is_tbd(business):
         pricing_text = _replace_section(pricing_text, "Pricing Model", f"Business model: {business}")
@@ -283,10 +283,10 @@ def _populate_pricing(pricing_text: str, pds_text: str) -> str:
     return pricing_text
 
 
-def _populate_pmf(pmf_text: str, pds_text: str) -> str:
-    success = _compact(_extract_pds_section(pds_text, "11 Success Criteria"))
-    assumptions = _compact(_extract_pds_section(pds_text, "15 Assumptions"))
-    risks = _compact(_extract_pds_section(pds_text, "17 Risks"))
+def _populate_pmf(pmf_text: str, canon_sources: dict[str, str]) -> str:
+    success = _meaningful(canon_sources.get("transformation", ""))
+    assumptions = _meaningful(canon_sources.get("principles", ""))
+    risks = _meaningful(canon_sources.get("risks", ""))
 
     if not _is_tbd(success):
         pmf_text = _replace_section(pmf_text, "Continue Criteria", f"Success signals: {success}")
@@ -298,10 +298,27 @@ def _populate_pmf(pmf_text: str, pds_text: str) -> str:
     return pmf_text
 
 
-def _extract_pds_section(pds_text: str, heading: str) -> str:
-    pattern = rf"## {re.escape(heading)}\n(.*?)(?=\n## |\Z)"
-    m = re.search(pattern, pds_text, flags=re.DOTALL)
-    return m.group(1).strip() if m else ""
+def _read_canon_sources(c_root: Path) -> dict[str, str]:
+    product = _read(c_root / "product-canon.md")
+    vision = _read(c_root / "vision.md")
+    principles = _read(c_root / "product-principles.md")
+    non_negotiables = _read(c_root / "non-negotiables.md")
+    return {
+        "is": _extract_section(product, "What This Product Is"),
+        "not": _extract_section(product, "What This Product Is Not"),
+        "exists": _extract_section(product, "Why This Product Exists"),
+        "serves": _extract_section(product, "Who This Product Serves"),
+        "adoption": _extract_section(product, "Why Customers Would Pay or Adopt"),
+        "risks": _extract_section(product, "Strategic Risks") + "\n" + _extract_section(product, "Execution Risks"),
+        "vision": _extract_section(vision, "Vision Statement"),
+        "transformation": _extract_section(vision, "Business Transformation"),
+        "principles": _extract_section(principles, "Principles in Practice"),
+        "non_negotiables": _extract_section(non_negotiables, "Hard Constraints"),
+    }
+
+
+def _read(path: Path) -> str:
+    return path.read_text(encoding="utf-8") if path.exists() else ""
 
 
 def _extract_section(text: str, heading: str) -> str:
@@ -330,11 +347,30 @@ def _compact(value: str) -> str:
     return cleaned[:500]
 
 
+def _meaningful(value: str) -> str:
+    lines = []
+    for line in value.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped.startswith("**") or stripped.startswith("|") or stripped.startswith("#") or stripped.startswith("---"):
+            continue
+        if stripped in {"TBD", "- TBD"} or "TBD" in stripped:
+            continue
+        if stripped.startswith("> Stale:"):
+            continue
+        lines.append(stripped.strip("- ").strip())
+    cleaned = " ".join(lines).strip()
+    return cleaned[:500] if cleaned else "TBD"
+
+
 def _section_incomplete(body: str) -> bool:
     if not body.strip():
         return True
     cleaned = body.strip()
     if cleaned == "TBD" or cleaned == "- TBD":
+        return True
+    if "TBD" in cleaned:
         return True
     lines = [line.strip() for line in cleaned.splitlines() if line.strip()]
     content_lines = []
@@ -355,7 +391,7 @@ def _count_tbd_sections(text: str) -> int:
     count = 0
     for match in re.finditer(r"## .+\n(.*?)(?=\n## |\Z)", text, flags=re.DOTALL):
         body = match.group(1).strip()
-        if body in {"", "TBD", "- TBD"}:
+        if body in {"", "TBD", "- TBD"} or "TBD" in body:
             count += 1
     return count
 
@@ -430,6 +466,13 @@ Who we explicitly do NOT serve:
 - TBD
 - TBD
 - TBD
+
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | Who This Product Serves |
+| product-canon.md | Why Customers Would Pay or Adopt |
 
 ## Discovery References
 
@@ -541,6 +584,14 @@ The person who operates or supports the product.
 | Blocker | TBD | TBD | TBD |
 | Operator | TBD | TBD | TBD |
 
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | Who This Product Serves |
+| product-canon.md | Why Customers Would Pay or Adopt |
+| non-negotiables.md | Hard Constraints |
+
 ## Discovery References
 
 | ID | Source | Section |
@@ -643,6 +694,14 @@ After winning the wedge, we expand to:
 2. TBD
 3. TBD
 
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | What This Product Is |
+| product-canon.md | Why This Product Exists |
+| product-canon.md | What This Product Is Not |
+
 ## Discovery References
 
 | ID | Source | Section |
@@ -730,6 +789,13 @@ TBD
 | Competitor | Their Likely Response | Our Counter |
 | --- | --- | --- |
 | TBD | TBD | TBD |
+
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | What This Product Is Not |
+| product-canon.md | Why This Product Exists |
 
 ## Discovery References
 
@@ -838,6 +904,14 @@ TBD
 - Category awareness: TBD
 - Buyer readiness: TBD
 - Timing: TBD
+
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | What This Product Is |
+| vision.md | Vision Statement |
+| vision.md | Business Transformation |
 
 ## Discovery References
 
@@ -956,6 +1030,14 @@ This document defines how we monetize. All pricing is hypothesis-level unless ex
 | CAC | TBD | hypothesis |
 | Payback Period | TBD | hypothesis |
 
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | Why Customers Would Pay or Adopt |
+| non-negotiables.md | Hard Constraints |
+| vision.md | Business Transformation |
+
 ## Discovery References
 
 | ID | Source | Section |
@@ -1073,6 +1155,14 @@ These signals tell us to pivot or stop:
 
 - TBD
 - TBD
+
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| vision.md | Business Transformation |
+| product-principles.md | Principles in Practice |
+| product-canon.md | Strategic Risks |
 
 ## Discovery References
 

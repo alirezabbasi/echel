@@ -10,7 +10,17 @@ This document separates every stakeholder role. Confusing buyer with user is one
 ## Stakeholder Roles
 
 ### Economic Buyer
-### Buyer Model {#B-001} | ID | Role | Description | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `B-001` | TBD | TBD | TBD | TBD | ### Economic Buyer Who signs the contract? TBD Who pays? TBD Who approves? TBD Who blocks? TBD Who influences? TBD
+
+The person who signs the contract and controls the budget.
+
+| Field | Value |
+| --- | --- |
+| Role Title | TBD |
+| Department | TBD |
+| Reporting Line | TBD |
+| Budget Authority | TBD |
+| Primary Concern | TBD |
+| Success Metric | TBD |
 
 ## Stakeholder Matrix
 
@@ -22,6 +32,14 @@ This document separates every stakeholder role. Confusing buyer with user is one
 | Influencer | TBD | TBD | TBD |
 | Blocker | TBD | TBD | TBD |
 | Operator | TBD | TBD | TBD |
+
+## Canon References
+
+| Source | Section |
+| --- | --- |
+| product-canon.md | Who This Product Serves |
+| product-canon.md | Why Customers Would Pay or Adopt |
+| non-negotiables.md | Hard Constraints |
 
 ## Discovery References
 
@@ -42,7 +60,24 @@ This document separates every stakeholder role. Confusing buyer with user is one
 - [ ] Each role has distinct concerns and success metrics
 
 ## User
-### Primary Users {#U-001} | ID | Role | Description | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `U-001` | TBD | TBD | TBD | TBD | ### User Goals TBD ### User Constraints TBD
+
+The person who uses the product daily.
+
+| Field | Value |
+| --- | --- |
+| Role Title | TBD |
+| Department | TBD |
+| Daily Tasks | TBD |
+| Pain Points | TBD |
+| Success Metric | TBD |
 
 ## Operator
-### Operator Model {#O-001} | ID | Role | Description | Statement Type | Confidence | | --- | --- | --- | --- | --- | | `O-001` | TBD | TBD | TBD | TBD |
+
+The person who operates or supports the product.
+
+| Field | Value |
+| --- | --- |
+| Role Title | TBD |
+| Department | TBD |
+| Operational Tasks | TBD |
+| Success Metric | TBD |

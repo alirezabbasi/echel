@@ -15,6 +15,7 @@ CANON_FILE = "product-canon.md"
 VISION_FILE = "vision.md"
 PRINCIPLES_FILE = "product-principles.md"
 NON_NEGOTIABLES_FILE = "non-negotiables.md"
+DRIFT_FILE = "canon-drift.md"
 
 
 def _stamp() -> str:
@@ -158,10 +159,6 @@ def detect_canon_drift(repo_root: Path, cfg: ProjectConfig) -> list[CanonDriftIs
         return []
     pds_text = pds.read_text(encoding="utf-8")
 
-    existing_contradictions = {
-        r.title for r in query_records(repo_root, record_type="canon-drift", contradiction_only=True)
-    }
-
     issues: list[CanonDriftIssue] = []
     for canon_file, canon_heading, pds_heading, field_key in DRIFT_SECTIONS:
         canon_path = c_root / canon_file
@@ -170,29 +167,29 @@ def detect_canon_drift(repo_root: Path, cfg: ProjectConfig) -> list[CanonDriftIs
         canon_text = canon_path.read_text(encoding="utf-8")
         canon_body = _section_body(canon_text, canon_heading)
         pds_body = _extract_pds_section(pds_text, pds_heading)
+        pds_excerpt = _compact(pds_body)
 
-        if _is_tbd(canon_body) and not _is_tbd(pds_body):
-            title = f"canon-drift:{canon_file}:{field_key}"
-            if title not in existing_contradictions:
-                append_record(
-                    repo_root,
-                    record_type="canon-drift",
-                    title=title,
-                    links=[field_key],
-                    contradiction=True,
-                    payload={
-                        "canon_file": canon_file,
-                        "section": canon_heading,
-                        "message": f"Canon section `{canon_heading}` is TBD but discovery field `{field_key}` has content",
-                    },
-                )
-            issues.append(CanonDriftIssue(
+        if _is_tbd(pds_excerpt):
+            continue
+
+        canon_missing = _is_tbd(canon_body)
+        canon_stale = not canon_missing and _normalize_text(pds_excerpt) not in _normalize_text(canon_body)
+        if canon_missing or canon_stale:
+            message = (
+                f"Canon section `{canon_heading}` is empty while discovery field `{field_key}` has content"
+                if canon_missing
+                else f"Canon section `{canon_heading}` does not reflect discovery field `{field_key}`"
+            )
+            issue = CanonDriftIssue(
                 severity="warning",
                 canon_file=canon_file,
                 section=canon_heading,
-                message=f"Canon `{canon_heading}` is stale: discovery field `{field_key}` has been updated",
+                message=message,
                 suggestion=f"Run `echel canon --force` to refresh, or update `{canon_heading}` manually",
-            ))
+            )
+            issues.append(issue)
+            _record_drift(repo_root, c_root, issue, field_key, pds_excerpt)
+            _mark_section_stale(canon_path, canon_heading, field_key)
 
     return issues
 
@@ -213,15 +210,12 @@ def canon_drift_report(repo_root: Path, cfg: ProjectConfig) -> str:
 
 
 def _populate_canon(canon_text: str, pds_text: str) -> str:
-    problem = _compact(_extract_pds_section(pds_text, "02 Problem"))
-    users = _compact(_extract_pds_section(pds_text, "03 Users"))
-    buyers = _compact(_extract_pds_section(pds_text, "04 Buyers"))
-    solution = _compact(_extract_pds_section(pds_text, "08 Proposed Solution"))
-    vision = _compact(_extract_pds_section(pds_text, "09 Product Vision"))
-    business = _compact(_extract_pds_section(pds_text, "10 Business Model"))
-    success = _compact(_extract_pds_section(pds_text, "11 Success Criteria"))
-    risks = _compact(_extract_pds_section(pds_text, "17 Risks"))
-    competition = _compact(_extract_pds_section(pds_text, "18 Competitive Landscape"))
+    problem = _meaningful_compact(_extract_pds_section(pds_text, "02 Problem"))
+    users = _meaningful_compact(_extract_pds_section(pds_text, "03 Users"))
+    solution = _meaningful_compact(_extract_pds_section(pds_text, "08 Proposed Solution"))
+    vision = _meaningful_compact(_extract_pds_section(pds_text, "09 Product Vision"))
+    business = _meaningful_compact(_extract_pds_section(pds_text, "10 Business Model"))
+    competition = _meaningful_compact(_extract_pds_section(pds_text, "18 Competitive Landscape"))
 
     if not _is_tbd(problem):
         canon_text = _replace_section(canon_text, "What This Product Is", f"This product solves: {problem}")
@@ -239,9 +233,9 @@ def _populate_canon(canon_text: str, pds_text: str) -> str:
 
 
 def _populate_vision(vision_text: str, pds_text: str) -> str:
-    vision = _compact(_extract_pds_section(pds_text, "09 Product Vision"))
-    success = _compact(_extract_pds_section(pds_text, "11 Success Criteria"))
-    non_goals = _compact(_extract_pds_section(pds_text, "13 Non-Goals"))
+    vision = _meaningful_compact(_extract_pds_section(pds_text, "09 Product Vision"))
+    success = _meaningful_compact(_extract_pds_section(pds_text, "11 Success Criteria"))
+    non_goals = _meaningful_compact(_extract_pds_section(pds_text, "13 Non-Goals"))
 
     if not _is_tbd(vision):
         vision_text = _replace_section(vision_text, "Vision Statement", vision)
@@ -254,8 +248,8 @@ def _populate_vision(vision_text: str, pds_text: str) -> str:
 
 
 def _populate_principles(principles_text: str, pds_text: str) -> str:
-    constraints = _compact(_extract_pds_section(pds_text, "14 Constraints"))
-    assumptions = _compact(_extract_pds_section(pds_text, "15 Assumptions"))
+    constraints = _meaningful_compact(_extract_pds_section(pds_text, "14 Constraints"))
+    assumptions = _meaningful_compact(_extract_pds_section(pds_text, "15 Assumptions"))
 
     if not _is_tbd(constraints):
         principles_text = _replace_section(principles_text, "Decision Framework", f"Constraints: {constraints}")
@@ -266,8 +260,8 @@ def _populate_principles(principles_text: str, pds_text: str) -> str:
 
 
 def _populate_non_negotiables(non_neg_text: str, pds_text: str) -> str:
-    constraints = _compact(_extract_pds_section(pds_text, "14 Constraints"))
-    non_goals = _compact(_extract_pds_section(pds_text, "13 Non-Goals"))
+    constraints = _meaningful_compact(_extract_pds_section(pds_text, "14 Constraints"))
+    non_goals = _meaningful_compact(_extract_pds_section(pds_text, "13 Non-Goals"))
 
     if not _is_tbd(constraints):
         non_neg_text = _replace_section(non_neg_text, "Hard Constraints", constraints)
@@ -303,11 +297,94 @@ def _compact(value: str) -> str:
     return cleaned[:500]
 
 
+def _meaningful_compact(value: str) -> str:
+    cleaned_lines = []
+    for line in value.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped.startswith("**") or stripped.startswith("|") or stripped.startswith("#") or stripped.startswith("---"):
+            continue
+        if stripped in {"TBD", "- TBD"} or "TBD" in stripped:
+            continue
+        if stripped.startswith("- ID:") or stripped.startswith("- Type:") or stripped.startswith("- Confidence:"):
+            continue
+        cleaned_lines.append(stripped.strip("- ").strip())
+    cleaned = " ".join(cleaned_lines).strip()
+    return cleaned[:500] if cleaned else "TBD"
+
+
+def _normalize_text(value: str) -> str:
+    return re.sub(r"\s+", " ", value.lower()).strip()
+
+
+def _record_drift(repo_root: Path, canon_dir: Path, issue: CanonDriftIssue, field_key: str, source_excerpt: str) -> None:
+    title = f"canon-drift:{issue.canon_file}:{field_key}"
+    existing_contradictions = {
+        r.title for r in query_records(repo_root, record_type="canon-drift", contradiction_only=True)
+    }
+    if title not in existing_contradictions:
+        append_record(
+            repo_root,
+            record_type="canon-drift",
+            title=title,
+            links=[field_key],
+            contradiction=True,
+            payload={
+                "canon_file": issue.canon_file,
+                "section": issue.section,
+                "message": issue.message,
+                "source_excerpt": source_excerpt,
+            },
+        )
+
+    drift_path = canon_dir / DRIFT_FILE
+    if not drift_path.exists():
+        drift_path.write_text(_default_drift_file(), encoding="utf-8")
+    text = drift_path.read_text(encoding="utf-8")
+    marker = f"<!-- {title} -->"
+    if marker in text:
+        return
+    entry = (
+        f"\n## {title}\n\n"
+        f"{marker}\n\n"
+        f"- Canon file: `{issue.canon_file}`\n"
+        f"- Section: `{issue.section}`\n"
+        f"- Source field: `{field_key}`\n"
+        f"- Issue: {issue.message}\n"
+        f"- Action: {issue.suggestion}\n"
+        f"- Source excerpt: {source_excerpt}\n"
+    )
+    drift_path.write_text(text.rstrip() + "\n" + entry, encoding="utf-8")
+
+
+def _mark_section_stale(path: Path, heading: str, field_key: str) -> None:
+    text = path.read_text(encoding="utf-8")
+    marker = f"> Stale: discovery field `{field_key}` changed. Refresh or review this section."
+    body = _section_body(text, heading)
+    if marker in body:
+        return
+    _replace = marker + "\n\n" + body
+    path.write_text(_replace_section(text, heading, _replace), encoding="utf-8")
+
+
+def _default_drift_file() -> str:
+    return """---
+type: canon-drift-report
+status: active
+stage: canon
+---
+# Canon Drift
+
+This artifact records durable canon drift issues detected between discovery and canon.
+"""
+
+
 def _count_tbd_sections(text: str) -> int:
     count = 0
     for match in re.finditer(r"## .+\n(.*?)(?=\n## |\Z)", text, flags=re.DOTALL):
         body = match.group(1).strip()
-        if body in {"", "TBD", "- TBD"}:
+        if body in {"", "TBD", "- TBD"} or "TBD" in body:
             count += 1
     return count
 
