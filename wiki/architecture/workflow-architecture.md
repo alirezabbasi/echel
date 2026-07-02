@@ -1,0 +1,48 @@
+---
+type: workflow-architecture
+stage: architecture
+status: draft
+owner: architecture
+updated: 2026-07-02
+---
+# Workflow Architecture
+
+## Purpose
+
+Workflow architecture defines how Echel moves product memory through lifecycle stages into agent-ready work while preserving gates, traceability, and verification.
+
+## Lifecycle Workflows
+
+| ID | Workflow | Entry Condition | Steps | Exit Condition | Source IDs | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| ARCH-601 | Product Discovery To Canon | Founder or product owner records PDS content. | Discover fields, evaluate discovery gate, generate canon, detect drift. | Canon reflects discovery or drift is recorded. | REQ-001, REQ-003 | Existing |
+| ARCH-602 | Canon And Strategy To Requirements | Canon and strategy contain meaningful source content. | Generate requirements, reject vague source language, update graph, run requirements gate. | Requirements are testable and graph-linked. | REQ-001, REQ-004, REQ-005 | Existing |
+| ARCH-603 | Requirements To Domain | Requirements gate passes. | Generate domain rows, update graph, run domain consistency gate. | Domain language is stable and architecture-ready. | REQ-001, REQ-006, NFR-002 | Existing |
+| ARCH-604 | Domain To Architecture | Domain gate passes. | Expand architecture concern documents, record major decisions, map domain boundaries. | Architecture artifacts are ready for generation and future architecture gate. | TASK-0018, ADR-0005 | New |
+| ARCH-605 | Architecture To Roadmap | Architecture artifacts identify system shape, data, API, security, observability, and ADRs. | Plan phases, map components to work, define exit gates. | Roadmap can create small agent-executable tasks. | Future TASK-0021 | Planned |
+| ARCH-606 | Task To Verified Memory | Work packet exists and agent completes scoped work. | Implement, test, review, register evidence, update memory. | Task closure and readiness checks pass. | REQ-004, REQ-006, NFR-003 | Existing |
+
+## Workflow Guardrails
+
+- Do not skip lifecycle stages by creating implementation tasks directly from requirements.
+- Do not create roadmap phases before architecture documents identify component, data, security, and observability concerns.
+- Do not package agent work unless requirements, domain, architecture, and acceptance criteria are visible.
+- If a downstream workflow exposes upstream drift, create a contradiction, decision, or research artifact and re-run affected gates.
+
+## Architecture Workflow Handoff
+
+| Input | Architecture Use | Output |
+| --- | --- | --- |
+| Requirement IDs | Define architecture obligations and validation needs. | Requirement-to-architecture mapping rows. |
+| Domain contexts | Define ownership boundaries and forbidden responsibilities. | Context map and component boundaries. |
+| Business rules | Constrain architecture choices. | Architecture decision rationale and ADR triggers. |
+| NFRs | Shape data, security, observability, and runtime choices. | Quality attribute architecture rows. |
+
+## Review Checklist
+
+- [x] Domain gate exists before architecture work.
+- [x] Architecture documents are separated by concern.
+- [x] Architecture workflow requires ADRs for major decisions.
+- [x] Architecture preserves domain context boundaries.
+- [ ] Future `echel architecture` command writes generated sections.
+- [ ] Future architecture gate evaluates artifact completeness.

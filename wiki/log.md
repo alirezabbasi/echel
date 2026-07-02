@@ -289,3 +289,9 @@ status: active
 - `echel readiness --stage domain` validates requirement-to-domain coverage, undefined domain ID references, duplicate meanings, generated domain graph coverage, and concrete technology leakage.
 - Added the domain gate to `.echel/gates.json` so `echel doctor` includes it with the other lifecycle gates.
 - Added regression tests for passing generated domain models, unmapped requirements, undefined references, duplicate meanings, and technology leakage.
+
+## [2026-07-02] architecture | artifact-model
+- Added `wiki/architecture/` with overview, context map, component, data, API, event, workflow, security, and observability architecture documents.
+- Added `ADR-0005` to record the vNext architecture artifact model decision.
+- Updated `wiki/architecture.md` as a compatibility summary linking to the expanded architecture surface.
+- Architecture artifacts now carry `ARCH-###` rows, source IDs, rationale, ADR coverage, domain boundary mappings, and downstream handoff notes.

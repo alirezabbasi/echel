@@ -5,6 +5,18 @@ status: active
 
 # Index
 
+## Architecture
+
+- [[architecture/api-architecture|Api Architecture]]
+- [[architecture/component-architecture|Component Architecture]]
+- [[architecture/context-map|Context Map]]
+- [[architecture/data-architecture|Data Architecture]]
+- [[architecture/event-architecture|Event Architecture]]
+- [[architecture/observability-architecture|Observability Architecture]]
+- [[architecture/overview|Overview]]
+- [[architecture/security-architecture|Security Architecture]]
+- [[architecture/workflow-architecture|Workflow Architecture]]
+
 ## Canon
 
 - [[canon/non-negotiables|Non Negotiables]]
@@ -18,6 +30,7 @@ status: active
 - [[decisions/ADR-0002-extend-wiki-into-sdlc-operating-system|Adr 0002 Extend Wiki Into Sdlc Operating System]]
 - [[decisions/ADR-0003-simplify-folder-structure-for-human-navigation|Adr 0003 Simplify Folder Structure For Human Navigation]]
 - [[decisions/ADR-0004-keep-product-wiki-outside-echel-core|Adr 0004 Keep Product Wiki Outside Echel Core]]
+- [[decisions/ADR-0005-adopt-vnext-architecture-artifact-model|Adr 0005 Adopt Vnext Architecture Artifact Model]]
 
 ## Discovery
 

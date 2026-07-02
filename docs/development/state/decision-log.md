@@ -89,3 +89,9 @@
 - Decision: Add `GATE-DOMAIN` as the architecture-entry consistency gate.
 - Context: TASK-0017 needed domain modeling to become an execution safety layer, not only generated Markdown. Architecture must not proceed from undefined terms, duplicate meanings, unmapped requirements, missing generated graph nodes, or concrete technology choices hidden inside domain language.
 - Impact: `echel readiness --stage domain` now validates domain artifacts before architecture work. The repository gate policy includes `GATE-DOMAIN`, and downstream architecture tasks can depend on a passed domain stage rather than only the presence of `wiki/domain/` files.
+
+## DEC-0016
+
+- Decision: Adopt `wiki/architecture/` as the expanded vNext architecture artifact model.
+- Context: TASK-0018 needed architecture to become a full lifecycle stage after domain readiness, not a thin `architecture.md` summary. Roadmap, repository factory, task generation, validation, release, and operations need architecture surfaces that preserve domain boundaries and explain major choices.
+- Impact: Architecture is now split into overview, context map, component, data, API, event, workflow, security, and observability documents. `ADR-0005` records the decision, and future `echel architecture` plus architecture gates should generate and validate against this expanded model while keeping `wiki/architecture.md` as a compatibility summary.

@@ -80,6 +80,8 @@ python3 tools/echel.py domain
 python3 tools/echel.py readiness --stage domain
 ```
 
+Architecture artifacts live under `wiki/architecture/` after the domain gate passes. The root `wiki/architecture.md` remains a compatibility summary for current graph and cockpit views.
+
 ## Graph And Memory Commands
 
 ```bash

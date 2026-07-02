@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-07-02T08:23:43Z",
+  "generated_at": "2026-07-02T13:12:51Z",
   "nodes": [
     {
       "id": "bounded-context:BC-201",
@@ -171,6 +171,20 @@
       "summary": "Generated reports"
     },
     {
+      "id": "component:lifecycle-gate-engine",
+      "type": "component",
+      "title": "Lifecycle gate engine",
+      "source": "architecture.md",
+      "summary": "Lifecycle gate engine"
+    },
+    {
+      "id": "component:local-cockpit",
+      "type": "component",
+      "title": "Local cockpit",
+      "source": "architecture.md",
+      "summary": "Local cockpit"
+    },
+    {
       "id": "component:product-graph",
       "type": "component",
       "title": "Product graph",
@@ -183,6 +197,20 @@
       "title": "Product wiki",
       "source": "architecture.md",
       "summary": "Product wiki"
+    },
+    {
+      "id": "component:review-and-evidence-layer",
+      "type": "component",
+      "title": "Review and evidence layer",
+      "source": "architecture.md",
+      "summary": "Review and evidence layer"
+    },
+    {
+      "id": "component:work-packet-generator",
+      "type": "component",
+      "title": "Work packet generator",
+      "source": "architecture.md",
+      "summary": "Work packet generator"
     },
     {
       "id": "decision:ADR-0001",
@@ -211,6 +239,13 @@
       "title": "ADR-0004 \u2014 Keep Product Wiki Outside Echel Core",
       "source": "decisions/ADR-0004-keep-product-wiki-outside-echel-core.md",
       "summary": "Generated projects keep `wiki/` at the target project repository root and place framework machinery inside `echel-core/`.\n\n`echel-core/project.echel` points `WIKI_ROOT` to `../wiki` so Echel tools can run from `echel-core/` while reading and writing product-owned memory."
+    },
+    {
+      "id": "decision:ADR-0005",
+      "type": "decision",
+      "title": "ADR-0005 - Adopt vNext Architecture Artifact Model",
+      "source": "decisions/ADR-0005-adopt-vnext-architecture-artifact-model.md",
+      "summary": "Use `wiki/architecture/` as the vNext architecture artifact surface with separate documents for overview, context map, component architecture, data architecture, API architecture, event architecture, workflow architecture, security architecture, and observability architecture.\n\nThe root `wiki/architecture.md` remains a thin compatibility page for existing graph and cockpit tooling until downstream commands read the expanded architecture model directly."
     },
     {
       "id": "domain-aggregate:AGG-201",
@@ -1224,12 +1259,32 @@
       "type": "supports"
     },
     {
+      "from_id": "component:lifecycle-gate-engine",
+      "to_id": "feature:product-memory-graph",
+      "type": "supports"
+    },
+    {
+      "from_id": "component:local-cockpit",
+      "to_id": "feature:product-memory-graph",
+      "type": "supports"
+    },
+    {
       "from_id": "component:product-graph",
       "to_id": "feature:product-memory-graph",
       "type": "supports"
     },
     {
       "from_id": "component:product-wiki",
+      "to_id": "feature:product-memory-graph",
+      "type": "supports"
+    },
+    {
+      "from_id": "component:review-and-evidence-layer",
+      "to_id": "feature:product-memory-graph",
+      "type": "supports"
+    },
+    {
+      "from_id": "component:work-packet-generator",
       "to_id": "feature:product-memory-graph",
       "type": "supports"
     },
@@ -1506,6 +1561,11 @@
     {
       "from_id": "product:root",
       "to_id": "decision:ADR-0004",
+      "type": "constrained_by"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "decision:ADR-0005",
       "type": "constrained_by"
     },
     {
