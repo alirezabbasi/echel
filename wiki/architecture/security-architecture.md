@@ -33,7 +33,7 @@ Security architecture protects product memory, command execution, local runtime 
 ## Security Requirements For Future Tasks
 
 - TASK-0019 must not generate architecture that requires secrets in committed wiki files.
-- TASK-0020 should block missing security model and unaccepted hosted-boundary choices.
+- `GATE-ARCHITECTURE` blocks missing security model rows and unaccepted hosted-boundary choices before roadmap work.
 - Repository factory work must include local development secret handling and ignored environment examples.
 - Release work must include deployment security and rollback checks before production readiness.
 

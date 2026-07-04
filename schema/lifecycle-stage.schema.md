@@ -385,6 +385,7 @@ Required artifacts:
 Gate conditions:
 
 - system shape is stated
+- deployment model or deployment posture is stated
 - data strategy is stated
 - API or integration strategy is stated when applicable
 - security model is stated
@@ -392,6 +393,11 @@ Gate conditions:
 - major decisions have ADRs
 - architecture maps to requirements and domain contexts
 - complexity is justified
+- generated architecture graph nodes and mapping edges exist for generated `ARCH-9xx` rows
+
+Runtime gate:
+
+- `GATE-ARCHITECTURE` evaluates these conditions through `echel readiness --stage architecture`.
 
 Allowed next:
 

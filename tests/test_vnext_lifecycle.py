@@ -364,6 +364,80 @@ Old canon problem
 
             self.assertIn("domain readiness failed", str(ctx.exception))
 
+    def test_architecture_gate_passes_generated_architecture(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            domain_generate(repo, cfg)
+            architecture_generate(repo, cfg)
+
+            result = run_stage_gate(repo, cfg, "architecture")
+
+            self.assertTrue(result.passed, "\n".join(result.failures))
+
+    def test_architecture_gate_blocks_missing_graph_nodes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            domain_generate(repo, cfg)
+            architecture_generate(repo, cfg)
+            graph = repo / "wiki/graph.manual.json"
+            graph.write_text(graph.read_text(encoding="utf-8").replace('"id": "architecture:ARCH-901"', '"id": "architecture:ARCH-999"', 1), encoding="utf-8")
+
+            result = run_stage_gate(repo, cfg, "architecture")
+
+            self.assertFalse(result.passed)
+            self.assertIn("ARCH-901 is missing from the product graph", "\n".join(result.failures))
+
+    def test_architecture_gate_blocks_missing_security_model(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            domain_generate(repo, cfg)
+            architecture_generate(repo, cfg)
+            write(
+                repo / "wiki/architecture/security-architecture.md",
+                """# Security Architecture
+
+| ID | Boundary | Assets Protected | Threats | Controls | Source IDs | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| TBD | TBD | TBD | TBD | TBD | TBD | Draft |
+""",
+            )
+
+            result = run_stage_gate(repo, cfg, "architecture")
+
+            self.assertFalse(result.passed)
+            self.assertIn("security model is incomplete", "\n".join(result.failures))
+
+    def test_architecture_gate_blocks_unjustified_complexity(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            domain_generate(repo, cfg)
+            architecture_generate(repo, cfg)
+            overview = repo / "wiki/architecture/overview.md"
+            overview.write_text(
+                overview.read_text(encoding="utf-8")
+                + "\n\n| ID | Choice | Rationale | Source IDs | Domain Boundaries Preserved | ADR Coverage | Status |\n"
+                + "| --- | --- | --- | --- | --- | --- | --- |\n"
+                + "| ARCH-099 | Kubernetes microservice deployment | TBD | REQ-101 | BC-201 | TBD | Proposed |\n",
+                encoding="utf-8",
+            )
+
+            result = run_stage_gate(repo, cfg, "architecture")
+
+            self.assertFalse(result.passed)
+            self.assertIn("unjustified complexity risk", "\n".join(result.failures))
+
 
 def write_requirements_sources(repo: Path, canon_is: str = "A workflow control product for regulated operators.") -> None:
     write(

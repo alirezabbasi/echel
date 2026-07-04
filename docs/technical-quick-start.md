@@ -79,9 +79,10 @@ python3 tools/echel.py readiness --stage requirements
 python3 tools/echel.py domain
 python3 tools/echel.py readiness --stage domain
 python3 tools/echel.py architecture
+python3 tools/echel.py readiness --stage architecture
 ```
 
-Architecture artifacts live under `wiki/architecture/` after the domain gate passes. The root `wiki/architecture.md` remains a compatibility summary for current graph and cockpit views.
+Architecture artifacts live under `wiki/architecture/` after the domain gate passes. `GATE-ARCHITECTURE` must pass before roadmap work because it checks deployment posture, data/security/observability models, ADR coverage, requirement/domain mappings, graph coverage, and overengineering risk. The root `wiki/architecture.md` remains a compatibility summary for current graph and cockpit views.
 
 ## Graph And Memory Commands
 

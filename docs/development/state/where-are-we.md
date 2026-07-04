@@ -1,6 +1,6 @@
 # Where Are We
 
-Last updated: 2026-07-02
+Last updated: 2026-07-05
 
 ## Completed
 
@@ -42,14 +42,15 @@ Last updated: 2026-07-02
 - Added the domain consistency gate so `echel readiness --stage domain` can block architecture until requirement coverage, domain ID integrity, graph coverage, duplicate-meaning checks, and technology-neutral language pass.
 - Added the expanded architecture artifact model under `wiki/architecture/` so architecture can preserve domain boundaries, carry rationale, and prepare for generation and readiness gates.
 - Added the architecture command layer that turns gated domain coverage into generated architecture rows and graph nodes without replacing authored architecture guidance.
+- Added the architecture readiness gate so `echel readiness --stage architecture` can block roadmap work until deployment posture, data/security/observability models, ADR coverage, requirement/domain mappings, graph coverage, and complexity risk pass.
 
 ## Next
 
-1. Add architecture readiness before roadmap generation.
+1. Add roadmap artifact expansion after architecture readiness.
 2. Implement stage readiness evaluation from the lifecycle stage schema.
 3. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
 4. Expand release readiness into production operation and post-release learning loops.
-5. Add roadmap artifact expansion after architecture readiness exists.
+5. Add roadmap-to-execution planning once roadmap artifacts exist.
 
 ## Risks/Blocks
 

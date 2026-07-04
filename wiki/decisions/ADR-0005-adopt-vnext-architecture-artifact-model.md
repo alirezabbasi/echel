@@ -22,4 +22,4 @@ The previous `wiki/architecture.md` page was too thin to carry rationale, altern
 - Major architecture choices must carry rationale, alternatives, rollback notes, source IDs, and ADR coverage.
 - Architecture work must preserve the bounded contexts and domain terms approved by `GATE-DOMAIN`.
 - Future `echel architecture` automation should write generated sections into these documents rather than overwriting authored architecture guidance.
-- Future architecture gates can evaluate the expanded architecture model deterministically.
+- `GATE-ARCHITECTURE` evaluates the expanded architecture model deterministically before roadmap work.

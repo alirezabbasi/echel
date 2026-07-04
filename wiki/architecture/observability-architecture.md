@@ -40,6 +40,7 @@ Observability architecture defines how Echel exposes product state, lifecycle pr
 | Graph integrity | `python3 tools/echel.py graph validate` | Product graph validation passed | Work packet context and cockpit graph use |
 | Requirements readiness | `python3 tools/echel.py readiness --stage requirements` | `GATE-REQUIREMENTS: PASS` | Domain generation |
 | Domain readiness | `python3 tools/echel.py readiness --stage domain` | `GATE-DOMAIN: PASS` | Architecture work |
+| Architecture readiness | `python3 tools/echel.py readiness --stage architecture` | `GATE-ARCHITECTURE: PASS` | Roadmap generation |
 | Doctor | `python3 tools/echel.py doctor` | All applicable gates pass or known upstream gaps are documented | Release confidence |
 
 ## Future Metrics

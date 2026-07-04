@@ -14,6 +14,35 @@ from .primitives import validate_decisions, validate_gate_ids, validate_tasks
 from .requirements import AC_FILE, FUNCTIONAL_FILE, MVP_FILE, NFR_FILE, OOS_FILE, PRODUCT_FILE, requirements_root
 
 
+ARCHITECTURE_FILES = [
+    "overview.md",
+    "context-map.md",
+    "component-architecture.md",
+    "data-architecture.md",
+    "api-architecture.md",
+    "event-architecture.md",
+    "workflow-architecture.md",
+    "security-architecture.md",
+    "observability-architecture.md",
+]
+
+ARCHITECTURE_COMPLEXITY_TERMS = [
+    "aws",
+    "azure",
+    "broker",
+    "distributed",
+    "external database",
+    "gcp",
+    "hosted",
+    "kafka",
+    "kubernetes",
+    "message queue",
+    "microservice",
+    "multi-region",
+    "remote orchestration",
+    "terraform",
+]
+
 DOMAIN_FILES = [
     "domain-overview.md",
     "ubiquitous-language.md",
@@ -396,6 +425,214 @@ def _check_domain(repo_root: Path, cfg: ProjectConfig) -> list[str]:
     return failures
 
 
+def _check_architecture(repo_root: Path, cfg: ProjectConfig) -> list[str]:
+    wiki = resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root)
+    root = wiki / "architecture"
+    if not root.exists():
+        return ["architecture model not initialized: run `echel architecture` to start"]
+
+    failures: list[str] = []
+    missing = [name for name in ARCHITECTURE_FILES if not (root / name).exists()]
+    if missing:
+        return [f"architecture artifact missing: wiki/architecture/{name}" for name in missing]
+
+    overview_rows = _table_rows(root / "overview.md")
+    generated_rows = _generated_architecture_rows(overview_rows)
+    generated_ids = {row.get("ID", "") for row in generated_rows}
+    requirement_ids = _architecture_required_requirement_ids(repo_root, cfg)
+
+    failures.extend(_architecture_deployment_failures(wiki, root))
+    failures.extend(_architecture_table_completeness(root / "data-architecture.md", "data strategy", ["ID", "Store", "Owned Data", "Format", "Source IDs", "Rationale"]))
+    failures.extend(_architecture_table_completeness(root / "security-architecture.md", "security model", ["ID", "Boundary", "Assets Protected", "Threats", "Controls", "Source IDs"]))
+    failures.extend(_architecture_table_completeness(root / "observability-architecture.md", "observability model", ["ID", "Surface", "Signal", "Producer", "Consumer", "Source IDs"]))
+    failures.extend(_architecture_major_decision_adr_failures(overview_rows))
+
+    if not generated_rows:
+        failures.append("architecture mappings are missing: run `echel architecture` after domain readiness passes")
+    for row in generated_rows:
+        aid = row.get("ID", "")
+        if not _linked_ids(row.get("Source IDs", ""), r"(?:REQ|NFR)-\d{3}"):
+            failures.append(f"{aid} has no requirement or non-functional source ID")
+        if not _linked_ids(row.get("Domain Boundaries Preserved", ""), r"(?:DM|BC|AGG|DE|BR)-\d{3}"):
+            failures.append(f"{aid} has no preserved domain boundary IDs")
+        if _blank_or_tbd(row.get("Rationale", "")):
+            failures.append(f"{aid} has no architecture rationale")
+
+    mapped_requirements = set()
+    for row in generated_rows:
+        mapped_requirements.update(_linked_ids(row.get("Source IDs", ""), r"(?:REQ|NFR)-\d{3}"))
+    for rid in sorted(requirement_ids - mapped_requirements):
+        failures.append(f"{rid} is not mapped in generated architecture rows")
+
+    graph = _architecture_graph(repo_root, cfg)
+    graph_ids = _architecture_graph_ids(graph)
+    for aid in sorted(generated_ids):
+        if aid not in graph_ids:
+            failures.append(f"{aid} is missing from the product graph: rerun `echel architecture` after architecture updates")
+    failures.extend(_architecture_graph_edge_failures(graph, generated_rows))
+    failures.extend(_architecture_overengineering_failures(root))
+
+    return failures
+
+
+def _generated_architecture_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
+    return [
+        row for row in rows
+        if _valid_id(row.get("ID", ""), r"ARCH-9\d\d")
+    ]
+
+
+def _architecture_required_requirement_ids(repo_root: Path, cfg: ProjectConfig) -> set[str]:
+    root = requirements_root(repo_root, cfg)
+    rows = _dedupe_rows(_requirement_rows(root / PRODUCT_FILE), "ID") + _dedupe_rows(_requirement_rows(root / FUNCTIONAL_FILE), "ID")
+    nfr_rows = _dedupe_rows(_requirement_rows(root / NFR_FILE), "ID")
+    return {row.get("ID", "") for row in rows + nfr_rows if _valid_id(row.get("ID", ""), r"(?:REQ|NFR)-\d{3}")}
+
+
+def _architecture_deployment_failures(wiki: Path, root: Path) -> list[str]:
+    overview = root / "overview.md"
+    legacy = wiki / "architecture.md"
+    text = ""
+    for path in [overview, legacy]:
+        if path.exists():
+            text += "\n" + path.read_text(encoding="utf-8")
+    lowered = text.lower()
+    if "deployment model" in lowered or "local-first" in lowered or "hosted" in lowered:
+        return []
+    return ["deployment model is missing: state local, hosted, hybrid, or future deployment posture in architecture"]
+
+
+def _architecture_table_completeness(path: Path, label: str, required_fields: list[str]) -> list[str]:
+    rows = [
+        row for row in _table_rows(path)
+        if _valid_id(row.get("ID", ""), r"ARCH-\d{3}") and row.get("Status", "").lower() not in {"draft", "tbd"}
+    ]
+    if not rows:
+        return [f"{label} is incomplete: add at least one populated ARCH-### row to {path.name}"]
+    failures: list[str] = []
+    complete_rows = 0
+    for row in rows:
+        aid = row.get("ID", "")
+        missing = [field for field in required_fields if _blank_or_tbd(row.get(field, ""))]
+        if missing:
+            failures.append(f"{aid} {label} row is incomplete: {', '.join(missing)} must be populated")
+        else:
+            complete_rows += 1
+    if complete_rows == 0:
+        failures.append(f"{label} is incomplete: no fully populated architecture row found in {path.name}")
+    return failures
+
+
+def _architecture_major_decision_adr_failures(rows: list[dict[str, str]]) -> list[str]:
+    failures: list[str] = []
+    for row in rows:
+        aid = row.get("ID", "")
+        if _valid_id(aid, r"ARCH-\d{3}") and row.get("Status", "").lower() in {"accepted", "existing"}:
+            coverage = row.get("ADR Coverage", "")
+            if not _linked_ids(coverage, r"ADR-\d{4}"):
+                failures.append(f"{aid} is an accepted architecture choice without ADR coverage")
+        decision = row.get("Decision Area", "")
+        if decision and row.get("ADR Required", "").lower() == "yes":
+            status = row.get("ADR Status", "")
+            if not _linked_ids(status, r"ADR-\d{4}"):
+                failures.append(f"{decision} requires an ADR but ADR Status is missing an ADR-#### reference")
+            if row.get("Rationale Present", "").lower() != "yes":
+                failures.append(f"{decision} is missing rationale confirmation")
+    return failures
+
+
+def _architecture_graph(repo_root: Path, cfg: ProjectConfig) -> dict:
+    path = resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root) / "graph.manual.json"
+    if not path.exists():
+        return {"nodes": [], "edges": []}
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {"nodes": [], "edges": []}
+    if not isinstance(raw, dict):
+        return {"nodes": [], "edges": []}
+    raw.setdefault("nodes", [])
+    raw.setdefault("edges", [])
+    return raw
+
+
+def _architecture_graph_ids(graph: dict) -> set[str]:
+    ids: set[str] = set()
+    for node in graph.get("nodes", []):
+        if not isinstance(node, dict):
+            continue
+        match = re.fullmatch(r"architecture:(ARCH-\d{3})", str(node.get("id", "")))
+        if match:
+            ids.add(match.group(1))
+    return ids
+
+
+def _architecture_graph_edge_failures(graph: dict, rows: list[dict[str, str]]) -> list[str]:
+    edges = graph.get("edges", [])
+    failures: list[str] = []
+    if not isinstance(edges, list):
+        return ["architecture graph edges are invalid: graph.manual.json edges must be a list"]
+    edge_pairs = {
+        (str(edge.get("from_id", "")), str(edge.get("to_id", "")))
+        for edge in edges
+        if isinstance(edge, dict)
+    }
+    for row in rows:
+        aid = row.get("ID", "")
+        target = f"architecture:{aid}"
+        for rid in sorted(_linked_ids(row.get("Source IDs", ""), r"(?:REQ|NFR)-\d{3}")):
+            if (f"requirement:{rid}", target) not in edge_pairs:
+                failures.append(f"{aid} graph mapping is missing requirement edge from {rid}")
+        for did in sorted(_linked_ids(row.get("Domain Boundaries Preserved", ""), r"(?:DM|BC|AGG|DE|BR)-\d{3}")):
+            if not any(from_id.endswith(f":{did}") and to_id == target for from_id, to_id in edge_pairs):
+                failures.append(f"{aid} graph mapping is missing domain edge from {did}")
+    return failures
+
+
+def _architecture_overengineering_failures(root: Path) -> list[str]:
+    failures: list[str] = []
+    pattern = re.compile(r"\b(" + "|".join(re.escape(term) for term in ARCHITECTURE_COMPLEXITY_TERMS) + r")\b", re.IGNORECASE)
+    for name in ARCHITECTURE_FILES:
+        for row in _table_rows(root / name):
+            selected_text = _architecture_complexity_text(row)
+            if not pattern.search(selected_text) or _architecture_complexity_is_guarded(row):
+                continue
+            row_id = row.get("ID") or row.get("Decision") or row.get("Decision Area") or "architecture row"
+            failures.append(f"{row_id} has unjustified complexity risk: add ADR coverage, explicit rationale, or mark as avoided/future")
+    return failures
+
+
+def _architecture_complexity_text(row: dict[str, str]) -> str:
+    selected_fields = [
+        "ID",
+        "Choice",
+        "Architecture Choice",
+        "Component",
+        "Store",
+        "Surface",
+        "Boundary",
+        "Event",
+        "Workflow",
+        "Current Interface",
+        "Interface",
+        "Decision",
+    ]
+    return " ".join(row.get(field, "") for field in selected_fields)
+
+
+def _architecture_complexity_is_guarded(row: dict[str, str]) -> bool:
+    text = " ".join(row.values()).lower()
+    if any(marker in text for marker in ["avoid", "no external", "no public", "future adr", "requires future adr", "planned", "revisit trigger"]):
+        return True
+    if any("alternative" in key.lower() and not _blank_or_tbd(value) for key, value in row.items()):
+        return True
+    if row.get("Rationale Present", "").lower() == "yes" and _linked_ids(row.get("ADR Status", ""), r"ADR-\d{4}"):
+        return True
+    has_adr = bool(_linked_ids(text.upper(), r"ADR-\d{4}"))
+    rationale = row.get("Rationale", "") or row.get("Default Position", "") or row.get("Required Evidence", "")
+    return has_adr and not _blank_or_tbd(rationale)
+
+
 def _domain_required_requirement_ids(repo_root: Path, cfg: ProjectConfig) -> set[str]:
     root = requirements_root(repo_root, cfg)
     rows = _dedupe_rows(_requirement_rows(root / PRODUCT_FILE), "ID") + _dedupe_rows(_requirement_rows(root / FUNCTIONAL_FILE), "ID")
@@ -539,6 +776,7 @@ CHECKS: dict[str, GateFn] = {
     "discovery": _check_discovery,
     "requirements": _check_requirements,
     "domain": _check_domain,
+    "architecture": _check_architecture,
 }
 
 
@@ -553,6 +791,7 @@ def ensure_policy(path: Path) -> dict:
                 {"id": "GATE-DISCOVERY", "checks": ["discovery"]},
                 {"id": "GATE-REQUIREMENTS", "checks": ["requirements"]},
                 {"id": "GATE-DOMAIN", "checks": ["domain"]},
+                {"id": "GATE-ARCHITECTURE", "checks": ["architecture"]},
             ],
         }
         path.write_text(json.dumps(default, indent=2) + "\n", encoding="utf-8")

@@ -34,7 +34,7 @@ Data architecture defines where product memory, graph data, runtime state, evide
 | Flow | From | To | Data | Validation |
 | --- | --- | --- | --- | --- |
 | Requirements to domain | Requirements artifacts | Domain artifacts and graph | `REQ-###`, `NFR-###`, `DM-###`, `BC-###`, `BR-###` mappings | `echel readiness --stage domain` |
-| Domain to architecture | Domain artifacts | Architecture artifacts | Context boundaries, policies, workflows, events | Future `echel architecture` and architecture gate |
+| Domain to architecture | Domain artifacts | Architecture artifacts | Context boundaries, policies, workflows, events | `echel architecture` and `echel readiness --stage architecture` |
 | Product memory to graph | Wiki and manual graph | Generated graph | Nodes and edges | `echel graph validate` |
 | Work to evidence | Work packets and reviews | Evidence registry and proof packs | Verification commands, links, outcomes | Evidence validation and release readiness |
 

@@ -32,6 +32,12 @@
       "checks": [
         "domain"
       ]
+    },
+    {
+      "id": "GATE-ARCHITECTURE",
+      "checks": [
+        "architecture"
+      ]
     }
   ]
 }

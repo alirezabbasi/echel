@@ -298,3 +298,9 @@ status: active
 
 ## [2026-07-02] architecture | architecture
 - Generated or refreshed 11 architecture mappings from domain coverage.
+
+## [2026-07-05] gate | architecture
+- Added `GATE-ARCHITECTURE` in `tools/echel/gates.py`.
+- `echel readiness --stage architecture` validates architecture artifacts, deployment posture, data/security/observability models, ADR coverage, generated requirement/domain mappings, graph coverage, and overengineering risk.
+- Added the architecture gate to `.echel/gates.json` so `echel doctor` includes it with the other lifecycle gates.
+- Added regression tests for passing generated architecture, missing graph nodes, missing security model, and unjustified complexity.

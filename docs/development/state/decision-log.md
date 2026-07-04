@@ -101,3 +101,9 @@
 - Decision: Generate architecture mappings from gated domain coverage into dedicated generated sections.
 - Context: TASK-0019 needed architecture automation to preserve authored TASK-0018 guidance while making requirement-to-domain-to-architecture traceability executable. Architecture generation should refuse unsafe inputs, suggest ADR coverage, and feed the product graph before roadmap work.
 - Impact: `echel architecture` now refuses to run unless `GATE-DOMAIN` passes, unless `--force` is used. It writes generated `ARCH-9xx` rows across the architecture artifact surface, refreshes the compatibility `wiki/architecture.md` summary, and upserts architecture graph nodes plus requirement and domain mapping edges.
+
+## DEC-0018
+
+- Decision: Add `GATE-ARCHITECTURE` as the roadmap-entry architecture readiness gate.
+- Context: TASK-0020 needed architecture to become an execution safety layer before roadmap planning. Roadmap generation must not proceed from missing deployment posture, incomplete data/security/observability models, untracked generated mappings, missing graph edges, or heavyweight architecture choices without ADR-backed rationale.
+- Impact: `echel readiness --stage architecture` now validates the expanded architecture surface, accepted decision ADR coverage, generated `ARCH-9xx` requirement/domain mappings, architecture graph nodes and edges, and overengineering risk. The repository gate policy includes `GATE-ARCHITECTURE`, and TASK-0021 can depend on passed architecture readiness rather than artifact presence alone.
