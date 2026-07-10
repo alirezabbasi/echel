@@ -49,6 +49,14 @@ status: active
 - [[domain/ubiquitous-language|Ubiquitous Language]]
 - [[domain/workflows|Workflows]]
 
+## Execution
+
+- [[execution/phase-0-foundation|Phase 0 Foundation]]
+- [[execution/phase-1-mvp|Phase 1 Mvp]]
+- [[execution/phase-2-hardening|Phase 2 Hardening]]
+- [[execution/phase-3-production|Phase 3 Production]]
+- [[execution/phase-4-evolution|Phase 4 Evolution]]
+
 ## Knowledge
 
 - [[knowledge/ai-native-engineering-os|Ai Native Engineering Os]]

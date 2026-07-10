@@ -542,6 +542,7 @@ Acceptance criteria:
 Gate rule:
 
 - Do not let an implementation agent start without a task and work packet.
+- TASK-0022 provides the authored execution phase artifacts under `wiki/execution/`. TASK-0023 must turn those phase-level task lists into detailed `wiki/work/TASK-*.md` records and work packets.
 
 Prepares next stage by producing safe agent execution inputs.
 

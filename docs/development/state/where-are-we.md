@@ -44,11 +44,12 @@ Last updated: 2026-07-10
 - Added the architecture command layer that turns gated domain coverage into generated architecture rows and graph nodes without replacing authored architecture guidance.
 - Added the architecture readiness gate so `echel readiness --stage architecture` can block roadmap work until deployment posture, data/security/observability models, ADR coverage, requirement/domain mappings, graph coverage, and complexity risk pass.
 - Added the roadmap artifact expansion so `wiki/roadmap/` now contains master, MVP, architecture, engineering, and release roadmaps with phase objectives, scope, dependencies, demos, risks, and exit gates.
+- Added execution phase artifacts under `wiki/execution/` so foundation, MVP, hardening, production, and evolution phases have task lists, dependencies, DoD, validation methods, documentation obligations, and expected repo changes.
 
 ## Next
 
-1. Add execution phase artifacts from the roadmap.
-2. Upgrade task generation for agent-executable work.
+1. Upgrade task generation for agent-executable work from the execution phase artifacts.
+2. Add repository factory and engineering docs after task generation is upgraded.
 3. Implement stage readiness evaluation from the lifecycle stage schema.
 4. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
 5. Expand release readiness into production operation and post-release learning loops.

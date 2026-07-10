@@ -86,6 +86,8 @@ Architecture artifacts live under `wiki/architecture/` after the domain gate pas
 
 Roadmap artifacts live under `wiki/roadmap/` after architecture readiness. The expanded roadmap surface includes master, MVP, architecture, engineering, and release roadmaps; the root `wiki/roadmap.md` remains a compatibility summary.
 
+Execution phase artifacts live under `wiki/execution/` after roadmap expansion. The phase surface includes foundation, MVP, hardening, production, and evolution plans; detailed `wiki/work/TASK-*.md` generation remains downstream.
+
 ## Graph And Memory Commands
 
 ```bash

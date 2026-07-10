@@ -309,3 +309,8 @@ status: active
 - Added `wiki/roadmap/` with master, MVP, architecture, engineering, and release roadmap documents.
 - Updated `wiki/roadmap.md` as a compatibility summary linking to the expanded roadmap surface.
 - Roadmap artifacts now carry phase objectives, scope, out-of-scope, dependencies, demo scenarios, risks, exit gates, source IDs, and downstream handoff notes for execution planning.
+
+## [2026-07-10] execution | phase-artifacts
+- Added `wiki/execution/` with foundation, MVP, hardening, production, and evolution phase documents.
+- Execution phase artifacts now carry phase task IDs, task lists, dependencies, acceptance criteria, tests, validation commands, documentation updates, definition of done, and expected repository changes.
+- Updated roadmap status so TASK-0023 can consume phase artifacts when generating detailed agent-executable tasks.

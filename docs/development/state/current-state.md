@@ -43,11 +43,12 @@ Last updated: 2026-07-10
 - Added `echel architecture` to generate architecture mappings from gated domain coverage, refresh generated architecture sections, preserve the compatibility architecture summary, and add architecture nodes to the product graph.
 - Added `GATE-ARCHITECTURE` to block roadmap work when architecture lacks deployment posture, data/security/observability models, ADR coverage, generated requirement/domain mappings, graph coverage, or justified complexity.
 - Added the expanded roadmap artifact model under `wiki/roadmap/` with master, MVP, architecture, engineering, and release roadmap documents that turn gated architecture into phased delivery planning.
+- Added explicit execution phase artifacts under `wiki/execution/` for foundation, MVP, hardening, production, and evolution phases with task lists, dependencies, DoD, validation methods, and expected repo changes.
 
 ## Next
 
-1. Add execution phase artifacts from the expanded roadmap.
-2. Upgrade task generation for agent-executable work.
+1. Upgrade task generation for agent-executable work from the execution phase artifacts.
+2. Add repository factory and engineering docs after task generation is upgraded.
 3. Implement lifecycle stage evaluation against `schema/lifecycle-stage.schema.md`.
 4. Expand product graph and readiness gates to evaluate full methodology stages.
 5. Replace duplicated tool prompts with canonical lifecycle playbooks.

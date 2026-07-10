@@ -113,3 +113,9 @@
 - Decision: Adopt `wiki/roadmap/` as the expanded vNext roadmap artifact model.
 - Context: TASK-0021 needed roadmap to become a real architecture-to-execution handoff, not a thin `wiki/roadmap.md` list. Execution phase work must start from phased objectives, scope, dependencies, demos, risks, and exit gates so later task generation can stay small and verifiable.
 - Impact: Roadmap is now split into master, MVP, architecture, engineering, and release roadmap documents. The root `wiki/roadmap.md` remains a compatibility summary, and TASK-0022 must consume the expanded roadmap artifacts when creating execution phase documents.
+
+## DEC-0020
+
+- Decision: Adopt `wiki/execution/` as the vNext execution phase artifact surface.
+- Context: TASK-0022 needed the roadmap-to-execution handoff to become explicit before detailed task generation. Echel should not generate implementation tasks from roadmap prose; it needs phase-level task lists, dependencies, definition of done, validation commands, documentation obligations, and expected repo changes first.
+- Impact: Execution planning is now split into foundation, MVP, hardening, production, and evolution phase documents. TASK-0023 must consume these phase artifacts when upgrading task generation into detailed `wiki/work/TASK-*.md` records and work packets.
