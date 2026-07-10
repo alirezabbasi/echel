@@ -19,7 +19,7 @@ Workflow architecture defines how Echel moves product memory through lifecycle s
 | ARCH-602 | Canon And Strategy To Requirements | Canon and strategy contain meaningful source content. | Generate requirements, reject vague source language, update graph, run requirements gate. | Requirements are testable and graph-linked. | REQ-001, REQ-004, REQ-005 | Existing |
 | ARCH-603 | Requirements To Domain | Requirements gate passes. | Generate domain rows, update graph, run domain consistency gate. | Domain language is stable and architecture-ready. | REQ-001, REQ-006, NFR-002 | Existing |
 | ARCH-604 | Domain To Architecture | Domain gate passes. | Expand architecture concern documents, record major decisions, map domain boundaries. | Architecture artifacts are ready for generation and `GATE-ARCHITECTURE`. | TASK-0018, ADR-0005 | New |
-| ARCH-605 | Architecture To Roadmap | Architecture artifacts identify system shape, data, API, security, observability, ADRs, and pass `GATE-ARCHITECTURE`. | Plan phases, map components to work, define exit gates. | Roadmap can create small agent-executable tasks. | Future TASK-0021 | Planned |
+| ARCH-605 | Architecture To Roadmap | Architecture artifacts identify system shape, data, API, security, observability, ADRs, and pass `GATE-ARCHITECTURE`. | Plan phases, map components to work, define exit gates. | Roadmap can create small agent-executable tasks. | TASK-0021, future TASK-0022 | Planned |
 | ARCH-606 | Task To Verified Memory | Work packet exists and agent completes scoped work. | Implement, test, review, register evidence, update memory. | Task closure and readiness checks pass. | REQ-004, REQ-006, NFR-003 | Existing |
 
 ## Workflow Guardrails

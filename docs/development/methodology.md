@@ -494,6 +494,7 @@ Acceptance criteria:
 Gate rule:
 
 - Do not create agent tasks from roadmap items that lack acceptance criteria and dependencies.
+- TASK-0021 provides the authored roadmap artifact model under `wiki/roadmap/`. TASK-0022 must consume these roadmap artifacts when creating execution phase documents.
 
 Prepares next stage by defining execution slices.
 

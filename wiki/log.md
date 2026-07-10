@@ -304,3 +304,8 @@ status: active
 - `echel readiness --stage architecture` validates architecture artifacts, deployment posture, data/security/observability models, ADR coverage, generated requirement/domain mappings, graph coverage, and overengineering risk.
 - Added the architecture gate to `.echel/gates.json` so `echel doctor` includes it with the other lifecycle gates.
 - Added regression tests for passing generated architecture, missing graph nodes, missing security model, and unjustified complexity.
+
+## [2026-07-10] roadmap | artifact-model
+- Added `wiki/roadmap/` with master, MVP, architecture, engineering, and release roadmap documents.
+- Updated `wiki/roadmap.md` as a compatibility summary linking to the expanded roadmap surface.
+- Roadmap artifacts now carry phase objectives, scope, out-of-scope, dependencies, demo scenarios, risks, exit gates, source IDs, and downstream handoff notes for execution planning.

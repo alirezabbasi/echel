@@ -107,3 +107,9 @@
 - Decision: Add `GATE-ARCHITECTURE` as the roadmap-entry architecture readiness gate.
 - Context: TASK-0020 needed architecture to become an execution safety layer before roadmap planning. Roadmap generation must not proceed from missing deployment posture, incomplete data/security/observability models, untracked generated mappings, missing graph edges, or heavyweight architecture choices without ADR-backed rationale.
 - Impact: `echel readiness --stage architecture` now validates the expanded architecture surface, accepted decision ADR coverage, generated `ARCH-9xx` requirement/domain mappings, architecture graph nodes and edges, and overengineering risk. The repository gate policy includes `GATE-ARCHITECTURE`, and TASK-0021 can depend on passed architecture readiness rather than artifact presence alone.
+
+## DEC-0019
+
+- Decision: Adopt `wiki/roadmap/` as the expanded vNext roadmap artifact model.
+- Context: TASK-0021 needed roadmap to become a real architecture-to-execution handoff, not a thin `wiki/roadmap.md` list. Execution phase work must start from phased objectives, scope, dependencies, demos, risks, and exit gates so later task generation can stay small and verifiable.
+- Impact: Roadmap is now split into master, MVP, architecture, engineering, and release roadmap documents. The root `wiki/roadmap.md` remains a compatibility summary, and TASK-0022 must consume the expanded roadmap artifacts when creating execution phase documents.
