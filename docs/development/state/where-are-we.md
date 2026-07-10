@@ -46,10 +46,11 @@ Last updated: 2026-07-10
 - Added the roadmap artifact expansion so `wiki/roadmap/` now contains master, MVP, architecture, engineering, and release roadmaps with phase objectives, scope, dependencies, demos, risks, and exit gates.
 - Added execution phase artifacts under `wiki/execution/` so foundation, MVP, hardening, production, and evolution phases have task lists, dependencies, DoD, validation methods, documentation obligations, and expected repo changes.
 - Added the execution task generator so `python3 tools/echel.py execution-tasks` creates 20 agent-executable `wiki/work/TASK-1xxx-*.md` records and `wiki/work/TASK_INDEX.md` from the phase artifacts.
+- Added the repository factory generator so `python3 tools/echel.py repository-factory` creates `generated/product-repository/` with app/config/test/CI/env/local-doc baseline and a repository factory report.
 
 ## Next
 
-1. Add repository factory and engineering docs after task generation is upgraded.
+1. Add product-level engineering docs under `wiki/engineering/`.
 2. Implement stage readiness evaluation from the lifecycle stage schema.
 3. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
 4. Expand release readiness into production operation and post-release learning loops.

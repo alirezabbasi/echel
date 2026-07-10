@@ -45,10 +45,11 @@ Last updated: 2026-07-10
 - Added the expanded roadmap artifact model under `wiki/roadmap/` with master, MVP, architecture, engineering, and release roadmap documents that turn gated architecture into phased delivery planning.
 - Added explicit execution phase artifacts under `wiki/execution/` for foundation, MVP, hardening, production, and evolution phases with task lists, dependencies, DoD, validation methods, and expected repo changes.
 - Added `echel execution-tasks` to turn execution phase rows into gated, agent-executable `wiki/work/TASK-1xxx-*.md` tasks plus `wiki/work/TASK_INDEX.md`.
+- Added `echel repository-factory` to generate a local baseline under `generated/product-repository/` with app, config, tests, CI, env example, verification script, generated engineering docs, and a repository-factory report.
 
 ## Next
 
-1. Add repository factory and engineering docs after task generation is upgraded.
+1. Add product-level engineering docs under `wiki/engineering/`.
 2. Implement lifecycle stage evaluation against `schema/lifecycle-stage.schema.md`.
 3. Expand product graph and readiness gates to evaluate full methodology stages.
 4. Replace duplicated tool prompts with canonical lifecycle playbooks.

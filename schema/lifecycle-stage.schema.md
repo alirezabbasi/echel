@@ -514,6 +514,13 @@ Required inputs:
 
 Required artifacts:
 
+- `generated/product-repository/README.md`
+- `generated/product-repository/app/`
+- `generated/product-repository/config/`
+- `generated/product-repository/tests/`
+- `generated/product-repository/.github/workflows/ci.yml`
+- `generated/product-repository/.env.example`
+- `wiki/reports/repository-factory/generated-repository.md`
 - `wiki/engineering/repository-structure.md`
 - `wiki/engineering/coding-standards.md`
 - `wiki/engineering/development-workflow.md`

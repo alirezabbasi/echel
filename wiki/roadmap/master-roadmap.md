@@ -52,4 +52,5 @@ Roadmap work may start only after:
 - [x] MVP path produces usable product behavior before late-stage platform expansion.
 - [x] Execution planning remains separate from detailed implementation tasks.
 - [x] Agent-executable task generation exists and produces `wiki/work/TASK-1xxx-*.md` records from phase rows.
+- [x] Repository skeleton generation exists under `generated/product-repository/`.
 - [x] Root roadmap compatibility summary points to the expanded roadmap artifacts.

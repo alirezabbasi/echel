@@ -1,4 +1,5 @@
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -15,6 +16,7 @@ from echel.domain import domain_generate, domain_status
 from echel.execution import execution_status, execution_tasks_generate
 from echel.gates import run_stage_gate
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
+from echel.repository_factory import repository_factory_generate, repository_factory_status
 from echel.strategy import strategy_generate, ensure_strategy_files
 
 
@@ -461,7 +463,7 @@ Old canon problem
             self.assertIn("## Out of Scope", task)
             self.assertIn("EP0-001", index)
             self.assertIn("task:TASK-1001", graph)
-            self.assertIn("Phase task rows available: 2", execution_status(repo, cfg))
+            self.assertIn("Phase task rows available: 3", execution_status(repo, cfg))
 
     def test_execution_task_generation_requires_architecture_readiness(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -473,6 +475,44 @@ Old canon problem
                 execution_tasks_generate(repo, cfg)
 
             self.assertIn("architecture readiness failed", str(ctx.exception))
+
+    def test_repository_factory_generates_verifiable_skeleton(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_repository_factory_sources(repo)
+            execution_tasks_generate(repo, cfg, force=True)
+
+            changed = repository_factory_generate(repo, cfg, force=True)
+
+            root = repo / "generated/product-repository"
+            self.assertTrue(changed)
+            self.assertTrue((root / "app/main.py").exists())
+            self.assertTrue((root / "config/settings.example.json").exists())
+            self.assertTrue((root / "tests/test_health.py").exists())
+            self.assertTrue((root / ".github/workflows/ci.yml").exists())
+            self.assertTrue((root / ".env.example").exists())
+            self.assertTrue((root / "docs/engineering/local-development.md").exists())
+            self.assertTrue((repo / "wiki/reports/repository-factory/generated-repository.md").exists())
+            self.assertIn("Required skeleton files present: 7/7", repository_factory_status(repo, cfg))
+
+            proc = subprocess.run(
+                [sys.executable, "-m", "unittest", "discover", "-s", str(root / "tests")],
+                cwd=repo,
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+
+    def test_repository_factory_requires_generated_execution_tasks(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+
+            with self.assertRaises(ValueError) as ctx:
+                repository_factory_generate(repo, cfg, force=True)
+
+            self.assertIn("requires generated execution tasks", str(ctx.exception))
 
 
 def write_requirements_sources(repo: Path, canon_is: str = "A workflow control product for regulated operators.") -> None:
@@ -595,6 +635,25 @@ stage: execution-planning
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | EP0-001 | Define task contract source map | Identify source fields for generated tasks. | Agents need source-grounded tasks. | Source map for objective, scope, validation, rollback, docs, and DoD. | RM-002, REQ-004 | Source map covers all required fields. | Documentation review | `make wiki-health` | Update execution docs and methodology notes. | No code; execution docs only. | Planned |
 | EP0-002 | Define phase handoff rules | State how phase rows become task packets. | Prevents vague backlog lists. | Handoff rules for assumptions, blockers, validation, and owner role. | EP0-001 | Handoff rules reference generated tasks. | Documentation review | `python3 tools/echel.py graph validate` | Update execution docs and state docs. | No code; execution docs only. | Planned |
+| EP0-003 | Preserve gate-first validation baseline | Require readiness checks before task generation. | Downstream task generation must not bypass lifecycle gates. | Requirements, domain, architecture, wiki health, graph validation, and unit test expectations. | GATE-REQUIREMENTS, GATE-DOMAIN, GATE-ARCHITECTURE | Future tasks cite validation commands. | Gate command review | `python3 tools/echel.py readiness --stage architecture` | Update quick start if command order changes. | No code; execution docs only. | Planned |
+""",
+    )
+
+
+def write_repository_factory_sources(repo: Path) -> None:
+    write_execution_phase_sources(repo)
+    write(
+        repo / "wiki/execution/phase-1-mvp.md",
+        """---
+type: execution-phase
+status: planned
+stage: execution-planning
+---
+# Phase 1 MVP
+
+| Phase Task ID | Task | Objective | Business Reason | Scope | Dependencies | Acceptance Criteria | Tests Required | Validation Command | Documentation Updates | Expected Repo Changes | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| EP1-001 | Generate repository skeleton | Create the initial app, config, test, CI, and environment structure from architecture and tasks. | A product-to-repository factory must produce a usable local baseline, not only documents. | App folders, config folders, tests, CI skeleton, env examples, health check stub if applicable. | EP0-001, TASK-0023, TASK-0024 | Generated repo structure matches architecture and can be inspected locally. | Generated-project verification | `python3 tools/echel.py graph validate` | Update roadmap and engineering docs. | New repository skeleton generator outputs. | Planned |
 """,
     )
 

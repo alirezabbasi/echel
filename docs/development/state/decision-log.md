@@ -125,3 +125,9 @@
 - Decision: Generate agent-executable tasks from execution phase rows through `echel execution-tasks`.
 - Context: TASK-0023 needed task generation to become a deterministic execution safety layer, not a manual translation from roadmap prose. Each phase task row already carries objective, business reason, scope, dependencies, acceptance, tests, validation, documentation updates, and expected repository changes.
 - Impact: `tools/echel/execution.py` now parses `wiki/execution/`, enforces architecture readiness unless `--force` is used, writes one `wiki/work/TASK-1xxx-*.md` file per phase task, maintains `wiki/work/TASK_INDEX.md`, and refreshes the product graph so repository factory work can consume generated task records.
+
+## DEC-0022
+
+- Decision: Generate repository skeletons under `generated/product-repository/` through `echel repository-factory`.
+- Context: TASK-0024 needed Echel to become a product-to-repository factory without confusing generated product baseline code with Echel Core runtime code. The repository skeleton should be inspectable, local-first, and derived from architecture artifacts plus generated execution tasks.
+- Impact: `tools/echel/repository_factory.py` now enforces architecture readiness unless `--force` is used, requires generated execution tasks, writes app/config/test/CI/env/local-doc baseline files under `generated/product-repository/`, and records `wiki/reports/repository-factory/generated-repository.md`. TASK-0025 remains responsible for product-level engineering docs under `wiki/engineering/`.

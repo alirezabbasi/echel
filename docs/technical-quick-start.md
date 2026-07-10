@@ -81,6 +81,7 @@ python3 tools/echel.py readiness --stage domain
 python3 tools/echel.py architecture
 python3 tools/echel.py readiness --stage architecture
 python3 tools/echel.py execution-tasks
+python3 tools/echel.py repository-factory
 ```
 
 Architecture artifacts live under `wiki/architecture/` after the domain gate passes. `GATE-ARCHITECTURE` must pass before roadmap work because it checks deployment posture, data/security/observability models, ADR coverage, requirement/domain mappings, graph coverage, and overengineering risk. The root `wiki/architecture.md` remains a compatibility summary for current graph and cockpit views.
@@ -88,6 +89,8 @@ Architecture artifacts live under `wiki/architecture/` after the domain gate pas
 Roadmap artifacts live under `wiki/roadmap/` after architecture readiness. The expanded roadmap surface includes master, MVP, architecture, engineering, and release roadmaps; the root `wiki/roadmap.md` remains a compatibility summary.
 
 Execution phase artifacts live under `wiki/execution/` after roadmap expansion. The phase surface includes foundation, MVP, hardening, production, and evolution plans. `python3 tools/echel.py execution-tasks` converts each phase task row into a one-session `wiki/work/TASK-1xxx-*.md` task and maintains `wiki/work/TASK_INDEX.md`.
+
+Repository factory artifacts live under `generated/product-repository/` after execution tasks exist. `python3 tools/echel.py repository-factory` creates the app, config, tests, CI skeleton, environment example, verification script, and generated local development docs from architecture and task inputs.
 
 ## Graph And Memory Commands
 

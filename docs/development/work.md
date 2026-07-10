@@ -5,10 +5,10 @@
 - [ ] TASK-0001 Initialize project wiki baseline
 - [ ] TASK-0002 Ingest existing codebase
 - [ ] TASK-0003 Run first wiki lint and remediation loop
-- [ ] TASK-1001 Define task contract source map
-- [ ] TASK-1002 Define phase handoff rules
-- [ ] TASK-1003 Preserve gate-first validation baseline
-- [ ] TASK-1004 Generate repository skeleton
+- [x] TASK-1001 Define task contract source map
+- [x] TASK-1002 Define phase handoff rules
+- [x] TASK-1003 Preserve gate-first validation baseline
+- [x] TASK-1004 Generate repository skeleton
 - [ ] TASK-1005 Add local development docs
 - [ ] TASK-1006 Verify MVP repository baseline
 - [ ] TASK-1007 Define AI agent role model

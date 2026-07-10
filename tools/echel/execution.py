@@ -146,6 +146,7 @@ def render_execution_task(task_id: str, source: ExecutionTaskSource) -> str:
     scope = _bullets(_split_sentences(source.scope))
     out_of_scope = _out_of_scope(source)
     phase_link = f"../{source.phase_file[:-3]}"
+    status = _task_status(source.status)
     dod = [
         f"{task_id} satisfies source phase task {source.phase_task_id}.",
         "All acceptance criteria are met without broadening the task scope.",
@@ -156,7 +157,7 @@ def render_execution_task(task_id: str, source: ExecutionTaskSource) -> str:
 
     return f"""---
 type: task
-status: planned
+status: {status}
 stage: execution
 source_phase_task: {source.phase_task_id}
 source_phase_file: {source.phase_file}
@@ -256,7 +257,7 @@ def render_task_index(records: list[tuple[str, str, str, ExecutionTaskSource]]) 
     ]
     for task_id, filename, _path_name, source in records:
         lines.append(
-            f"| [[{filename[:-3]}|{task_id}]] | {source.phase_task_id} | {source.title} | `{source.phase_file}` | {source.dependencies} | `{source.validation_command}` | Planned |"
+            f"| {task_id} ([[{filename[:-3]}]]) | {source.phase_task_id} | {source.title} | `{source.phase_file}` | {source.dependencies} | `{source.validation_command}` | {_display_status(source.status)} |"
         )
     lines.append("")
     return "\n".join(lines)
@@ -280,6 +281,14 @@ def _clean_cell(value: str) -> str:
     if value.startswith("`") and value.endswith("`") and len(value) >= 2:
         return value[1:-1].strip()
     return value
+
+
+def _task_status(value: str) -> str:
+    return "done" if value.strip().lower() == "done" else "planned"
+
+
+def _display_status(value: str) -> str:
+    return "Done" if _task_status(value) == "done" else "Planned"
 
 
 def _first_heading(text: str) -> str:

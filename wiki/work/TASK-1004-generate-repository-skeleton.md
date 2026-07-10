@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP1-001
 source_phase_file: execution/phase-1-mvp.md

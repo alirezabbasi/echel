@@ -320,3 +320,9 @@ status: active
 - Task generation now requires architecture readiness unless `--force` is used for draft generation.
 - Generated 20 agent-executable `wiki/work/TASK-1xxx-*.md` records plus `wiki/work/TASK_INDEX.md` from the execution phase task rows.
 - Generated tasks include objective, business reason, technical scope, files, dependencies, instructions, acceptance criteria, tests, validation command, rollback notes, documentation updates, definition of done, and out-of-scope.
+
+## [2026-07-10] repository-factory | skeleton
+- Added `tools/echel/repository_factory.py` and the `python3 tools/echel.py repository-factory` command.
+- Repository generation now requires architecture readiness and generated execution tasks unless `--force` is used for draft generation.
+- Generated `generated/product-repository/` with app, config, tests, CI workflow, environment example, verification script, and generated engineering docs.
+- Added `wiki/reports/repository-factory/generated-repository.md` to record repository factory inputs and outputs.

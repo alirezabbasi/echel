@@ -1,0 +1,9 @@
+[project]
+name = "generated-product"
+version = "0.1.0"
+description = "Echel generated repository baseline"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.echel]
+source = "repository-factory"

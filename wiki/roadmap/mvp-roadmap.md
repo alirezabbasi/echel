@@ -44,4 +44,5 @@ requirements gate -> domain gate -> architecture gate -> roadmap artifacts -> ex
 - [x] Every MVP step has dependencies, demo, risk, and exit gate.
 - [x] Execution phase artifacts exist.
 - [x] Agent-executable task format is upgraded.
-- [ ] Repository factory can create a runnable local baseline.
+- [x] Repository factory can create a runnable local baseline.
+- [ ] Product-level engineering docs are complete under `wiki/engineering/`.

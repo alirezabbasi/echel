@@ -49,6 +49,7 @@ from echel.canon import canon_generate, canon_status, canon_drift_report, ensure
 from echel.discovery import discover_questions, discover_status, discover_update, ensure_discovery_files
 from echel.domain import domain_generate, domain_status, ensure_domain_files
 from echel.requirements import requirements_generate, requirements_status, ensure_requirements_files
+from echel.repository_factory import repository_factory_generate, repository_factory_status
 from echel.strategy import strategy_generate, strategy_readiness, strategy_status, ensure_strategy_files
 from echel.workspace import apply_workspace_move, plan_workspace_move, write_impact_preview
 
@@ -288,6 +289,25 @@ def cmd_execution_tasks(repo_root: Path, force: bool) -> int:
             print(f"- {path}")
     else:
         print("\nExecution task artifacts are already up to date.")
+    return 0
+
+
+def cmd_repository_factory(repo_root: Path, force: bool, output: str | None) -> int:
+    cfg = _load(repo_root)
+    print(repository_factory_status(repo_root, cfg, output_rel=output or "generated/product-repository"))
+    if force:
+        print("\nForcing repository generation (bypassing architecture readiness).")
+    try:
+        changed = repository_factory_generate(repo_root, cfg, force=force, output_rel=output or "generated/product-repository")
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    if changed:
+        print(f"\nUpdated {len(changed)} repository factory artifact(s):")
+        for path in changed:
+            print(f"- {path}")
+    else:
+        print("\nRepository factory artifacts are already up to date.")
     return 0
 
 
@@ -743,6 +763,10 @@ def build_parser() -> argparse.ArgumentParser:
     execution_tasks = sub.add_parser("execution-tasks")
     execution_tasks.add_argument("--force", action="store_true")
 
+    repository_factory = sub.add_parser("repository-factory")
+    repository_factory.add_argument("--force", action="store_true")
+    repository_factory.add_argument("--output")
+
     plan = sub.add_parser("plan")
     plan.add_argument("--title")
     plan.add_argument("--goal")
@@ -891,6 +915,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_architecture(root, force=args.force)
     if args.cmd == "execution-tasks":
         return cmd_execution_tasks(root, force=args.force)
+    if args.cmd == "repository-factory":
+        return cmd_repository_factory(root, force=args.force, output=args.output)
     if args.cmd == "plan":
         return cmd_plan(root, title=args.title, goal=args.goal)
     if args.cmd == "status":

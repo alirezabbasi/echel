@@ -88,6 +88,7 @@ status: active
 - [[reports/proof-packs/mvp-proof-pack|Mvp Proof Pack]]
 - [[reports/readiness/mvp-readiness|Mvp Readiness]]
 - [[reports/releases/mvp-release-summary|Mvp Release Summary]]
+- [[reports/repository-factory/generated-repository|Generated Repository]]
 - [[reports/reviews/TASK-0001-initialize-project-wiki-review|Task 0001 Initialize Project Wiki Review]]
 - [[reports/v2-requirements-hardening-audit|V2 Requirements Hardening Audit]]
 - [[reports/wiki-health-report|Wiki Health Report]]
