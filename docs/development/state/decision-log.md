@@ -119,3 +119,9 @@
 - Decision: Adopt `wiki/execution/` as the vNext execution phase artifact surface.
 - Context: TASK-0022 needed the roadmap-to-execution handoff to become explicit before detailed task generation. Echel should not generate implementation tasks from roadmap prose; it needs phase-level task lists, dependencies, definition of done, validation commands, documentation obligations, and expected repo changes first.
 - Impact: Execution planning is now split into foundation, MVP, hardening, production, and evolution phase documents. TASK-0023 must consume these phase artifacts when upgrading task generation into detailed `wiki/work/TASK-*.md` records and work packets.
+
+## DEC-0021
+
+- Decision: Generate agent-executable tasks from execution phase rows through `echel execution-tasks`.
+- Context: TASK-0023 needed task generation to become a deterministic execution safety layer, not a manual translation from roadmap prose. Each phase task row already carries objective, business reason, scope, dependencies, acceptance, tests, validation, documentation updates, and expected repository changes.
+- Impact: `tools/echel/execution.py` now parses `wiki/execution/`, enforces architecture readiness unless `--force` is used, writes one `wiki/work/TASK-1xxx-*.md` file per phase task, maintains `wiki/work/TASK_INDEX.md`, and refreshes the product graph so repository factory work can consume generated task records.

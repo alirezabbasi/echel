@@ -542,7 +542,9 @@ Acceptance criteria:
 Gate rule:
 
 - Do not let an implementation agent start without a task and work packet.
-- TASK-0022 provides the authored execution phase artifacts under `wiki/execution/`. TASK-0023 must turn those phase-level task lists into detailed `wiki/work/TASK-*.md` records and work packets.
+- TASK-0022 provides the authored execution phase artifacts under `wiki/execution/`.
+- TASK-0023 adds `python3 tools/echel.py execution-tasks`, which reads each phase task row and generates detailed `wiki/work/TASK-1xxx-*.md` records plus `wiki/work/TASK_INDEX.md`.
+- The command requires `GATE-ARCHITECTURE` to pass unless `--force` is used for draft task generation.
 
 Prepares next stage by producing safe agent execution inputs.
 

@@ -5,6 +5,26 @@
 - [ ] TASK-0001 Initialize project wiki baseline
 - [ ] TASK-0002 Ingest existing codebase
 - [ ] TASK-0003 Run first wiki lint and remediation loop
+- [ ] TASK-1001 Define task contract source map
+- [ ] TASK-1002 Define phase handoff rules
+- [ ] TASK-1003 Preserve gate-first validation baseline
+- [ ] TASK-1004 Generate repository skeleton
+- [ ] TASK-1005 Add local development docs
+- [ ] TASK-1006 Verify MVP repository baseline
+- [ ] TASK-1007 Define AI agent role model
+- [ ] TASK-1008 Add lifecycle playbooks and handoff protocol
+- [ ] TASK-1009 Expand graph lifecycle coverage
+- [ ] TASK-1010 Generate traceability matrix
+- [ ] TASK-1011 Add validation artifacts
+- [ ] TASK-1012 Add validation command
+- [ ] TASK-1013 Add evidence registration
+- [ ] TASK-1014 Add deployment and release gates
+- [ ] TASK-1015 Add operations artifacts
+- [ ] TASK-1016 Add learning loop
+- [ ] TASK-1017 Redesign cockpit around lifecycle
+- [ ] TASK-1018 Add governance integrity artifacts
+- [ ] TASK-1019 Preserve migration compatibility
+- [ ] TASK-1020 Publish vNext proof and final gate
 
 ## In Progress
 

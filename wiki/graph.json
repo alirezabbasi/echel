@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-07-02T13:21:52Z",
+  "generated_at": "2026-07-10T16:29:41Z",
   "nodes": [
     {
       "id": "architecture:ARCH-901",
@@ -1205,6 +1205,146 @@
       "title": "TASK-0059 - Rewrite README As Product Overview",
       "source": "work/TASK-0059-rewrite-readme-as-product-overview.md",
       "summary": "Rewrite the root README as a product-facing overview and move technical details into a linked guide."
+    },
+    {
+      "id": "task:TASK-1001",
+      "type": "task",
+      "title": "TASK-1001 - Define task contract source map",
+      "source": "work/TASK-1001-define-task-contract-source-map.md",
+      "summary": "Identify which roadmap, requirement, domain, and architecture fields TASK-0023 must consume."
+    },
+    {
+      "id": "task:TASK-1002",
+      "type": "task",
+      "title": "TASK-1002 - Define phase handoff rules",
+      "source": "work/TASK-1002-define-phase-handoff-rules.md",
+      "summary": "State how roadmap phases become detailed task packets."
+    },
+    {
+      "id": "task:TASK-1003",
+      "type": "task",
+      "title": "TASK-1003 - Preserve gate-first validation baseline",
+      "source": "work/TASK-1003-preserve-gate-first-validation-baseline.md",
+      "summary": "Require readiness checks before task generation."
+    },
+    {
+      "id": "task:TASK-1004",
+      "type": "task",
+      "title": "TASK-1004 - Generate repository skeleton",
+      "source": "work/TASK-1004-generate-repository-skeleton.md",
+      "summary": "Create the initial app, config, test, CI, and environment structure from architecture and tasks."
+    },
+    {
+      "id": "task:TASK-1005",
+      "type": "task",
+      "title": "TASK-1005 - Add local development docs",
+      "source": "work/TASK-1005-add-local-development-docs.md",
+      "summary": "Document install, start, lint, test, and verification commands."
+    },
+    {
+      "id": "task:TASK-1006",
+      "type": "task",
+      "title": "TASK-1006 - Verify MVP repository baseline",
+      "source": "work/TASK-1006-verify-mvp-repository-baseline.md",
+      "summary": "Prove generated project can run the basic local workflow."
+    },
+    {
+      "id": "task:TASK-1007",
+      "type": "task",
+      "title": "TASK-1007 - Define AI agent role model",
+      "source": "work/TASK-1007-define-ai-agent-role-model.md",
+      "summary": "Describe delivery-team roles, responsibilities, inputs, outputs, and forbidden actions."
+    },
+    {
+      "id": "task:TASK-1008",
+      "type": "task",
+      "title": "TASK-1008 - Add lifecycle playbooks and handoff protocol",
+      "source": "work/TASK-1008-add-lifecycle-playbooks-and-handoff-protocol.md",
+      "summary": "Replace duplicated prompt packs with canonical stage playbooks and handoff summaries."
+    },
+    {
+      "id": "task:TASK-1009",
+      "type": "task",
+      "title": "TASK-1009 - Expand graph lifecycle coverage",
+      "source": "work/TASK-1009-expand-graph-lifecycle-coverage.md",
+      "summary": "Add lifecycle node types and graph metadata for statement type, confidence, source stage, and verification status."
+    },
+    {
+      "id": "task:TASK-1010",
+      "type": "task",
+      "title": "TASK-1010 - Generate traceability matrix",
+      "source": "work/TASK-1010-generate-traceability-matrix.md",
+      "summary": "Produce a report from discovery through evidence and release."
+    },
+    {
+      "id": "task:TASK-1011",
+      "type": "task",
+      "title": "TASK-1011 - Add validation artifacts",
+      "source": "work/TASK-1011-add-validation-artifacts.md",
+      "summary": "Define test strategy, acceptance, integration, e2e, security, performance, and validation report docs."
+    },
+    {
+      "id": "task:TASK-1012",
+      "type": "task",
+      "title": "TASK-1012 - Add validation command",
+      "source": "work/TASK-1012-add-validation-command.md",
+      "summary": "Run or summarize milestone validation."
+    },
+    {
+      "id": "task:TASK-1013",
+      "type": "task",
+      "title": "TASK-1013 - Add evidence registration",
+      "source": "work/TASK-1013-add-evidence-registration.md",
+      "summary": "Let agents register evidence without hand-editing JSON."
+    },
+    {
+      "id": "task:TASK-1014",
+      "type": "task",
+      "title": "TASK-1014 - Add deployment and release gates",
+      "source": "work/TASK-1014-add-deployment-and-release-gates.md",
+      "summary": "Create deployment artifacts and production release readiness gate."
+    },
+    {
+      "id": "task:TASK-1015",
+      "type": "task",
+      "title": "TASK-1015 - Add operations artifacts",
+      "source": "work/TASK-1015-add-operations-artifacts.md",
+      "summary": "Create operation docs for support, incidents, backup, SLO, change, and evolution backlog."
+    },
+    {
+      "id": "task:TASK-1016",
+      "type": "task",
+      "title": "TASK-1016 - Add learning loop",
+      "source": "work/TASK-1016-add-learning-loop.md",
+      "summary": "Connect incidents, RCA, customer feedback, roadmap changes, and strategy updates to memory."
+    },
+    {
+      "id": "task:TASK-1017",
+      "type": "task",
+      "title": "TASK-1017 - Redesign cockpit around lifecycle",
+      "source": "work/TASK-1017-redesign-cockpit-around-lifecycle.md",
+      "summary": "Make cockpit show stage, blockers, next action, and responsible AI role."
+    },
+    {
+      "id": "task:TASK-1018",
+      "type": "task",
+      "title": "TASK-1018 - Add governance integrity artifacts",
+      "source": "work/TASK-1018-add-governance-integrity-artifacts.md",
+      "summary": "Define governance docs, integrity audit, and contradiction artifacts."
+    },
+    {
+      "id": "task:TASK-1019",
+      "type": "task",
+      "title": "TASK-1019 - Preserve migration compatibility",
+      "source": "work/TASK-1019-preserve-migration-compatibility.md",
+      "summary": "Map existing pages into lifecycle model and update initialization."
+    },
+    {
+      "id": "task:TASK-1020",
+      "type": "task",
+      "title": "TASK-1020 - Publish vNext proof and final gate",
+      "source": "work/TASK-1020-publish-vnext-proof-and-final-gate.md",
+      "summary": "Rewrite docs, add quick start, proof pack, and final readiness gate."
     },
     {
       "id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
@@ -2589,6 +2729,106 @@
     },
     {
       "from_id": "product:root",
+      "to_id": "task:TASK-1001",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1002",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1003",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1004",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1005",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1006",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1007",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1008",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1009",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1010",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1011",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1012",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1013",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1014",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1015",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1016",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1017",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1018",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1019",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "task:TASK-1020",
+      "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
       "to_id": "user:business-owners-product-experts-domain-experts-and-ai-assisted-engineering-teams",
       "type": "serves"
     },
@@ -2900,6 +3140,106 @@
     {
       "from_id": "release:mvp",
       "to_id": "task:TASK-0059",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1001",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1002",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1003",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1004",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1005",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1006",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1007",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1008",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1009",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1010",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1011",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1012",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1013",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1014",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1015",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1016",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1017",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1018",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1019",
+      "type": "includes"
+    },
+    {
+      "from_id": "release:mvp",
+      "to_id": "task:TASK-1020",
       "type": "includes"
     },
     {
@@ -4174,6 +4514,306 @@
     },
     {
       "from_id": "task:TASK-0059",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1001",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1001",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1001",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1002",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1002",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1002",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1003",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1003",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1003",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1004",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1004",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1004",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1005",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1005",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1005",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1006",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1006",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1006",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1007",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1007",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1007",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1008",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1008",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1008",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1009",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1009",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1009",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1010",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1010",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1010",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1011",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1011",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1011",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1012",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1012",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1012",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1013",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1013",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1013",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1014",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1014",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1014",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1015",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1015",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1015",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1016",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1016",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1016",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1017",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1017",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1017",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1018",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1018",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1018",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1019",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1019",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1019",
+      "to_id": "requirement:product-graph",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1020",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1020",
+      "to_id": "requirement:graph-validation",
+      "type": "delivers"
+    },
+    {
+      "from_id": "task:TASK-1020",
       "to_id": "requirement:product-graph",
       "type": "delivers"
     },

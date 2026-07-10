@@ -16,15 +16,14 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 
 ## Now
 
-- Use the expanded roadmap artifacts as the architecture-to-execution-planning handoff.
-- Keep `echel readiness --stage architecture` passing before execution planning starts.
+- Use generated `wiki/work/TASK-1xxx-*.md` records as the execution-to-repository-factory handoff.
+- Keep `echel readiness --stage architecture` passing before regenerating execution tasks.
 
 ## Next
 
-- Create explicit execution phase artifacts in TASK-0022.
-- Upgrade task generation for agent-executable work in TASK-0023.
+- Generate a production-ready repository structure after execution tasks exist.
+- Add engineering docs and local development verification.
 
 ## Later
 
-- Generate a production-ready repository structure after execution tasks exist.
 - Add validation, release, operations, cockpit lifecycle, and governance readiness.

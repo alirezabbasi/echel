@@ -1,0 +1,95 @@
+---
+type: task
+status: planned
+stage: execution
+source_phase_task: EP4-004
+source_phase_file: execution/phase-4-evolution.md
+---
+# TASK-1019 - Preserve migration compatibility
+
+## Context
+- [[../execution/phase-4-evolution]]
+- [[TASK_INDEX]]
+
+## Source Traceability
+- Phase task: `EP4-004`
+- Phase artifact: `wiki/execution/phase-4-evolution.md`
+- Phase title: Phase 4 - Evolution
+- Upstream dependencies: TASK-0044, TASK-0045, TASK-0046
+
+## Objective
+Map existing pages into lifecycle model and update initialization.
+
+## Business Reason
+Existing product memory must survive vNext adoption.
+
+## Technical Scope
+- Migration plan, init flow, generated project verification.
+
+## Scope
+- Migration plan, init flow, generated project verification.
+
+## Files to Create
+- No new files expected unless the implementation instructions require a generated artifact.
+
+## Files to Modify
+- Init and verification code/docs.
+- Update migration/init docs.
+
+## Dependencies
+- TASK-0044
+- TASK-0045
+- TASK-0046
+
+## Implementation Instructions
+1. Read `wiki/execution/phase-4-evolution.md` and locate `EP4-004` before editing.
+2. Implement only this source scope: Migration plan, init flow, generated project verification.
+3. Keep the task focused on one concern; split follow-up work into a new task if unrelated scope appears.
+4. Apply the expected repository change: Init and verification code/docs.
+5. Run the required verification: `make wiki-health`.
+6. Update the documentation listed in this task and record any new architectural decision only if one was actually made.
+
+## Implementation Steps
+1. Read `wiki/execution/phase-4-evolution.md` and locate `EP4-004` before editing.
+2. Implement only this source scope: Migration plan, init flow, generated project verification.
+3. Keep the task focused on one concern; split follow-up work into a new task if unrelated scope appears.
+4. Apply the expected repository change: Init and verification code/docs.
+5. Run the required verification: `make wiki-health`.
+6. Update the documentation listed in this task and record any new architectural decision only if one was actually made.
+
+## Acceptance Criteria
+- Old pages remain usable; new projects initialize methodology-complete structure; generated project passes lifecycle checks.
+
+## Tests Required
+- Generated-project verification
+
+## Validation Command
+```bash
+make wiki-health
+```
+
+## Verification Commands
+```bash
+make wiki-health
+```
+
+## Rollback Notes
+- Revert the files listed in this task if validation fails.
+- Remove any generated artifacts created by this task before retrying.
+- Preserve unrelated user changes and record any rollback decision in the project memory if scope or architecture changes.
+
+## Documentation Updates
+- Update migration/init docs.
+
+## Definition of Done
+- [ ] TASK-1019 satisfies source phase task EP4-004.
+- [ ] All acceptance criteria are met without broadening the task scope.
+- [ ] Required tests and validation command pass.
+- [ ] Relevant project memory and documentation are updated.
+- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+
+## Out of Scope
+- Work from later execution phase rows.
+- Repository-wide refactors unrelated to this source phase task.
+- New lifecycle stages, gates, or agent roles not named by this task scope.
+- Implementation beyond the stated expected repository changes.

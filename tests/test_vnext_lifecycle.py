@@ -12,6 +12,7 @@ from echel.canon import canon_generate, canon_status, detect_canon_drift, ensure
 from echel.config import load_config
 from echel.discovery import ensure_discovery_files
 from echel.domain import domain_generate, domain_status
+from echel.execution import execution_status, execution_tasks_generate
 from echel.gates import run_stage_gate
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
 from echel.strategy import strategy_generate, ensure_strategy_files
@@ -438,6 +439,41 @@ Old canon problem
             self.assertFalse(result.passed)
             self.assertIn("unjustified complexity risk", "\n".join(result.failures))
 
+    def test_execution_task_generation_creates_agent_executable_tasks(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_execution_phase_sources(repo)
+
+            changed = execution_tasks_generate(repo, cfg, force=True)
+
+            self.assertTrue(changed)
+            task = (repo / "wiki/work/TASK-1001-define-task-contract-source-map.md").read_text(encoding="utf-8")
+            index = (repo / "wiki/work/TASK_INDEX.md").read_text(encoding="utf-8")
+            graph = (repo / "wiki/graph.json").read_text(encoding="utf-8")
+            self.assertIn("# TASK-1001 - Define task contract source map", task)
+            self.assertIn("## Business Reason", task)
+            self.assertIn("## Files to Create", task)
+            self.assertIn("## Files to Modify", task)
+            self.assertIn("## Validation Command", task)
+            self.assertIn("## Rollback Notes", task)
+            self.assertIn("## Definition of Done", task)
+            self.assertIn("## Out of Scope", task)
+            self.assertIn("EP0-001", index)
+            self.assertIn("task:TASK-1001", graph)
+            self.assertIn("Phase task rows available: 2", execution_status(repo, cfg))
+
+    def test_execution_task_generation_requires_architecture_readiness(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_execution_phase_sources(repo)
+
+            with self.assertRaises(ValueError) as ctx:
+                execution_tasks_generate(repo, cfg)
+
+            self.assertIn("architecture readiness failed", str(ctx.exception))
+
 
 def write_requirements_sources(repo: Path, canon_is: str = "A workflow control product for regulated operators.") -> None:
     write(
@@ -541,6 +577,24 @@ Teams complete repeated workflows faster while retaining audit evidence.
 
 ## Stop Criteria
 Users cannot connect workflow memory to execution decisions.
+""",
+    )
+
+
+def write_execution_phase_sources(repo: Path) -> None:
+    write(
+        repo / "wiki/execution/phase-0-foundation.md",
+        """---
+type: execution-phase
+status: planned
+stage: execution-planning
+---
+# Phase 0 Foundation
+
+| Phase Task ID | Task | Objective | Business Reason | Scope | Dependencies | Acceptance Criteria | Tests Required | Validation Command | Documentation Updates | Expected Repo Changes | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| EP0-001 | Define task contract source map | Identify source fields for generated tasks. | Agents need source-grounded tasks. | Source map for objective, scope, validation, rollback, docs, and DoD. | RM-002, REQ-004 | Source map covers all required fields. | Documentation review | `make wiki-health` | Update execution docs and methodology notes. | No code; execution docs only. | Planned |
+| EP0-002 | Define phase handoff rules | State how phase rows become task packets. | Prevents vague backlog lists. | Handoff rules for assumptions, blockers, validation, and owner role. | EP0-001 | Handoff rules reference generated tasks. | Documentation review | `python3 tools/echel.py graph validate` | Update execution docs and state docs. | No code; execution docs only. | Planned |
 """,
     )
 

@@ -32,7 +32,7 @@ Create the execution-planning foundation that TASK-0023 can use to generate agen
 
 ## Out Of Scope
 
-- Generating final `wiki/work/TASK-*.md` task files.
+- Generating repository skeletons from `wiki/work/TASK-*.md` task files.
 - Generating repository skeletons.
 - Adding validation, deployment, or operations commands.
 
@@ -46,14 +46,14 @@ Create the execution-planning foundation that TASK-0023 can use to generate agen
 
 | Phase Task ID | Task | Objective | Business Reason | Scope | Dependencies | Acceptance Criteria | Tests Required | Validation Command | Documentation Updates | Expected Repo Changes | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| EP0-001 | Define task contract source map | Identify which roadmap, requirement, domain, and architecture fields TASK-0023 must consume. | Agents need source-grounded tasks rather than prompt-only work. | Source map for task objective, business reason, scope, out-of-scope, dependencies, acceptance, tests, validation, rollback, docs, and DoD. | RM-002, REQ-004, ARCH-205 | Source map covers all TASK-0023 required fields. | Documentation review | `make wiki-health` | Update execution docs and methodology notes. | No code; execution docs only. | Planned |
-| EP0-002 | Define phase handoff rules | State how roadmap phases become detailed task packets. | Prevents phase documents from becoming vague backlog lists. | Handoff rules for assumptions, blockers, validation, and owner role. | EP0-001 | Handoff rules are visible in phase docs and reference TASK-0023. | Documentation review | `python3 tools/echel.py graph validate` | Update execution docs and state docs. | No code; execution docs only. | Planned |
-| EP0-003 | Preserve gate-first validation baseline | Require readiness checks before task generation. | Downstream task generation must not bypass lifecycle gates. | Requirements, domain, architecture, wiki health, graph validation, and unit test expectations. | GATE-REQUIREMENTS, GATE-DOMAIN, GATE-ARCHITECTURE | Future tasks cite validation commands and known doctor caveats. | Gate command review | `python3 tools/echel.py readiness --stage architecture` | Update quick start if command order changes. | No code; execution docs only. | Planned |
+| EP0-001 | Define task contract source map | Identify which roadmap, requirement, domain, and architecture fields TASK-0023 must consume. | Agents need source-grounded tasks rather than prompt-only work. | Source map for task objective, business reason, scope, out-of-scope, dependencies, acceptance, tests, validation, rollback, docs, and DoD. | RM-002, REQ-004, ARCH-205 | Source map covers all TASK-0023 required fields. | Documentation review | `make wiki-health` | Update execution docs and methodology notes. | No code; execution docs only. | Done |
+| EP0-002 | Define phase handoff rules | State how roadmap phases become detailed task packets. | Prevents phase documents from becoming vague backlog lists. | Handoff rules for assumptions, blockers, validation, and owner role. | EP0-001 | Handoff rules are visible in phase docs and reference TASK-0023. | Documentation review | `python3 tools/echel.py graph validate` | Update execution docs and state docs. | No code; execution docs only. | Done |
+| EP0-003 | Preserve gate-first validation baseline | Require readiness checks before task generation. | Downstream task generation must not bypass lifecycle gates. | Requirements, domain, architecture, wiki health, graph validation, and unit test expectations. | GATE-REQUIREMENTS, GATE-DOMAIN, GATE-ARCHITECTURE | Future tasks cite validation commands and known doctor caveats. | Gate command review | `python3 tools/echel.py readiness --stage architecture` | Update quick start if command order changes. | No code; execution docs only. | Done |
 
 ## Definition Of Done
 
 - Phase task list exists with task IDs, dependencies, acceptance criteria, tests, validation command, documentation updates, and expected repo changes.
-- TASK-0023 has enough context to build detailed task generation without redefining execution planning.
+- TASK-0023 generates detailed task records without redefining execution planning.
 - Required gates and validation commands are explicit.
 - No implementation task files are created prematurely.
 
@@ -72,9 +72,9 @@ python3 tools/echel.py readiness --stage architecture
 ## Expected Repository Changes
 
 - `wiki/execution/phase-0-foundation.md` exists and is indexed.
-- Future TASK-0023 may add or update task generation code and task templates.
+- TASK-0023 added `tools/echel/execution.py`, `echel execution-tasks`, generated `wiki/work/TASK-1xxx-*.md` records, and `wiki/work/TASK_INDEX.md`.
 - No product runtime code is expected in this phase.
 
 ## Handoff To Phase 1
 
-Phase 1 may start when the task contract is clear enough for TASK-0023 to generate one scoped, verifiable agent task without relying on conversational context.
+Phase 1 may start when repository factory work consumes the generated `wiki/work/TASK-1xxx-*.md` records without relying on conversational context.

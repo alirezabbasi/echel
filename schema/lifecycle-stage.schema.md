@@ -475,9 +475,11 @@ Required artifacts:
 - `wiki/execution/phase-3-production.md`
 - `wiki/execution/phase-4-evolution.md`
 - `wiki/work/TASK-*.md`
+- `wiki/work/TASK_INDEX.md`
 
 Gate conditions:
 
+- `python3 tools/echel.py execution-tasks` has run after architecture readiness
 - every phase has task list and dependencies
 - every task has objective, business reason, scope, out-of-scope, acceptance criteria, tests, validation command, rollback notes, documentation updates, and definition of done
 - tasks are small enough for one AI coding session

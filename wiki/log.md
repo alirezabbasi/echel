@@ -314,3 +314,9 @@ status: active
 - Added `wiki/execution/` with foundation, MVP, hardening, production, and evolution phase documents.
 - Execution phase artifacts now carry phase task IDs, task lists, dependencies, acceptance criteria, tests, validation commands, documentation updates, definition of done, and expected repository changes.
 - Updated roadmap status so TASK-0023 can consume phase artifacts when generating detailed agent-executable tasks.
+
+## [2026-07-10] execution | task-generation
+- Added `tools/echel/execution.py` and the `python3 tools/echel.py execution-tasks` command.
+- Task generation now requires architecture readiness unless `--force` is used for draft generation.
+- Generated 20 agent-executable `wiki/work/TASK-1xxx-*.md` records plus `wiki/work/TASK_INDEX.md` from the execution phase task rows.
+- Generated tasks include objective, business reason, technical scope, files, dependencies, instructions, acceptance criteria, tests, validation command, rollback notes, documentation updates, definition of done, and out-of-scope.

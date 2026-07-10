@@ -14,6 +14,7 @@ from echel.conformance import run_conformance
 from echel.config import ConfigError, load_config, resolve_root_map, resolve_symbolic_path
 from echel.contracts import ensure_contracts, validate_transition
 from echel.evidence import ensure_registry, validate_links, validate_registry
+from echel.execution import execution_status, execution_tasks_generate
 from echel.gates import run_gates, run_stage_gate
 from echel.graph import (
     add_feature,
@@ -268,6 +269,25 @@ def cmd_architecture(repo_root: Path, force: bool) -> int:
             print(f"- {path}")
     else:
         print("\nNo architecture artifacts changed.")
+    return 0
+
+
+def cmd_execution_tasks(repo_root: Path, force: bool) -> int:
+    cfg = _load(repo_root)
+    print(execution_status(repo_root, cfg))
+    if force:
+        print("\nForcing execution task generation (bypassing architecture readiness).")
+    try:
+        changed = execution_tasks_generate(repo_root, cfg, force=force)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    if changed:
+        print(f"\nUpdated {len(changed)} execution task artifact(s):")
+        for path in changed:
+            print(f"- {path}")
+    else:
+        print("\nExecution task artifacts are already up to date.")
     return 0
 
 
@@ -720,6 +740,9 @@ def build_parser() -> argparse.ArgumentParser:
     architecture = sub.add_parser("architecture")
     architecture.add_argument("--force", action="store_true")
 
+    execution_tasks = sub.add_parser("execution-tasks")
+    execution_tasks.add_argument("--force", action="store_true")
+
     plan = sub.add_parser("plan")
     plan.add_argument("--title")
     plan.add_argument("--goal")
@@ -866,6 +889,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_domain(root, force=args.force)
     if args.cmd == "architecture":
         return cmd_architecture(root, force=args.force)
+    if args.cmd == "execution-tasks":
+        return cmd_execution_tasks(root, force=args.force)
     if args.cmd == "plan":
         return cmd_plan(root, title=args.title, goal=args.goal)
     if args.cmd == "status":
