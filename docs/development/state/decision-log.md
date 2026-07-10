@@ -131,3 +131,9 @@
 - Decision: Generate repository skeletons under `generated/product-repository/` through `echel repository-factory`.
 - Context: TASK-0024 needed Echel to become a product-to-repository factory without confusing generated product baseline code with Echel Core runtime code. The repository skeleton should be inspectable, local-first, and derived from architecture artifacts plus generated execution tasks.
 - Impact: `tools/echel/repository_factory.py` now enforces architecture readiness unless `--force` is used, requires generated execution tasks, writes app/config/test/CI/env/local-doc baseline files under `generated/product-repository/`, and records `wiki/reports/repository-factory/generated-repository.md`. TASK-0025 remains responsible for product-level engineering docs under `wiki/engineering/`.
+
+## DEC-0023
+
+- Decision: Use `wiki/engineering/` as the authoritative product engineering contract and keep generated engineering notes as reproducible convenience output.
+- Context: TASK-0025 needed engineering documentation to guide real work on the TASK-0024 baseline without splitting authority between product memory and generated files. The baseline also lacked a runnable lint command.
+- Impact: Repository structure, coding standards, development workflow, configuration strategy, and local development are now defined under `wiki/engineering/`. The dependency-free baseline lint is `python -m compileall -q app tests`, and the repository factory emits the same lint, test, and health-check contract in README, CI, generated local docs, and `scripts/verify.sh`. TASK-0026 roles must reference this workflow instead of redefining it.

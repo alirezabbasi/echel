@@ -84,11 +84,11 @@ make wiki-health
 - Update execution docs and methodology notes.
 
 ## Definition of Done
-- [ ] TASK-1001 satisfies source phase task EP0-001.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1001 satisfies source phase task EP0-001.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Out of Scope
 - Work from later execution phase rows.

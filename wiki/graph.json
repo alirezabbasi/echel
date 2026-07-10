@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-07-10T16:38:52Z",
+  "generated_at": "2026-07-10T17:09:59Z",
   "nodes": [
     {
       "id": "architecture:ARCH-901",
@@ -1239,7 +1239,7 @@
       "type": "task",
       "title": "TASK-1005 - Add local development docs",
       "source": "work/TASK-1005-add-local-development-docs.md",
-      "summary": "Document install, start, lint, test, and verification commands."
+      "summary": "Document setup, start, lint, test, and verification commands."
     },
     {
       "id": "task:TASK-1006",

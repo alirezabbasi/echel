@@ -601,6 +601,8 @@ Acceptance criteria:
 Gate rule:
 
 - Do not start feature implementation before baseline verification exists.
+- TASK-0024 provides the architecture- and task-derived baseline through `python3 tools/echel.py repository-factory`.
+- TASK-0025 establishes `wiki/engineering/` as the product-owned engineering contract and synchronizes exact setup, start, syntax-lint, test, and verification commands across the generated README, CI, and verification script.
 
 Prepares next stage by giving agents an executable baseline.
 

@@ -26,7 +26,7 @@ requirements gate -> domain gate -> architecture gate -> roadmap artifacts -> ex
 | MVP-RM-01 | Roadmap artifacts | Create the five roadmap documents that turn architecture into phased planning. | CLI generation, execution phases, detailed tasks. | GATE-ARCHITECTURE, TASK-0021 | Run wiki health and inspect roadmap phase map for objective, scope, dependencies, demo, risk, and exit gate. | Roadmap becomes static prose. | Five roadmap files exist and cross-reference requirements/architecture. | RM-001, REQ-003, ARCH-003 | Done |
 | MVP-RM-02 | Execution phase artifacts | Create explicit phase documents for foundation, MVP, hardening, production, and evolution. | Concrete per-file implementation tasks. | MVP-RM-01, TASK-0022 | Product owner can select the next execution phase and see DoD plus validation method. | Phase documents are too broad for agents. | Each phase has task list, dependencies, DoD, validation, expected repo changes. | RM-002, TASK-0022 | Done |
 | MVP-RM-03 | Task packet upgrade | Make generated tasks small, scoped, testable, and agent-executable. | Repository skeleton generation. | MVP-RM-02, TASK-0023 | Generate one task with files, tests, validation command, rollback, docs, out-of-scope, and DoD. | Task generator creates vague work. | Tasks meet the TASK-0023 contract. | RM-003, REQ-004, REQ-006 | Done |
-| MVP-RM-04 | Repository factory baseline | Generate a local repository skeleton that reflects architecture and execution tasks. | Production deployment and operations. | MVP-RM-03, TASK-0024, TASK-0025 | Generated repo installs locally, starts, runs health check, and documents lint/test commands. | Skeleton is not runnable. | Local boot and engineering docs pass. | RM-004, ARCH-201, ARCH-202 | Planned |
+| MVP-RM-04 | Repository factory baseline | Generate a local repository skeleton that reflects architecture and execution tasks. | Production deployment and operations. | MVP-RM-03, TASK-0024, TASK-0025 | Generated repo sets up locally, starts, runs health check, and documents lint/test commands. | Skeleton is not runnable. | Local boot and engineering docs pass. | RM-004, ARCH-201, ARCH-202 | Done |
 
 ## MVP Demo Path
 
@@ -45,4 +45,4 @@ requirements gate -> domain gate -> architecture gate -> roadmap artifacts -> ex
 - [x] Execution phase artifacts exist.
 - [x] Agent-executable task format is upgraded.
 - [x] Repository factory can create a runnable local baseline.
-- [ ] Product-level engineering docs are complete under `wiki/engineering/`.
+- [x] Product-level engineering docs are complete under `wiki/engineering/`.

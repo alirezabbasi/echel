@@ -9,7 +9,7 @@
 - [x] TASK-1002 Define phase handoff rules
 - [x] TASK-1003 Preserve gate-first validation baseline
 - [x] TASK-1004 Generate repository skeleton
-- [ ] TASK-1005 Add local development docs
+- [x] TASK-1005 Add local development docs
 - [ ] TASK-1006 Verify MVP repository baseline
 - [ ] TASK-1007 Define AI agent role model
 - [ ] TASK-1008 Add lifecycle playbooks and handoff protocol

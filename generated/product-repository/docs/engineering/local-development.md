@@ -10,6 +10,7 @@ python -m venv .venv
 ## Verify
 
 ```bash
+python -m compileall -q app tests
 python -m unittest discover -s tests
 python app/main.py
 ./scripts/verify.sh

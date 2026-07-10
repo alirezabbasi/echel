@@ -57,7 +57,7 @@ The MVP must demonstrate usable software creation, not only planning.
 6. Update the documentation listed in this task and record any new architectural decision only if one was actually made.
 
 ## Acceptance Criteria
-- Install/start/test/lint or documented placeholders are verified.
+- Setup/start/test/lint or documented placeholders are verified.
 
 ## Tests Required
 - Smoke tests and generated-project verification

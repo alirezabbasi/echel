@@ -83,11 +83,11 @@ python3 tools/echel.py readiness --stage architecture
 - Update quick start if command order changes.
 
 ## Definition of Done
-- [ ] TASK-1003 satisfies source phase task EP0-003.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1003 satisfies source phase task EP0-003.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Out of Scope
 - Work from later execution phase rows.

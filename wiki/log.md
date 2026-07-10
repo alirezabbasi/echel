@@ -326,3 +326,9 @@ status: active
 - Repository generation now requires architecture readiness and generated execution tasks unless `--force` is used for draft generation.
 - Generated `generated/product-repository/` with app, config, tests, CI workflow, environment example, verification script, and generated engineering docs.
 - Added `wiki/reports/repository-factory/generated-repository.md` to record repository factory inputs and outputs.
+
+## [2026-07-10] engineering | operating-docs
+- Added `wiki/engineering/` guides for repository structure, coding standards, development workflow, configuration strategy, and local development.
+- Established product-owned engineering docs as authoritative over generated convenience notes.
+- Added the dependency-free `python -m compileall -q app tests` lint baseline to the generated README, CI, local docs, verification script, and repository-factory regression coverage.
+- Marked EP1-002 and generated TASK-1005 done; TASK-0026 can now bind AI-agent roles to the shared engineering workflow.

@@ -49,6 +49,14 @@ status: active
 - [[domain/ubiquitous-language|Ubiquitous Language]]
 - [[domain/workflows|Workflows]]
 
+## Engineering
+
+- [[engineering/coding-standards|Coding Standards]]
+- [[engineering/configuration-strategy|Configuration Strategy]]
+- [[engineering/development-workflow|Development Workflow]]
+- [[engineering/local-development|Local Development]]
+- [[engineering/repository-structure|Repository Structure]]
+
 ## Execution
 
 - [[execution/phase-0-foundation|Phase 0 Foundation]]

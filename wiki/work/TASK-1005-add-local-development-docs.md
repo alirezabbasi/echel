@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP1-002
 source_phase_file: execution/phase-1-mvp.md
@@ -18,7 +18,7 @@ source_phase_file: execution/phase-1-mvp.md
 - Upstream dependencies: EP1-001, TASK-0025
 
 ## Objective
-Document install, start, lint, test, and verification commands.
+Document setup, start, lint, test, and verification commands.
 
 ## Business Reason
 Users must be able to boot the generated repo without hidden context.
@@ -80,11 +80,11 @@ make wiki-health
 - Add `wiki/engineering/*.md`.
 
 ## Definition of Done
-- [ ] TASK-1005 satisfies source phase task EP1-002.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1005 satisfies source phase task EP1-002.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Out of Scope
 - Work from later execution phase rows.

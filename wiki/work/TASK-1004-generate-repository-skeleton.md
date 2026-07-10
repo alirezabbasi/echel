@@ -81,11 +81,11 @@ python3 tools/echel.py graph validate
 - Update roadmap and engineering docs.
 
 ## Definition of Done
-- [ ] TASK-1004 satisfies source phase task EP1-001.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1004 satisfies source phase task EP1-001.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Out of Scope
 - Work from later execution phase rows.

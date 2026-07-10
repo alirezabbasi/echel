@@ -92,6 +92,16 @@ Execution phase artifacts live under `wiki/execution/` after roadmap expansion. 
 
 Repository factory artifacts live under `generated/product-repository/` after execution tasks exist. `python3 tools/echel.py repository-factory` creates the app, config, tests, CI skeleton, environment example, verification script, and generated local development docs from architecture and task inputs.
 
+Product-owned engineering policy lives under `wiki/engineering/`. The generated repository README and local docs contain the exact setup, start, lint, test, and aggregate verification commands. Verify the generated baseline with:
+
+```bash
+cd generated/product-repository
+python -m compileall -q app tests
+python -m unittest discover -s tests
+python app/main.py
+./scripts/verify.sh
+```
+
 ## Graph And Memory Commands
 
 ```bash

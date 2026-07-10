@@ -13,7 +13,12 @@ from echel.canon import canon_generate, canon_status, detect_canon_drift, ensure
 from echel.config import load_config
 from echel.discovery import ensure_discovery_files
 from echel.domain import domain_generate, domain_status
-from echel.execution import execution_status, execution_tasks_generate
+from echel.execution import (
+    ExecutionTaskSource,
+    execution_status,
+    execution_tasks_generate,
+    render_execution_task,
+)
 from echel.gates import run_stage_gate
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
 from echel.repository_factory import repository_factory_generate, repository_factory_status
@@ -465,6 +470,29 @@ Old canon problem
             self.assertIn("task:TASK-1001", graph)
             self.assertIn("Phase task rows available: 3", execution_status(repo, cfg))
 
+    def test_done_execution_tasks_render_completed_definition_of_done(self) -> None:
+        source = ExecutionTaskSource(
+            phase_file="phase-1-mvp.md",
+            phase_title="Phase 1 MVP",
+            phase_task_id="EP1-002",
+            title="Add local development docs",
+            objective="Document local setup.",
+            business_reason="Agents need executable setup guidance.",
+            scope="Engineering documentation.",
+            dependencies="EP1-001",
+            acceptance_criteria="Docs explain setup and verification.",
+            tests_required="Documentation review.",
+            validation_command="make wiki-health",
+            documentation_updates="Update engineering docs.",
+            expected_repo_changes="Engineering documentation files.",
+            status="Done",
+        )
+
+        task = render_execution_task("TASK-1005", source)
+
+        self.assertIn("status: done", task)
+        self.assertIn("- [x] TASK-1005 satisfies source phase task EP1-002.", task)
+
     def test_execution_task_generation_requires_architecture_readiness(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repo = Path(tmp)
@@ -495,6 +523,14 @@ Old canon problem
             self.assertTrue((root / "docs/engineering/local-development.md").exists())
             self.assertTrue((repo / "wiki/reports/repository-factory/generated-repository.md").exists())
             self.assertIn("Required skeleton files present: 7/7", repository_factory_status(repo, cfg))
+            readme = (root / "README.md").read_text(encoding="utf-8")
+            verify = (root / "scripts/verify.sh").read_text(encoding="utf-8")
+            ci = (root / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+            self.assertIn("python -m compileall -q app tests", readme)
+            self.assertIn("python -m unittest discover -s tests", readme)
+            self.assertIn("python app/main.py", readme)
+            self.assertIn("python -m compileall -q app tests", verify)
+            self.assertIn("python -m compileall -q app tests", ci)
 
             proc = subprocess.run(
                 [sys.executable, "-m", "unittest", "discover", "-s", str(root / "tests")],

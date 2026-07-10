@@ -21,7 +21,7 @@ Generated from `wiki/execution/` phase artifacts by `python3 tools/echel.py exec
 | TASK-1002 ([[TASK-1002-define-phase-handoff-rules]]) | EP0-002 | Define phase handoff rules | `execution/phase-0-foundation.md` | EP0-001 | `python3 tools/echel.py graph validate` | Done |
 | TASK-1003 ([[TASK-1003-preserve-gate-first-validation-baseline]]) | EP0-003 | Preserve gate-first validation baseline | `execution/phase-0-foundation.md` | GATE-REQUIREMENTS, GATE-DOMAIN, GATE-ARCHITECTURE | `python3 tools/echel.py readiness --stage architecture` | Done |
 | TASK-1004 ([[TASK-1004-generate-repository-skeleton]]) | EP1-001 | Generate repository skeleton | `execution/phase-1-mvp.md` | EP0-001, TASK-0023, TASK-0024 | `python3 tools/echel.py graph validate` | Done |
-| TASK-1005 ([[TASK-1005-add-local-development-docs]]) | EP1-002 | Add local development docs | `execution/phase-1-mvp.md` | EP1-001, TASK-0025 | `make wiki-health` | Planned |
+| TASK-1005 ([[TASK-1005-add-local-development-docs]]) | EP1-002 | Add local development docs | `execution/phase-1-mvp.md` | EP1-001, TASK-0025 | `make wiki-health` | Done |
 | TASK-1006 ([[TASK-1006-verify-mvp-repository-baseline]]) | EP1-003 | Verify MVP repository baseline | `execution/phase-1-mvp.md` | EP1-001, EP1-002 | `python3 -m unittest discover -s tests` | Planned |
 | TASK-1007 ([[TASK-1007-define-ai-agent-role-model]]) | EP2-001 | Define AI agent role model | `execution/phase-2-hardening.md` | TASK-0026 | `make wiki-health` | Planned |
 | TASK-1008 ([[TASK-1008-add-lifecycle-playbooks-and-handoff-protocol]]) | EP2-002 | Add lifecycle playbooks and handoff protocol | `execution/phase-2-hardening.md` | EP2-001, TASK-0027, TASK-0028 | `make wiki-health` | Planned |

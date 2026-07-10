@@ -226,7 +226,7 @@ source_phase_file: {source.phase_file}
 {documentation_updates}
 
 ## Definition of Done
-{_checklist(dod)}
+{_checklist(dod, checked=status == "done")}
 
 ## Out of Scope
 {_bullets(out_of_scope)}
@@ -324,8 +324,9 @@ def _numbered(items: list[str]) -> str:
     return "\n".join(f"{idx}. {item}" for idx, item in enumerate(items, start=1))
 
 
-def _checklist(items: list[str]) -> str:
-    return "\n".join(f"- [ ] {item}" for item in items)
+def _checklist(items: list[str], *, checked: bool = False) -> str:
+    mark = "x" if checked else " "
+    return "\n".join(f"- [{mark}] {item}" for item in items)
 
 
 def _file_obligations(source: ExecutionTaskSource) -> tuple[list[str], list[str]]:

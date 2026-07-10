@@ -47,11 +47,12 @@ Last updated: 2026-07-10
 - Added execution phase artifacts under `wiki/execution/` so foundation, MVP, hardening, production, and evolution phases have task lists, dependencies, DoD, validation methods, documentation obligations, and expected repo changes.
 - Added the execution task generator so `python3 tools/echel.py execution-tasks` creates 20 agent-executable `wiki/work/TASK-1xxx-*.md` records and `wiki/work/TASK_INDEX.md` from the phase artifacts.
 - Added the repository factory generator so `python3 tools/echel.py repository-factory` creates `generated/product-repository/` with app/config/test/CI/env/local-doc baseline and a repository factory report.
+- Added `wiki/engineering/` as the product-owned engineering contract and made generated setup, start, syntax-lint, test, CI, and verification commands exact and reproducible.
 
 ## Next
 
-1. Add product-level engineering docs under `wiki/engineering/`.
-2. Implement stage readiness evaluation from the lifecycle stage schema.
+1. Define bounded AI-agent roles that consume the engineering contract.
+2. Add canonical lifecycle playbooks and agent handoff rules.
 3. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
 4. Expand release readiness into production operation and post-release learning loops.
 

@@ -16,13 +16,13 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 
 ## Now
 
-- Use generated `wiki/work/TASK-1xxx-*.md` records as the execution-to-repository-factory handoff.
-- Keep `echel readiness --stage architecture` passing before regenerating execution tasks.
+- Use `wiki/engineering/` as the product-owned contract for repository structure, coding, configuration, workflow, and exact local commands.
+- Keep generated README, CI, and `scripts/verify.sh` synchronized through `echel repository-factory`.
 
 ## Next
 
-- Generate a production-ready repository structure after execution tasks exist.
-- Add engineering docs and local development verification.
+- Define bounded AI-agent roles that consume the engineering contract.
+- Add canonical lifecycle playbooks and handoff rules.
 
 ## Later
 

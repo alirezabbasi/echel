@@ -60,6 +60,8 @@ stage: repository-factory
 ## Verification
 
 ```bash
+python -m compileall -q generated/product-repository/app generated/product-repository/tests
 python -m unittest discover -s generated/product-repository/tests
 python generated/product-repository/app/main.py
+cd generated/product-repository && ./scripts/verify.sh
 ```

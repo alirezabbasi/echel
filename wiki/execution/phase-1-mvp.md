@@ -48,8 +48,8 @@ Produce a runnable local repository baseline with engineering documentation, exa
 | Phase Task ID | Task | Objective | Business Reason | Scope | Dependencies | Acceptance Criteria | Tests Required | Validation Command | Documentation Updates | Expected Repo Changes | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | EP1-001 | Generate repository skeleton | Create the initial app, config, test, CI, and environment structure from architecture and tasks. | A product-to-repository factory must produce a usable local baseline, not only documents. | App folders, config folders, tests, CI skeleton, env examples, health check stub if applicable. | EP0-001, TASK-0023, TASK-0024 | Generated repo structure matches architecture and can be inspected locally. | Generated-project verification | `python3 tools/echel.py graph validate` | Update roadmap and engineering docs. | New repository skeleton generator outputs. | Done |
-| EP1-002 | Add local development docs | Document install, start, lint, test, and verification commands. | Users must be able to boot the generated repo without hidden context. | Repository structure, coding standards, workflow, configuration, local development docs. | EP1-001, TASK-0025 | README and engineering docs include exact commands. | Documentation and command review | `make wiki-health` | Add `wiki/engineering/*.md`. | Engineering docs under `wiki/engineering/`. | Planned |
-| EP1-003 | Verify MVP repository baseline | Prove generated project can run the basic local workflow. | The MVP must demonstrate usable software creation, not only planning. | Generated-project smoke verification and documented caveats. | EP1-001, EP1-002 | Install/start/test/lint or documented placeholders are verified. | Smoke tests and generated-project verification | `python3 -m unittest discover -s tests` | Update proof or state docs. | Verification scripts or reports as needed. | Planned |
+| EP1-002 | Add local development docs | Document setup, start, lint, test, and verification commands. | Users must be able to boot the generated repo without hidden context. | Repository structure, coding standards, workflow, configuration, local development docs. | EP1-001, TASK-0025 | README and engineering docs include exact commands. | Documentation and command review | `make wiki-health` | Add `wiki/engineering/*.md`. | Engineering docs under `wiki/engineering/`. | Done |
+| EP1-003 | Verify MVP repository baseline | Prove generated project can run the basic local workflow. | The MVP must demonstrate usable software creation, not only planning. | Generated-project smoke verification and documented caveats. | EP1-001, EP1-002 | Setup/start/test/lint or documented placeholders are verified. | Smoke tests and generated-project verification | `python3 -m unittest discover -s tests` | Update proof or state docs. | Verification scripts or reports as needed. | Planned |
 
 ## Definition Of Done
 
@@ -71,9 +71,9 @@ python3 tools/echel.py graph validate
 ## Expected Repository Changes
 
 - Repository skeleton generator and generated-project verification outputs added in TASK-0024 under `generated/product-repository/`.
-- Engineering documentation under `wiki/engineering/` in future TASK-0025.
+- Product-owned engineering documentation under `wiki/engineering/` added by TASK-0025, with generated README, CI, and verification commands synchronized through the repository factory.
 - No deployment assets until release/deployment tasks begin.
 
 ## Handoff To Phase 2
 
-Phase 2 may start once TASK-0025 documents the engineering workflow well enough for agents and humans to verify the generated local project structure.
+Phase 2 may start from the shared engineering contract in `wiki/engineering/`. TASK-0026 must bind explicit AI-agent responsibilities and forbidden actions to that contract without duplicating it.
