@@ -1002,6 +1002,27 @@ Agents must not:
 - Close tasks without evidence.
 - Leave durable decisions only in chat.
 
+## Canonical Lifecycle Playbooks
+
+Canonical role execution prompts live under `prompts/playbooks/`. Tool-specific prompt packs must render from these playbooks and may add only tool runtime style.
+
+Required playbooks:
+
+- `discover.md`
+- `canon.md`
+- `strategy.md`
+- `requirements.md`
+- `domain.md`
+- `architecture.md`
+- `roadmap.md`
+- `execute.md`
+- `validate.md`
+- `release.md`
+- `operate.md`
+- `govern.md`
+
+Every playbook must preserve objective, primary role, required inputs, required outputs, guardrails, and canonical prompt text. The implementation playbook and tool-specific implementation prompts must enforce that no product implementation code is written before an approved `wiki/work/TASK-*.md` task packet exists.
+
 ## Stage Gate Semantics
 
 Gate outcomes:

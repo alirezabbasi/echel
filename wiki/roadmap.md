@@ -19,10 +19,11 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use `wiki/engineering/` as the product-owned contract for repository structure, coding, configuration, workflow, and exact local commands.
 - Keep generated README, CI, and `scripts/verify.sh` synchronized through `echel repository-factory`.
 - Use `wiki/agents/role-model.md` as the product-owned role contract for Echel's virtual delivery team.
+- Use `prompts/playbooks/` as the canonical lifecycle prompt source for role execution.
 
 ## Next
 
-- Add canonical lifecycle playbooks and handoff rules.
+- Add agent handoff rules.
 - Expand graph lifecycle coverage and traceability reporting.
 
 ## Later

@@ -339,3 +339,9 @@ status: active
 - Added a lifecycle-stage mapping table and bound every role to the shared `wiki/engineering/development-workflow.md` contract, satisfying the TASK-0025 dependency.
 - Added `test_agent_role_model_has_required_sections` to `tests/test_vnext_lifecycle.py` asserting each role renders the four required subsections.
 - Marked TASK-0026, EP2-001, and generated TASK-1007 done; updated decision log (DEC-0024), current-state, where-are-we, work KANBAN, and generated execution artifacts.
+
+## [2026-07-11] playbooks | lifecycle-prompts
+- Added canonical lifecycle playbooks under `prompts/playbooks/` for discovery, canon, strategy, requirements, domain, architecture, roadmap, execution, validation, release, operations, and governance.
+- Added tool render maps for Codex, Claude Code, and Cursor so tool-specific prompts derive lifecycle behavior from canonical playbooks.
+- Updated implementation prompts to render `prompts/playbooks/execute.md` and enforce the approved task-packet requirement before product implementation code.
+- Recorded DEC-0025 and added regression coverage for playbook existence, required sections, render maps, and no-code-before-task-packet guardrails.

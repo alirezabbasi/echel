@@ -550,6 +550,106 @@ Old canon problem
 
             self.assertIn("requires generated execution tasks", str(ctx.exception))
 
+    def test_agent_role_model_has_required_sections(self) -> None:
+        method = (ROOT / "docs/development/methodology.md").read_text(encoding="utf-8")
+        role_model = (ROOT / "wiki/agents/role-model.md").read_text(encoding="utf-8")
+
+        start = method.index("## AI-Agent Role Model")
+        end = method.index("## Execution Safety Rules", start)
+        section = method[start:end]
+
+        roles = [
+            "Founder Interviewer",
+            "Business Analyst",
+            "Product Manager",
+            "Strategy Analyst",
+            "Domain Modeler",
+            "Solution Architect",
+            "Delivery Planner",
+            "Implementation Agent",
+            "QA Agent",
+            "Security Reviewer",
+            "Release Manager",
+            "Operations Steward",
+            "Governance Auditor",
+        ]
+        required_subsections = ("Responsibilities", "Inputs", "Outputs", "Forbidden actions")
+
+        for role in roles:
+            self.assertIn(role, section, f"role {role} missing from AI-Agent Role Model")
+            self.assertIn(role, role_model, f"role {role} missing from product-memory role model")
+
+        for role in roles:
+            with self.subTest(role=role):
+                role_start = section.index(f"### {role}")
+                role_end = section.find("\n### ", role_start + 1)
+                role_end = end if role_end == -1 else role_end
+                role_block = section[role_start:role_end]
+                role_model_start = role_model.index(f"### {role}")
+                role_model_end = role_model.find("\n### ", role_model_start + 1)
+                role_model_end = len(role_model) if role_model_end == -1 else role_model_end
+                role_model_block = role_model[role_model_start:role_model_end]
+
+                for sub in required_subsections:
+                    self.assertIn(
+                        sub,
+                        role_block,
+                        f"role {role} is missing required subsection '{sub}'",
+                    )
+                    self.assertIn(
+                        sub,
+                        role_model_block,
+                        f"role {role} is missing product-memory subsection '{sub}'",
+                    )
+
+    def test_canonical_playbooks_are_renderable_and_safe(self) -> None:
+        playbook_root = ROOT / "prompts/playbooks"
+        playbooks = [
+            "discover.md",
+            "canon.md",
+            "strategy.md",
+            "requirements.md",
+            "domain.md",
+            "architecture.md",
+            "roadmap.md",
+            "execute.md",
+            "validate.md",
+            "release.md",
+            "operate.md",
+            "govern.md",
+        ]
+        required_sections = [
+            "## Objective",
+            "## Primary Role",
+            "## Required Inputs",
+            "## Required Outputs",
+            "## Guardrails",
+            "## Canonical Prompt",
+        ]
+        guardrail = "Do not write product implementation code before an approved task packet exists"
+
+        index = (playbook_root / "README.md").read_text(encoding="utf-8")
+        self.assertIn("## Rendering Contract", index)
+        self.assertIn("Do not write product implementation code", index)
+
+        for playbook in playbooks:
+            with self.subTest(playbook=playbook):
+                text = (playbook_root / playbook).read_text(encoding="utf-8")
+                for section in required_sections:
+                    self.assertIn(section, text)
+                self.assertIn(guardrail, text)
+
+        for tool in ("codex", "claude-code", "cursor"):
+            with self.subTest(tool=tool):
+                text = (ROOT / f"prompts/{tool}/README.md").read_text(encoding="utf-8")
+                self.assertIn("prompts/playbooks/execute.md", text)
+                self.assertIn("Do not remove the playbook guardrails", text)
+                implement = (ROOT / f"prompts/{tool}/02-implement-task.md").read_text(
+                    encoding="utf-8"
+                )
+                self.assertIn("prompts/playbooks/execute.md", implement)
+                self.assertIn("approved `wiki/work/TASK-*.md` task packet", implement)
+
 
 def write_requirements_sources(repo: Path, canon_is: str = "A workflow control product for regulated operators.") -> None:
     write(
@@ -692,59 +792,6 @@ stage: execution-planning
 | EP1-001 | Generate repository skeleton | Create the initial app, config, test, CI, and environment structure from architecture and tasks. | A product-to-repository factory must produce a usable local baseline, not only documents. | App folders, config folders, tests, CI skeleton, env examples, health check stub if applicable. | EP0-001, TASK-0023, TASK-0024 | Generated repo structure matches architecture and can be inspected locally. | Generated-project verification | `python3 tools/echel.py graph validate` | Update roadmap and engineering docs. | New repository skeleton generator outputs. | Planned |
 """,
     )
-
-
-    def test_agent_role_model_has_required_sections(self) -> None:
-        method = (ROOT / "docs/development/methodology.md").read_text(encoding="utf-8")
-        role_model = (ROOT / "wiki/agents/role-model.md").read_text(encoding="utf-8")
-
-        start = method.index("## AI-Agent Role Model")
-        end = method.index("## Execution Safety Rules", start)
-        section = method[start:end]
-
-        roles = [
-            "Founder Interviewer",
-            "Business Analyst",
-            "Product Manager",
-            "Strategy Analyst",
-            "Domain Modeler",
-            "Solution Architect",
-            "Delivery Planner",
-            "Implementation Agent",
-            "QA Agent",
-            "Security Reviewer",
-            "Release Manager",
-            "Operations Steward",
-            "Governance Auditor",
-        ]
-        required_subsections = ("Responsibilities", "Inputs", "Outputs", "Forbidden actions")
-
-        for role in roles:
-            self.assertIn(role, section, f"role {role} missing from AI-Agent Role Model")
-            self.assertIn(role, role_model, f"role {role} missing from product-memory role model")
-
-        for role in roles:
-            with self.subTest(role=role):
-                role_start = section.index(f"### {role}")
-                role_end = section.find("\n### ", role_start + 1)
-                role_end = end if role_end == -1 else role_end
-                role_block = section[role_start:role_end]
-                role_model_start = role_model.index(f"### {role}")
-                role_model_end = role_model.find("\n### ", role_model_start + 1)
-                role_model_end = len(role_model) if role_model_end == -1 else role_model_end
-                role_model_block = role_model[role_model_start:role_model_end]
-
-                for sub in required_subsections:
-                    self.assertIn(
-                        sub,
-                        role_block,
-                        f"role {role} is missing required subsection '{sub}'",
-                    )
-                    self.assertIn(
-                        sub,
-                        role_model_block,
-                        f"role {role} is missing product-memory subsection '{sub}'",
-                    )
 
 
 if __name__ == "__main__":

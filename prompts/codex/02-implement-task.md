@@ -1,3 +1,7 @@
 # Codex Prompt — 02-implement-task
 
-Read selected task and linked wiki pages. Implement smallest safe change, add tests, update wiki, update task, run verification, append log.
+Render `prompts/playbooks/execute.md` for Codex.
+
+Read the selected task packet and linked wiki pages. Implement the smallest safe change, add tests, update wiki, update task state only when proof exists, run verification, append log.
+
+Do not write product implementation code before an approved `wiki/work/TASK-*.md` task packet exists.

@@ -12,7 +12,7 @@
 - [x] TASK-1005 Add local development docs
 - [ ] TASK-1006 Verify MVP repository baseline
 - [x] TASK-1007 Define AI agent role model
-- [ ] TASK-1008 Add lifecycle playbooks and handoff protocol
+- [ ] TASK-1008 Add lifecycle playbooks and handoff protocol (playbooks complete via TASK-0027; handoff protocol remains TASK-0028)
 - [ ] TASK-1009 Expand graph lifecycle coverage
 - [ ] TASK-1010 Generate traceability matrix
 - [ ] TASK-1011 Add validation artifacts
