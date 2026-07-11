@@ -52,11 +52,12 @@ Last updated: 2026-07-11
 - Added canonical lifecycle playbooks under `prompts/playbooks/` and tool render maps for Codex, Claude Code, and Cursor so tool-specific prompts derive from one guarded lifecycle prompt source.
 - Added `wiki/agents/handoff-protocol.md` so lifecycle stage outputs preserve assumptions, risks, unresolved questions, evidence, stale artifacts, and next-stage instructions in a required Handoff Summary.
 - Expanded graph lifecycle coverage so `wiki/graph.json` now includes first-class nodes for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
+- Added graph metadata enrichment so graph nodes carry statement type, confidence, source stage, and verification status, with unresolved low-confidence assumptions treated as critical graph validation issues.
 
 ## Next
 
-1. Add statement type, confidence, source-stage, and verification metadata to graph nodes.
-2. Generate end-to-end lifecycle traceability.
+1. Generate end-to-end lifecycle traceability.
+2. Expand validation and evidence registration.
 3. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks
@@ -65,4 +66,4 @@ Last updated: 2026-07-11
 - Adding new folders without a unique purpose could reintroduce navigation complexity.
 - Template-derived content must not be promoted into canon or strategy as product truth.
 - Requirements command graph integration currently uses manual graph nodes until the broader traceability graph upgrade lands.
-- Lifecycle node types now exist before confidence metadata; agents must still treat assumptions and hypotheses according to the statement-discipline rules until TASK-0030 lands.
+- Graph metadata uses `unknown` confidence where source artifacts do not declare confidence; upcoming traceability reporting should expose those unknowns.

@@ -463,9 +463,16 @@ Old canon problem
 
             graph = build_graph(repo, cfg)
             issues = validate_graph(graph)
-            node_types = {node.get("type") for node in graph.get("nodes", []) if isinstance(node, dict)}
+            nodes = [node for node in graph.get("nodes", []) if isinstance(node, dict)]
+            node_types = {node.get("type") for node in nodes}
 
             self.assertFalse([issue for issue in issues if issue.severity == "critical"])
+            for node in nodes:
+                with self.subTest(node=node.get("id")):
+                    self.assertTrue(node.get("statement_type"))
+                    self.assertTrue(node.get("confidence"))
+                    self.assertTrue(node.get("source_stage"))
+                    self.assertTrue(node.get("verification_status"))
             self.assertTrue(
                 {
                     "discovery-item",
@@ -486,6 +493,104 @@ Old canon problem
                     "learning",
                 }.issubset(node_types)
             )
+
+    def test_low_confidence_assumptions_block_graph_validation(self) -> None:
+        graph = {
+            "version": 1,
+            "nodes": [
+                {
+                    "id": "product:root",
+                    "type": "product",
+                    "title": "Product",
+                    "source": "project.md",
+                    "summary": "Product",
+                    "statement_type": "decision",
+                    "confidence": "high",
+                    "source_stage": "product-memory",
+                    "verification_status": "accepted",
+                },
+                {
+                    "id": "problem:primary",
+                    "type": "problem",
+                    "title": "Problem",
+                    "source": "problem.md",
+                    "summary": "Problem",
+                    "statement_type": "observation",
+                    "confidence": "high",
+                    "source_stage": "discovery",
+                    "verification_status": "verified",
+                },
+                {
+                    "id": "user:primary",
+                    "type": "user",
+                    "title": "User",
+                    "source": "users.md",
+                    "summary": "User",
+                    "statement_type": "observation",
+                    "confidence": "medium",
+                    "source_stage": "discovery",
+                    "verification_status": "active",
+                },
+                {
+                    "id": "solution:primary",
+                    "type": "solution",
+                    "title": "Solution",
+                    "source": "solution.md",
+                    "summary": "Solution",
+                    "statement_type": "decision",
+                    "confidence": "medium",
+                    "source_stage": "canon",
+                    "verification_status": "accepted",
+                },
+                {
+                    "id": "requirement:primary",
+                    "type": "requirement",
+                    "title": "Requirement",
+                    "source": "scope.md",
+                    "summary": "Requirement",
+                    "statement_type": "decision",
+                    "confidence": "medium",
+                    "source_stage": "requirements",
+                    "verification_status": "active",
+                },
+                {
+                    "id": "task:TASK-9999",
+                    "type": "task",
+                    "title": "Task",
+                    "source": "work/TASK-9999-test.md",
+                    "summary": "Task",
+                    "statement_type": "decision",
+                    "confidence": "medium",
+                    "source_stage": "execution",
+                    "verification_status": "active",
+                },
+                {
+                    "id": "assumption:A-999",
+                    "type": "assumption",
+                    "title": "A-999 risky assumption",
+                    "source": "discovery/assumptions.md",
+                    "summary": "Low confidence assumption",
+                    "trace_id": "A-999",
+                    "statement_type": "assumption",
+                    "confidence": "low",
+                    "source_stage": "discovery",
+                    "verification_status": "active",
+                },
+            ],
+            "edges": [
+                {"from_id": "task:TASK-9999", "to_id": "requirement:primary", "type": "delivers"},
+            ],
+        }
+
+        issues = validate_graph(graph)
+
+        self.assertTrue(
+            any(
+                issue.severity == "critical"
+                and "assumption:A-999 has low confidence and is not verified" in issue.message
+                for issue in issues
+            )
+        )
 
     def test_execution_task_generation_creates_agent_executable_tasks(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

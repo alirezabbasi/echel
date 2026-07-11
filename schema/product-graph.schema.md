@@ -29,7 +29,12 @@ The product graph is the machine-readable relationship layer for Echel product m
   "type": "feature",
   "title": "Product memory graph",
   "source": "solution.md",
-  "summary": "Product memory graph"
+  "summary": "Product memory graph",
+  "trace_id": "",
+  "statement_type": "decision",
+  "confidence": "unknown",
+  "source_stage": "product-memory",
+  "verification_status": "unverified"
 }
 ```
 
@@ -39,6 +44,11 @@ Required fields:
 - `title`: human-readable name.
 - `source`: wiki-relative source artifact.
 - `summary`: short source-derived explanation.
+- `trace_id`: stable methodology ID when one is available, otherwise empty.
+- `statement_type`: one of `fact`, `observation`, `assumption`, `hypothesis`, `decision`, `constraint`, `risk`, or `question`.
+- `confidence`: one of `high`, `medium`, `low`, or `unknown` when source artifacts do not yet declare confidence.
+- `source_stage`: lifecycle stage where the node originated or is primarily maintained.
+- `verification_status`: one of `unverified`, `active`, `draft`, `generated`, `verified`, `accepted`, `resolved`, or `done`.
 
 Core node types:
 - `product`

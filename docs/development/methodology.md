@@ -112,7 +112,7 @@ Downstream artifacts must preserve links to upstream IDs. A complete chain shoul
 discovery item -> canon statement -> strategy choice -> requirement -> domain concept -> architecture decision -> task -> test -> evidence -> release or operations record
 ```
 
-The product graph must preserve this lifecycle shape. First-class graph node types now cover discovery items, assumptions, hypotheses, buyers, stakeholders, strategies, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings. Statement metadata and confidence enrichment remain governed by the traceability schema.
+The product graph must preserve this lifecycle shape. First-class graph node types now cover discovery items, assumptions, hypotheses, buyers, stakeholders, strategies, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings. Graph nodes also carry statement type, confidence, source stage, verification status, and trace ID metadata where available so agents can distinguish facts, assumptions, hypotheses, decisions, constraints, and evidence.
 
 ## Lifecycle Stages
 

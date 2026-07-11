@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, replace
 from datetime import datetime, timezone
 import json
 from pathlib import Path
@@ -20,6 +20,11 @@ class GraphNode:
     title: str
     source: str
     summary: str = ""
+    trace_id: str = ""
+    statement_type: str = ""
+    confidence: str = ""
+    source_stage: str = ""
+    verification_status: str = ""
 
 
 @dataclass(frozen=True)
@@ -50,7 +55,7 @@ def build_graph(repo_root: Path, cfg: ProjectConfig) -> dict:
 
     def add_node(node: GraphNode) -> None:
         if node.id not in nodes:
-            nodes[node.id] = node
+            nodes[node.id] = _with_metadata(node)
 
     def add_edge(from_id: str, to_id: str, edge_type: str) -> None:
         if from_id in nodes and to_id in nodes:
@@ -156,7 +161,20 @@ def build_graph(repo_root: Path, cfg: ProjectConfig) -> dict:
     manual = _manual_graph(root)
     for raw in manual.get("nodes", []):
         if isinstance(raw, dict) and {"id", "type", "title"}.issubset(raw):
-            add_node(GraphNode(str(raw["id"]), str(raw["type"]), str(raw["title"]), str(raw.get("source", "manual")), str(raw.get("summary", ""))))
+            add_node(
+                GraphNode(
+                    str(raw["id"]),
+                    str(raw["type"]),
+                    str(raw["title"]),
+                    str(raw.get("source", "manual")),
+                    str(raw.get("summary", "")),
+                    str(raw.get("trace_id", "")),
+                    str(raw.get("statement_type", "")),
+                    str(raw.get("confidence", "")),
+                    str(raw.get("source_stage", raw.get("stage", ""))),
+                    str(raw.get("verification_status", "")),
+                )
+            )
     for raw in manual.get("edges", []):
         if isinstance(raw, dict):
             add_edge(str(raw.get("from_id", "")), str(raw.get("to_id", "")), str(raw.get("type", "related_to")))
@@ -226,10 +244,19 @@ def validate_graph(graph: dict) -> list[GraphIssue]:
                 issues.append(GraphIssue("major", f"task {node.get('id')} is not linked to a requirement"))
 
     for node in nodes:
+        if isinstance(node, dict):
+            for required_metadata in ["statement_type", "confidence", "source_stage", "verification_status"]:
+                if not str(node.get(required_metadata, "")).strip():
+                    issues.append(GraphIssue("major", f"node {node.get('id')} is missing {required_metadata}"))
         if isinstance(node, dict) and node.get("type") == "risk":
             summary = str(node.get("summary", ""))
             if "Mitigation:" not in summary or "Mitigation: TBD" in summary:
                 issues.append(GraphIssue("major", f"risk {node.get('id')} has no mitigation"))
+        if isinstance(node, dict) and node.get("type") == "assumption":
+            confidence = str(node.get("confidence", "")).lower()
+            status = str(node.get("verification_status", "")).lower()
+            if confidence == "low" and status not in {"verified", "accepted", "resolved"}:
+                issues.append(GraphIssue("critical", f"assumption {node.get('id')} has low confidence and is not verified"))
     return issues
 
 
@@ -280,6 +307,13 @@ def write_graph_report(repo_root: Path, cfg: ProjectConfig) -> Path:
     for node_type in _report_node_types():
         count = sum(1 for n in graph.get("nodes", []) if isinstance(n, dict) and n.get("type") == node_type)
         lines.append(f"- {node_type}: {count}")
+    lines += ["", "## Metadata Coverage"]
+    nodes = [n for n in graph.get("nodes", []) if isinstance(n, dict)]
+    for field in ["statement_type", "confidence", "source_stage", "verification_status"]:
+        populated = sum(1 for n in nodes if str(n.get(field, "")).strip())
+        lines.append(f"- {field}: {populated}/{len(nodes)}")
+    traceable = sum(1 for n in nodes if str(n.get("trace_id", "")).strip())
+    lines.append(f"- trace_id: {traceable}/{len(nodes)}")
     report.write_text("\n".join(lines) + "\n", encoding="utf-8")
     write_graph(repo_root, cfg)
     return report
@@ -406,8 +440,18 @@ def _milestone_node(title: str, lines: list[str]) -> GraphNode:
 def _lifecycle_nodes(repo_root: Path, root: Path) -> list[GraphNode]:
     nodes: list[GraphNode] = []
 
-    def add(node_id: str, node_type: str, title: str, source: str, summary: str = "") -> None:
-        nodes.append(GraphNode(node_id, node_type, title, source, summary or title))
+    def add(
+        node_id: str,
+        node_type: str,
+        title: str,
+        source: str,
+        summary: str = "",
+        trace_id: str = "",
+        statement_type: str = "",
+        confidence: str = "",
+        verification_status: str = "",
+    ) -> None:
+        nodes.append(GraphNode(node_id, node_type, title, source, summary or title, trace_id, statement_type, confidence, "", verification_status))
 
     def add_document(node_type: str, path: Path, title: str | None = None, summary: str = "") -> None:
         if not path.exists():
@@ -422,9 +466,29 @@ def _lifecycle_nodes(repo_root: Path, root: Path) -> list[GraphNode]:
             trace_id = _trace_id(row)
             if trace_id and trace_id.startswith(("P-", "U-", "O-", "WF-", "PP-", "S-", "NC-", "C-", "R-", "CMP-")):
                 title = _row_title(row, trace_id)
-                add(f"discovery-item:{trace_id}", "discovery-item", title, "discovery/product-discovery-spec.md", " | ".join(row))
+                add(
+                    f"discovery-item:{trace_id}",
+                    "discovery-item",
+                    title,
+                    "discovery/product-discovery-spec.md",
+                    " | ".join(row),
+                    trace_id,
+                    _row_statement_type(row, "observation"),
+                    _row_confidence(row),
+                    _row_verification_status(row),
+                )
             if trace_id and trace_id.startswith("B-"):
-                add(f"buyer:{trace_id}", "buyer", _row_title(row, trace_id), "discovery/product-discovery-spec.md", " | ".join(row))
+                add(
+                    f"buyer:{trace_id}",
+                    "buyer",
+                    _row_title(row, trace_id),
+                    "discovery/product-discovery-spec.md",
+                    " | ".join(row),
+                    trace_id,
+                    _row_statement_type(row, "observation"),
+                    _row_confidence(row),
+                    _row_verification_status(row),
+                )
 
     assumptions = root / "discovery" / "assumptions.md"
     assumption_seen = False
@@ -436,10 +500,30 @@ def _lifecycle_nodes(repo_root: Path, root: Path) -> list[GraphNode]:
                 continue
             if trace_id.startswith("A-"):
                 assumption_seen = True
-                add(f"assumption:{trace_id}", "assumption", _row_title(row, trace_id), "discovery/assumptions.md", " | ".join(row))
+                add(
+                    f"assumption:{trace_id}",
+                    "assumption",
+                    _row_title(row, trace_id),
+                    "discovery/assumptions.md",
+                    " | ".join(row),
+                    trace_id,
+                    "assumption",
+                    _row_confidence(row),
+                    _row_verification_status(row),
+                )
             elif trace_id.startswith("H-"):
                 hypothesis_seen = True
-                add(f"hypothesis:{trace_id}", "hypothesis", _row_title(row, trace_id), "discovery/assumptions.md", " | ".join(row))
+                add(
+                    f"hypothesis:{trace_id}",
+                    "hypothesis",
+                    _row_title(row, trace_id),
+                    "discovery/assumptions.md",
+                    " | ".join(row),
+                    trace_id,
+                    "hypothesis",
+                    _row_confidence(row),
+                    _row_verification_status(row),
+                )
         if not assumption_seen:
             add("assumption:register", "assumption", "Assumption Register", "discovery/assumptions.md", "Lifecycle register for assumptions; no non-template assumption rows have been captured yet.")
         if not hypothesis_seen:
@@ -568,6 +652,131 @@ def _report_node_types() -> list[str]:
     ]
 
 
+def _with_metadata(node: GraphNode) -> GraphNode:
+    summary = node.summary or ""
+    return replace(
+        node,
+        trace_id=node.trace_id or _trace_id_from_node_id(node.id),
+        statement_type=_normalize_metadata(node.statement_type) or _infer_statement_type(node.type, summary),
+        confidence=_normalize_metadata(node.confidence) or _extract_confidence(summary) or "unknown",
+        source_stage=_normalize_metadata(node.source_stage) or _infer_source_stage(node.source, node.type),
+        verification_status=_normalize_metadata(node.verification_status) or _infer_verification_status(node.type, summary),
+    )
+
+
+def _infer_statement_type(node_type: str, summary: str = "") -> str:
+    explicit = _extract_statement_type(summary)
+    if explicit:
+        return explicit
+    mapping = {
+        "assumption": "assumption",
+        "hypothesis": "hypothesis",
+        "risk": "risk",
+        "decision": "decision",
+        "release": "decision",
+        "milestone": "decision",
+        "requirement": "decision",
+        "business-rule": "constraint",
+        "bounded-context": "decision",
+        "architecture": "decision",
+        "architecture-component": "decision",
+        "deployment-artifact": "decision",
+        "operation-artifact": "decision",
+        "contradiction": "observation",
+        "learning": "observation",
+        "evidence": "fact",
+        "test": "fact",
+    }
+    return mapping.get(node_type, "observation")
+
+
+def _infer_source_stage(source: str, node_type: str) -> str:
+    first = source.split("/", 1)[0]
+    stage_by_prefix = {
+        "discovery": "discovery",
+        "canon": "canon",
+        "strategy": "strategy",
+        "requirements": "requirements",
+        "domain": "domain",
+        "architecture": "architecture",
+        "roadmap": "roadmap",
+        "execution": "execution",
+        "work": "execution",
+        "decisions": "governance",
+        "reports": "validation",
+        "milestones.md": "release",
+        "risks.md": "governance",
+        "log.md": "evolution",
+        "manual": "manual",
+    }
+    if first in stage_by_prefix:
+        return stage_by_prefix[first]
+    if source in stage_by_prefix:
+        return stage_by_prefix[source]
+    stage_by_type = {
+        "component": "architecture",
+        "workflow": "domain",
+        "requirement": "requirements",
+        "business-rule": "domain",
+        "domain-concept": "domain",
+        "bounded-context": "domain",
+        "architecture": "architecture",
+        "architecture-component": "architecture",
+        "test": "validation",
+        "evidence": "validation",
+        "deployment-artifact": "deployment",
+        "operation-artifact": "operations",
+        "learning": "evolution",
+        "contradiction": "governance",
+        "task": "execution",
+    }
+    return stage_by_type.get(node_type, "product-memory")
+
+
+def _infer_verification_status(node_type: str, summary: str) -> str:
+    lowered = summary.lower()
+    if "validated" in lowered or "verified" in lowered or node_type in {"evidence", "test"}:
+        return "verified"
+    if "resolved" in lowered:
+        return "resolved"
+    if "accepted" in lowered or node_type in {"decision", "release"}:
+        return "accepted"
+    if "done" in lowered or "status: done" in lowered:
+        return "done"
+    if "active" in lowered:
+        return "active"
+    if "draft" in lowered:
+        return "draft"
+    return "unverified"
+
+
+def _extract_statement_type(text: str) -> str:
+    allowed = ["fact", "observation", "assumption", "hypothesis", "decision", "constraint", "risk", "question"]
+    cleaned = text.strip().strip("`").lower()
+    if cleaned in allowed:
+        return cleaned
+    match = re.search(r"\b(?:statement type|statement_type)\s*[:|]\s*`?(fact|observation|assumption|hypothesis|decision|constraint|risk|question)\b", text, flags=re.IGNORECASE)
+    if match:
+        return match.group(1).lower()
+    return ""
+
+
+def _extract_confidence(text: str) -> str:
+    allowed = ["high", "medium", "low"]
+    cleaned = text.strip().strip("`").lower()
+    if cleaned in allowed:
+        return cleaned
+    match = re.search(r"\bconfidence\s*[:|]\s*`?(high|medium|low)\b", text, flags=re.IGNORECASE)
+    if match:
+        return match.group(1).lower()
+    return ""
+
+
+def _normalize_metadata(value: str) -> str:
+    cleaned = value.strip().lower()
+    return "" if cleaned in {"", "tbd", "none", "n/a", "-"} else cleaned
+
+
 def _section(path: Path, heading: str) -> str:
     if not path.exists():
         return ""
@@ -595,6 +804,35 @@ def _trace_id(row: list[str]) -> str:
         match = re.search(r"\b(?:P|U|B|O|WF|PP|S|NC|C|R|CMP|A|H|REQ|NFR|AC|BR|DM|BC|AGG|DE|ARCH)-\d{3,4}\b", cell)
         if match:
             return match.group(0)
+    return ""
+
+
+def _trace_id_from_node_id(node_id: str) -> str:
+    match = re.search(r"\b(?:P|U|B|O|WF|PP|S|NC|C|R|CMP|A|H|REQ|NFR|AC|BR|DM|BC|AGG|DE|ARCH|ADR|TASK|TEST|EVID)-\d{3,4}\b", node_id)
+    return match.group(0) if match else ""
+
+
+def _row_statement_type(row: list[str], fallback: str = "") -> str:
+    for cell in row:
+        value = _extract_statement_type(cell)
+        if value:
+            return value
+    return fallback
+
+
+def _row_confidence(row: list[str]) -> str:
+    for cell in row:
+        value = _extract_confidence(cell)
+        if value:
+            return value
+    return ""
+
+
+def _row_verification_status(row: list[str]) -> str:
+    for cell in row:
+        cleaned = cell.strip().lower()
+        if cleaned in {"validated", "verified", "accepted", "resolved", "active", "draft", "open", "done", "generated"}:
+            return cleaned
     return ""
 
 

@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP2-003
 source_phase_file: execution/phase-2-hardening.md
@@ -82,14 +82,15 @@ python3 tools/echel.py graph validate
 
 ## Progress Notes
 - TASK-0029 completed the lifecycle node type expansion. Graph builds now include discovery, assumption, hypothesis, buyer, stakeholder, strategy, requirement, domain, architecture component, test, deployment, operation, contradiction, and learning coverage.
-- TASK-0030 remains open for statement type, confidence, source-stage, verification-status, and trace ID metadata before EP2-003 can be marked done.
+- TASK-0030 completed graph metadata enrichment. Nodes now carry statement type, confidence, source-stage, verification-status, and trace ID metadata where available.
+- Low-confidence assumptions that are not verified, accepted, or resolved are critical graph validation issues.
 
 ## Definition of Done
-- [ ] TASK-1009 satisfies source phase task EP2-003.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1009 satisfies source phase task EP2-003.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Out of Scope
 - Work from later execution phase rows.

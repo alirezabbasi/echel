@@ -24,8 +24,8 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 
 ## Next
 
-- Expand graph lifecycle coverage and traceability reporting.
-- Add statement type and confidence to lifecycle graph nodes.
+- Generate lifecycle traceability reporting.
+- Add validation and evidence registration artifacts.
 
 ## Later
 

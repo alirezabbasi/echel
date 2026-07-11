@@ -51,11 +51,12 @@ Last updated: 2026-07-11
 - Added canonical lifecycle playbooks under `prompts/playbooks/` and tool render maps for Codex, Claude Code, and Cursor so prompt packs render from one source while preserving the no-code-before-task-packet rule.
 - Added `wiki/agents/handoff-protocol.md` as the required inter-role handoff contract and updated every canonical playbook to require a Handoff Summary with assumptions, risks, unresolved questions, evidence, stale artifacts, and next-stage instructions.
 - Expanded the product graph node vocabulary so graph builds now include lifecycle coverage for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
+- Added graph metadata enrichment so every graph node carries statement type, confidence, source stage, and verification status, with low-confidence unresolved assumptions promoted to critical graph validation issues.
 
 ## Next
 
-1. Add statement type, confidence, source-stage, and verification metadata to graph nodes.
-2. Generate end-to-end lifecycle traceability.
+1. Generate end-to-end lifecycle traceability.
+2. Expand validation and evidence registration.
 3. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks
@@ -64,4 +65,4 @@ Last updated: 2026-07-11
 - If new folders are added without a unique purpose, Echel may become harder for domain experts to navigate again.
 - Force-generating from incomplete discovery remains risky; gates should keep treating template `TBD` content as incomplete.
 - Requirements generation remains blocked until strategy is meaningful unless explicitly forced; the requirements gate now verifies the resulting artifacts before downstream domain work.
-- The expanded graph includes lifecycle artifact coverage before statement metadata; TASK-0030 must prevent agents from treating low-confidence assumptions as facts.
+- Graph metadata uses `unknown` confidence where source artifacts do not declare confidence; TASK-0031/traceability reporting must surface those unknowns rather than hiding them.

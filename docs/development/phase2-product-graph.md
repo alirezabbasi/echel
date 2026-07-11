@@ -45,3 +45,8 @@ python3 tools/echel.py status
 - Execution and verification: `task`, `test`, and `evidence`.
 - Release and operation: `deployment-artifact`, `operation-artifact`, `milestone`, and `release`.
 - Governance and evolution: `contradiction`, `learning`, `decision`, and `risk`.
+
+## Metadata Discipline
+Every generated graph node carries `statement_type`, `confidence`, `source_stage`, and `verification_status`. Nodes also carry `trace_id` when a stable methodology ID can be inferred from the node ID or structured source row.
+
+When source artifacts do not declare confidence, the graph records `unknown` instead of inventing certainty. A low-confidence assumption that remains unverified, unaccepted, or unresolved is a critical graph validation issue because later stages must not treat it as safe product truth.

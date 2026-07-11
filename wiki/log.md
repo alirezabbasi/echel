@@ -357,3 +357,9 @@ status: active
 - Updated product graph schema, traceability notes, methodology, and graph guide docs so the graph reflects Echel's full AI-native software engineering methodology rather than only product/task memory.
 - Added regression coverage proving lifecycle node types appear in generated graph builds while graph validation remains passing.
 - TASK-0029 is complete; TASK-0030 remains responsible for statement type, confidence, source-stage, verification-status, and trace ID metadata.
+
+## [2026-07-12] graph | statement-metadata
+- Added graph metadata enrichment for `trace_id`, `statement_type`, `confidence`, `source_stage`, and `verification_status`.
+- Updated graph validation so missing metadata is reported and unresolved low-confidence assumptions become critical graph integrity issues.
+- Updated product graph schema, traceability notes, methodology, state docs, roadmap summary, EP2-003, TASK-1009, and TASK_INDEX to reflect completed graph lifecycle coverage.
+- TASK-0030 is complete; TASK-0031 can build the traceability matrix on top of lifecycle nodes and metadata.

@@ -160,4 +160,10 @@
 
 - Decision: Treat lifecycle graph node types as first-class graph vocabulary, generated from product memory and lifecycle artifacts.
 - Context: TASK-0029 needed the graph to represent the full Echel methodology instead of stopping at product, task, decision, risk, milestone, and release memory. Existing manual graph nodes already covered some domain and architecture concepts, but discovery, assumptions, buyers, strategy, tests, deployment, operations, contradictions, and learning were not consistently represented.
-- Impact: `tools/echel/graph.py` now emits lifecycle nodes for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings. TASK-0030 remains responsible for statement type, confidence, source-stage, verification-status, and trace ID metadata.
+- Impact: `tools/echel/graph.py` now emits lifecycle nodes for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
+
+## DEC-0028
+
+- Decision: Enrich every graph node with statement metadata and treat unresolved low-confidence assumptions as critical graph integrity issues.
+- Context: TASK-0030 needed AI agents to distinguish facts, observations, assumptions, hypotheses, decisions, constraints, risks, questions, tests, and evidence after TASK-0029 made lifecycle node types first-class.
+- Impact: Graph nodes now carry `trace_id`, `statement_type`, `confidence`, `source_stage`, and `verification_status` fields. Missing metadata is reported by graph validation, undeclared confidence is represented as `unknown`, and low-confidence assumptions must be verified, accepted, or resolved before later graph-backed readiness can proceed safely. EP2-003 and generated TASK-1009 are complete.

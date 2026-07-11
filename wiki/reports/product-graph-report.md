@@ -82,3 +82,10 @@ status: active
 - operation-artifact: 3
 - contradiction: 1
 - learning: 2
+
+## Metadata Coverage
+- statement_type: 268/268
+- confidence: 268/268
+- source_stage: 268/268
+- verification_status: 268/268
+- trace_id: 218/268
