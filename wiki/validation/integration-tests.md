@@ -23,6 +23,6 @@ Integration tests prove that Echel lifecycle commands, graph outputs, reports, g
 
 | Risk ID | Risk | Mitigation | Owner Task |
 | --- | --- | --- | --- |
-| VAL-RISK-001 | Generated sections may drift from authored guidance. | Keep generated sections explicit and run wiki health plus lifecycle regression tests. | TASK-0033 |
-| VAL-RISK-002 | Validation command may summarize docs without enforcing traceability. | Consume this matrix and fail or block when IDs are missing. | TASK-0033 |
-| VAL-RISK-003 | Evidence remains disconnected from tests. | Add deterministic evidence registration in TASK-0034. | TASK-0034 |
+| VAL-RISK-001 | Validation reports can become stale if the command is not rerun after artifact changes. | Run `python3 tools/echel.py validate` before release and after validation artifact edits. | TASK-0033 |
+| VAL-RISK-002 | Evidence remains disconnected from tests. | Add deterministic evidence registration in TASK-0034. | TASK-0034 |
+| VAL-RISK-003 | Validation output is not yet consumed by release gates. | Add deployment and release gate checks in TASK-0036. | TASK-0036 |

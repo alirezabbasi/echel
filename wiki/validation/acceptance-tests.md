@@ -30,4 +30,3 @@ Acceptance tests prove that user-visible and owner-visible Echel behaviors satis
 | Blocker ID | Description | Affected Tests | Owner Task | Status |
 | --- | --- | --- | --- | --- |
 | VAL-BLOCK-001 | Evidence registration is not yet automated. | TEST-ACC-004, TEST-ACC-005 | TASK-0034 / TASK-1013 | Open |
-| VAL-BLOCK-002 | Full validation command is not implemented yet. | All acceptance tests | TASK-0033 / TASK-1012 | Open |

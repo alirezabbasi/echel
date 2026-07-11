@@ -105,6 +105,7 @@ status: active
 - [[reports/reviews/TASK-0001-initialize-project-wiki-review|Task 0001 Initialize Project Wiki Review]]
 - [[reports/traceability-matrix|Traceability Matrix]]
 - [[reports/v2-requirements-hardening-audit|V2 Requirements Hardening Audit]]
+- [[reports/validation-summary|Validation Summary]]
 - [[reports/wiki-health-report|Wiki Health Report]]
 - [[reports/work-packets/TASK-0001-initialize-project-wiki-packet|Task 0001 Initialize Project Wiki Packet]]
 

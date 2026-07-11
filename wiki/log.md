@@ -375,3 +375,9 @@ status: active
 - Validation artifacts map tests to requirement IDs, task IDs, domain concepts, acceptance criteria, and future evidence targets.
 - Marked EP3-001 and generated TASK-1011 done.
 - TASK-0032 is complete; TASK-0033 should implement the validation command by summarizing these artifacts.
+
+## [2026-07-12] validation | command
+- Added `python3 tools/echel.py validate`.
+- Validation now writes `wiki/reports/validation-summary.md`, refreshes `wiki/validation/validation-report.md`, reports passed, failed, skipped, blocked, risks, and blockers, and upserts validation test/evidence target nodes into the product graph.
+- Marked EP3-002 and generated TASK-1012 done.
+- TASK-0033 is complete; TASK-0034 evidence registration is the next validation/evidence task.

@@ -52,6 +52,7 @@ from echel.requirements import requirements_generate, requirements_status, ensur
 from echel.repository_factory import repository_factory_generate, repository_factory_status
 from echel.strategy import strategy_generate, strategy_readiness, strategy_status, ensure_strategy_files
 from echel.traceability import write_traceability_matrix
+from echel.validation import run_validation
 from echel.workspace import apply_workspace_move, plan_workspace_move, write_impact_preview
 
 
@@ -420,6 +421,19 @@ def cmd_traceability(repo_root: Path) -> int:
     cfg = _load(repo_root)
     path = write_traceability_matrix(repo_root, cfg)
     print(f"Traceability matrix written: {path}")
+    return 0
+
+
+def cmd_validate(repo_root: Path) -> int:
+    cfg = _load(repo_root)
+    path, summary = run_validation(repo_root, cfg)
+    print(f"Validation report written: {path}")
+    print(f"- passed: {summary.passed}")
+    print(f"- failed: {summary.failed}")
+    print(f"- skipped: {summary.skipped}")
+    print(f"- blocked: {summary.blocked}")
+    print(f"- risks: {len(summary.risks)}")
+    print(f"- blockers: {len(summary.blockers)}")
     return 0
 
 
@@ -799,6 +813,7 @@ def build_parser() -> argparse.ArgumentParser:
     graph_sub.add_parser("report")
 
     sub.add_parser("traceability")
+    sub.add_parser("validate")
 
     feature = sub.add_parser("feature")
     feature_sub = feature.add_subparsers(dest="feature_cmd", required=True)
@@ -945,6 +960,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_graph(root, args.graph_cmd)
     if args.cmd == "traceability":
         return cmd_traceability(root)
+    if args.cmd == "validate":
+        return cmd_validate(root)
     if args.cmd == "feature" and args.feature_cmd == "add":
         return cmd_feature_add(root, title=args.title, summary=args.summary)
     if args.cmd == "risk" and args.risk_cmd == "add":

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-07-11T21:47:46Z",
+  "generated_at": "2026-07-11T22:17:03Z",
   "nodes": [
     {
       "id": "architecture-component:ARCH-201",
@@ -1731,6 +1731,66 @@
       "verification_status": "unverified"
     },
     {
+      "id": "evidence:EVID-VALIDATION-001",
+      "type": "evidence",
+      "title": "EVID-VALIDATION-001",
+      "source": "validation/validation-report.md",
+      "summary": "Validation evidence target; registration is handled by TASK-0034.",
+      "trace_id": "EVID-VALIDATION-001",
+      "statement_type": "fact",
+      "confidence": "low",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "evidence:EVID-VALIDATION-002",
+      "type": "evidence",
+      "title": "EVID-VALIDATION-002",
+      "source": "validation/validation-report.md",
+      "summary": "Validation evidence target; registration is handled by TASK-0034.",
+      "trace_id": "EVID-VALIDATION-002",
+      "statement_type": "fact",
+      "confidence": "low",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "evidence:EVID-VALIDATION-003",
+      "type": "evidence",
+      "title": "EVID-VALIDATION-003",
+      "source": "validation/validation-report.md",
+      "summary": "Validation evidence target; registration is handled by TASK-0034.",
+      "trace_id": "EVID-VALIDATION-003",
+      "statement_type": "fact",
+      "confidence": "low",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "evidence:EVID-VALIDATION-004",
+      "type": "evidence",
+      "title": "EVID-VALIDATION-004",
+      "source": "validation/validation-report.md",
+      "summary": "Validation evidence target; registration is handled by TASK-0034.",
+      "trace_id": "EVID-VALIDATION-004",
+      "statement_type": "fact",
+      "confidence": "low",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "evidence:EVID-VALIDATION-005",
+      "type": "evidence",
+      "title": "EVID-VALIDATION-005",
+      "source": "validation/validation-report.md",
+      "summary": "Validation evidence target; registration is handled by TASK-0034.",
+      "trace_id": "EVID-VALIDATION-005",
+      "statement_type": "fact",
+      "confidence": "low",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
       "id": "feature:product-memory-graph",
       "type": "feature",
       "title": "Product memory graph",
@@ -3169,6 +3229,342 @@
       "confidence": "unknown",
       "source_stage": "execution",
       "verification_status": "unverified"
+    },
+    {
+      "id": "test:TEST-001",
+      "type": "test",
+      "title": "TEST-001 Requirements traceability and acceptance coverage",
+      "source": "validation/test-strategy.md",
+      "summary": "Requirements traceability and acceptance coverage",
+      "trace_id": "TEST-001",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-002",
+      "type": "test",
+      "title": "TEST-002 Architecture, domain, and graph consistency",
+      "source": "validation/test-strategy.md",
+      "summary": "Architecture, domain, and graph consistency",
+      "trace_id": "TEST-002",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-003",
+      "type": "test",
+      "title": "TEST-003 Agent-executable task and generated repository baseline",
+      "source": "validation/test-strategy.md",
+      "summary": "Agent-executable task and generated repository baseline",
+      "trace_id": "TEST-003",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-004",
+      "type": "test",
+      "title": "TEST-004 Traceability matrix and broken-chain visibility",
+      "source": "validation/test-strategy.md",
+      "summary": "Traceability matrix and broken-chain visibility",
+      "trace_id": "TEST-004",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-005",
+      "type": "test",
+      "title": "TEST-005 Validation and evidence lifecycle readiness",
+      "source": "validation/test-strategy.md",
+      "summary": "Validation and evidence lifecycle readiness",
+      "trace_id": "TEST-005",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-ACC-001",
+      "type": "test",
+      "title": "TEST-ACC-001 Requirement artifacts preserve source IDs and acceptance criteria.",
+      "source": "validation/acceptance-tests.md",
+      "summary": "Requirement artifacts preserve source IDs and acceptance criteria.",
+      "trace_id": "TEST-ACC-001",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-ACC-002",
+      "type": "test",
+      "title": "TEST-ACC-002 Domain and architecture remain gated before execution planning.",
+      "source": "validation/acceptance-tests.md",
+      "summary": "Domain and architecture remain gated before execution planning.",
+      "trace_id": "TEST-ACC-002",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-ACC-003",
+      "type": "test",
+      "title": "TEST-ACC-003 Agent task packets include scope, validation, rollback, docs, and DoD.",
+      "source": "validation/acceptance-tests.md",
+      "summary": "Agent task packets include scope, validation, rollback, docs, and DoD.",
+      "trace_id": "TEST-ACC-003",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-ACC-004",
+      "type": "test",
+      "title": "TEST-ACC-004 Traceability matrix shows lifecycle coverage and broken links.",
+      "source": "validation/acceptance-tests.md",
+      "summary": "Traceability matrix shows lifecycle coverage and broken links.",
+      "trace_id": "TEST-ACC-004",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-ACC-005",
+      "type": "test",
+      "title": "TEST-ACC-005 Generated repository baseline remains locally verifiable.",
+      "source": "validation/acceptance-tests.md",
+      "summary": "Generated repository baseline remains locally verifiable.",
+      "trace_id": "TEST-ACC-005",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-E2E-001",
+      "type": "test",
+      "title": "TEST-E2E-001 Discovery to canon to strategy to requirements.",
+      "source": "validation/e2e-tests.md",
+      "summary": "Discovery to canon to strategy to requirements.",
+      "trace_id": "TEST-E2E-001",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-E2E-002",
+      "type": "test",
+      "title": "TEST-E2E-002 Requirements to domain to architecture to roadmap.",
+      "source": "validation/e2e-tests.md",
+      "summary": "Requirements to domain to architecture to roadmap.",
+      "trace_id": "TEST-E2E-002",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-E2E-003",
+      "type": "test",
+      "title": "TEST-E2E-003 Roadmap to execution tasks to repository factory.",
+      "source": "validation/e2e-tests.md",
+      "summary": "Roadmap to execution tasks to repository factory.",
+      "trace_id": "TEST-E2E-003",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-E2E-004",
+      "type": "test",
+      "title": "TEST-E2E-004 Agent role handoff to implementation-safe task execution.",
+      "source": "validation/e2e-tests.md",
+      "summary": "Agent role handoff to implementation-safe task execution.",
+      "trace_id": "TEST-E2E-004",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-E2E-005",
+      "type": "test",
+      "title": "TEST-E2E-005 Validation report to evidence-backed release readiness.",
+      "source": "validation/e2e-tests.md",
+      "summary": "Validation report to evidence-backed release readiness.",
+      "trace_id": "TEST-E2E-005",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-INT-001",
+      "type": "test",
+      "title": "TEST-INT-001 Requirements command to requirements gate to graph nodes.",
+      "source": "validation/integration-tests.md",
+      "summary": "Requirements command to requirements gate to graph nodes.",
+      "trace_id": "TEST-INT-001",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-INT-002",
+      "type": "test",
+      "title": "TEST-INT-002 Domain command to domain gate to architecture command.",
+      "source": "validation/integration-tests.md",
+      "summary": "Domain command to domain gate to architecture command.",
+      "trace_id": "TEST-INT-002",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-INT-003",
+      "type": "test",
+      "title": "TEST-INT-003 Architecture gate to roadmap and execution tasks.",
+      "source": "validation/integration-tests.md",
+      "summary": "Architecture gate to roadmap and execution tasks.",
+      "trace_id": "TEST-INT-003",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-INT-004",
+      "type": "test",
+      "title": "TEST-INT-004 Execution tasks to repository factory output.",
+      "source": "validation/integration-tests.md",
+      "summary": "Execution tasks to repository factory output.",
+      "trace_id": "TEST-INT-004",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-INT-005",
+      "type": "test",
+      "title": "TEST-INT-005 Graph metadata to traceability matrix.",
+      "source": "validation/integration-tests.md",
+      "summary": "Graph metadata to traceability matrix.",
+      "trace_id": "TEST-INT-005",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-PERF-001",
+      "type": "test",
+      "title": "TEST-PERF-001 Core unit and lifecycle regression suite remains fast enough for one-session agent work.",
+      "source": "validation/performance-tests.md",
+      "summary": "Core unit and lifecycle regression suite remains fast enough for one-session agent work.",
+      "trace_id": "TEST-PERF-001",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-PERF-002",
+      "type": "test",
+      "title": "TEST-PERF-002 Wiki health remains fast enough for documentation synchronization.",
+      "source": "validation/performance-tests.md",
+      "summary": "Wiki health remains fast enough for documentation synchronization.",
+      "trace_id": "TEST-PERF-002",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-PERF-003",
+      "type": "test",
+      "title": "TEST-PERF-003 Graph build and traceability generation remain practical as lifecycle nodes grow.",
+      "source": "validation/performance-tests.md",
+      "summary": "Graph build and traceability generation remain practical as lifecycle nodes grow.",
+      "trace_id": "TEST-PERF-003",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-PERF-004",
+      "type": "test",
+      "title": "TEST-PERF-004 Generated repository verification stays dependency-light.",
+      "source": "validation/performance-tests.md",
+      "summary": "Generated repository verification stays dependency-light.",
+      "trace_id": "TEST-PERF-004",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-SEC-001",
+      "type": "test",
+      "title": "TEST-SEC-001 Configuration and secret handling are documented and not committed.",
+      "source": "validation/security-tests.md",
+      "summary": "Configuration and secret handling are documented and not committed.",
+      "trace_id": "TEST-SEC-001",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-SEC-002",
+      "type": "test",
+      "title": "TEST-SEC-002 Cockpit command bridge uses allowlisted commands only.",
+      "source": "validation/security-tests.md",
+      "summary": "Cockpit command bridge uses allowlisted commands only.",
+      "trace_id": "TEST-SEC-002",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-SEC-003",
+      "type": "test",
+      "title": "TEST-SEC-003 Architecture security model exists before release.",
+      "source": "validation/security-tests.md",
+      "summary": "Architecture security model exists before release.",
+      "trace_id": "TEST-SEC-003",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
+    },
+    {
+      "id": "test:TEST-SEC-004",
+      "type": "test",
+      "title": "TEST-SEC-004 Evidence and validation records are tamper-aware.",
+      "source": "validation/security-tests.md",
+      "summary": "Evidence and validation records are tamper-aware.",
+      "trace_id": "TEST-SEC-004",
+      "statement_type": "fact",
+      "confidence": "medium",
+      "source_stage": "validation",
+      "verification_status": "planned"
     },
     {
       "id": "test:test-health",
@@ -11002,12 +11398,292 @@
     },
     {
       "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-ACC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-ACC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-ACC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-ACC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-ACC-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-E2E-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-E2E-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-E2E-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-E2E-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-E2E-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-INT-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-INT-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-INT-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-INT-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-INT-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-PERF-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-PERF-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-PERF-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-PERF-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-SEC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-SEC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-SEC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
+      "to_id": "test:TEST-SEC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:ci",
       "to_id": "test:test-health",
       "type": "runs"
     },
     {
       "from_id": "deployment-artifact:ci",
       "to_id": "test:vnext-lifecycle",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-ACC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-ACC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-ACC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-ACC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-ACC-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-E2E-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-E2E-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-E2E-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-E2E-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-E2E-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-INT-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-INT-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-INT-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-INT-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-INT-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-PERF-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-PERF-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-PERF-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-PERF-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-SEC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-SEC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-SEC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:TEST-SEC-004",
       "type": "runs"
     },
     {
@@ -14561,6 +15237,31 @@
       "type": "emits"
     },
     {
+      "from_id": "evidence:EVID-VALIDATION-001",
+      "to_id": "test:TEST-001",
+      "type": "evidence_for"
+    },
+    {
+      "from_id": "evidence:EVID-VALIDATION-002",
+      "to_id": "test:TEST-002",
+      "type": "evidence_for"
+    },
+    {
+      "from_id": "evidence:EVID-VALIDATION-003",
+      "to_id": "test:TEST-003",
+      "type": "evidence_for"
+    },
+    {
+      "from_id": "evidence:EVID-VALIDATION-004",
+      "to_id": "test:TEST-004",
+      "type": "evidence_for"
+    },
+    {
+      "from_id": "evidence:EVID-VALIDATION-005",
+      "to_id": "test:TEST-005",
+      "type": "evidence_for"
+    },
+    {
       "from_id": "feature:product-memory-graph",
       "to_id": "need:keep-product-intent-connected-to-generated-work-across-ai-sessions",
       "type": "satisfies"
@@ -15302,6 +16003,31 @@
     },
     {
       "from_id": "product:root",
+      "to_id": "evidence:EVID-VALIDATION-001",
+      "type": "expects_evidence"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "evidence:EVID-VALIDATION-002",
+      "type": "expects_evidence"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "evidence:EVID-VALIDATION-003",
+      "type": "expects_evidence"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "evidence:EVID-VALIDATION-004",
+      "type": "expects_evidence"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "evidence:EVID-VALIDATION-005",
+      "type": "expects_evidence"
+    },
+    {
+      "from_id": "product:root",
       "to_id": "hypothesis:H-001",
       "type": "has_lifecycle_artifact"
     },
@@ -15874,6 +16600,146 @@
       "from_id": "product:root",
       "to_id": "task:TASK-1020",
       "type": "planned_as"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-001",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-002",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-003",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-004",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-005",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-ACC-001",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-ACC-002",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-ACC-003",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-ACC-004",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-ACC-005",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-E2E-001",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-E2E-002",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-E2E-003",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-E2E-004",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-E2E-005",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-INT-001",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-INT-002",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-INT-003",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-INT-004",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-INT-005",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-PERF-001",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-PERF-002",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-PERF-003",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-PERF-004",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-SEC-001",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-SEC-002",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-SEC-003",
+      "type": "has_validation"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "test:TEST-SEC-004",
+      "type": "has_validation"
     },
     {
       "from_id": "product:root",
@@ -20884,6 +21750,2421 @@
       "from_id": "task:TASK-1020",
       "to_id": "requirement:product-graph",
       "type": "delivers"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "task:TASK-0013",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "task:TASK-0014",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-001",
+      "to_id": "task:TASK-1011",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "bounded-context:BC-201",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "domain-concept:DM-201",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "task:TASK-0017",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "task:TASK-0020",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-002",
+      "to_id": "task:TASK-0030",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "task:TASK-0023",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "task:TASK-0024",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-003",
+      "to_id": "task:TASK-0025",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "task:TASK-0031",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "task:TASK-1010",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-004",
+      "to_id": "task:TASK-1011",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "task:TASK-1011",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "task:TASK-1012",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-005",
+      "to_id": "task:TASK-1013",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "task:TASK-0012",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "task:TASK-0013",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-001",
+      "to_id": "task:TASK-0014",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "bounded-context:BC-201",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "bounded-context:BC-210",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "domain-concept:DM-201",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "task:TASK-0017",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "task:TASK-0020",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-002",
+      "to_id": "task:TASK-0021",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "task:TASK-0023",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "task:TASK-1001",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-003",
+      "to_id": "task:TASK-1002",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "task:TASK-0031",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "task:TASK-0034",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "task:TASK-1010",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-004",
+      "to_id": "task:TASK-1013",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "task:TASK-0024",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "task:TASK-0025",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-ACC-005",
+      "to_id": "task:TASK-1006",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "task:TASK-0004",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-001",
+      "to_id": "task:TASK-0014",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "architecture-component:ARCH-204",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "bounded-context:BC-201",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "domain-concept:DM-201",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "task:TASK-0015",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-002",
+      "to_id": "task:TASK-0022",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "task:TASK-0023",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "task:TASK-0024",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-003",
+      "to_id": "task:TASK-0025",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "task:TASK-0026",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "task:TASK-0027",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-004",
+      "to_id": "task:TASK-0028",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "task:TASK-0032",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "task:TASK-0033",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "task:TASK-0034",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-E2E-005",
+      "to_id": "task:TASK-0036",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "task:TASK-0013",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-001",
+      "to_id": "task:TASK-0014",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "bounded-context:BC-201",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "domain-aggregate:AGG-201",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "domain-concept:DM-201",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "task:TASK-0016",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "task:TASK-0017",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-002",
+      "to_id": "task:TASK-0019",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "task:TASK-0020",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "task:TASK-0021",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-003",
+      "to_id": "task:TASK-0023",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "task:TASK-0023",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "task:TASK-0024",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-004",
+      "to_id": "task:TASK-0025",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "task:TASK-0030",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "task:TASK-0031",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-INT-005",
+      "to_id": "task:TASK-1011",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "task:TASK-0013",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-PERF-001",
+      "to_id": "task:TASK-0033",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "task:TASK-0021",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-PERF-002",
+      "to_id": "task:TASK-0032",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "task:TASK-0029",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "task:TASK-0030",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-PERF-003",
+      "to_id": "task:TASK-0031",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "task:TASK-0024",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "task:TASK-0025",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-PERF-004",
+      "to_id": "task:TASK-1006",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "task:TASK-0024",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "task:TASK-0025",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-SEC-001",
+      "to_id": "task:TASK-0035",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "task:TASK-0043",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-SEC-002",
+      "to_id": "task:TASK-1017",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "bounded-context:BC-201",
+      "type": "covers"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "task:TASK-0018",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "task:TASK-0020",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-SEC-003",
+      "to_id": "task:TASK-0036",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:NFR-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:NFR-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:NFR-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:NFR-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:NFR-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:REQ-001",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:REQ-002",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:REQ-003",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:REQ-004",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:REQ-005",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:REQ-006",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:graph-aware-planning-and-status",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:graph-validation",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "requirement:product-graph",
+      "type": "verifies"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "task:TASK-0033",
+      "type": "validates"
+    },
+    {
+      "from_id": "test:TEST-SEC-004",
+      "to_id": "task:TASK-0034",
+      "type": "validates"
     },
     {
       "from_id": "test:test-health",

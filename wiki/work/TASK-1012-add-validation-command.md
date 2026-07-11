@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP3-002
 source_phase_file: execution/phase-3-production.md
@@ -81,11 +81,17 @@ python3 -m unittest discover -s tests
 - Update quick start and validation docs.
 
 ## Definition of Done
-- [ ] TASK-1012 satisfies source phase task EP3-002.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1012 satisfies source phase task EP3-002.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
+
+## Completion Notes
+- Added `python3 tools/echel.py validate`.
+- Added `tools/echel/validation.py` to parse validation artifacts, summarize passed/failed/skipped/blocked counts, risks, and blockers, and write report output.
+- The command writes `wiki/reports/validation-summary.md`, refreshes `wiki/validation/validation-report.md`, upserts validation test and evidence target nodes into `wiki/graph.manual.json`, and regenerates `wiki/graph.json`.
+- Added regression coverage for summary counts and graph node creation.
 
 ## Out of Scope
 - Work from later execution phase rows.

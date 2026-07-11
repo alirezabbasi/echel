@@ -16,7 +16,7 @@
 - [x] TASK-1009 Expand graph lifecycle coverage
 - [x] TASK-1010 Generate traceability matrix
 - [x] TASK-1011 Add validation artifacts
-- [ ] TASK-1012 Add validation command
+- [x] TASK-1012 Add validation command
 - [ ] TASK-1013 Add evidence registration
 - [ ] TASK-1014 Add deployment and release gates
 - [ ] TASK-1015 Add operations artifacts

@@ -59,4 +59,4 @@ This document defines how Echel proves that product memory, generated repository
 
 ## Handoff To Validation Command
 
-TASK-0033 / TASK-1012 should consume these artifacts, summarize each validation ID, and write a machine-readable or report-backed pass/fail/skipped/blocker view without redefining the validation model.
+`python3 tools/echel.py validate` consumes these artifacts, summarizes each validation ID, and writes `wiki/reports/validation-summary.md` plus `wiki/validation/validation-report.md` without redefining the validation model.

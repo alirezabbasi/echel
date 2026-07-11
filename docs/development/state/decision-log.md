@@ -179,3 +179,9 @@
 - Decision: Adopt `wiki/validation/` as the validation-stage artifact surface before implementing validation automation.
 - Context: TASK-0032 needed validation to become a traceable lifecycle stage instead of a loose test checklist. Later validation and evidence commands need stable documents that map tests to requirement IDs, task IDs, domain concepts, and acceptance criteria.
 - Impact: Validation is now split into test strategy, acceptance, integration, e2e, security, performance, and validation report artifacts. TASK-0033 should summarize these artifacts rather than inventing a new model, and TASK-0034 should register the evidence targets named by the validation report.
+
+## DEC-0031
+
+- Decision: Implement `echel validate` as a validation-summary command over `wiki/validation/` artifacts that also upserts validation graph nodes.
+- Context: TASK-0033 needed pass/fail/skipped/blocker visibility without replacing the TASK-0032 validation model. It also needed validation tests and future evidence targets to appear in the product graph before evidence registration is automated.
+- Impact: `python3 tools/echel.py validate` now writes `wiki/reports/validation-summary.md`, refreshes `wiki/validation/validation-report.md`, upserts `test:*` and `evidence:*` nodes into `wiki/graph.manual.json`, regenerates `wiki/graph.json`, and reports passed, failed, skipped, blocked, risks, and blockers in the CLI.

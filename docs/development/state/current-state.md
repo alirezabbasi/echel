@@ -54,11 +54,12 @@ Last updated: 2026-07-12
 - Added graph metadata enrichment so every graph node carries statement type, confidence, source stage, and verification status, with low-confidence unresolved assumptions promoted to critical graph validation issues.
 - Added `echel traceability` and `wiki/reports/traceability-matrix.md` so discovery, canon, strategy, requirement, domain, architecture, task, test, and evidence coverage is visible, including broken canon and evidence links.
 - Added `wiki/validation/` artifacts for test strategy, acceptance, integration, e2e, security, performance, and validation reporting with requirement, task, domain, and acceptance-criteria mappings.
+- Added `echel validate` to summarize validation artifacts, refresh validation reports, and add validation test/evidence target nodes to the product graph.
 
 ## Next
 
-1. Add the validation command that summarizes validation artifacts.
-2. Add evidence registration and connect evidence artifacts into graph-backed traceability.
+1. Add evidence registration and connect evidence artifacts into graph-backed traceability.
+2. Add deployment and release readiness gates that consume validation output.
 3. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks
@@ -67,4 +68,4 @@ Last updated: 2026-07-12
 - If new folders are added without a unique purpose, Echel may become harder for domain experts to navigate again.
 - Force-generating from incomplete discovery remains risky; gates should keep treating template `TBD` content as incomplete.
 - Requirements generation remains blocked until strategy is meaningful unless explicitly forced; the requirements gate now verifies the resulting artifacts before downstream domain work.
-- Traceability reporting now surfaces missing canon graph links and absent evidence artifacts; the new validation docs preserve evidence targets until TASK-0033/TASK-0034 make validation and evidence executable.
+- Traceability reporting now surfaces missing canon graph links and absent evidence artifacts; validation now exposes evidence targets until TASK-0034 makes evidence registration executable.

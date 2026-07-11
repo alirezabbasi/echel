@@ -25,6 +25,7 @@ from echel.requirements import ensure_requirements_files, requirements_generate,
 from echel.repository_factory import repository_factory_generate, repository_factory_status
 from echel.strategy import strategy_generate, ensure_strategy_files
 from echel.traceability import write_traceability_matrix
+from echel.validation import run_validation
 
 
 def write(path: Path, text: str) -> None:
@@ -515,6 +516,48 @@ Old canon problem
             self.assertIn("REQ-101", report)
             self.assertIn("Missing: Canon", report)
             self.assertIn("Evidence", report)
+
+    def test_validate_command_summarizes_items_and_updates_graph(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write(
+                repo / "wiki/validation/test-strategy.md",
+                """# Test Strategy
+
+| Validation ID | Scope | Requirement IDs | Task IDs | Domain IDs | Acceptance Criteria | Evidence Target | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| TEST-001 | Requirements traceability | REQ-001, NFR-002 | TASK-0033 | DM-012, BC-001 | AC-001 | EVID-VALIDATION-001 | Passing |
+| TEST-002 | Evidence readiness | REQ-004 | TASK-0034 | DM-006 | AC-003 | EVID-VALIDATION-002 | Blocked |
+""",
+            )
+            write(
+                repo / "wiki/validation/acceptance-tests.md",
+                """# Acceptance Tests
+
+| Risk ID | Description | Impact | Owner Task | Status |
+| --- | --- | --- | --- | --- |
+| VAL-RISK-001 | Evidence is manual. | Release proof is incomplete. | TASK-0034 | Open |
+
+| Blocker ID | Description | Owner Task | Status |
+| --- | --- | --- | --- |
+| VAL-BLOCK-001 | Validation command missing. | TASK-0033 | Open |
+""",
+            )
+            write(repo / "wiki/validation/validation-report.md", "# Validation Report\n")
+
+            report_path, summary = run_validation(repo, cfg)
+            report = report_path.read_text(encoding="utf-8")
+            graph = build_graph(repo, cfg)
+            node_ids = {node.get("id") for node in graph.get("nodes", []) if isinstance(node, dict)}
+
+            self.assertEqual(repo / "wiki/reports/validation-summary.md", report_path)
+            self.assertEqual(summary.passed, 1)
+            self.assertEqual(summary.blocked, 2)
+            self.assertIn("TEST-001", report)
+            self.assertIn("EVID-VALIDATION-001", report)
+            self.assertIn("test:TEST-001", node_ids)
+            self.assertIn("evidence:EVID-VALIDATION-001", node_ids)
 
     def test_low_confidence_assumptions_block_graph_validation(self) -> None:
         graph = {

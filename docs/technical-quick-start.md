@@ -82,6 +82,7 @@ python3 tools/echel.py architecture
 python3 tools/echel.py readiness --stage architecture
 python3 tools/echel.py execution-tasks
 python3 tools/echel.py repository-factory
+python3 tools/echel.py validate
 ```
 
 Architecture artifacts live under `wiki/architecture/` after the domain gate passes. `GATE-ARCHITECTURE` must pass before roadmap work because it checks deployment posture, data/security/observability models, ADR coverage, requirement/domain mappings, graph coverage, and overengineering risk. The root `wiki/architecture.md` remains a compatibility summary for current graph and cockpit views.
@@ -102,7 +103,7 @@ python app/main.py
 ./scripts/verify.sh
 ```
 
-Validation artifacts live under `wiki/validation/`. They define test strategy, acceptance, integration, e2e, security, performance, and validation report surfaces that map tests to requirement IDs, task IDs, domain concepts, and acceptance criteria. `echel validate` remains the follow-up automation command.
+Validation artifacts live under `wiki/validation/`. They define test strategy, acceptance, integration, e2e, security, performance, and validation report surfaces that map tests to requirement IDs, task IDs, domain concepts, and acceptance criteria. `python3 tools/echel.py validate` summarizes those artifacts, writes `wiki/reports/validation-summary.md`, refreshes `wiki/validation/validation-report.md`, and adds validation test/evidence target nodes to the product graph.
 
 ## Graph And Memory Commands
 
@@ -169,6 +170,7 @@ make wiki-health
 python3 tools/echel.py doctor
 python3 tools/echel.py conformance run
 python3 tools/echel.py graph validate
+python3 tools/echel.py validate
 ```
 
 ## Operating Method

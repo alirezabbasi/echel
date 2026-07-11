@@ -23,10 +23,11 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use `wiki/agents/handoff-protocol.md` as the required inter-role handoff contract.
 - Use `wiki/reports/traceability-matrix.md` to inspect lifecycle coverage and broken canon/evidence chains.
 - Use `wiki/validation/` as the validation-stage mapping surface for requirements, tasks, domain concepts, and acceptance criteria.
+- Use `python3 tools/echel.py validate` to summarize validation status and refresh graph validation nodes.
 
 ## Next
 
-- Add the validation command and evidence registration.
+- Add evidence registration.
 - Connect canon statements and registered evidence into graph-backed traceability.
 
 ## Later
