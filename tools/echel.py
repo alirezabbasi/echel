@@ -51,6 +51,7 @@ from echel.domain import domain_generate, domain_status, ensure_domain_files
 from echel.requirements import requirements_generate, requirements_status, ensure_requirements_files
 from echel.repository_factory import repository_factory_generate, repository_factory_status
 from echel.strategy import strategy_generate, strategy_readiness, strategy_status, ensure_strategy_files
+from echel.traceability import write_traceability_matrix
 from echel.workspace import apply_workspace_move, plan_workspace_move, write_impact_preview
 
 
@@ -413,6 +414,13 @@ def cmd_graph(repo_root: Path, graph_cmd: str) -> int:
         return 0
     print("unknown graph command", file=sys.stderr)
     return 2
+
+
+def cmd_traceability(repo_root: Path) -> int:
+    cfg = _load(repo_root)
+    path = write_traceability_matrix(repo_root, cfg)
+    print(f"Traceability matrix written: {path}")
+    return 0
 
 
 def cmd_feature_add(repo_root: Path, title: str, summary: str) -> int:
@@ -790,6 +798,8 @@ def build_parser() -> argparse.ArgumentParser:
     graph_sub.add_parser("validate")
     graph_sub.add_parser("report")
 
+    sub.add_parser("traceability")
+
     feature = sub.add_parser("feature")
     feature_sub = feature.add_subparsers(dest="feature_cmd", required=True)
     feature_add = feature_sub.add_parser("add")
@@ -933,6 +943,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_steer(root, field=args.field, value=args.value)
     if args.cmd == "graph":
         return cmd_graph(root, args.graph_cmd)
+    if args.cmd == "traceability":
+        return cmd_traceability(root)
     if args.cmd == "feature" and args.feature_cmd == "add":
         return cmd_feature_add(root, title=args.title, summary=args.summary)
     if args.cmd == "risk" and args.risk_cmd == "add":

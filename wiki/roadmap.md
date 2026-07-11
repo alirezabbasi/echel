@@ -21,11 +21,12 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use `wiki/agents/role-model.md` as the product-owned role contract for Echel's virtual delivery team.
 - Use `prompts/playbooks/` as the canonical lifecycle prompt source for role execution.
 - Use `wiki/agents/handoff-protocol.md` as the required inter-role handoff contract.
+- Use `wiki/reports/traceability-matrix.md` to inspect lifecycle coverage and broken canon/evidence chains.
 
 ## Next
 
-- Generate lifecycle traceability reporting.
 - Add validation and evidence registration artifacts.
+- Connect canon statements and registered evidence into graph-backed traceability.
 
 ## Later
 

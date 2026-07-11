@@ -167,3 +167,9 @@
 - Decision: Enrich every graph node with statement metadata and treat unresolved low-confidence assumptions as critical graph integrity issues.
 - Context: TASK-0030 needed AI agents to distinguish facts, observations, assumptions, hypotheses, decisions, constraints, risks, questions, tests, and evidence after TASK-0029 made lifecycle node types first-class.
 - Impact: Graph nodes now carry `trace_id`, `statement_type`, `confidence`, `source_stage`, and `verification_status` fields. Missing metadata is reported by graph validation, undeclared confidence is represented as `unknown`, and low-confidence assumptions must be verified, accepted, or resolved before later graph-backed readiness can proceed safely. EP2-003 and generated TASK-1009 are complete.
+
+## DEC-0029
+
+- Decision: Generate traceability as a requirement-centered lifecycle matrix from graph associations and canonical wiki artifacts.
+- Context: TASK-0031 needed owners and AI agents to see whether discovery, canon, strategy, requirements, domain, architecture, tasks, tests, and evidence form a continuous chain. The graph already carries most lifecycle nodes, but canon statements are still wiki artifacts rather than graph nodes and no evidence artifacts are registered yet.
+- Impact: `python3 tools/echel.py traceability` writes `wiki/reports/traceability-matrix.md` with stage totals, coverage, requirement anchor rows, artifact families, graph integrity, and explicit broken-chain notes. The current report intentionally marks canon and evidence links as broken until later tasks add canon graph nodes and evidence registration.

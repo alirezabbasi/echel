@@ -363,3 +363,9 @@ status: active
 - Updated graph validation so missing metadata is reported and unresolved low-confidence assumptions become critical graph integrity issues.
 - Updated product graph schema, traceability notes, methodology, state docs, roadmap summary, EP2-003, TASK-1009, and TASK_INDEX to reflect completed graph lifecycle coverage.
 - TASK-0030 is complete; TASK-0031 can build the traceability matrix on top of lifecycle nodes and metadata.
+
+## [2026-07-12] traceability | lifecycle-matrix
+- Added `python3 tools/echel.py traceability`.
+- Generated `wiki/reports/traceability-matrix.md` with discovery -> canon -> strategy -> requirement -> domain -> architecture -> task -> test -> evidence coverage, stage totals, artifact families, graph integrity notes, and broken-chain details.
+- Marked EP2-004, TASK-1010, RM-005, ENG-005, REL-005, and ARCH-204 done.
+- TASK-0031 is complete; validation and evidence registration are the next lifecycle hardening tasks.

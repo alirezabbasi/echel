@@ -1,6 +1,6 @@
 # Where Are We
 
-Last updated: 2026-07-11
+Last updated: 2026-07-12
 
 ## Completed
 
@@ -53,11 +53,12 @@ Last updated: 2026-07-11
 - Added `wiki/agents/handoff-protocol.md` so lifecycle stage outputs preserve assumptions, risks, unresolved questions, evidence, stale artifacts, and next-stage instructions in a required Handoff Summary.
 - Expanded graph lifecycle coverage so `wiki/graph.json` now includes first-class nodes for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
 - Added graph metadata enrichment so graph nodes carry statement type, confidence, source stage, and verification status, with unresolved low-confidence assumptions treated as critical graph validation issues.
+- Added the traceability matrix command and report so lifecycle coverage is visible from discovery through evidence, with canon and evidence gaps reported as broken chains.
 
 ## Next
 
-1. Generate end-to-end lifecycle traceability.
-2. Expand validation and evidence registration.
+1. Expand validation and evidence registration.
+2. Connect canon statements and evidence artifacts into the graph-backed traceability chain.
 3. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks
@@ -65,5 +66,4 @@ Last updated: 2026-07-11
 - Contract drift across docs/schema/tools could weaken deterministic validation if not gated.
 - Adding new folders without a unique purpose could reintroduce navigation complexity.
 - Template-derived content must not be promoted into canon or strategy as product truth.
-- Requirements command graph integration currently uses manual graph nodes until the broader traceability graph upgrade lands.
-- Graph metadata uses `unknown` confidence where source artifacts do not declare confidence; upcoming traceability reporting should expose those unknowns.
+- Traceability reporting currently shows canon and evidence as broken lifecycle links until canon statement nodes and registered evidence artifacts are connected.

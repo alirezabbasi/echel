@@ -24,6 +24,7 @@ from echel.graph import build_graph, validate_graph
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
 from echel.repository_factory import repository_factory_generate, repository_factory_status
 from echel.strategy import strategy_generate, ensure_strategy_files
+from echel.traceability import write_traceability_matrix
 
 
 def write(path: Path, text: str) -> None:
@@ -493,6 +494,27 @@ Old canon problem
                     "learning",
                 }.issubset(node_types)
             )
+
+    def test_traceability_matrix_reports_lifecycle_and_broken_chains(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            ensure_discovery_files(repo, cfg)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            domain_generate(repo, cfg)
+            architecture_generate(repo, cfg)
+            write(repo / "generated/product-repository/tests/test_health.py", "def test_health():\n    assert True\n")
+
+            report_path = write_traceability_matrix(repo, cfg)
+            report = report_path.read_text(encoding="utf-8")
+
+            self.assertEqual(repo / "wiki/reports/traceability-matrix.md", report_path)
+            self.assertIn("discovery -> canon -> strategy -> requirement -> domain -> architecture -> task -> test -> evidence", report)
+            self.assertIn("| Anchor | Discovery | Canon | Strategy | Requirement | Domain | Architecture | Task | Test | Evidence | Broken Links |", report)
+            self.assertIn("REQ-101", report)
+            self.assertIn("Missing: Canon", report)
+            self.assertIn("Evidence", report)
 
     def test_low_confidence_assumptions_block_graph_validation(self) -> None:
         graph = {

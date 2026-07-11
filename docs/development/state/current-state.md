@@ -1,6 +1,6 @@
 # Current State
 
-Last updated: 2026-07-11
+Last updated: 2026-07-12
 
 ## Completed
 
@@ -52,11 +52,12 @@ Last updated: 2026-07-11
 - Added `wiki/agents/handoff-protocol.md` as the required inter-role handoff contract and updated every canonical playbook to require a Handoff Summary with assumptions, risks, unresolved questions, evidence, stale artifacts, and next-stage instructions.
 - Expanded the product graph node vocabulary so graph builds now include lifecycle coverage for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
 - Added graph metadata enrichment so every graph node carries statement type, confidence, source stage, and verification status, with low-confidence unresolved assumptions promoted to critical graph validation issues.
+- Added `echel traceability` and `wiki/reports/traceability-matrix.md` so discovery, canon, strategy, requirement, domain, architecture, task, test, and evidence coverage is visible, including broken canon and evidence links.
 
 ## Next
 
-1. Generate end-to-end lifecycle traceability.
-2. Expand validation and evidence registration.
+1. Expand validation and evidence registration.
+2. Connect canon statements and evidence artifacts into the graph-backed traceability chain.
 3. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks
@@ -65,4 +66,4 @@ Last updated: 2026-07-11
 - If new folders are added without a unique purpose, Echel may become harder for domain experts to navigate again.
 - Force-generating from incomplete discovery remains risky; gates should keep treating template `TBD` content as incomplete.
 - Requirements generation remains blocked until strategy is meaningful unless explicitly forced; the requirements gate now verifies the resulting artifacts before downstream domain work.
-- Graph metadata uses `unknown` confidence where source artifacts do not declare confidence; TASK-0031/traceability reporting must surface those unknowns rather than hiding them.
+- Traceability reporting now surfaces missing canon graph links and absent evidence artifacts; follow-up validation/evidence tasks should close those broken chains.

@@ -352,6 +352,13 @@ The matrix report must include:
 - Broken chains with specific missing links.
 - Coverage percentage per stage.
 
+Current implementation:
+
+- `python3 tools/echel.py traceability` generates `wiki/reports/traceability-matrix.md`.
+- The report uses requirement-centered rows because requirements are the lifecycle handoff from product intent to delivery.
+- Canon artifacts are counted from `wiki/canon/*.md` until canon statements become first-class graph nodes.
+- Broken chains are reported explicitly when a requirement anchor lacks discovery, canon, strategy, domain, architecture, task, test, or evidence coverage.
+
 ## Relationship To Other Schemas
 
 - `schema/lifecycle-stage.schema.md` defines the stages where traceability IDs originate and the gate conditions that require traceability coverage.

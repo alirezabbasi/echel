@@ -108,10 +108,13 @@ python app/main.py
 python3 tools/echel.py graph build
 python3 tools/echel.py graph validate
 python3 tools/echel.py graph report
+python3 tools/echel.py traceability
 python3 tools/echel.py feature add --title "..."
 python3 tools/echel.py risk add --title "..." --mitigation "..."
 python3 tools/echel.py link --from <node-id> --to <node-id>
 ```
+
+`python3 tools/echel.py traceability` writes `wiki/reports/traceability-matrix.md`, showing the lifecycle chain from discovery through evidence and highlighting missing canon or evidence links.
 
 ## Readiness Commands
 

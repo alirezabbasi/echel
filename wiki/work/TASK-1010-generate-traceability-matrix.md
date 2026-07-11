@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP2-004
 source_phase_file: execution/phase-2-hardening.md
@@ -81,11 +81,16 @@ python3 -m unittest discover -s tests
 - Add report docs and command docs.
 
 ## Definition of Done
-- [ ] TASK-1010 satisfies source phase task EP2-004.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1010 satisfies source phase task EP2-004.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
+
+## Completion Notes
+- Added `python3 tools/echel.py traceability`.
+- Added `wiki/reports/traceability-matrix.md` with lifecycle stage totals, requirement-centered matrix rows, artifact families, graph integrity, and broken-chain notes.
+- Current broken chains are expected and visible: canon artifacts are counted from `wiki/canon/*.md` but are not graph-linked yet, and evidence artifacts are not registered yet.
 
 ## Out of Scope
 - Work from later execution phase rows.

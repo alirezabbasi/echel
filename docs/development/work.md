@@ -14,7 +14,7 @@
 - [x] TASK-1007 Define AI agent role model
 - [x] TASK-1008 Add lifecycle playbooks and handoff protocol
 - [x] TASK-1009 Expand graph lifecycle coverage
-- [ ] TASK-1010 Generate traceability matrix
+- [x] TASK-1010 Generate traceability matrix
 - [ ] TASK-1011 Add validation artifacts
 - [ ] TASK-1012 Add validation command
 - [ ] TASK-1013 Add evidence registration
