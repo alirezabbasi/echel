@@ -53,11 +53,12 @@ Last updated: 2026-07-12
 - Expanded the product graph node vocabulary so graph builds now include lifecycle coverage for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
 - Added graph metadata enrichment so every graph node carries statement type, confidence, source stage, and verification status, with low-confidence unresolved assumptions promoted to critical graph validation issues.
 - Added `echel traceability` and `wiki/reports/traceability-matrix.md` so discovery, canon, strategy, requirement, domain, architecture, task, test, and evidence coverage is visible, including broken canon and evidence links.
+- Added `wiki/validation/` artifacts for test strategy, acceptance, integration, e2e, security, performance, and validation reporting with requirement, task, domain, and acceptance-criteria mappings.
 
 ## Next
 
-1. Expand validation and evidence registration.
-2. Connect canon statements and evidence artifacts into the graph-backed traceability chain.
+1. Add the validation command that summarizes validation artifacts.
+2. Add evidence registration and connect evidence artifacts into graph-backed traceability.
 3. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks
@@ -66,4 +67,4 @@ Last updated: 2026-07-12
 - If new folders are added without a unique purpose, Echel may become harder for domain experts to navigate again.
 - Force-generating from incomplete discovery remains risky; gates should keep treating template `TBD` content as incomplete.
 - Requirements generation remains blocked until strategy is meaningful unless explicitly forced; the requirements gate now verifies the resulting artifacts before downstream domain work.
-- Traceability reporting now surfaces missing canon graph links and absent evidence artifacts; follow-up validation/evidence tasks should close those broken chains.
+- Traceability reporting now surfaces missing canon graph links and absent evidence artifacts; the new validation docs preserve evidence targets until TASK-0033/TASK-0034 make validation and evidence executable.

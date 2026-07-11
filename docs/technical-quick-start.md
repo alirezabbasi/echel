@@ -102,6 +102,8 @@ python app/main.py
 ./scripts/verify.sh
 ```
 
+Validation artifacts live under `wiki/validation/`. They define test strategy, acceptance, integration, e2e, security, performance, and validation report surfaces that map tests to requirement IDs, task IDs, domain concepts, and acceptance criteria. `echel validate` remains the follow-up automation command.
+
 ## Graph And Memory Commands
 
 ```bash

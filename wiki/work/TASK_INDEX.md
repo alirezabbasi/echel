@@ -27,7 +27,7 @@ Generated from `wiki/execution/` phase artifacts by `python3 tools/echel.py exec
 | TASK-1008 ([[TASK-1008-add-lifecycle-playbooks-and-handoff-protocol]]) | EP2-002 | Add lifecycle playbooks and handoff protocol | `execution/phase-2-hardening.md` | EP2-001, TASK-0027, TASK-0028 | `make wiki-health` | Done |
 | TASK-1009 ([[TASK-1009-expand-graph-lifecycle-coverage]]) | EP2-003 | Expand graph lifecycle coverage | `execution/phase-2-hardening.md` | TASK-0029, TASK-0030 | `python3 tools/echel.py graph validate` | Done |
 | TASK-1010 ([[TASK-1010-generate-traceability-matrix]]) | EP2-004 | Generate traceability matrix | `execution/phase-2-hardening.md` | EP2-003, TASK-0031 | `python3 -m unittest discover -s tests` | Done |
-| TASK-1011 ([[TASK-1011-add-validation-artifacts]]) | EP3-001 | Add validation artifacts | `execution/phase-3-production.md` | TASK-0032, EP2-004 | `make wiki-health` | Planned |
+| TASK-1011 ([[TASK-1011-add-validation-artifacts]]) | EP3-001 | Add validation artifacts | `execution/phase-3-production.md` | TASK-0032, EP2-004 | `make wiki-health` | Done |
 | TASK-1012 ([[TASK-1012-add-validation-command]]) | EP3-002 | Add validation command | `execution/phase-3-production.md` | EP3-001, TASK-0033 | `python3 -m unittest discover -s tests` | Planned |
 | TASK-1013 ([[TASK-1013-add-evidence-registration]]) | EP3-003 | Add evidence registration | `execution/phase-3-production.md` | EP3-002, TASK-0034 | `python3 tools/echel.py doctor` | Planned |
 | TASK-1014 ([[TASK-1014-add-deployment-and-release-gates]]) | EP3-004 | Add deployment and release gates | `execution/phase-3-production.md` | TASK-0035, TASK-0036 | `python3 tools/echel.py doctor` | Planned |

@@ -54,11 +54,12 @@ Last updated: 2026-07-12
 - Expanded graph lifecycle coverage so `wiki/graph.json` now includes first-class nodes for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
 - Added graph metadata enrichment so graph nodes carry statement type, confidence, source stage, and verification status, with unresolved low-confidence assumptions treated as critical graph validation issues.
 - Added the traceability matrix command and report so lifecycle coverage is visible from discovery through evidence, with canon and evidence gaps reported as broken chains.
+- Added the validation artifact surface under `wiki/validation/` so requirements, tasks, domain concepts, and acceptance criteria can be mapped before validation execution is automated.
 
 ## Next
 
-1. Expand validation and evidence registration.
-2. Connect canon statements and evidence artifacts into the graph-backed traceability chain.
+1. Add the validation command that summarizes validation artifacts.
+2. Add evidence registration and connect evidence artifacts into graph-backed traceability.
 3. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks
@@ -66,4 +67,4 @@ Last updated: 2026-07-12
 - Contract drift across docs/schema/tools could weaken deterministic validation if not gated.
 - Adding new folders without a unique purpose could reintroduce navigation complexity.
 - Template-derived content must not be promoted into canon or strategy as product truth.
-- Traceability reporting currently shows canon and evidence as broken lifecycle links until canon statement nodes and registered evidence artifacts are connected.
+- Traceability reporting currently shows canon and evidence as broken lifecycle links until canon statement nodes and registered evidence artifacts are connected; validation artifacts now identify evidence targets for that follow-up work.

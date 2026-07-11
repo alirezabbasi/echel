@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP3-001
 source_phase_file: execution/phase-3-production.md
@@ -80,11 +80,16 @@ make wiki-health
 - Add validation docs.
 
 ## Definition of Done
-- [ ] TASK-1011 satisfies source phase task EP3-001.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1011 satisfies source phase task EP3-001.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
+
+## Completion Notes
+- Added `wiki/validation/test-strategy.md`, `acceptance-tests.md`, `integration-tests.md`, `e2e-tests.md`, `security-tests.md`, `performance-tests.md`, and `validation-report.md`.
+- Each validation artifact maps test coverage to requirement IDs, task IDs, domain concepts, and acceptance criteria.
+- Future `echel validate` work should summarize these artifacts instead of inventing a separate validation model.
 
 ## Out of Scope
 - Work from later execution phase rows.

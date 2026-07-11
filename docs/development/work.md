@@ -15,7 +15,7 @@
 - [x] TASK-1008 Add lifecycle playbooks and handoff protocol
 - [x] TASK-1009 Expand graph lifecycle coverage
 - [x] TASK-1010 Generate traceability matrix
-- [ ] TASK-1011 Add validation artifacts
+- [x] TASK-1011 Add validation artifacts
 - [ ] TASK-1012 Add validation command
 - [ ] TASK-1013 Add evidence registration
 - [ ] TASK-1014 Add deployment and release gates

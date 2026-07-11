@@ -173,3 +173,9 @@
 - Decision: Generate traceability as a requirement-centered lifecycle matrix from graph associations and canonical wiki artifacts.
 - Context: TASK-0031 needed owners and AI agents to see whether discovery, canon, strategy, requirements, domain, architecture, tasks, tests, and evidence form a continuous chain. The graph already carries most lifecycle nodes, but canon statements are still wiki artifacts rather than graph nodes and no evidence artifacts are registered yet.
 - Impact: `python3 tools/echel.py traceability` writes `wiki/reports/traceability-matrix.md` with stage totals, coverage, requirement anchor rows, artifact families, graph integrity, and explicit broken-chain notes. The current report intentionally marks canon and evidence links as broken until later tasks add canon graph nodes and evidence registration.
+
+## DEC-0030
+
+- Decision: Adopt `wiki/validation/` as the validation-stage artifact surface before implementing validation automation.
+- Context: TASK-0032 needed validation to become a traceable lifecycle stage instead of a loose test checklist. Later validation and evidence commands need stable documents that map tests to requirement IDs, task IDs, domain concepts, and acceptance criteria.
+- Impact: Validation is now split into test strategy, acceptance, integration, e2e, security, performance, and validation report artifacts. TASK-0033 should summarize these artifacts rather than inventing a new model, and TASK-0034 should register the evidence targets named by the validation report.

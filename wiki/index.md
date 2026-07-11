@@ -150,6 +150,16 @@ status: active
 - [[strategy/positioning|Positioning]]
 - [[strategy/pricing-and-packaging|Pricing And Packaging]]
 
+## Validation
+
+- [[validation/acceptance-tests|Acceptance Tests]]
+- [[validation/e2e-tests|E2E Tests]]
+- [[validation/integration-tests|Integration Tests]]
+- [[validation/performance-tests|Performance Tests]]
+- [[validation/security-tests|Security Tests]]
+- [[validation/test-strategy|Test Strategy]]
+- [[validation/validation-report|Validation Report]]
+
 ## Work
 
 - [[work/TASK-0001-initialize-project-wiki|Task 0001 Initialize Project Wiki]]

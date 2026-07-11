@@ -369,3 +369,9 @@ status: active
 - Generated `wiki/reports/traceability-matrix.md` with discovery -> canon -> strategy -> requirement -> domain -> architecture -> task -> test -> evidence coverage, stage totals, artifact families, graph integrity notes, and broken-chain details.
 - Marked EP2-004, TASK-1010, RM-005, ENG-005, REL-005, and ARCH-204 done.
 - TASK-0031 is complete; validation and evidence registration are the next lifecycle hardening tasks.
+
+## [2026-07-12] validation | artifact-surface
+- Added `wiki/validation/` with test strategy, acceptance, integration, e2e, security, performance, and validation report artifacts.
+- Validation artifacts map tests to requirement IDs, task IDs, domain concepts, acceptance criteria, and future evidence targets.
+- Marked EP3-001 and generated TASK-1011 done.
+- TASK-0032 is complete; TASK-0033 should implement the validation command by summarizing these artifacts.

@@ -22,10 +22,11 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use `prompts/playbooks/` as the canonical lifecycle prompt source for role execution.
 - Use `wiki/agents/handoff-protocol.md` as the required inter-role handoff contract.
 - Use `wiki/reports/traceability-matrix.md` to inspect lifecycle coverage and broken canon/evidence chains.
+- Use `wiki/validation/` as the validation-stage mapping surface for requirements, tasks, domain concepts, and acceptance criteria.
 
 ## Next
 
-- Add validation and evidence registration artifacts.
+- Add the validation command and evidence registration.
 - Connect canon statements and registered evidence into graph-backed traceability.
 
 ## Later
