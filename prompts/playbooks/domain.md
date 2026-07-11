@@ -28,7 +28,7 @@ Domain Modeler.
 - Updated `wiki/domain/` artifacts.
 - Requirement-to-domain coverage map.
 - Domain concepts, contexts, aggregates, events, workflows, and business rules.
-- Handoff notes for architecture.
+- Handoff Summary using `wiki/agents/handoff-protocol.md` for architecture.
 
 ## Guardrails
 
@@ -39,4 +39,4 @@ Domain Modeler.
 
 ## Canonical Prompt
 
-Read requirements and domain artifacts. Act as Domain Modeler. Define the product language and domain structure in technology-neutral terms. Map every MVP requirement to domain concepts and rules. Flag unmapped requirements, undefined references, duplicate meanings, and technology leakage. Stop before architecture until the domain gate is healthy.
+Read requirements, domain artifacts, and the handoff protocol. Act as Domain Modeler. Define the product language and domain structure in technology-neutral terms. Map every MVP requirement to domain concepts and rules. Flag unmapped requirements, undefined references, duplicate meanings, and technology leakage. Include a Handoff Summary for architecture. Stop before architecture until the domain gate is healthy.

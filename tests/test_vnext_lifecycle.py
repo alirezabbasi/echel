@@ -627,10 +627,12 @@ Old canon problem
             "## Canonical Prompt",
         ]
         guardrail = "Do not write product implementation code before an approved task packet exists"
+        handoff = "Handoff Summary using `wiki/agents/handoff-protocol.md`"
 
         index = (playbook_root / "README.md").read_text(encoding="utf-8")
         self.assertIn("## Rendering Contract", index)
         self.assertIn("Do not write product implementation code", index)
+        self.assertIn("Handoff Summary", index)
 
         for playbook in playbooks:
             with self.subTest(playbook=playbook):
@@ -638,6 +640,7 @@ Old canon problem
                 for section in required_sections:
                     self.assertIn(section, text)
                 self.assertIn(guardrail, text)
+                self.assertIn(handoff, text)
 
         for tool in ("codex", "claude-code", "cursor"):
             with self.subTest(tool=tool):
@@ -649,6 +652,34 @@ Old canon problem
                 )
                 self.assertIn("prompts/playbooks/execute.md", implement)
                 self.assertIn("approved `wiki/work/TASK-*.md` task packet", implement)
+
+    def test_agent_handoff_protocol_has_required_fields(self) -> None:
+        protocol = (ROOT / "wiki/agents/handoff-protocol.md").read_text(encoding="utf-8")
+        methodology = (ROOT / "docs/development/methodology.md").read_text(encoding="utf-8")
+        required_fields = [
+            "From role",
+            "To role",
+            "Lifecycle stage",
+            "Source artifacts",
+            "Changed artifacts",
+            "Decision summary",
+            "Assumptions",
+            "Risks",
+            "Unresolved questions",
+            "Evidence and verification",
+            "Stale or impacted upstream artifacts",
+            "Next-stage instructions",
+            "Do not proceed if",
+        ]
+
+        self.assertIn("# Agent Handoff Protocol", protocol)
+        self.assertIn("## Required Handoff Summary", protocol)
+        self.assertIn("## Stage Routing", protocol)
+        self.assertIn("## Blocking Rules", protocol)
+        self.assertIn("## Agent Handoff Protocol", methodology)
+        for field in required_fields:
+            self.assertIn(field, protocol)
+            self.assertIn(field, methodology)
 
 
 def write_requirements_sources(repo: Path, canon_is: str = "A workflow control product for regulated operators.") -> None:

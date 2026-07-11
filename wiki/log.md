@@ -345,3 +345,9 @@ status: active
 - Added tool render maps for Codex, Claude Code, and Cursor so tool-specific prompts derive lifecycle behavior from canonical playbooks.
 - Updated implementation prompts to render `prompts/playbooks/execute.md` and enforce the approved task-packet requirement before product implementation code.
 - Recorded DEC-0025 and added regression coverage for playbook existence, required sections, render maps, and no-code-before-task-packet guardrails.
+
+## [2026-07-11] handoffs | agent-protocol
+- Added `wiki/agents/handoff-protocol.md` as the required inter-role handoff protocol for lifecycle stage outputs.
+- Defined the required Handoff Summary fields: roles, stage, source artifacts, changed artifacts, decisions, assumptions, risks, unresolved questions, evidence, stale upstream artifacts, next-stage instructions, and blocking conditions.
+- Updated every canonical lifecycle playbook to require a Handoff Summary using the protocol.
+- Marked EP2-002 and generated TASK-1008 done; recorded DEC-0026 and added regression coverage for the protocol and playbook handoff requirement.

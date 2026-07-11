@@ -7,6 +7,7 @@ status: active
 
 ## Agents
 
+- [[agents/handoff-protocol|Handoff Protocol]]
 - [[agents/role-model|Role Model]]
 
 ## Architecture

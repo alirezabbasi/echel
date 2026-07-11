@@ -29,6 +29,7 @@ Governance Auditor.
 - Contradiction and stale-artifact reports.
 - Governance exceptions with rationale.
 - Remediation tasks or recommended blockers.
+- Handoff Summary using `wiki/agents/handoff-protocol.md` for the affected stage owner.
 
 ## Guardrails
 
@@ -39,4 +40,4 @@ Governance Auditor.
 
 ## Canonical Prompt
 
-Read methodology, schema, graph, gates, task, decision, evidence, and report artifacts. Act as Governance Auditor. Identify missing, stale, contradictory, or unverifiable records. Report impact, severity, remediation, and whether progress should be blocked or accepted as an explicit exception. Do not change product behavior as part of governance review.
+Read methodology, schema, graph, gates, task, decision, evidence, report artifacts, and the handoff protocol. Act as Governance Auditor. Identify missing, stale, contradictory, or unverifiable records. Report impact, severity, remediation, and whether progress should be blocked or accepted as an explicit exception. Include a Handoff Summary for the affected stage owner. Do not change product behavior as part of governance review.

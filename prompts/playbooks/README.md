@@ -17,6 +17,7 @@ Tool-specific prompts must preserve these sections from the selected playbook:
 - Primary role
 - Required inputs
 - Required outputs
+- Handoff Summary
 - Guardrails
 - Canonical prompt
 
@@ -46,3 +47,4 @@ Tools may add syntax for their runtime, but they must not remove safety requirem
 - Do not advance a lifecycle stage when its upstream gate is blocked unless the user explicitly asks for draft or forced output.
 - Do not silently change source-of-truth hierarchy, architecture decisions, or task scope.
 - Record unresolved questions, assumptions, risks, and stale upstream artifacts for handoff.
+- Include a Handoff Summary using `wiki/agents/handoff-protocol.md` in every stage output.

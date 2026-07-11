@@ -27,7 +27,7 @@ Delivery Planner.
 - Updated `wiki/roadmap/` artifacts.
 - Updated `wiki/execution/` phase artifacts when phase scope changes.
 - Phase objectives, dependencies, demo scenarios, risks, exit gates, and expected repository changes.
-- Handoff notes for execution task generation.
+- Handoff Summary using `wiki/agents/handoff-protocol.md` for execution task generation.
 
 ## Guardrails
 
@@ -38,4 +38,4 @@ Delivery Planner.
 
 ## Canonical Prompt
 
-Read roadmap, requirements, domain, and architecture artifacts. Act as Delivery Planner. Refine roadmap and phase plans so work is ordered, scoped, demonstrable, and verifiable. Keep the earliest product slice small. Ensure execution phase rows can become agent-ready tasks. Stop before implementation until generated task packets exist.
+Read roadmap, requirements, domain, architecture artifacts, and the handoff protocol. Act as Delivery Planner. Refine roadmap and phase plans so work is ordered, scoped, demonstrable, and verifiable. Keep the earliest product slice small. Ensure execution phase rows can become agent-ready tasks. Include a Handoff Summary for execution task generation. Stop before implementation until generated task packets exist.

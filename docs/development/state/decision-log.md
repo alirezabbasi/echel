@@ -148,4 +148,10 @@
 
 - Decision: Use `prompts/playbooks/` as the canonical lifecycle playbook source and make tool-specific prompt packs render from those playbooks instead of duplicating lifecycle behavior.
 - Context: TASK-0027 needed canonical playbooks for discovery through governance after TASK-0026 defined bounded roles. Existing Codex, Claude Code, and Cursor prompts were thin per-tool instructions with no shared lifecycle rendering contract.
-- Impact: Twelve lifecycle playbooks now define objective, primary role, required inputs, required outputs, guardrails, and canonical prompt text. Tool render maps under `prompts/codex/`, `prompts/claude-code/`, and `prompts/cursor/` map tool prompts to canonical playbooks, and implementation prompts enforce that product code cannot be written before an approved `wiki/work/TASK-*.md` task packet exists. TASK-0028 remains responsible for the explicit handoff protocol.
+- Impact: Twelve lifecycle playbooks now define objective, primary role, required inputs, required outputs, guardrails, and canonical prompt text. Tool render maps under `prompts/codex/`, `prompts/claude-code/`, and `prompts/cursor/` map tool prompts to canonical playbooks, and implementation prompts enforce that product code cannot be written before an approved `wiki/work/TASK-*.md` task packet exists. TASK-0028 completed the explicit handoff protocol.
+
+## DEC-0026
+
+- Decision: Use `wiki/agents/handoff-protocol.md` as the required inter-role handoff contract for lifecycle stage outputs.
+- Context: TASK-0028 needed a concrete handoff protocol after TASK-0026 defined roles and TASK-0027 defined playbooks. Without a required handoff shape, assumptions, risks, unresolved questions, evidence, and next-stage instructions could still be lost between AI roles.
+- Impact: Every stage output must include a Handoff Summary with source artifacts, changed artifacts, decisions, assumptions, risks, unresolved questions, evidence, stale upstream artifacts, next-stage instructions, and blocking conditions. Canonical playbooks now require that summary, and EP2-002 / generated TASK-1008 are complete.

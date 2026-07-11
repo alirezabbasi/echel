@@ -20,11 +20,12 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Keep generated README, CI, and `scripts/verify.sh` synchronized through `echel repository-factory`.
 - Use `wiki/agents/role-model.md` as the product-owned role contract for Echel's virtual delivery team.
 - Use `prompts/playbooks/` as the canonical lifecycle prompt source for role execution.
+- Use `wiki/agents/handoff-protocol.md` as the required inter-role handoff contract.
 
 ## Next
 
-- Add agent handoff rules.
 - Expand graph lifecycle coverage and traceability reporting.
+- Add statement type and confidence to lifecycle graph nodes.
 
 ## Later
 

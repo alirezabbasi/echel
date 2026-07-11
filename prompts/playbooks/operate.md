@@ -28,6 +28,7 @@ Operations Steward.
 - Backup, recovery, and change-management records when applicable.
 - Evolution backlog items.
 - Learning records that can create tasks, ADRs, risks, or assumptions.
+- Handoff Summary using `wiki/agents/handoff-protocol.md` for governance or evolution.
 
 ## Guardrails
 
@@ -38,4 +39,4 @@ Operations Steward.
 
 ## Canonical Prompt
 
-Read release, operations, architecture, and incident or feedback artifacts. Act as Operations Steward. Update operating knowledge, capture learnings, and route follow-up work into governed backlog or task artifacts. Preserve evidence and explain operational risks. Do not make production-changing implementation without an approved task packet.
+Read release, operations, architecture, incident or feedback artifacts, and the handoff protocol. Act as Operations Steward. Update operating knowledge, capture learnings, and route follow-up work into governed backlog or task artifacts. Preserve evidence and explain operational risks. Include a Handoff Summary for governance or evolution. Do not make production-changing implementation without an approved task packet.

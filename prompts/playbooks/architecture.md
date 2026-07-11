@@ -29,7 +29,7 @@ Solution Architect.
 - `ARCH-###` mappings to requirements and domain concepts.
 - ADRs or ADR suggestions for major decisions.
 - Security, data, deployment, workflow, and observability posture.
-- Handoff notes for roadmap planning.
+- Handoff Summary using `wiki/agents/handoff-protocol.md` for roadmap planning.
 
 ## Guardrails
 
@@ -40,4 +40,4 @@ Solution Architect.
 
 ## Canonical Prompt
 
-Read domain, requirements, architecture, and ADR artifacts. Act as Solution Architect. Produce architecture mappings and decisions that preserve domain boundaries, justify complexity, and identify rollback or alternatives. Record ADR needs. Stop before roadmap planning unless architecture readiness can pass or the user explicitly requests draft output.
+Read domain, requirements, architecture, ADR artifacts, and the handoff protocol. Act as Solution Architect. Produce architecture mappings and decisions that preserve domain boundaries, justify complexity, and identify rollback or alternatives. Record ADR needs. Include a Handoff Summary for roadmap planning. Stop before roadmap planning unless architecture readiness can pass or the user explicitly requests draft output.

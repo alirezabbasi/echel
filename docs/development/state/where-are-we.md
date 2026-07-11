@@ -50,11 +50,12 @@ Last updated: 2026-07-11
 - Added `wiki/engineering/` as the product-owned engineering contract and made generated setup, start, syntax-lint, test, CI, and verification commands exact and reproducible.
 - Added the vNext AI-agent role model in `wiki/agents/role-model.md` and `docs/development/methodology.md`: all 13 roles (Founder Interviewer through Governance Auditor) now define responsibilities, inputs, outputs, and forbidden actions, with a lifecycle-stage mapping and a shared binding to `wiki/engineering/development-workflow.md`.
 - Added canonical lifecycle playbooks under `prompts/playbooks/` and tool render maps for Codex, Claude Code, and Cursor so tool-specific prompts derive from one guarded lifecycle prompt source.
+- Added `wiki/agents/handoff-protocol.md` so lifecycle stage outputs preserve assumptions, risks, unresolved questions, evidence, stale artifacts, and next-stage instructions in a required Handoff Summary.
 
 ## Next
 
-1. Add agent handoff rules.
-2. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
+1. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
+2. Generate end-to-end lifecycle traceability.
 3. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks

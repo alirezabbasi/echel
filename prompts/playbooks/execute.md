@@ -30,6 +30,7 @@ Implementation Agent.
 - Runnable proof and validation command results.
 - Updated project memory and implementation handoff.
 - Notes for stale upstream artifacts or follow-up work.
+- Handoff Summary using `wiki/agents/handoff-protocol.md` for validation.
 
 ## Guardrails
 
@@ -41,4 +42,4 @@ Implementation Agent.
 
 ## Canonical Prompt
 
-Read the selected task packet and linked product memory. Act as Implementation Agent. Before editing, identify the exact files likely to change and the verification command. Implement only the requested scope. Preserve unrelated work. Add or update tests. Run the task validation. Update relevant memory and summarize modified files, proof, tests, risks, and follow-up items. Do not proceed to any other task.
+Read the selected task packet, linked product memory, and the handoff protocol. Act as Implementation Agent. Before editing, identify the exact files likely to change and the verification command. Implement only the requested scope. Preserve unrelated work. Add or update tests. Run the task validation. Update relevant memory and summarize modified files, proof, tests, risks, and follow-up items. Include a Handoff Summary for validation. Do not proceed to any other task.

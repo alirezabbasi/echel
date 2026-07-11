@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP2-002
 source_phase_file: execution/phase-2-hardening.md
@@ -30,7 +30,7 @@ Handoffs should preserve assumptions, risks, unresolved questions, and next-stag
 - Playbooks for lifecycle stages and handoff protocol.
 
 ## Files to Create
-- Prompt/playbook files.
+- Prompt/playbook and handoff files.
 
 ## Files to Modify
 - Add `prompts/playbooks/*.md` and handoff docs.
@@ -44,7 +44,7 @@ Handoffs should preserve assumptions, risks, unresolved questions, and next-stag
 1. Read `wiki/execution/phase-2-hardening.md` and locate `EP2-002` before editing.
 2. Implement only this source scope: Playbooks for lifecycle stages and handoff protocol.
 3. Keep the task focused on one concern; split follow-up work into a new task if unrelated scope appears.
-4. Apply the expected repository change: Prompt/playbook files.
+4. Apply the expected repository change: Prompt/playbook and handoff files.
 5. Run the required verification: `make wiki-health`.
 6. Update the documentation listed in this task and record any new architectural decision only if one was actually made.
 
@@ -52,7 +52,7 @@ Handoffs should preserve assumptions, risks, unresolved questions, and next-stag
 1. Read `wiki/execution/phase-2-hardening.md` and locate `EP2-002` before editing.
 2. Implement only this source scope: Playbooks for lifecycle stages and handoff protocol.
 3. Keep the task focused on one concern; split follow-up work into a new task if unrelated scope appears.
-4. Apply the expected repository change: Prompt/playbook files.
+4. Apply the expected repository change: Prompt/playbook and handoff files.
 5. Run the required verification: `make wiki-health`.
 6. Update the documentation listed in this task and record any new architectural decision only if one was actually made.
 
@@ -81,11 +81,11 @@ make wiki-health
 - Add `prompts/playbooks/*.md` and handoff docs.
 
 ## Definition of Done
-- [ ] TASK-1008 satisfies source phase task EP2-002.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1008 satisfies source phase task EP2-002.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Out of Scope
 - Work from later execution phase rows.

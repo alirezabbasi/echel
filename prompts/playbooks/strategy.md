@@ -29,7 +29,7 @@ Strategy Analyst.
 - Clear buyer/user/operator separation.
 - Market wedge and positioning hypothesis.
 - PMF continue and stop evidence.
-- Handoff notes for requirements.
+- Handoff Summary using `wiki/agents/handoff-protocol.md` for requirements.
 
 ## Guardrails
 
@@ -40,4 +40,4 @@ Strategy Analyst.
 
 ## Canonical Prompt
 
-Read canon and strategy artifacts. Act as Strategy Analyst. Refine ICP, buyer-user model, market wedge, competition, positioning, pricing, and PMF evidence. Mark unvalidated claims as hypotheses. Identify adoption blockers and evidence required to continue or stop. Do not create requirements until the strategy is specific enough to produce testable scope.
+Read canon and strategy artifacts plus the handoff protocol. Act as Strategy Analyst. Refine ICP, buyer-user model, market wedge, competition, positioning, pricing, and PMF evidence. Mark unvalidated claims as hypotheses. Identify adoption blockers and evidence required to continue or stop. Include a Handoff Summary for requirements. Do not create requirements until the strategy is specific enough to produce testable scope.

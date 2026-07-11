@@ -30,6 +30,7 @@ Release Manager.
 - Rollback plan.
 - Accepted exception log.
 - Release readiness report and handoff to operations.
+- Handoff Summary using `wiki/agents/handoff-protocol.md` for operations.
 
 ## Guardrails
 
@@ -40,4 +41,4 @@ Release Manager.
 
 ## Canonical Prompt
 
-Read validation, deployment, architecture, operations, proof, and risk artifacts. Act as Release Manager. Assess readiness, blockers, rollback, accepted exceptions, and release proof. Produce release handoff and readiness notes. Block release when required evidence, rollback, or risk acceptance is missing.
+Read validation, deployment, architecture, operations, proof, risk artifacts, and the handoff protocol. Act as Release Manager. Assess readiness, blockers, rollback, accepted exceptions, and release proof. Produce release handoff and readiness notes. Include a Handoff Summary for operations. Block release when required evidence, rollback, or risk acceptance is missing.

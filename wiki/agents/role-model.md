@@ -126,4 +126,4 @@ Every role must use the shared engineering workflow in [[../engineering/developm
 
 ## Handoff To Playbooks
 
-TASK-0027 turned these role contracts into canonical lifecycle playbooks under `prompts/playbooks/`. TASK-0028 must define the handoff protocol between roles, including assumptions, risks, unresolved questions, evidence, and next-stage instructions.
+TASK-0027 turned these role contracts into canonical lifecycle playbooks under `prompts/playbooks/`. TASK-0028 defined [[handoff-protocol]] as the required protocol between roles, including assumptions, risks, unresolved questions, evidence, and next-stage instructions.

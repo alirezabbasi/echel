@@ -1023,6 +1023,28 @@ Required playbooks:
 
 Every playbook must preserve objective, primary role, required inputs, required outputs, guardrails, and canonical prompt text. The implementation playbook and tool-specific implementation prompts must enforce that no product implementation code is written before an approved `wiki/work/TASK-*.md` task packet exists.
 
+## Agent Handoff Protocol
+
+The canonical handoff protocol lives in `wiki/agents/handoff-protocol.md`. Every lifecycle stage output must include a Handoff Summary when it creates, changes, validates, releases, operates, or governs product memory.
+
+Every Handoff Summary must include:
+
+- From role.
+- To role.
+- Lifecycle stage.
+- Source artifacts.
+- Changed artifacts.
+- Decision summary.
+- Assumptions.
+- Risks.
+- Unresolved questions.
+- Evidence and verification.
+- Stale or impacted upstream artifacts.
+- Next-stage instructions.
+- Do not proceed if.
+
+Handoffs must preserve assumptions, risks, unresolved questions, and next-stage instructions. A receiving role must not proceed when the handoff names a blocked gate, missing approved task packet for implementation, missing evidence, stale upstream artifact, or role-model forbidden action.
+
 ## Stage Gate Semantics
 
 Gate outcomes:

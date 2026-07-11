@@ -28,7 +28,7 @@ Business Analyst and Product Manager.
 - Updated product canon, vision, principles, and non-negotiables.
 - Explicit discovery references for canon statements.
 - Stale or contradictory canon notes when discovery changes.
-- Handoff notes for strategy and requirements.
+- Handoff Summary using `wiki/agents/handoff-protocol.md` for strategy and requirements.
 
 ## Guardrails
 
@@ -39,4 +39,4 @@ Business Analyst and Product Manager.
 
 ## Canonical Prompt
 
-Read discovery and canon artifacts. Act as Business Analyst and Product Manager. Generate or refine canon only from meaningful discovery content. Preserve source IDs and confidence. Mark unresolved assumptions visibly. Record contradictions or stale canon sections instead of smoothing them over. Stop before strategy unless canon output is stable enough for downstream use.
+Read discovery and canon artifacts plus the handoff protocol. Act as Business Analyst and Product Manager. Generate or refine canon only from meaningful discovery content. Preserve source IDs and confidence. Mark unresolved assumptions visibly. Record contradictions or stale canon sections instead of smoothing them over. Include a Handoff Summary for strategy and requirements. Stop before strategy unless canon output is stable enough for downstream use.
