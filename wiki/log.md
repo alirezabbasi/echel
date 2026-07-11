@@ -332,3 +332,10 @@ status: active
 - Established product-owned engineering docs as authoritative over generated convenience notes.
 - Added the dependency-free `python -m compileall -q app tests` lint baseline to the generated README, CI, local docs, verification script, and repository-factory regression coverage.
 - Marked EP1-002 and generated TASK-1005 done; TASK-0026 can now bind AI-agent roles to the shared engineering workflow.
+
+## [2026-07-11] agent-roles | role-model
+- Defined Echel's virtual delivery team in `wiki/agents/role-model.md` and mirrored it in `docs/development/methodology.md` under `## AI-Agent Role Model`.
+- Expanded all 13 roles (Founder Interviewer, Business Analyst, Product Manager, Strategy Analyst, Domain Modeler, Solution Architect, Delivery Planner, Implementation Agent, QA Agent, Security Reviewer, Release Manager, Operations Steward, Governance Auditor) from responsibility-only bullets into a four-part contract: responsibilities, inputs, outputs, and forbidden actions.
+- Added a lifecycle-stage mapping table and bound every role to the shared `wiki/engineering/development-workflow.md` contract, satisfying the TASK-0025 dependency.
+- Added `test_agent_role_model_has_required_sections` to `tests/test_vnext_lifecycle.py` asserting each role renders the four required subsections.
+- Marked TASK-0026, EP2-001, and generated TASK-1007 done; updated decision log (DEC-0024), current-state, where-are-we, work KANBAN, and generated execution artifacts.

@@ -1,6 +1,6 @@
 # Where Are We
 
-Last updated: 2026-07-10
+Last updated: 2026-07-11
 
 ## Completed
 
@@ -48,13 +48,13 @@ Last updated: 2026-07-10
 - Added the execution task generator so `python3 tools/echel.py execution-tasks` creates 20 agent-executable `wiki/work/TASK-1xxx-*.md` records and `wiki/work/TASK_INDEX.md` from the phase artifacts.
 - Added the repository factory generator so `python3 tools/echel.py repository-factory` creates `generated/product-repository/` with app/config/test/CI/env/local-doc baseline and a repository factory report.
 - Added `wiki/engineering/` as the product-owned engineering contract and made generated setup, start, syntax-lint, test, CI, and verification commands exact and reproducible.
+- Added the vNext AI-agent role model in `wiki/agents/role-model.md` and `docs/development/methodology.md`: all 13 roles (Founder Interviewer through Governance Auditor) now define responsibilities, inputs, outputs, and forbidden actions, with a lifecycle-stage mapping and a shared binding to `wiki/engineering/development-workflow.md`.
 
 ## Next
 
-1. Define bounded AI-agent roles that consume the engineering contract.
-2. Add canonical lifecycle playbooks and agent handoff rules.
-3. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
-4. Expand release readiness into production operation and post-release learning loops.
+1. Add canonical lifecycle playbooks and agent handoff rules.
+2. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
+3. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks
 

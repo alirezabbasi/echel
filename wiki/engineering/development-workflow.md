@@ -67,4 +67,4 @@ python3 tools/echel.py graph validate
 
 ## Handoff
 
-The implementation handoff must name modified files, commands run, outcomes, remaining risks, and any upstream artifact that became stale. TASK-0026 will assign this workflow to explicit AI-agent roles; this document defines the shared engineering contract those roles must obey.
+The implementation handoff must name modified files, commands run, outcomes, remaining risks, and any upstream artifact that became stale. `wiki/agents/role-model.md` assigns this workflow to explicit AI-agent roles; this document defines the shared engineering contract those roles must obey.

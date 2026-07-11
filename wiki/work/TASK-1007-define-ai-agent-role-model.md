@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP2-001
 source_phase_file: execution/phase-2-hardening.md
@@ -30,7 +30,7 @@ Agents need bounded responsibilities to avoid uncontrolled implementation.
 - Founder Interviewer through Governance Auditor roles.
 
 ## Files to Create
-- New role/playbook docs.
+- New role model docs.
 
 ## Files to Modify
 - Add role model docs.
@@ -42,7 +42,7 @@ Agents need bounded responsibilities to avoid uncontrolled implementation.
 1. Read `wiki/execution/phase-2-hardening.md` and locate `EP2-001` before editing.
 2. Implement only this source scope: Founder Interviewer through Governance Auditor roles.
 3. Keep the task focused on one concern; split follow-up work into a new task if unrelated scope appears.
-4. Apply the expected repository change: New role/playbook docs.
+4. Apply the expected repository change: New role model docs.
 5. Run the required verification: `make wiki-health`.
 6. Update the documentation listed in this task and record any new architectural decision only if one was actually made.
 
@@ -50,7 +50,7 @@ Agents need bounded responsibilities to avoid uncontrolled implementation.
 1. Read `wiki/execution/phase-2-hardening.md` and locate `EP2-001` before editing.
 2. Implement only this source scope: Founder Interviewer through Governance Auditor roles.
 3. Keep the task focused on one concern; split follow-up work into a new task if unrelated scope appears.
-4. Apply the expected repository change: New role/playbook docs.
+4. Apply the expected repository change: New role model docs.
 5. Run the required verification: `make wiki-health`.
 6. Update the documentation listed in this task and record any new architectural decision only if one was actually made.
 
@@ -79,11 +79,11 @@ make wiki-health
 - Add role model docs.
 
 ## Definition of Done
-- [ ] TASK-1007 satisfies source phase task EP2-001.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1007 satisfies source phase task EP2-001.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Out of Scope
 - Work from later execution phase rows.

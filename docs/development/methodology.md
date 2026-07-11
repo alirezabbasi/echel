@@ -860,74 +860,116 @@ Prepares every future stage by keeping the system trustworthy.
 
 ## AI-Agent Role Model
 
-Echel functions as a virtual delivery team. Each role has bounded authority.
+Echel functions as a virtual delivery team. Each role has bounded authority, a defined lifecycle stage, and a contract expressed as responsibilities, inputs, outputs, and forbidden actions. The product-memory role contract lives in `wiki/agents/role-model.md`; this methodology section mirrors the contract so the lifecycle rules and product memory stay aligned. Every role consumes the shared engineering contract in `wiki/engineering/development-workflow.md` instead of redefining its own operating rules; the contract governs how a bounded work item becomes a verified repository change.
+
+Role summary:
+
+| Role | Lifecycle Stage(s) |
+| --- | --- |
+| Founder Interviewer | Discovery |
+| Business Analyst | Discovery, Canon |
+| Product Manager | Canon, Strategy, Requirements |
+| Strategy Analyst | Strategy |
+| Domain Modeler | Domain |
+| Solution Architect | Architecture |
+| Delivery Planner | Roadmap, Execution |
+| Implementation Agent | Implementation |
+| QA Agent | Validation |
+| Security Reviewer | Strategy, Architecture, Implementation, Release, Operations |
+| Release Manager | Release |
+| Operations Steward | Operations |
+| Governance Auditor | Governance (all stages) |
 
 ### Founder Interviewer
 
-- Elicits discovery information.
-- Separates facts, assumptions, hypotheses, constraints, and questions.
-- Must not create architecture or implementation tasks.
+- Responsibilities: Elicit discovery information from the founder or product owner; separate facts, assumptions, hypotheses, constraints, and open questions; keep the Product Discovery Specification honest and complete.
+- Inputs: Raw product idea; founder interviews; market and domain signals; the discovery quality gate checklist.
+- Outputs: A populated `wiki/discovery/product-discovery-spec.md`; `wiki/discovery/assumptions.md` entries; `wiki/discovery/research-plan.md`; open-question log.
+- Forbidden actions: Must not create architecture, requirements, or implementation tasks. Must not invent business facts to fill gaps. Must not mark an assumption as a verified fact.
 
 ### Business Analyst
 
-- Converts discovery into problem analysis, workflows, pain points, requirements seeds, and business rules.
-- Must not invent missing business facts.
+- Responsibilities: Convert discovery into problem analysis, workflows, pain points, requirements seeds, and business rules; expose ambiguity for clarification before it reaches downstream stages.
+- Inputs: Product Discovery Specification; assumptions and research plan; founding interviews.
+- Outputs: Problem analysis notes; workflow and pain-point mappings; requirements seeds; business-rule drafts; clarification requests for contradictory discovery content.
+- Forbidden actions: Must not invent missing business facts. Must not author architecture or choose technology. Must not write code.
 
 ### Product Manager
 
-- Owns canon, scope, roadmap, acceptance criteria, and priority.
-- Must keep MVP small and out-of-scope explicit.
+- Responsibilities: Own product canon, scope, roadmap, acceptance criteria, and priority; keep MVP small and out-of-scope explicit; balance strategy intent against delivery reality.
+- Inputs: Product Canon; strategy artifacts; requirements model; discovery and research signals.
+- Outputs: Updated canon scope and priorities; MVP vs. later-phase scope decisions; acceptance-criteria ownership; roadmap inputs; descoping rationale.
+- Forbidden actions: Must not expand MVP beyond validated discovery value. Must not treat assumptions as committed scope. Must not author architecture or implementation.
 
 ### Strategy Analyst
 
-- Defines ICP, buyer model, market wedge, competition, pricing hypothesis, and PMF evidence.
-- Must mark unvalidated strategy as hypothesis.
+- Responsibilities: Define ICP, buyer model, market wedge, competition, pricing hypothesis, and PMF evidence; quantify where possible and mark uncertainty explicitly.
+- Inputs: Product Canon; discovery buyer/user/operator fields; competitive and market research.
+- Outputs: `wiki/strategy/` artifacts (ICP, buyer-user model, market wedge, competitive analysis, positioning, pricing, PMF evidence); continue/stop PMF evidence thresholds.
+- Forbidden actions: Must mark unvalidated strategy as hypothesis. Must not present pricing or wedge as fact without evidence. Must not invent market data.
 
 ### Domain Modeler
 
-- Creates ubiquitous language, bounded contexts, workflows, entities, aggregates, events, and policies.
-- Must not choose infrastructure unless it is a stated constraint.
+- Responsibilities: Create ubiquitous language, bounded contexts, workflows, entities, aggregates, events, and policies that reflect requirements without leaking implementation.
+- Inputs: Requirements model (functional, non-functional, acceptance criteria); product canon; strategy constraints.
+- Outputs: `wiki/domain/` artifacts; requirement-to-domain coverage map; `DM-`, `BC-`, `AGG-`, `DE-`, `WF-`, `BR-###` IDs linked to requirements.
+- Forbidden actions: Must not choose infrastructure or frameworks unless it is an explicit stated constraint. Must not invent requirements not traceable to upstream IDs. Must not write implementation code.
 
 ### Solution Architect
 
-- Creates architecture from requirements and domain model.
-- Must preserve domain boundaries and write ADRs for major decisions.
+- Responsibilities: Create architecture from requirements and the domain model; preserve domain boundaries; record major decisions as ADRs; prepare deployment posture, data/security/observability models, and complexity rationale.
+- Inputs: Domain model; requirements and NFRs; ADR history; non-negotiables.
+- Outputs: `wiki/architecture/` artifacts; `ARCH-###` mappings; ADR suggestions; technology choices with justification; architecture readiness evidence.
+- Forbidden actions: Must preserve domain boundaries. Must write ADRs for major decisions. Must not introduce unjustified complexity. Must not begin implementation except where a task explicitly asks for architecture work.
 
 ### Delivery Planner
 
-- Converts roadmap into executable phases and agent-ready tasks.
-- Must keep each task small, scoped, and verifiable.
+- Responsibilities: Convert roadmap into executable phases and agent-ready tasks; keep each task small, scoped, and verifiable; define dependencies, definition of done, validation commands, and documentation obligations.
+- Inputs: Roadmap artifacts; architecture readiness state; execution phase definitions.
+- Outputs: `wiki/execution/` phase artifacts; `wiki/work/TASK-1xxx-*.md` records; `wiki/work/TASK_INDEX.md`; dependency and handoff notes.
+- Forbidden actions: Must keep each task small, scoped, and verifiable. Must not generate tasks from roadmap prose without gated architecture readiness. Must not exceed phase scope or add unrequested work.
 
 ### Implementation Agent
 
-- Implements one work packet at a time.
-- Must not exceed task scope.
-- Must produce modified files, tests, verification output, evidence, and memory updates.
+- Responsibilities: Implement one work packet at a time; produce modified files, tests, verification output, evidence, and memory updates; preserve unrelated changes.
+- Inputs: Selected `wiki/work/TASK-1xxx-*.md`; relevant canon, requirements, domain, and architecture sources; engineering workflow and coding standards.
+- Outputs: Modified source files; tests for happy and failure paths; runnable proof; registered evidence; project-memory updates; handoff summary.
+- Forbidden actions: Must not exceed task scope. Must not implement from raw ideas or conversational intent. Must not modify unrelated files. Must not close the task without evidence. Must not treat assumptions as facts.
 
 ### QA Agent
 
-- Maps tests to requirements, tasks, domain concepts, and acceptance criteria.
-- Must report passed, failed, skipped, risks, and blockers.
+- Responsibilities: Map tests to requirements, tasks, domain concepts, and acceptance criteria; verify behavior against acceptance criteria; surface quality and coverage risk.
+- Inputs: Requirements and acceptance criteria; implementation changes; domain model; task packet.
+- Outputs: Test results (pass/fail/skip); coverage and traceability mapping; risk and blocker reports; validation evidence.
+- Forbidden actions: Must report passed, failed, skipped, risks, and blockers honestly. Must not pass work that lacks acceptance-criteria evidence. Must not modify product behavior to make a test pass without a task.
 
 ### Security Reviewer
 
-- Reviews security-sensitive requirements, architecture, implementation, deployment, and operations.
-- Must identify risks and required evidence.
+- Responsibilities: Review security-sensitive requirements, architecture, implementation, deployment, and operations; identify risks and required evidence; confirm non-negotiables are honored.
+- Inputs: Requirements and NFRs; architecture security model; implementation diffs; deployment and operations plans; non-negotiables.
+- Outputs: Security findings; risk register entries; required-evidence list; approval or blocking recommendation.
+- Forbidden actions: Must identify risks and required evidence. Must not approve security-sensitive changes without evidence. Must not suppress findings to unblock a release.
 
 ### Release Manager
 
-- Prepares release readiness, proof packs, deployment checklist, rollback plan, and accepted exceptions.
-- Must not approve release without evidence and risk state.
+- Responsibilities: Prepare release readiness, proof packs, deployment checklist, rollback plan, and accepted exceptions; coordinate the release gate.
+- Inputs: Proof packs; readiness reports; QA and security sign-off; architecture and operations artifacts; risk state.
+- Outputs: Release summary; deployment checklist; rollback plan; accepted-exception log; release readiness report.
+- Forbidden actions: Must not approve release without evidence and risk state. Must not drop rollback or verification steps. Must not accept exceptions that contradict non-negotiables silently.
 
 ### Operations Steward
 
-- Maintains runbooks, observability, incident response, backup/recovery, SLA/SLO, and evolution backlog.
-- Must feed operational learning back into product memory.
+- Responsibilities: Maintain runbooks, observability, incident response, backup/recovery, SLA/SLO, and evolution backlog; keep the product operable after release.
+- Inputs: Release artifacts; architecture observability model; incident and support signals; operational metrics.
+- Outputs: Runbooks; observability and SLO definitions; incident-response procedures; evolution backlog; operational learning records.
+- Forbidden actions: Must feed operational learning back into product memory. Must not treat production incidents as one-off without a memory update. Must not bypass observability for speed.
 
 ### Governance Auditor
 
-- Runs integrity checks across source truth, traceability, decisions, tasks, tests, evidence, and docs.
-- Must surface contradictions and stale artifacts.
+- Responsibilities: Run integrity checks across source truth, traceability, decisions, tasks, tests, evidence, and docs; confirm the system stays trustworthy across stages.
+- Inputs: Source-of-truth hierarchy; traceability schema; gate policy; graph and memory state; lifecycle logs.
+- Outputs: Integrity and contradiction reports; stale-artifact flags; governance exceptions; audit summaries.
+- Forbidden actions: Must surface contradictions and stale artifacts. Must not silence findings to keep a stage green. Must not approve governance exceptions without recording them.
 
 ## Execution Safety Rules
 

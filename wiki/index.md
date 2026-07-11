@@ -5,6 +5,10 @@ status: active
 
 # Index
 
+## Agents
+
+- [[agents/role-model|Role Model]]
+
 ## Architecture
 
 - [[architecture/api-architecture|Api Architecture]]

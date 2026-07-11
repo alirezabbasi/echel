@@ -694,5 +694,58 @@ stage: execution-planning
     )
 
 
+    def test_agent_role_model_has_required_sections(self) -> None:
+        method = (ROOT / "docs/development/methodology.md").read_text(encoding="utf-8")
+        role_model = (ROOT / "wiki/agents/role-model.md").read_text(encoding="utf-8")
+
+        start = method.index("## AI-Agent Role Model")
+        end = method.index("## Execution Safety Rules", start)
+        section = method[start:end]
+
+        roles = [
+            "Founder Interviewer",
+            "Business Analyst",
+            "Product Manager",
+            "Strategy Analyst",
+            "Domain Modeler",
+            "Solution Architect",
+            "Delivery Planner",
+            "Implementation Agent",
+            "QA Agent",
+            "Security Reviewer",
+            "Release Manager",
+            "Operations Steward",
+            "Governance Auditor",
+        ]
+        required_subsections = ("Responsibilities", "Inputs", "Outputs", "Forbidden actions")
+
+        for role in roles:
+            self.assertIn(role, section, f"role {role} missing from AI-Agent Role Model")
+            self.assertIn(role, role_model, f"role {role} missing from product-memory role model")
+
+        for role in roles:
+            with self.subTest(role=role):
+                role_start = section.index(f"### {role}")
+                role_end = section.find("\n### ", role_start + 1)
+                role_end = end if role_end == -1 else role_end
+                role_block = section[role_start:role_end]
+                role_model_start = role_model.index(f"### {role}")
+                role_model_end = role_model.find("\n### ", role_model_start + 1)
+                role_model_end = len(role_model) if role_model_end == -1 else role_model_end
+                role_model_block = role_model[role_model_start:role_model_end]
+
+                for sub in required_subsections:
+                    self.assertIn(
+                        sub,
+                        role_block,
+                        f"role {role} is missing required subsection '{sub}'",
+                    )
+                    self.assertIn(
+                        sub,
+                        role_model_block,
+                        f"role {role} is missing product-memory subsection '{sub}'",
+                    )
+
+
 if __name__ == "__main__":
     unittest.main()

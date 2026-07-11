@@ -11,7 +11,7 @@
 - [x] TASK-1004 Generate repository skeleton
 - [x] TASK-1005 Add local development docs
 - [ ] TASK-1006 Verify MVP repository baseline
-- [ ] TASK-1007 Define AI agent role model
+- [x] TASK-1007 Define AI agent role model
 - [ ] TASK-1008 Add lifecycle playbooks and handoff protocol
 - [ ] TASK-1009 Expand graph lifecycle coverage
 - [ ] TASK-1010 Generate traceability matrix

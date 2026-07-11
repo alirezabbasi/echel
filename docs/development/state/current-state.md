@@ -1,6 +1,6 @@
 # Current State
 
-Last updated: 2026-07-10
+Last updated: 2026-07-11
 
 ## Completed
 
@@ -46,14 +46,14 @@ Last updated: 2026-07-10
 - Added explicit execution phase artifacts under `wiki/execution/` for foundation, MVP, hardening, production, and evolution phases with task lists, dependencies, DoD, validation methods, and expected repo changes.
 - Added `echel execution-tasks` to turn execution phase rows into gated, agent-executable `wiki/work/TASK-1xxx-*.md` tasks plus `wiki/work/TASK_INDEX.md`.
 - Added `echel repository-factory` to generate a local baseline under `generated/product-repository/` with app, config, tests, CI, env example, verification script, generated engineering docs, and a repository-factory report.
-- Added product-owned engineering operation docs under `wiki/engineering/` and synchronized exact setup, start, syntax-lint, test, and verification commands across the repository factory README, CI, generated local docs, and verification script.
+- Added `wiki/engineering/` as the product-owned engineering contract and made generated setup, start, syntax-lint, test, CI, and verification commands exact and reproducible.
+- Added the vNext AI-agent role model in `wiki/agents/role-model.md` and `docs/development/methodology.md`: the 13-role virtual delivery team (Founder Interviewer through Governance Auditor) now defines responsibilities, inputs, outputs, and forbidden actions per role and a lifecycle-stage mapping, with every role bound to the shared `wiki/engineering/development-workflow.md` contract.
 
 ## Next
 
-1. Define the AI-agent role model against the shared engineering workflow.
-2. Add canonical lifecycle playbooks and the agent handoff protocol.
-3. Expand product graph and readiness gates to evaluate full methodology stages.
-4. Generate end-to-end lifecycle traceability.
+1. Add canonical lifecycle playbooks and the agent handoff protocol.
+2. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
+3. Expand release readiness into production operation and post-release learning loops.
 
 ## Risks/Blocks
 
