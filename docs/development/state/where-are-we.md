@@ -51,10 +51,11 @@ Last updated: 2026-07-11
 - Added the vNext AI-agent role model in `wiki/agents/role-model.md` and `docs/development/methodology.md`: all 13 roles (Founder Interviewer through Governance Auditor) now define responsibilities, inputs, outputs, and forbidden actions, with a lifecycle-stage mapping and a shared binding to `wiki/engineering/development-workflow.md`.
 - Added canonical lifecycle playbooks under `prompts/playbooks/` and tool render maps for Codex, Claude Code, and Cursor so tool-specific prompts derive from one guarded lifecycle prompt source.
 - Added `wiki/agents/handoff-protocol.md` so lifecycle stage outputs preserve assumptions, risks, unresolved questions, evidence, stale artifacts, and next-stage instructions in a required Handoff Summary.
+- Expanded graph lifecycle coverage so `wiki/graph.json` now includes first-class nodes for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
 
 ## Next
 
-1. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
+1. Add statement type, confidence, source-stage, and verification metadata to graph nodes.
 2. Generate end-to-end lifecycle traceability.
 3. Expand release readiness into production operation and post-release learning loops.
 
@@ -64,3 +65,4 @@ Last updated: 2026-07-11
 - Adding new folders without a unique purpose could reintroduce navigation complexity.
 - Template-derived content must not be promoted into canon or strategy as product truth.
 - Requirements command graph integration currently uses manual graph nodes until the broader traceability graph upgrade lands.
+- Lifecycle node types now exist before confidence metadata; agents must still treat assumptions and hypotheses according to the statement-discipline rules until TASK-0030 lands.

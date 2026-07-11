@@ -6,6 +6,8 @@ status: active
 
 Phase 2 turns the product wiki into a typed relationship graph. The graph helps Echel reason about how product intent, users, needs, requirements, features, architecture, risks, decisions, and work items relate to each other.
 
+The vNext graph now also includes lifecycle coverage nodes so AI agents can traverse the methodology from discovery through strategy, requirements, domain, architecture, validation, deployment, operations, contradiction handling, and learning. This keeps Echel aligned with the engineering OS model rather than treating the graph as a narrow product backlog map.
+
 ## Responsibility Boundary
 The graph belongs to the target product because it is generated from product memory. In initialized projects, it lives in the root `wiki/` next to the rest of the product intelligence.
 
@@ -35,3 +37,11 @@ python3 tools/echel.py status
 - Tasks are linked to requirements.
 - Risks include mitigation.
 - Generated reports are committed as durable product memory.
+
+## Lifecycle Coverage
+- Discovery: `discovery-item`, `assumption`, `hypothesis`, `buyer`, and `stakeholder`.
+- Strategy and requirements: `strategy` and `requirement`.
+- Domain and architecture: `domain-concept`, `bounded-context`, `business-rule`, `architecture`, and `architecture-component`.
+- Execution and verification: `task`, `test`, and `evidence`.
+- Release and operation: `deployment-artifact`, `operation-artifact`, `milestone`, and `release`.
+- Governance and evolution: `contradiction`, `learning`, `decision`, and `risk`.

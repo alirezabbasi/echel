@@ -57,6 +57,26 @@ Core node types:
 - `milestone`
 - `release`
 
+Lifecycle node types:
+- `discovery-item`
+- `assumption`
+- `hypothesis`
+- `buyer`
+- `stakeholder`
+- `strategy`
+- `business-rule`
+- `domain-concept`
+- `bounded-context`
+- `architecture`
+- `architecture-component`
+- `test`
+- `deployment-artifact`
+- `operation-artifact`
+- `contradiction`
+- `learning`
+
+The lifecycle node types make the graph represent the full methodology path rather than only the early product/task memory model. They may be extracted from structured rows when stable methodology IDs exist, or from lifecycle artifact registers when a stage exists but the product has not yet captured non-template rows.
+
 ## Edge
 ```json
 {
@@ -91,6 +111,14 @@ Common edge types:
 - `tracks`
 - `depends_on`
 - `related_to`
+- `has_lifecycle_artifact`
+- `informs`
+- `refines`
+- `constrains`
+- `realized_by`
+- `runs`
+- `operates`
+- `feeds`
 
 ## Manual Relationships
 Manual relationships are stored in `wiki/graph.manual.json` and merged during graph build. Manual edges should be used only when the relationship cannot be deterministically inferred from current wiki structure.

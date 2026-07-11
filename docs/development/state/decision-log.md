@@ -155,3 +155,9 @@
 - Decision: Use `wiki/agents/handoff-protocol.md` as the required inter-role handoff contract for lifecycle stage outputs.
 - Context: TASK-0028 needed a concrete handoff protocol after TASK-0026 defined roles and TASK-0027 defined playbooks. Without a required handoff shape, assumptions, risks, unresolved questions, evidence, and next-stage instructions could still be lost between AI roles.
 - Impact: Every stage output must include a Handoff Summary with source artifacts, changed artifacts, decisions, assumptions, risks, unresolved questions, evidence, stale upstream artifacts, next-stage instructions, and blocking conditions. Canonical playbooks now require that summary, and EP2-002 / generated TASK-1008 are complete.
+
+## DEC-0027
+
+- Decision: Treat lifecycle graph node types as first-class graph vocabulary, generated from product memory and lifecycle artifacts.
+- Context: TASK-0029 needed the graph to represent the full Echel methodology instead of stopping at product, task, decision, risk, milestone, and release memory. Existing manual graph nodes already covered some domain and architecture concepts, but discovery, assumptions, buyers, strategy, tests, deployment, operations, contradictions, and learning were not consistently represented.
+- Impact: `tools/echel/graph.py` now emits lifecycle nodes for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings. TASK-0030 remains responsible for statement type, confidence, source-stage, verification-status, and trace ID metadata.

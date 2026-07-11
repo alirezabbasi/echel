@@ -80,6 +80,10 @@ python3 tools/echel.py graph validate
 ## Documentation Updates
 - Update graph docs and traceability docs.
 
+## Progress Notes
+- TASK-0029 completed the lifecycle node type expansion. Graph builds now include discovery, assumption, hypothesis, buyer, stakeholder, strategy, requirement, domain, architecture component, test, deployment, operation, contradiction, and learning coverage.
+- TASK-0030 remains open for statement type, confidence, source-stage, verification-status, and trace ID metadata before EP2-003 can be marked done.
+
 ## Definition of Done
 - [ ] TASK-1009 satisfies source phase task EP2-003.
 - [ ] All acceptance criteria are met without broadening the task scope.

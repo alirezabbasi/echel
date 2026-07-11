@@ -149,6 +149,10 @@ def build_graph(repo_root: Path, cfg: ProjectConfig) -> dict:
         for req in [n.id for n in nodes.values() if n.type == "requirement"]:
             add_edge(milestone.id, req, "depends_on")
 
+    for lifecycle_node in _lifecycle_nodes(repo_root, root):
+        add_node(lifecycle_node)
+        add_edge("product:root", lifecycle_node.id, "has_lifecycle_artifact")
+
     manual = _manual_graph(root)
     for raw in manual.get("nodes", []):
         if isinstance(raw, dict) and {"id", "type", "title"}.issubset(raw):
@@ -156,6 +160,9 @@ def build_graph(repo_root: Path, cfg: ProjectConfig) -> dict:
     for raw in manual.get("edges", []):
         if isinstance(raw, dict):
             add_edge(str(raw.get("from_id", "")), str(raw.get("to_id", "")), str(raw.get("type", "related_to")))
+
+    for source, target, edge_type in _lifecycle_edges(nodes):
+        add_edge(source, target, edge_type)
 
     payload = {
         "version": 1,
@@ -270,7 +277,7 @@ def write_graph_report(repo_root: Path, cfg: ProjectConfig) -> Path:
     lines = ["---", "type: analysis", "status: active", "---", "", "# Product Graph Report", "", graph_summary(graph, issues), "", "## Issues"]
     lines.extend([f"- **{i.severity}** {i.message}" for i in issues] or ["- None"])
     lines += ["", "## Coverage"]
-    for node_type in ["problem", "user", "need", "solution", "feature", "requirement", "workflow", "component", "task", "evidence", "decision", "risk", "milestone", "release"]:
+    for node_type in _report_node_types():
         count = sum(1 for n in graph.get("nodes", []) if isinstance(n, dict) and n.get("type") == node_type)
         lines.append(f"- {node_type}: {count}")
     report.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -396,12 +403,216 @@ def _milestone_node(title: str, lines: list[str]) -> GraphNode:
     return GraphNode(f"{node_type}:{_slug(title)}", node_type, title, "milestones.md", summary)
 
 
+def _lifecycle_nodes(repo_root: Path, root: Path) -> list[GraphNode]:
+    nodes: list[GraphNode] = []
+
+    def add(node_id: str, node_type: str, title: str, source: str, summary: str = "") -> None:
+        nodes.append(GraphNode(node_id, node_type, title, source, summary or title))
+
+    def add_document(node_type: str, path: Path, title: str | None = None, summary: str = "") -> None:
+        if not path.exists():
+            return
+        rel = _source_path(path, repo_root, root)
+        add(f"{node_type}:{_slug(title or _title(path) or path.stem)}", node_type, title or _title(path) or path.stem, rel, summary or _compact(_section(path, "Purpose") or _title(path)))
+
+    pds = root / "discovery" / "product-discovery-spec.md"
+    if pds.exists():
+        add("discovery-item:product-discovery-spec", "discovery-item", "Product Discovery Specification", "discovery/product-discovery-spec.md", _compact(_section(pds, "01 Executive Summary") or _title(pds)))
+        for row in _table_rows(pds):
+            trace_id = _trace_id(row)
+            if trace_id and trace_id.startswith(("P-", "U-", "O-", "WF-", "PP-", "S-", "NC-", "C-", "R-", "CMP-")):
+                title = _row_title(row, trace_id)
+                add(f"discovery-item:{trace_id}", "discovery-item", title, "discovery/product-discovery-spec.md", " | ".join(row))
+            if trace_id and trace_id.startswith("B-"):
+                add(f"buyer:{trace_id}", "buyer", _row_title(row, trace_id), "discovery/product-discovery-spec.md", " | ".join(row))
+
+    assumptions = root / "discovery" / "assumptions.md"
+    assumption_seen = False
+    hypothesis_seen = False
+    if assumptions.exists():
+        for row in _table_rows(assumptions):
+            trace_id = _trace_id(row)
+            if not trace_id:
+                continue
+            if trace_id.startswith("A-"):
+                assumption_seen = True
+                add(f"assumption:{trace_id}", "assumption", _row_title(row, trace_id), "discovery/assumptions.md", " | ".join(row))
+            elif trace_id.startswith("H-"):
+                hypothesis_seen = True
+                add(f"hypothesis:{trace_id}", "hypothesis", _row_title(row, trace_id), "discovery/assumptions.md", " | ".join(row))
+        if not assumption_seen:
+            add("assumption:register", "assumption", "Assumption Register", "discovery/assumptions.md", "Lifecycle register for assumptions; no non-template assumption rows have been captured yet.")
+        if not hypothesis_seen:
+            add("hypothesis:register", "hypothesis", "Hypothesis Register", "discovery/assumptions.md", "Lifecycle register for hypotheses; no non-template hypothesis rows have been captured yet.")
+
+    buyer_model = root / "strategy" / "buyer-user-model.md"
+    if buyer_model.exists():
+        add("buyer:economic-buyer", "buyer", "Economic Buyer", "strategy/buyer-user-model.md", _compact(_section(buyer_model, "Stakeholder Roles")))
+        stakeholder_count = 0
+        for row in _table_rows(buyer_model):
+            if len(row) >= 1 and row[0] in {"Economic Buyer", "User", "Approver", "Influencer", "Blocker", "Operator"}:
+                stakeholder_count += 1
+                add(f"stakeholder:{_slug(row[0])}", "stakeholder", row[0], "strategy/buyer-user-model.md", " | ".join(row))
+        if stakeholder_count == 0:
+            for role in ["Economic Buyer", "User", "Operator"]:
+                if _meaningful(_section(buyer_model, role)):
+                    add(f"stakeholder:{_slug(role)}", "stakeholder", role, "strategy/buyer-user-model.md", _compact(_section(buyer_model, role)))
+
+    for strategy_doc in sorted((root / "strategy").glob("*.md")):
+        add_document("strategy", strategy_doc, summary=_compact(_section(strategy_doc, "Purpose") or _section(strategy_doc, "Primary ICP") or _title(strategy_doc)))
+
+    add_document("business-rule", root / "domain" / "policies-and-rules.md", "Business Rule Register")
+    add_document("domain-concept", root / "domain" / "ubiquitous-language.md", "Domain Concept Register")
+    add_document("bounded-context", root / "domain" / "bounded-contexts.md", "Bounded Context Register")
+
+    component_doc = root / "architecture" / "component-architecture.md"
+    if component_doc.exists():
+        for row in _table_rows(component_doc):
+            trace_id = _trace_id(row)
+            if trace_id and trace_id.startswith("ARCH-"):
+                add(f"architecture-component:{trace_id}", "architecture-component", _row_title(row, trace_id), "architecture/component-architecture.md", " | ".join(row))
+        if not any(node.type == "architecture-component" for node in nodes):
+            add_document("architecture-component", component_doc, "Architecture Component Register")
+
+    for test_path in sorted((repo_root / "generated" / "product-repository" / "tests").glob("test*.py")):
+        add(f"test:{_slug(test_path.stem)}", "test", test_path.name, _source_path(test_path, repo_root, root), "Generated repository validation test.")
+    repo_test = repo_root / "tests" / "test_vnext_lifecycle.py"
+    if repo_test.exists():
+        add("test:vnext-lifecycle", "test", "vNext Lifecycle Regression Tests", _source_path(repo_test, repo_root, root), "Regression tests for lifecycle graph, gates, and generated artifacts.")
+
+    for deployment_path in [repo_root / "generated" / "product-repository" / ".github" / "workflows" / "ci.yml", root / "roadmap" / "release-plan.md"]:
+        add_document("deployment-artifact", deployment_path)
+
+    for operation_path in [repo_root / "prompts" / "playbooks" / "operate.md", root / "agents" / "handoff-protocol.md", root / "execution" / "phase-3-production.md"]:
+        add_document("operation-artifact", operation_path)
+
+    add_document("contradiction", root / "knowledge" / "contradiction-management.md", "Contradiction Management")
+    add_document("contradiction", root / "canon" / "canon-drift.md", "Canon Drift")
+    add_document("learning", root / "log.md", "Lifecycle Log")
+    add_document("learning", root / "knowledge" / "project-intelligence-compounding-model.md", "Project Intelligence Compounding Model")
+
+    return nodes
+
+
+def _lifecycle_edges(nodes: dict[str, GraphNode]) -> list[tuple[str, str, str]]:
+    by_type: dict[str, list[str]] = {}
+    for node in nodes.values():
+        by_type.setdefault(node.type, []).append(node.id)
+
+    edges: list[tuple[str, str, str]] = []
+    for discovery in by_type.get("discovery-item", []):
+        for target_type in ["assumption", "hypothesis", "buyer", "stakeholder", "strategy"]:
+            for target in by_type.get(target_type, [])[:20]:
+                edges.append((discovery, target, "informs"))
+    for strategy in by_type.get("strategy", []):
+        for requirement in by_type.get("requirement", [])[:40]:
+            edges.append((strategy, requirement, "refines"))
+    for requirement in by_type.get("requirement", []):
+        for target_type in ["domain-concept", "bounded-context", "business-rule"]:
+            for target in by_type.get(target_type, [])[:40]:
+                edges.append((requirement, target, "constrains"))
+    for domain in by_type.get("domain-concept", []):
+        for component in by_type.get("architecture-component", []):
+            edges.append((domain, component, "realized_by"))
+    for component in by_type.get("architecture-component", []):
+        for task in by_type.get("task", [])[:80]:
+            edges.append((component, task, "planned_as"))
+    for test in by_type.get("test", []):
+        for requirement in by_type.get("requirement", [])[:40]:
+            edges.append((test, requirement, "verifies"))
+    for deployment in by_type.get("deployment-artifact", []):
+        for test in by_type.get("test", []):
+            edges.append((deployment, test, "runs"))
+    for operation in by_type.get("operation-artifact", []):
+        for deployment in by_type.get("deployment-artifact", []):
+            edges.append((operation, deployment, "operates"))
+    for contradiction in by_type.get("contradiction", []):
+        for learning in by_type.get("learning", []):
+            edges.append((contradiction, learning, "feeds"))
+    return edges
+
+
+def _report_node_types() -> list[str]:
+    return [
+        "product",
+        "problem",
+        "user",
+        "need",
+        "solution",
+        "feature",
+        "discovery-item",
+        "assumption",
+        "hypothesis",
+        "buyer",
+        "stakeholder",
+        "strategy",
+        "requirement",
+        "domain-concept",
+        "bounded-context",
+        "business-rule",
+        "workflow",
+        "component",
+        "architecture",
+        "architecture-component",
+        "task",
+        "test",
+        "evidence",
+        "decision",
+        "risk",
+        "milestone",
+        "release",
+        "deployment-artifact",
+        "operation-artifact",
+        "contradiction",
+        "learning",
+    ]
+
+
 def _section(path: Path, heading: str) -> str:
     if not path.exists():
         return ""
     text = path.read_text(encoding="utf-8")
     match = re.search(rf"## {re.escape(heading)}\n(.*?)(?=\n## |\Z)", text, flags=re.DOTALL)
     return match.group(1).strip() if match else ""
+
+
+def _table_rows(path: Path) -> list[list[str]]:
+    if not path.exists():
+        return []
+    rows: list[list[str]] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("|") or "---" in stripped:
+            continue
+        cells = [cell.strip().strip("`") for cell in stripped.strip("|").split("|")]
+        if cells and cells[0].lower() != "id":
+            rows.append(cells)
+    return rows
+
+
+def _trace_id(row: list[str]) -> str:
+    for cell in row:
+        match = re.search(r"\b(?:P|U|B|O|WF|PP|S|NC|C|R|CMP|A|H|REQ|NFR|AC|BR|DM|BC|AGG|DE|ARCH)-\d{3,4}\b", cell)
+        if match:
+            return match.group(0)
+    return ""
+
+
+def _row_title(row: list[str], fallback: str) -> str:
+    for cell in row[1:]:
+        if _meaningful(cell):
+            return f"{fallback} {cell}"
+    return fallback
+
+
+def _source_path(path: Path, repo_root: Path, wiki_root_path: Path) -> str:
+    try:
+        return str(path.relative_to(wiki_root_path))
+    except ValueError:
+        try:
+            return str(path.relative_to(repo_root))
+        except ValueError:
+            return str(path)
 
 
 def _replace_section(text: str, heading: str, body: str) -> str:

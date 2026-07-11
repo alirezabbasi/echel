@@ -13,7 +13,7 @@
 - [ ] TASK-1006 Verify MVP repository baseline
 - [x] TASK-1007 Define AI agent role model
 - [x] TASK-1008 Add lifecycle playbooks and handoff protocol
-- [ ] TASK-1009 Expand graph lifecycle coverage
+- [ ] TASK-1009 Expand graph lifecycle coverage (node types done via TASK-0029; metadata pending TASK-0030)
 - [ ] TASK-1010 Generate traceability matrix
 - [ ] TASK-1011 Add validation artifacts
 - [ ] TASK-1012 Add validation command

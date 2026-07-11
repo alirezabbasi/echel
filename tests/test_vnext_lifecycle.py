@@ -20,6 +20,7 @@ from echel.execution import (
     render_execution_task,
 )
 from echel.gates import run_stage_gate
+from echel.graph import build_graph, validate_graph
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
 from echel.repository_factory import repository_factory_generate, repository_factory_status
 from echel.strategy import strategy_generate, ensure_strategy_files
@@ -445,6 +446,46 @@ Old canon problem
 
             self.assertFalse(result.passed)
             self.assertIn("unjustified complexity risk", "\n".join(result.failures))
+
+    def test_graph_expands_lifecycle_node_types(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            ensure_discovery_files(repo, cfg)
+            write_requirements_sources(repo)
+            requirements_generate(repo, cfg, force=True)
+            domain_generate(repo, cfg)
+            architecture_generate(repo, cfg)
+            write(repo / "generated/product-repository/tests/test_health.py", "def test_health():\n    assert True\n")
+            write(repo / "generated/product-repository/.github/workflows/ci.yml", "name: CI\n")
+            write(repo / "prompts/playbooks/operate.md", "# Operations Playbook\n")
+            write(repo / "wiki/knowledge/contradiction-management.md", "# Contradiction Management\n")
+
+            graph = build_graph(repo, cfg)
+            issues = validate_graph(graph)
+            node_types = {node.get("type") for node in graph.get("nodes", []) if isinstance(node, dict)}
+
+            self.assertFalse([issue for issue in issues if issue.severity == "critical"])
+            self.assertTrue(
+                {
+                    "discovery-item",
+                    "assumption",
+                    "hypothesis",
+                    "buyer",
+                    "stakeholder",
+                    "business-rule",
+                    "strategy",
+                    "requirement",
+                    "domain-concept",
+                    "bounded-context",
+                    "architecture-component",
+                    "test",
+                    "deployment-artifact",
+                    "operation-artifact",
+                    "contradiction",
+                    "learning",
+                }.issubset(node_types)
+            )
 
     def test_execution_task_generation_creates_agent_executable_tasks(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -351,3 +351,9 @@ status: active
 - Defined the required Handoff Summary fields: roles, stage, source artifacts, changed artifacts, decisions, assumptions, risks, unresolved questions, evidence, stale upstream artifacts, next-stage instructions, and blocking conditions.
 - Updated every canonical lifecycle playbook to require a Handoff Summary using the protocol.
 - Marked EP2-002 and generated TASK-1008 done; recorded DEC-0026 and added regression coverage for the protocol and playbook handoff requirement.
+
+## [2026-07-11] graph | lifecycle-node-types
+- Expanded product graph extraction with first-class lifecycle node types for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
+- Updated product graph schema, traceability notes, methodology, and graph guide docs so the graph reflects Echel's full AI-native software engineering methodology rather than only product/task memory.
+- Added regression coverage proving lifecycle node types appear in generated graph builds while graph validation remains passing.
+- TASK-0029 is complete; TASK-0030 remains responsible for statement type, confidence, source-stage, verification-status, and trace ID metadata.

@@ -50,10 +50,11 @@ Last updated: 2026-07-11
 - Added the vNext AI-agent role model in `wiki/agents/role-model.md` and `docs/development/methodology.md`: the 13-role virtual delivery team (Founder Interviewer through Governance Auditor) now defines responsibilities, inputs, outputs, and forbidden actions per role and a lifecycle-stage mapping, with every role bound to the shared `wiki/engineering/development-workflow.md` contract.
 - Added canonical lifecycle playbooks under `prompts/playbooks/` and tool render maps for Codex, Claude Code, and Cursor so prompt packs render from one source while preserving the no-code-before-task-packet rule.
 - Added `wiki/agents/handoff-protocol.md` as the required inter-role handoff contract and updated every canonical playbook to require a Handoff Summary with assumptions, risks, unresolved questions, evidence, stale artifacts, and next-stage instructions.
+- Expanded the product graph node vocabulary so graph builds now include lifecycle coverage for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
 
 ## Next
 
-1. Expand graph, readiness, cockpit, and prompts around lifecycle stages.
+1. Add statement type, confidence, source-stage, and verification metadata to graph nodes.
 2. Generate end-to-end lifecycle traceability.
 3. Expand release readiness into production operation and post-release learning loops.
 
@@ -63,3 +64,4 @@ Last updated: 2026-07-11
 - If new folders are added without a unique purpose, Echel may become harder for domain experts to navigate again.
 - Force-generating from incomplete discovery remains risky; gates should keep treating template `TBD` content as incomplete.
 - Requirements generation remains blocked until strategy is meaningful unless explicitly forced; the requirements gate now verifies the resulting artifacts before downstream domain work.
+- The expanded graph includes lifecycle artifact coverage before statement metadata; TASK-0030 must prevent agents from treating low-confidence assumptions as facts.

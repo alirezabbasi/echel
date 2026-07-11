@@ -320,6 +320,11 @@ The graph should support a `trace_id` index for fast lookup by methodology ID. T
 - Impact analysis: given a changed discovery ID, list all downstream artifacts that may need updating.
 - Coverage reporting: given a stage, list all artifacts with and without traceability links.
 
+Current implementation status:
+
+- TASK-0029 adds first-class lifecycle node types for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
+- TASK-0030 remains responsible for enriching graph nodes with statement type, confidence, source stage, verification status, and trace ID lookup metadata where available.
+
 ## Matrix Structure
 
 The traceability matrix is a cross-reference table that shows coverage across lifecycle stages. The matrix is generated as `wiki/reports/traceability-matrix.md`.
