@@ -387,3 +387,9 @@ status: active
 - Evidence registration now records subject, kind, path, checksum, producer, and summary without hand-editing `.echel/evidence_registry.json`.
 - Evidence registration refreshes graph evidence nodes, and task closure remains blocked unless referenced evidence IDs exist in the registry.
 - Marked EP3-003, generated TASK-1013, and ENG-006 done; deployment and release gates are the next production hardening tasks.
+
+## [2026-07-12] deployment | artifact-surface
+- Added `wiki/deployment/` with deployment architecture, environments, release process, rollback plan, secrets management, and production checklist artifacts.
+- Product graph generation now includes deployment documents as deployment-stage artifact nodes.
+- Updated validation/security notes so release gate blockers now point to TASK-0036 rather than missing deployment docs.
+- TASK-0035 is complete; TASK-0036 should turn validation, evidence, deployment docs, risks, and blockers into an executable release gate.

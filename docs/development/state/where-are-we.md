@@ -57,10 +57,11 @@ Last updated: 2026-07-12
 - Added the validation artifact surface under `wiki/validation/` so requirements, tasks, domain concepts, and acceptance criteria can be mapped before validation execution is automated.
 - Added the validation command so mapped validation artifacts are summarized into reports and graph test/evidence target nodes.
 - Added the evidence registration command so agents can create checksum-backed evidence records and graph evidence nodes without hand-editing JSON.
+- Added the deployment artifact surface under `wiki/deployment/` so release gates can evaluate deployment path, environments, rollback, secrets, and production checklist state.
 
 ## Next
 
-1. Add deployment and release readiness gates that consume validation output and registered evidence.
+1. Add release readiness gates that consume validation output, registered evidence, and deployment artifacts.
 2. Expand release readiness into production operation and post-release learning loops.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 
@@ -69,4 +70,4 @@ Last updated: 2026-07-12
 - Contract drift across docs/schema/tools could weaken deterministic validation if not gated.
 - Adding new folders without a unique purpose could reintroduce navigation complexity.
 - Template-derived content must not be promoted into canon or strategy as product truth.
-- Traceability reporting still shows canon statement gaps until canon nodes are generated; evidence records can now be registered, but release gates still need to consume them.
+- Traceability reporting still shows canon statement gaps until canon nodes are generated; evidence and deployment records now exist, but release gates still need to consume them.

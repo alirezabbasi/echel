@@ -198,6 +198,8 @@ def _artifacts_by_stage(root: Path, graph_nodes: list[dict]) -> dict[str, list[A
             stage_key = source_stage
         if not stage_key:
             continue
+        if stage_key == "evidence" and str(node.get("verification_status") or "").lower() == "planned":
+            continue
         artifacts[stage_key].append(
             Artifact(
                 id=node_id,

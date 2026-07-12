@@ -9,7 +9,7 @@ updated: 2026-07-10
 
 ## Purpose
 
-The release plan defines the milestone path implied by the roadmap. It is not the production deployment plan yet; TASK-0035 and TASK-0036 will add deployment artifacts and release gates. This document keeps the roadmap honest about what can be demonstrated, verified, and released at each milestone.
+The release plan defines the milestone path implied by the roadmap. TASK-0035 added the deployment artifact surface; TASK-0036 remains responsible for turning validation, evidence, deployment, rollback, secrets, risks, and blockers into a release gate. This document keeps the roadmap honest about what can be demonstrated, verified, and released at each milestone.
 
 ## Release Sequence
 
@@ -35,7 +35,7 @@ The release plan defines the milestone path implied by the roadmap. It is not th
 
 ## Release Guardrails
 
-- Do not call a roadmap release production-ready until validation, deployment, rollback, and operations artifacts exist.
+- Do not call a roadmap release production-ready until validation, evidence, deployment, rollback, release-gate, and operations artifacts exist.
 - Keep known discovery gate gaps visible instead of weakening gates.
 - Any release that adds command behavior must include tests and documentation updates.
 - Any release that changes graph behavior must preserve graph validation.

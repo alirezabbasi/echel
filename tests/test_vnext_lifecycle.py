@@ -27,7 +27,7 @@ from echel.graph import build_graph, validate_graph
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
 from echel.repository_factory import repository_factory_generate, repository_factory_status
 from echel.strategy import strategy_generate, ensure_strategy_files
-from echel.traceability import write_traceability_matrix
+from echel.traceability import traceability_matrix_report, write_traceability_matrix
 from echel.validation import run_validation
 
 
@@ -463,6 +463,7 @@ Old canon problem
             architecture_generate(repo, cfg)
             write(repo / "generated/product-repository/tests/test_health.py", "def test_health():\n    assert True\n")
             write(repo / "generated/product-repository/.github/workflows/ci.yml", "name: CI\n")
+            write(repo / "wiki/deployment/deployment-architecture.md", "# Deployment Architecture\n\n## Purpose\n\nDeployment path.")
             write(repo / "prompts/playbooks/operate.md", "# Operations Playbook\n")
             write(repo / "wiki/knowledge/contradiction-management.md", "# Contradiction Management\n")
 
@@ -478,6 +479,8 @@ Old canon problem
                     self.assertTrue(node.get("confidence"))
                     self.assertTrue(node.get("source_stage"))
                     self.assertTrue(node.get("verification_status"))
+            deployment_sources = {node.get("source") for node in nodes if node.get("type") == "deployment-artifact"}
+            self.assertIn("deployment/deployment-architecture.md", deployment_sources)
             self.assertTrue(
                 {
                     "discovery-item",
@@ -519,6 +522,39 @@ Old canon problem
             self.assertIn("REQ-101", report)
             self.assertIn("Missing: Canon", report)
             self.assertIn("Evidence", report)
+
+    def test_traceability_does_not_count_planned_evidence_targets_as_registered_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            graph = {
+                "version": 1,
+                "nodes": [
+                    {
+                        "id": "requirement:REQ-001",
+                        "type": "requirement",
+                        "title": "Requirement",
+                        "source": "requirements/product-requirements.md",
+                        "trace_id": "REQ-001",
+                        "source_stage": "requirements",
+                    },
+                    {
+                        "id": "evidence:EVID-VALIDATION-001",
+                        "type": "evidence",
+                        "title": "EVID-VALIDATION-001",
+                        "source": "validation/validation-report.md",
+                        "trace_id": "EVID-VALIDATION-001",
+                        "source_stage": "validation",
+                        "verification_status": "planned",
+                    },
+                ],
+                "edges": [{"from_id": "evidence:EVID-VALIDATION-001", "to_id": "requirement:REQ-001", "type": "evidence_for"}],
+            }
+
+            report = traceability_matrix_report(repo, cfg, graph=graph)
+
+            self.assertIn("| Evidence | 0 | 0 | 0% |", report)
+            self.assertIn("Missing: Discovery, Canon, Strategy, Domain, Architecture, Task, Test, Evidence", report)
 
     def test_validate_command_summarizes_items_and_updates_graph(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

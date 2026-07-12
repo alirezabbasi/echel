@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-07-12T12:50:50Z",
+  "generated_at": "2026-07-12T13:00:40Z",
   "nodes": [
     {
       "id": "architecture-component:ARCH-201",
@@ -879,15 +879,87 @@
       "verification_status": "unverified"
     },
     {
+      "id": "deployment-artifact:deployment-architecture",
+      "type": "deployment-artifact",
+      "title": "Deployment Architecture",
+      "source": "deployment/deployment-architecture.md",
+      "summary": "This document defines how an Echel-managed product moves from a verified repository to a runnable environment. It is...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "deployment",
+      "verification_status": "verified"
+    },
+    {
+      "id": "deployment-artifact:environments",
+      "type": "deployment-artifact",
+      "title": "Environments",
+      "source": "deployment/environments.md",
+      "summary": "This document defines the environments where Echel artifacts are verified, released, or operated. It keeps local, CI,...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "deployment",
+      "verification_status": "verified"
+    },
+    {
+      "id": "deployment-artifact:production-checklist",
+      "type": "deployment-artifact",
+      "title": "Production Checklist",
+      "source": "deployment/production-checklist.md",
+      "summary": "This checklist is the release-stage gate input for production readiness. TASK-0036 will convert these rows into gate...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "deployment",
+      "verification_status": "unverified"
+    },
+    {
       "id": "deployment-artifact:release-plan",
       "type": "deployment-artifact",
       "title": "Release Plan",
       "source": "roadmap/release-plan.md",
-      "summary": "The release plan defines the milestone path implied by the roadmap. It is not the production deployment plan yet; TAS...",
+      "summary": "The release plan defines the milestone path implied by the roadmap. TASK-0035 added the deployment artifact surface;...",
       "trace_id": "",
       "statement_type": "decision",
       "confidence": "unknown",
       "source_stage": "roadmap",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "deployment-artifact:release-process",
+      "type": "deployment-artifact",
+      "title": "Release Process",
+      "source": "deployment/release-process.md",
+      "summary": "This document defines the release process from validation output to production approval. It is intentionally procedur...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "deployment",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "deployment-artifact:rollback-plan",
+      "type": "deployment-artifact",
+      "title": "Rollback Plan",
+      "source": "deployment/rollback-plan.md",
+      "summary": "This document defines how to recover from a failed deployment or release decision. Rollback must be planned before pr...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "deployment",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "deployment-artifact:secrets-management",
+      "type": "deployment-artifact",
+      "title": "Secrets Management",
+      "source": "deployment/secrets-management.md",
+      "summary": "This document defines how secrets are identified, stored, used, rotated, and audited. It keeps product memory commit-...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "deployment",
       "verification_status": "unverified"
     },
     {
@@ -11547,6 +11619,456 @@
       "type": "runs"
     },
     {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-ACC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-ACC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-ACC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-ACC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-ACC-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-E2E-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-E2E-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-E2E-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-E2E-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-E2E-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-INT-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-INT-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-INT-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-INT-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-INT-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-PERF-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-PERF-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-PERF-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-PERF-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-SEC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-SEC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-SEC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:TEST-SEC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:test-health",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:deployment-architecture",
+      "to_id": "test:vnext-lifecycle",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-ACC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-ACC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-ACC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-ACC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-ACC-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-E2E-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-E2E-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-E2E-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-E2E-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-E2E-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-INT-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-INT-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-INT-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-INT-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-INT-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-PERF-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-PERF-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-PERF-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-PERF-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-SEC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-SEC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-SEC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:TEST-SEC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:test-health",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:environments",
+      "to_id": "test:vnext-lifecycle",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-ACC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-ACC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-ACC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-ACC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-ACC-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-E2E-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-E2E-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-E2E-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-E2E-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-E2E-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-INT-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-INT-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-INT-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-INT-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-INT-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-PERF-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-PERF-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-PERF-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-PERF-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-SEC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-SEC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-SEC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:TEST-SEC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:test-health",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:production-checklist",
+      "to_id": "test:vnext-lifecycle",
+      "type": "runs"
+    },
+    {
       "from_id": "deployment-artifact:release-plan",
       "to_id": "test:TEST-001",
       "type": "runs"
@@ -11693,6 +12215,456 @@
     },
     {
       "from_id": "deployment-artifact:release-plan",
+      "to_id": "test:vnext-lifecycle",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-ACC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-ACC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-ACC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-ACC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-ACC-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-E2E-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-E2E-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-E2E-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-E2E-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-E2E-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-INT-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-INT-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-INT-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-INT-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-INT-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-PERF-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-PERF-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-PERF-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-PERF-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-SEC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-SEC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-SEC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:TEST-SEC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:test-health",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:release-process",
+      "to_id": "test:vnext-lifecycle",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-ACC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-ACC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-ACC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-ACC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-ACC-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-E2E-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-E2E-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-E2E-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-E2E-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-E2E-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-INT-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-INT-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-INT-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-INT-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-INT-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-PERF-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-PERF-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-PERF-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-PERF-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-SEC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-SEC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-SEC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:TEST-SEC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:test-health",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:rollback-plan",
+      "to_id": "test:vnext-lifecycle",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-ACC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-ACC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-ACC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-ACC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-ACC-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-E2E-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-E2E-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-E2E-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-E2E-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-E2E-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-INT-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-INT-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-INT-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-INT-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-INT-005",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-PERF-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-PERF-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-PERF-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-PERF-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-SEC-001",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-SEC-002",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-SEC-003",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:TEST-SEC-004",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
+      "to_id": "test:test-health",
+      "type": "runs"
+    },
+    {
+      "from_id": "deployment-artifact:secrets-management",
       "to_id": "test:vnext-lifecycle",
       "type": "runs"
     },
@@ -15298,7 +16270,37 @@
     },
     {
       "from_id": "operation-artifact:agent-handoff-protocol",
+      "to_id": "deployment-artifact:deployment-architecture",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:agent-handoff-protocol",
+      "to_id": "deployment-artifact:environments",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:agent-handoff-protocol",
+      "to_id": "deployment-artifact:production-checklist",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:agent-handoff-protocol",
       "to_id": "deployment-artifact:release-plan",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:agent-handoff-protocol",
+      "to_id": "deployment-artifact:release-process",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:agent-handoff-protocol",
+      "to_id": "deployment-artifact:rollback-plan",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:agent-handoff-protocol",
+      "to_id": "deployment-artifact:secrets-management",
       "type": "operates"
     },
     {
@@ -15308,7 +16310,37 @@
     },
     {
       "from_id": "operation-artifact:operate-playbook",
+      "to_id": "deployment-artifact:deployment-architecture",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:operate-playbook",
+      "to_id": "deployment-artifact:environments",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:operate-playbook",
+      "to_id": "deployment-artifact:production-checklist",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:operate-playbook",
       "to_id": "deployment-artifact:release-plan",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:operate-playbook",
+      "to_id": "deployment-artifact:release-process",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:operate-playbook",
+      "to_id": "deployment-artifact:rollback-plan",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:operate-playbook",
+      "to_id": "deployment-artifact:secrets-management",
       "type": "operates"
     },
     {
@@ -15318,7 +16350,37 @@
     },
     {
       "from_id": "operation-artifact:phase-3-production",
+      "to_id": "deployment-artifact:deployment-architecture",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:phase-3-production",
+      "to_id": "deployment-artifact:environments",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:phase-3-production",
+      "to_id": "deployment-artifact:production-checklist",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:phase-3-production",
       "to_id": "deployment-artifact:release-plan",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:phase-3-production",
+      "to_id": "deployment-artifact:release-process",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:phase-3-production",
+      "to_id": "deployment-artifact:rollback-plan",
+      "type": "operates"
+    },
+    {
+      "from_id": "operation-artifact:phase-3-production",
+      "to_id": "deployment-artifact:secrets-management",
       "type": "operates"
     },
     {
@@ -15648,7 +16710,37 @@
     },
     {
       "from_id": "product:root",
+      "to_id": "deployment-artifact:deployment-architecture",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "deployment-artifact:environments",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "deployment-artifact:production-checklist",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
       "to_id": "deployment-artifact:release-plan",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "deployment-artifact:release-process",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "deployment-artifact:rollback-plan",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "deployment-artifact:secrets-management",
       "type": "has_lifecycle_artifact"
     },
     {

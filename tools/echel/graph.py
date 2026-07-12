@@ -564,7 +564,12 @@ def _lifecycle_nodes(repo_root: Path, root: Path) -> list[GraphNode]:
     if repo_test.exists():
         add("test:vnext-lifecycle", "test", "vNext Lifecycle Regression Tests", _source_path(repo_test, repo_root, root), "Regression tests for lifecycle graph, gates, and generated artifacts.")
 
-    for deployment_path in [repo_root / "generated" / "product-repository" / ".github" / "workflows" / "ci.yml", root / "roadmap" / "release-plan.md"]:
+    deployment_paths = [
+        repo_root / "generated" / "product-repository" / ".github" / "workflows" / "ci.yml",
+        root / "roadmap" / "release-plan.md",
+        *sorted((root / "deployment").glob("*.md")),
+    ]
+    for deployment_path in deployment_paths:
         add_document("deployment-artifact", deployment_path)
 
     for operation_path in [repo_root / "prompts" / "playbooks" / "operate.md", root / "agents" / "handoff-protocol.md", root / "execution" / "phase-3-production.md"]:
@@ -701,6 +706,7 @@ def _infer_source_stage(source: str, node_type: str) -> str:
         "architecture": "architecture",
         "roadmap": "roadmap",
         "execution": "execution",
+        "deployment": "deployment",
         "work": "execution",
         "decisions": "governance",
         "reports": "validation",

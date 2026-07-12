@@ -191,3 +191,9 @@
 - Decision: Make evidence registration a first-class CLI operation that writes structured registry records and refreshes evidence graph nodes.
 - Context: TASK-0034 needed agents to register proof without hand-editing `.echel/evidence_registry.json`, while preserving the existing task-closure rule that every closed task must reference registered evidence.
 - Impact: `python3 tools/echel.py evidence add` records subject, kind, path, checksum, producer, and summary, computes a SHA-256 checksum when possible, supports explicit evidence IDs for validation targets, regenerates `wiki/graph.json`, and leaves task closure dependent on registry-backed evidence IDs.
+
+## DEC-0033
+
+- Decision: Treat deployment readiness as a product-memory artifact surface before implementing the release gate.
+- Context: TASK-0035 needed deployment path, rollback, secrets, and production checklist information to exist as durable docs so TASK-0036 can gate release readiness deterministically instead of relying on prose or chat summaries.
+- Impact: `wiki/deployment/` now contains deployment architecture, environments, release process, rollback plan, secrets management, and production checklist artifacts. Product graph generation now includes deployment documents as `deployment-artifact` nodes with deployment-stage metadata.

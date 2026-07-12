@@ -60,6 +60,10 @@ Make release readiness evidence-backed, deployment-aware, and operationally insp
 - Deployment and release readiness have explicit blockers.
 - Operations artifacts define support, incident, backup, SLO, and change responsibilities.
 
+## Progress Notes
+
+- 2026-07-12: TASK-0035 completed the deployment artifact templates for EP3-004. The phase row remains Planned until TASK-0036 implements release gate checks.
+
 ## Validation Method
 
 Run:

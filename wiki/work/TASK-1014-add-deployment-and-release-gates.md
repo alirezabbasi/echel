@@ -72,6 +72,10 @@ python3 tools/echel.py doctor
 python3 tools/echel.py doctor
 ```
 
+## Progress Notes
+- 2026-07-12: TASK-0035 completed the deployment artifact portion of EP3-004 by adding `wiki/deployment/` documents for deployment architecture, environments, release process, rollback, secrets management, and production checklist.
+- TASK-0036 remains responsible for release gate code/tests that consume these deployment artifacts with validation output, registered evidence, risks, and blockers.
+
 ## Rollback Notes
 - Revert the files listed in this task if validation fails.
 - Remove any generated artifacts created by this task before retrying.
