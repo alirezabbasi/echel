@@ -810,6 +810,7 @@ Gate rule:
 
 - Post-release learning must feed new discoveries, decisions, risks, requirements, tasks, or roadmap updates.
 - TASK-0037 establishes `wiki/operations/` as the required operations artifact surface before TASK-0038 automates incidents, RCA, customer feedback, roadmap changes, and strategy changes into product memory.
+- TASK-0038 implements `python3 tools/echel.py learning add` as the routed learning command. It may create follow-up task packets, proposed ADRs, risks, assumptions, or strategy-change records, but product behavior changes still require an approved task packet and evidence.
 
 Prepares the next lifecycle loop by turning operations into product intelligence.
 

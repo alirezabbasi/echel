@@ -4,7 +4,7 @@ stage: execution-planning
 phase: phase-4-evolution
 status: draft
 owner: governance
-updated: 2026-07-10
+updated: 2026-07-13
 ---
 # Phase 4 - Evolution
 
@@ -16,7 +16,7 @@ Phase 4 turns Echel from a gated delivery system into a continuously improving A
 
 - Roadmap: [[../roadmap/master-roadmap]], [[../roadmap/release-plan]]
 - Architecture: [[../architecture/observability-architecture]], [[../architecture/component-architecture]]
-- Future operations artifacts from Phase 3.
+- Operations artifacts from Phase 3.
 
 ## Phase Objective
 
@@ -50,7 +50,7 @@ Make product evolution visible, governed, and repeatable across future projects 
 
 | Phase Task ID | Task | Objective | Business Reason | Scope | Dependencies | Acceptance Criteria | Tests Required | Validation Command | Documentation Updates | Expected Repo Changes | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| EP4-001 | Add learning loop | Connect incidents, RCA, customer feedback, roadmap changes, and strategy updates to memory. | Product intelligence must improve after release. | Learning command/artifacts and update paths. | TASK-0038, Phase 3 operations docs | Learnings can create tasks, ADRs, risks, assumptions, or strategy changes. | Unit and docs review | `python3 -m unittest discover -s tests` | Add learning docs. | Learning artifacts/command. | Planned |
+| EP4-001 | Add learning loop | Connect incidents, RCA, customer feedback, roadmap changes, and strategy updates to memory. | Product intelligence must improve after release. | Learning command/artifacts and update paths. | TASK-0038, Phase 3 operations docs | Learnings can create tasks, ADRs, risks, assumptions, or strategy changes. | Unit and docs review | `python3 -m unittest discover -s tests` | Add learning docs. | Learning artifacts/command. | Done |
 | EP4-002 | Redesign cockpit around lifecycle | Make cockpit show stage, blockers, next action, and responsible AI role. | Owners need steering, not only dashboards. | Lifecycle navigation and guided safe actions. | TASK-0039, TASK-0040, EP4-001 | User always sees current stage, blockers, next action, and responsible AI role. | UI/API tests where applicable | `make wiki-health` | Update cockpit docs. | Cockpit code/docs in future tasks. | Planned |
 | EP4-003 | Add governance integrity artifacts | Define governance docs, integrity audit, and contradiction artifacts. | Long-running product memory needs visible rules and conflict resolution. | Governance docs, `integrity audit`, contradictions artifact. | TASK-0041, TASK-0042, TASK-0043 | Audit reports missing docs, stale docs, broken traceability, missing ADRs/tests/evidence; contradictions are visible and resolvable. | Unit and governance validation | `python3 tools/echel.py doctor` | Add governance docs. | Governance docs/commands/tests. | Planned |
 | EP4-004 | Preserve migration compatibility | Map existing pages into lifecycle model and update initialization. | Existing product memory must survive vNext adoption. | Migration plan, init flow, generated project verification. | TASK-0044, TASK-0045, TASK-0046 | Old pages remain usable; new projects initialize methodology-complete structure; generated project passes lifecycle checks. | Generated-project verification | `make wiki-health` | Update migration/init docs. | Init and verification code/docs. | Planned |
@@ -62,6 +62,10 @@ Make product evolution visible, governed, and repeatable across future projects 
 - Backward compatibility is explicit before initialization changes.
 - Final vNext proof depends on generated-project verification and governance gates.
 - No future phase hides unresolved discovery, evidence, or graph blockers.
+
+## Progress Notes
+
+- 2026-07-13: TASK-0038 completed EP4-001. `python3 tools/echel.py learning add` now captures incidents, RCA, feedback, roadmap changes, and strategy changes into operations learning records and routes follow-up to tasks, ADRs, risks, assumptions, or strategy-change artifacts.
 
 ## Validation Method
 

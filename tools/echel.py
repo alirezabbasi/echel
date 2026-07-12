@@ -27,6 +27,7 @@ from echel.graph import (
     write_graph,
     write_graph_report,
 )
+from echel.learning import ensure_learning_files, learning_status, record_learning
 from echel.memory_kernel import append_record, contradiction_summary, query_records
 from echel.migration_planner import plan_waves
 from echel.platform.runtime import ensure_platform_config, load_platform_config
@@ -434,6 +435,47 @@ def cmd_validate(repo_root: Path) -> int:
     print(f"- blocked: {summary.blocked}")
     print(f"- risks: {len(summary.risks)}")
     print(f"- blockers: {len(summary.blockers)}")
+    return 0
+
+
+def cmd_learning(repo_root: Path) -> int:
+    cfg = _load(repo_root)
+    ensure_learning_files(repo_root, cfg)
+    print(learning_status(repo_root, cfg))
+    return 0
+
+
+def cmd_learning_add(
+    repo_root: Path,
+    source_kind: str,
+    title: str,
+    summary: str,
+    action: str,
+    owner: str,
+    severity: str,
+    source_id: str,
+) -> int:
+    cfg = _load(repo_root)
+    try:
+        result = record_learning(
+            repo_root,
+            cfg,
+            source_kind=source_kind,
+            title=title,
+            summary=summary,
+            action=action,
+            owner=owner,
+            severity=severity,
+            source_id=source_id,
+        )
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    print(f"Learning recorded: {result.learning_id}")
+    print(f"- register: {result.record_path}")
+    print(f"- target: {result.target_kind}")
+    if result.target_path:
+        print(f"- artifact: {result.target_path}")
     return 0
 
 
@@ -849,6 +891,17 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("traceability")
     sub.add_parser("validate")
 
+    learning = sub.add_parser("learning")
+    learning_sub = learning.add_subparsers(dest="learning_cmd")
+    learning_add = learning_sub.add_parser("add")
+    learning_add.add_argument("--source-kind", required=True, choices=["incident", "rca", "feedback", "roadmap-change", "strategy-change"])
+    learning_add.add_argument("--title", required=True)
+    learning_add.add_argument("--summary", required=True)
+    learning_add.add_argument("--action", required=True, choices=["task", "adr", "risk", "assumption", "strategy-change", "none"])
+    learning_add.add_argument("--owner", default="Operations Steward")
+    learning_add.add_argument("--severity", default="medium")
+    learning_add.add_argument("--source-id", default="")
+
     evidence = sub.add_parser("evidence")
     evidence_sub = evidence.add_subparsers(dest="evidence_cmd", required=True)
     evidence_add = evidence_sub.add_parser("add")
@@ -1007,6 +1060,19 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_traceability(root)
     if args.cmd == "validate":
         return cmd_validate(root)
+    if args.cmd == "learning":
+        if args.learning_cmd == "add":
+            return cmd_learning_add(
+                root,
+                source_kind=args.source_kind,
+                title=args.title,
+                summary=args.summary,
+                action=args.action,
+                owner=args.owner,
+                severity=args.severity,
+                source_id=args.source_id,
+            )
+        return cmd_learning(root)
     if args.cmd == "evidence" and args.evidence_cmd == "add":
         return cmd_evidence_add(
             root,

@@ -45,6 +45,7 @@ python3 tools/echel.py status
 - Execution and verification: `task`, `test`, and `evidence`.
 - Release and operation: `deployment-artifact`, `operation-artifact`, `milestone`, and `release`; operation artifacts include `wiki/operations/*.md` support, incident, recovery, SLO, change, and evolution records.
 - Governance and evolution: `contradiction`, `learning`, `decision`, and `risk`.
+- Learning records from `wiki/operations/learning-records.md` are emitted as `learning` nodes with `LEARN-###` trace IDs after `python3 tools/echel.py learning add`.
 
 ## Metadata Discipline
 Every generated graph node carries `statement_type`, `confidence`, `source_stage`, and `verification_status`. Nodes also carry `trace_id` when a stable methodology ID can be inferred from the node ID or structured source row.

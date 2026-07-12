@@ -106,11 +106,17 @@ status: active
 
 - [[operations/backup-and-recovery|Backup And Recovery]]
 - [[operations/change-management|Change Management]]
+- [[operations/customer-feedback|Customer Feedback]]
 - [[operations/evolution-backlog|Evolution Backlog]]
 - [[operations/incident-response|Incident Response]]
+- [[operations/learning-loop|Learning Loop]]
+- [[operations/learning-records|Learning Records]]
 - [[operations/observability|Observability]]
+- [[operations/rca-log|Rca Log]]
+- [[operations/roadmap-change-log|Roadmap Change Log]]
 - [[operations/runbook|Runbook]]
 - [[operations/sla-and-slo|Sla And Slo]]
+- [[operations/strategy-change-log|Strategy Change Log]]
 
 ## Reports
 

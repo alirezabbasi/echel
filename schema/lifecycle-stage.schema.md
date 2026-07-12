@@ -721,6 +721,7 @@ Gate conditions:
 - backup and recovery are documented where applicable
 - evolution backlog is governed by evidence and strategy
 - TASK-0037 operations artifacts exist before TASK-0038 learning automation records incidents or feedback against them
+- `python3 tools/echel.py learning add` records post-release signals and routes them to task, ADR, risk, assumption, or strategy-change artifacts
 
 Allowed next:
 

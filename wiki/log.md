@@ -405,3 +405,10 @@ status: active
 - Operations docs define support ownership, incident severity and escalation, recovery objectives, service expectations, change governance, and learning backlog intake.
 - Product graph generation now includes operations documents as operations-stage `operation-artifact` nodes.
 - Marked EP3-005 and generated TASK-1015 done; TASK-0038 learning loop is the next operations/evolution task.
+
+## [2026-07-13] learning | routed-loop
+- Added `python3 tools/echel.py learning` and `python3 tools/echel.py learning add`.
+- Learning records now capture incidents, RCA, customer feedback, roadmap changes, and strategy changes under `wiki/operations/`.
+- Learning actions can route follow-up to task packets, proposed ADRs, risks, assumptions, or strategy-change records.
+- Product graph generation now emits `LEARN-###` learning nodes from operations learning records.
+- Marked EP4-001 and generated TASK-1016 done; cockpit lifecycle redesign is next.

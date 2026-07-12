@@ -85,6 +85,8 @@ python3 tools/echel.py repository-factory
 python3 tools/echel.py validate
 python3 tools/echel.py evidence add --id EVID-VALIDATION-001 --subject TEST-001 --kind validation-report --path wiki/reports/validation-summary.md --producer "QA Agent" --summary "Validation summary proof"
 python3 tools/echel.py readiness --stage release
+python3 tools/echel.py learning
+python3 tools/echel.py learning add --source-kind incident --title "..." --summary "..." --action task
 ```
 
 Architecture artifacts live under `wiki/architecture/` after the domain gate passes. `GATE-ARCHITECTURE` must pass before roadmap work because it checks deployment posture, data/security/observability models, ADR coverage, requirement/domain mappings, graph coverage, and overengineering risk. The root `wiki/architecture.md` remains a compatibility summary for current graph and cockpit views.
@@ -110,6 +112,8 @@ Validation artifacts live under `wiki/validation/`. They define test strategy, a
 Deployment artifacts live under `wiki/deployment/`. They define deployment architecture, environments, release process, rollback plan, secrets management, and production checklist inputs for the release gate. `python3 tools/echel.py readiness --stage release` blocks production readiness when validation blockers, deployment docs, rollback, checklist rows, registered evidence, or release risks are unresolved.
 
 Operations artifacts live under `wiki/operations/`. They define the runbook, observability signals, incident severity and escalation, backup and recovery, SLA/SLO expectations, change management, and evolution backlog used for post-release support and learning-loop handoff.
+
+The learning loop is captured by `python3 tools/echel.py learning add`. It records incidents, RCA, customer feedback, roadmap changes, and strategy changes into `wiki/operations/learning-records.md`, then routes follow-up into tasks, ADRs, risks, assumptions, or strategy-change memory depending on the selected `--action`.
 
 ## Graph And Memory Commands
 

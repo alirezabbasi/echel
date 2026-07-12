@@ -209,3 +209,9 @@
 - Decision: Adopt `wiki/operations/` as the operations and evolution artifact surface before implementing the learning loop.
 - Context: TASK-0037 needed post-release operations to become product memory, not an informal handoff. Support, incident response, backup/recovery, SLA/SLO, change management, and evolution backlog governance need stable artifacts before TASK-0038 can automate learning updates.
 - Impact: `wiki/operations/` now contains runbook, observability, incident response, backup-and-recovery, SLA/SLO, change-management, and evolution-backlog artifacts. Product graph generation includes those files as operations-stage `operation-artifact` nodes, and TASK-0038 can consume the evolution backlog and incident model as its source contract.
+
+## DEC-0036
+
+- Decision: Implement post-release learning as a routed CLI command over operations artifacts.
+- Context: TASK-0038 needed incidents, RCA, customer feedback, roadmap changes, and strategy changes to update product memory instead of becoming informal notes. The command must route learning into the right governance surface without allowing product behavior changes outside task packets.
+- Impact: `python3 tools/echel.py learning add` writes durable learning records under `wiki/operations/`, updates source-specific logs, regenerates the product graph, and can create follow-up tasks, proposed ADRs, risks, assumptions, or strategy-change records. Product behavior follow-up still routes through generated task packets and evidence expectations.

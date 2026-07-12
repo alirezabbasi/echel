@@ -581,6 +581,23 @@ def _lifecycle_nodes(repo_root: Path, root: Path) -> list[GraphNode]:
     for operation_path in operation_paths:
         add_document("operation-artifact", operation_path)
 
+    learning_records = root / "operations" / "learning-records.md"
+    if learning_records.exists():
+        for row in _table_rows(learning_records):
+            trace_id = _trace_id(row)
+            if trace_id and trace_id.startswith("LEARN-"):
+                add(
+                    f"learning:{trace_id}",
+                    "learning",
+                    _row_title(row, trace_id),
+                    "operations/learning-records.md",
+                    " | ".join(row),
+                    trace_id,
+                    "observation",
+                    "medium",
+                    _row_verification_status(row) or "captured",
+                )
+
     add_document("contradiction", root / "knowledge" / "contradiction-management.md", "Contradiction Management")
     add_document("contradiction", root / "canon" / "canon-drift.md", "Canon Drift")
     add_document("learning", root / "log.md", "Lifecycle Log")
@@ -713,6 +730,7 @@ def _infer_source_stage(source: str, node_type: str) -> str:
         "roadmap": "roadmap",
         "execution": "execution",
         "deployment": "deployment",
+        "operations": "operations",
         "work": "execution",
         "decisions": "governance",
         "reports": "validation",
@@ -813,14 +831,14 @@ def _table_rows(path: Path) -> list[list[str]]:
 
 def _trace_id(row: list[str]) -> str:
     for cell in row:
-        match = re.search(r"\b(?:P|U|B|O|WF|PP|S|NC|C|R|CMP|A|H|REQ|NFR|AC|BR|DM|BC|AGG|DE|ARCH)-\d{3,4}\b", cell)
+        match = re.search(r"\b(?:P|U|B|O|WF|PP|S|NC|C|R|CMP|A|H|REQ|NFR|AC|BR|DM|BC|AGG|DE|ARCH|LEARN)-\d{3,4}\b", cell)
         if match:
             return match.group(0)
     return ""
 
 
 def _trace_id_from_node_id(node_id: str) -> str:
-    match = re.search(r"\b(?:P|U|B|O|WF|PP|S|NC|C|R|CMP|A|H|REQ|NFR|AC|BR|DM|BC|AGG|DE|ARCH|ADR|TASK|TEST|EVID)-\d{3,4}\b", node_id)
+    match = re.search(r"\b(?:P|U|B|O|WF|PP|S|NC|C|R|CMP|A|H|REQ|NFR|AC|BR|DM|BC|AGG|DE|ARCH|ADR|TASK|TEST|EVID|LEARN)-\d{3,4}\b", node_id)
     return match.group(0) if match else ""
 
 
@@ -843,7 +861,7 @@ def _row_confidence(row: list[str]) -> str:
 def _row_verification_status(row: list[str]) -> str:
     for cell in row:
         cleaned = cell.strip().lower()
-        if cleaned in {"validated", "verified", "accepted", "resolved", "active", "draft", "open", "done", "generated"}:
+        if cleaned in {"validated", "verified", "accepted", "resolved", "active", "draft", "open", "done", "generated", "captured"}:
             return cleaned
     return ""
 

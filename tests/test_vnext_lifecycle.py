@@ -24,6 +24,7 @@ from echel.execution import (
 )
 from echel.gates import run_stage_gate
 from echel.graph import build_graph, validate_graph
+from echel.learning import ensure_learning_files, record_learning
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
 from echel.repository_factory import repository_factory_generate, repository_factory_status
 from echel.strategy import strategy_generate, ensure_strategy_files
@@ -673,6 +674,39 @@ Old canon problem
             self.assertFalse(result.passed)
             self.assertIn("production checklist is not passed", failures)
             self.assertIn("release evidence is missing", failures)
+
+    def test_learning_loop_routes_post_release_signals_to_memory(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            ensure_learning_files(repo, cfg)
+            actions = ["task", "adr", "risk", "assumption", "strategy-change"]
+            results = [
+                record_learning(
+                    repo,
+                    cfg,
+                    source_kind="incident" if action != "strategy-change" else "strategy-change",
+                    title=f"{action} follow up",
+                    summary=f"Route {action} into product memory.",
+                    action=action,
+                    owner="Operations Steward",
+                    severity="medium",
+                )
+                for action in actions
+            ]
+
+            records = (repo / "wiki/operations/learning-records.md").read_text(encoding="utf-8")
+            self.assertIn("LEARN-001", records)
+            self.assertIn("LEARN-005", records)
+            self.assertTrue(any(path.name.startswith("TASK-2001") for path in (repo / "wiki/work").glob("TASK-*.md")))
+            self.assertTrue(any(path.name.startswith("ADR-0006") for path in (repo / "wiki/decisions").glob("ADR-*.md")))
+            self.assertIn("risk follow up", (repo / "wiki/risks.md").read_text(encoding="utf-8"))
+            self.assertIn("A-001", (repo / "wiki/discovery/assumptions.md").read_text(encoding="utf-8"))
+            self.assertIn("strategy-change follow up", (repo / "wiki/operations/strategy-change-log.md").read_text(encoding="utf-8"))
+
+            graph = build_graph(repo, cfg)
+            learning_nodes = {node.get("trace_id") for node in graph.get("nodes", []) if node.get("type") == "learning"}
+            self.assertIn(results[0].learning_id, learning_nodes)
 
     def test_low_confidence_assumptions_block_graph_validation(self) -> None:
         graph = {

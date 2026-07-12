@@ -30,7 +30,7 @@ The evolution backlog is the governed intake for post-release learning, incident
 
 | ID | Source Signal | Learning Or Opportunity | Target Artifact | Decision Path | Owner | Priority | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| EVO-001 | TASK-0038 planned learning loop | Automate capture of incidents, RCA, customer feedback, roadmap changes, and strategy changes into product memory. | Learning loop command and operation artifacts | Create command and tests in TASK-0038. | Operations Steward | High | Planned |
+| EVO-001 | TASK-0038 learning loop | Automate capture of incidents, RCA, customer feedback, roadmap changes, and strategy changes into product memory. | Learning loop command and operation artifacts | `python3 tools/echel.py learning add` now routes learning into memory. | Operations Steward | High | Done |
 | EVO-002 | Traceability report | Canon statement graph links remain incomplete. | Product graph and canon artifacts | Add canon graph nodes or trace links in a future traceability task. | Governance Auditor | Medium | Planned |
 | EVO-003 | Release gate output | Current production readiness requires release evidence and checklist completion. | Evidence registry and production checklist | Register release evidence and close checklist rows when production release is attempted. | Release Manager | High | Planned |
 

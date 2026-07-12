@@ -3,7 +3,7 @@ type: engineering-roadmap
 stage: roadmap
 status: draft
 owner: engineering
-updated: 2026-07-10
+updated: 2026-07-13
 ---
 # Engineering Roadmap
 
@@ -21,7 +21,7 @@ The engineering roadmap identifies the implementation-enabling work needed after
 | ENG-004 | Engineering Documentation | Document how the generated repo is developed and verified. | Repository structure, coding standards, workflow, config strategy, local development. | ENG-003, TASK-0025 | Developer can boot locally using documented commands. | Docs become generic and not executable. | README and engineering docs include exact setup/start/lint/test commands. | TASK-0025, NFR-001 | Done |
 | ENG-005 | Traceability And Graph Upgrade | Expand graph and traceability for lifecycle artifacts. | Node types, statement type, confidence, traceability matrix. | ENG-004, TASK-0029, TASK-0030, TASK-0031 | Traceability matrix shows broken chains from discovery to evidence. | Graph upgrade breaks existing graph workflows. | Existing graph validation still passes and matrix is generated. | NFR-002, TASK-0029..TASK-0031 | Done |
 | ENG-006 | Validation And Evidence | Add validation command and evidence registration. | Validation artifacts, validation command, evidence add flow. | ENG-005, TASK-0032, TASK-0033, TASK-0034 | Agent registers evidence without hand-editing JSON. | Evidence remains manual and inconsistent. | Evidence records include subject, kind, path, checksum, producer, summary. | REQ-004, NFR-003, TASK-0032..TASK-0034 | Done |
-| ENG-007 | Release And Operations | Add deployment, release, operations, and learning artifacts. | Deployment docs, release gate, operations docs, learning loop. | ENG-006, TASK-0035, TASK-0036, TASK-0037, TASK-0038 | Release readiness shows deployment, rollback, secrets, evidence, and open blockers. | Production readiness remains subjective. | Release gate and operations artifacts pass or block with remediation. | TASK-0035..TASK-0038, ARCH-206 | Planned |
+| ENG-007 | Release And Operations | Add deployment, release, operations, and learning artifacts. | Deployment docs, release gate, operations docs, learning loop. | ENG-006, TASK-0035, TASK-0036, TASK-0037, TASK-0038 | Release readiness shows deployment, rollback, secrets, evidence, and open blockers, and learning signals can route follow-up. | Production readiness remains subjective. | Release gate and operations artifacts pass or block with remediation. | TASK-0035..TASK-0038, ARCH-206 | Done |
 
 ## Engineering Guardrails
 

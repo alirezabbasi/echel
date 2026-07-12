@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP4-001
 source_phase_file: execution/phase-4-evolution.md
@@ -72,6 +72,12 @@ python3 -m unittest discover -s tests
 python3 -m unittest discover -s tests
 ```
 
+## Progress Notes
+- 2026-07-13: TASK-0038 added `tools/echel/learning.py` and wired `python3 tools/echel.py learning` / `learning add` into the CLI.
+- Added learning artifacts under `wiki/operations/` for learning loop guidance, learning records, RCA, customer feedback, roadmap change, and strategy change logs.
+- Learning records can route follow-up into tasks, ADRs, risks, assumptions, or strategy-change memory while preserving task-packet requirements for behavior changes.
+- Product graph generation now emits `LEARN-###` records as `learning` nodes.
+
 ## Rollback Notes
 - Revert the files listed in this task if validation fails.
 - Remove any generated artifacts created by this task before retrying.
@@ -81,11 +87,11 @@ python3 -m unittest discover -s tests
 - Add learning docs.
 
 ## Definition of Done
-- [ ] TASK-1016 satisfies source phase task EP4-001.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1016 satisfies source phase task EP4-001.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Out of Scope
 - Work from later execution phase rows.
