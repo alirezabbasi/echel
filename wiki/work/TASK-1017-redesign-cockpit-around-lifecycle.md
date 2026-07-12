@@ -1,6 +1,6 @@
 ---
 type: task
-status: active
+status: done
 stage: execution
 source_phase_task: EP4-002
 source_phase_file: execution/phase-4-evolution.md
@@ -82,16 +82,19 @@ make wiki-health
 - Update cockpit docs.
 
 ## Definition of Done
-- [ ] TASK-1017 satisfies source phase task EP4-002.
+- [x] TASK-1017 satisfies source phase task EP4-002.
 - [x] TASK-0039 lifecycle navigation acceptance criteria are met: current stage, blockers, next action, and responsible AI role are always visible.
-- [ ] TASK-0040 guided native stage actions are complete.
-- [ ] Required tests and validation command pass for the full generated task.
+- [x] TASK-0040 guided native stage actions are complete.
+- [x] Required tests and validation command pass for the full generated task.
 - [x] Relevant project memory and documentation are updated for TASK-0039.
 - [x] Changed files are limited to the TASK-0039 cockpit lifecycle-navigation scope or explicitly justified in the task notes.
+- [x] Relevant project memory and documentation are updated for TASK-0040.
+- [x] Changed files are limited to the TASK-0040 guided stage-action scope or explicitly justified in the task notes.
 
 ## Progress Notes
 
-- 2026-07-13: TASK-0039 completed the lifecycle navigation redesign. `tools/echel/platform/cockpit.py` now emits ordered lifecycle stages with role, blockers, next action, artifacts, and safe action metadata; the cockpit UI uses those stages as primary navigation and keeps the current stage, blockers, next action, and responsible AI role visible in the header and stage view. TASK-0040 remains open for richer native guided actions.
+- 2026-07-13: TASK-0039 completed the lifecycle navigation redesign. `tools/echel/platform/cockpit.py` now emits ordered lifecycle stages with role, blockers, next action, artifacts, and safe action metadata; the cockpit UI uses those stages as primary navigation and keeps the current stage, blockers, next action, and responsible AI role visible in the header and stage view.
+- 2026-07-13: TASK-0040 completed guided stage actions. Every lifecycle stage now exposes schema-driven, command-backed safe actions in the cockpit, including generation, readiness, work-packet, validation, evidence, release, learning, graph, and traceability workflows.
 
 ## Out of Scope
 - Work from later execution phase rows.

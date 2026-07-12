@@ -62,10 +62,11 @@ Last updated: 2026-07-13
 - Updated product graph generation so `wiki/operations/*.md` is represented as operations-stage `operation-artifact` nodes.
 - Added the post-release learning loop command and artifacts. `python3 tools/echel.py learning add` captures incidents, RCA, customer feedback, roadmap changes, and strategy changes, then routes follow-up into tasks, ADRs, risks, assumptions, or strategy-change memory.
 - Redesigned the product cockpit around lifecycle stages. The cockpit snapshot now exposes Discovery through Governance stages with blockers, next action, responsible AI role, stage artifacts, and safe command metadata, and the UI uses those stages as primary navigation while embedding the older artifact views as context.
+- Added guided cockpit stage actions so every lifecycle stage can run its native command-backed workflow from the cockpit, including discovery answers, canon/strategy/requirements/domain/architecture generation, execution tasks, packets, validation, evidence registration, release summaries, learning capture, graph reports, and traceability.
 
 ## Next
 
-1. Deepen guided stage actions so each lifecycle stage can perform its native generation, evaluation, registration, or readiness workflow from the cockpit.
+1. Expand governance artifacts, integrity audit, and contradiction resolution.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 
@@ -75,4 +76,4 @@ Last updated: 2026-07-13
 - If new folders are added without a unique purpose, Echel may become harder for domain experts to navigate again.
 - Force-generating from incomplete discovery remains risky; gates should keep treating template `TBD` content as incomplete.
 - Requirements generation remains blocked until strategy is meaningful unless explicitly forced; the requirements gate now verifies the resulting artifacts before downstream domain work.
-- Traceability reporting still surfaces missing canon graph links; release readiness, learning capture, and cockpit lifecycle steering are executable, while operations readiness still needs a dedicated gate.
+- Traceability reporting still surfaces missing canon graph links; release readiness, learning capture, and cockpit lifecycle steering/actions are executable, while operations readiness still needs a dedicated gate.

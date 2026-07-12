@@ -30,12 +30,13 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use `wiki/operations/` as the operations-stage surface for runbook, observability, incident response, backup/recovery, SLA/SLO, change management, and evolution backlog governance.
 - Use `python3 tools/echel.py learning add` to turn incidents, RCA, customer feedback, roadmap changes, and strategy changes into routed product-memory follow-ups.
 - Use the cockpit lifecycle navigation to inspect Discovery through Governance stages, blockers, responsible AI roles, next actions, artifacts, and safe actions.
+- Use cockpit guided actions to run native stage workflows for discovery answers, lifecycle generation, readiness, packets, validation, evidence, release reporting, learning, graph reports, and traceability.
 
 ## Next
 
-- Deepen cockpit guided safe actions for native stage workflows.
+- Expand governance artifacts, integrity audit, and contradiction resolution.
 - Connect canon statements more fully into graph-backed traceability.
 
 ## Later
 
-- Add operations, cockpit lifecycle, and governance readiness gates.
+- Add operations and governance readiness gates.

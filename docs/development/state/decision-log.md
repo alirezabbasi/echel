@@ -221,3 +221,9 @@
 - Decision: Make lifecycle stages the cockpit's primary navigation and steering contract.
 - Context: TASK-0039 needed the cockpit to stop behaving like a collection of artifact tabs and instead show where the product is in the Echel lifecycle. Owners and AI roles need current stage, blockers, next action, and responsible role visible without hunting across reports.
 - Impact: `tools/echel/platform/cockpit.py` now emits ordered Discovery through Governance stage objects with status, role, blockers, next action, artifacts, and safe command metadata. The cockpit UI navigates by lifecycle stage, keeps the current stage visible in the header, and embeds existing artifact views as contextual stage evidence. TASK-0040 can deepen the command-backed guided actions without changing the navigation model.
+
+## DEC-0038
+
+- Decision: Treat cockpit guided actions as a schema-driven safe command bridge, not as independent workflow logic.
+- Context: TASK-0040 needed lifecycle stages to perform native work from the cockpit: answer discovery questions, generate lifecycle artifacts, create work packets, register evidence, record learning, and run readiness or governance checks. Reimplementing those workflows in the browser would split authority away from the CLI and product memory.
+- Impact: Cockpit stages now expose `safe_actions` with command names, static args, descriptions, and optional form fields. The UI renders those actions generically and submits them through `/api/cockpit/command`, while `tools/echel/platform/cockpit.py` remains the allow-listed command boundary for lifecycle generation, evidence, learning, validation, readiness, and governance commands.

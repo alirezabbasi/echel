@@ -71,12 +71,45 @@ class VNextLifecycleTests(unittest.TestCase):
                 self.assertIn("blockers", stage)
                 self.assertIn("next_action", stage)
                 self.assertIn("safe_action", stage)
+                self.assertIn("safe_actions", stage)
+
+    def test_cockpit_lifecycle_exposes_guided_stage_actions(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            snapshot = cockpit_snapshot(repo)
+
+            actions_by_stage = {
+                stage["id"]: {action["action"] for action in stage["safe_actions"]}
+                for stage in snapshot["lifecycle"]["stages"]
+            }
+
+            self.assertIn("discover", actions_by_stage["discovery"])
+            self.assertIn("canon", actions_by_stage["canon"])
+            self.assertIn("strategy-readiness", actions_by_stage["strategy"])
+            self.assertIn("requirements", actions_by_stage["requirements"])
+            self.assertIn("domain", actions_by_stage["domain"])
+            self.assertIn("architecture", actions_by_stage["architecture"])
+            self.assertIn("execution-tasks", actions_by_stage["roadmap"])
+            self.assertIn("packet", actions_by_stage["execution"])
+            self.assertIn("build", actions_by_stage["build"])
+            self.assertIn("validate", actions_by_stage["validate"])
+            self.assertIn("evidence-add", actions_by_stage["validate"])
+            self.assertIn("proof-pack", actions_by_stage["release"])
+            self.assertIn("learning-add", actions_by_stage["operate"])
+            self.assertIn("traceability", actions_by_stage["governance"])
 
     def test_cockpit_readiness_command_accepts_stage_argument(self) -> None:
         result = run_cockpit_command(ROOT, "readiness", {"stage": "discovery"})
 
         self.assertIn("GATE-DISCOVERY", result.output)
         self.assertIn(result.code, {0, 1})
+
+    def test_cockpit_guided_command_validates_required_arguments(self) -> None:
+        result = run_cockpit_command(ROOT, "evidence-add", {"subject": "TASK-0040"})
+
+        self.assertFalse(result.ok)
+        self.assertEqual(result.code, 2)
+        self.assertIn("evidence add requires", result.output)
 
     def test_canon_generation_does_not_promote_template_tbd(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

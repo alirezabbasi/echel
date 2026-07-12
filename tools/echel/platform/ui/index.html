@@ -57,6 +57,12 @@
     .stage-card.active { outline:2px solid rgba(15,118,110,.22); background:white; }
     .stage-meta { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
     .always-on { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+    .actions-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:10px; }
+    .action-card { border:1px solid var(--line); border-radius:6px; padding:10px; background:#fbfcfd; display:grid; gap:8px; align-content:start; }
+    textarea { min-height:74px; border:1px solid var(--line); border-radius:6px; background:white; color:var(--text); padding:8px; width:100%; resize:vertical; }
+    label { display:grid; gap:4px; color:var(--muted); font-size:12px; }
+    label.checkbox { display:flex; align-items:center; gap:8px; }
+    label.checkbox input { width:auto; min-height:auto; }
     .chat-shell { display:grid; grid-template-columns:320px 1fr; gap:14px; }
     .messages { min-height:420px; max-height:58vh; overflow:auto; background:white; border:1px solid var(--line); border-radius:8px; padding:12px; }
     .msg { padding:10px; border-radius:6px; margin:8px 0; white-space:pre-wrap; }
@@ -161,8 +167,26 @@ function stagePanel(stage){
       <div><h3>Blockers</h3>${list(blockers.map(x=>`<div class="item">${esc(x)}</div>`), 'No blockers for this stage')}</div>
       <div><h3>Next Action</h3><div class="item">${esc(stage.next_action || 'No action recorded')}</div>${action ? `<div class="toolbar"><button class="btn primary" onclick="runStageAction('${esc(stage.id)}')">${esc(action.label || 'Run Action')}</button></div>` : ''}</div>
     </div>
+    <h3>Guided Actions</h3>${guidedActions(stage)}
     <h3>Key Artifacts</h3>${list(artifacts.map(x=>`<div class="item mono">wiki/${esc(x)}</div>`), 'No artifacts registered for this stage')}
   </div>`;
+}
+function guidedActions(stage){
+  const actions = stage.safe_actions || (stage.safe_action ? [stage.safe_action] : []);
+  return actions.length ? `<div class="actions-grid">${actions.map((action, idx)=>actionCard(stage.id, action, idx)).join('')}</div>` : `<div class="muted">No guided actions for this stage</div>`;
+}
+function actionCard(stageId, action, idx){
+  const fields = action.fields || [];
+  return `<div class="action-card"><div><div class="item-title">${esc(action.label || action.action)}</div><div class="muted">${esc(action.description || '')}</div></div>${fields.map(field=>actionField(stageId, idx, field)).join('')}<button class="btn primary" onclick="runGuidedAction('${esc(stageId)}',${idx})">${esc(action.label || 'Run')}</button></div>`;
+}
+function actionField(stageId, idx, field){
+  const id = `act-${stageId}-${idx}-${field.name}`;
+  const required = field.required ? 'data-required="1"' : '';
+  const value = field.default ? `value="${esc(field.default)}"` : '';
+  if(field.type === 'textarea') return `<label>${esc(field.label || field.name)}<textarea id="${esc(id)}" ${required} placeholder="${esc(field.placeholder || '')}"></textarea></label>`;
+  if(field.type === 'select') return `<label>${esc(field.label || field.name)}<select id="${esc(id)}" ${required}>${(field.options||[]).map(opt=>`<option value="${esc(opt)}">${esc(opt)}</option>`).join('')}</select></label>`;
+  if(field.type === 'checkbox') return `<label class="checkbox"><input id="${esc(id)}" type="checkbox" ${required} />${esc(field.label || field.name)}</label>`;
+  return `<label>${esc(field.label || field.name)}<input id="${esc(id)}" ${required} ${value} placeholder="${esc(field.placeholder || '')}" /></label>`;
 }
 function stageContext(id){
   if(id==='discovery') return clarify();
@@ -263,6 +287,21 @@ function chat(){
 async function command(action,args={}){ const res = await api('/api/cockpit/command',{method:'POST',body:JSON.stringify({action,args})}); await load(); return res; }
 async function runCommand(action){ const res = await command(action); alert(res.output || (res.ok ? 'Done' : 'Failed')); }
 async function runStageAction(id){ const stage=(state.lifecycle?.stages||[]).find(s=>s.id===id); if(!stage?.safe_action) return; const res = await command(stage.safe_action.action, stage.safe_action.args || {}); alert(res.output || (res.ok ? 'Done' : 'Failed')); }
+async function runGuidedAction(stageId, idx){
+  const stage=(state.lifecycle?.stages||[]).find(s=>s.id===stageId);
+  const action=(stage?.safe_actions||[])[idx];
+  if(!action) return;
+  const args = {...(action.args || {})};
+  for(const field of (action.fields || [])){
+    const el = document.getElementById(`act-${stageId}-${idx}-${field.name}`);
+    if(!el) continue;
+    const value = field.type === 'checkbox' ? el.checked : el.value.trim();
+    if(field.required && !value){ alert(`${field.label || field.name} is required`); return; }
+    if(value || field.type === 'checkbox') args[field.name] = value;
+  }
+  const res = await command(action.action, args);
+  alert(res.output || (res.ok ? 'Done' : 'Failed'));
+}
 async function answerClarification(){ const res = await command('clarify',{field:document.getElementById('clarify-field').value, answer:document.getElementById('clarify-answer').value}); document.getElementById('cmd-out').textContent = res.output; }
 async function loadProviders(){ const rows = await api('/api/providers'); document.getElementById('provider-select').innerHTML = rows.map(p=>`<option value="${p.id}">${esc(p.name)} (${esc(p.model)})</option>`).join(''); }
 async function connectProvider(){ await api('/api/providers/connect',{method:'POST',body:JSON.stringify({name:pval('p-name'),provider_type:pval('p-type'),base_url:pval('p-base'),model:pval('p-model'),api_key:pval('p-key')})}); await loadProviders(); }

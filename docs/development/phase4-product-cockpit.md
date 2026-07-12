@@ -38,15 +38,47 @@ The cockpit header and stage detail always show:
 
 This makes the cockpit a steering interface for the Echel lifecycle instead of a passive dashboard over documentation files.
 
+## Guided Stage Actions
+
+Every lifecycle stage exposes command-backed guided actions. Some actions run immediately, and some render a small form for required command inputs.
+
+Examples:
+- Discovery can list gaps, answer a discovery field, or run the discovery gate.
+- Canon can generate canon files or check canon drift.
+- Strategy can evaluate readiness or generate strategy artifacts.
+- Requirements, Domain, and Architecture can generate their lifecycle artifacts and run their stage gates.
+- Roadmap and Execution can create plans, execution tasks, next-task guidance, and work packets.
+- Build can generate build or review packets.
+- Validate can run validation summaries and register evidence.
+- Release can run release readiness, proof packs, and release summaries.
+- Operate can inspect or record learning.
+- Governance can regenerate graph and traceability reports.
+
 ## Data Flow
 The cockpit reads product state from `wiki/`, graph state from `wiki/graph.json`, generated reports from `wiki/reports/`, lifecycle gates from `tools/echel/gates.py`, readiness state from `tools/echel/readiness.py`, and safe command output from `tools/echel.py`.
 
 ## Safe Actions
 - `clarify`
+- `discover`
+- `canon`
+- `canon-drift`
+- `strategy`
+- `strategy-readiness`
+- `requirements`
+- `domain`
+- `architecture`
+- `execution-tasks`
+- `repository-factory`
 - `plan`
+- `packet`
 - `build`
 - `review`
 - `graph-report`
+- `traceability`
+- `validate`
+- `evidence-add`
+- `learning`
+- `learning-add`
 - `readiness`
 - `proof-pack`
 - `release-summary`

@@ -418,3 +418,9 @@ status: active
 - Cockpit snapshot stages now expose status, blockers, next action, responsible AI role, artifacts, and safe action metadata.
 - The UI uses lifecycle stages as primary navigation and keeps current stage, blocker count, next action, and responsible role visible in the header and stage detail.
 - TASK-0039 is complete; TASK-0040 remains responsible for deeper native guided actions per stage.
+
+## [2026-07-13] cockpit | guided-stage-actions
+- Added schema-driven guided actions to every cockpit lifecycle stage.
+- Guided actions now cover discovery updates, lifecycle artifact generation, readiness checks, execution tasks, work packets, build/review packets, validation summaries, evidence registration, release reports, learning capture, graph reports, and traceability.
+- The cockpit command bridge remains allow-listed and delegates to existing `tools/echel.py` commands rather than duplicating lifecycle workflow logic in the UI.
+- Marked EP4-002 and generated TASK-1017 done; TASK-0041 governance artifact expansion is next.

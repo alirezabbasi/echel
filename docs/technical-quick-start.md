@@ -166,7 +166,7 @@ Open:
 http://127.0.0.1:8787
 ```
 
-The cockpit is organized around the Echel lifecycle: Discovery, Canon, Strategy, Requirements, Domain, Architecture, Roadmap, Execution, Build, Validate, Release, Operate, and Governance. The header always shows the current stage, responsible AI role, blocker count, and next action; each stage embeds the relevant artifact context such as clarifications, roadmap, work queue, architecture, packets, reviews, readiness, graph, risks, contradictions, decisions, and activity.
+The cockpit is organized around the Echel lifecycle: Discovery, Canon, Strategy, Requirements, Domain, Architecture, Roadmap, Execution, Build, Validate, Release, Operate, and Governance. The header always shows the current stage, responsible AI role, blocker count, and next action; each stage embeds relevant artifact context and guided command-backed actions such as answering discovery fields, generating canon/strategy/requirements/domain/architecture artifacts, creating work packets, registering evidence, recording learning, and running readiness or governance reports.
 
 ## Verification
 

@@ -22,11 +22,27 @@ class CommandResult:
 
 SAFE_COMMANDS = {
     "clarify": ["clarify"],
+    "discover": ["discover"],
+    "canon": ["canon"],
+    "canon-drift": ["canon-drift"],
+    "strategy": ["strategy"],
+    "strategy-readiness": ["strategy-readiness"],
+    "requirements": ["requirements"],
+    "domain": ["domain"],
+    "architecture": ["architecture"],
+    "execution-tasks": ["execution-tasks"],
+    "repository-factory": ["repository-factory"],
     "steer": ["steer"],
     "plan": ["plan"],
+    "packet": ["packet"],
     "build": ["build"],
     "review": ["review"],
     "graph-report": ["graph", "report"],
+    "traceability": ["traceability"],
+    "validate": ["validate"],
+    "evidence-add": ["evidence", "add"],
+    "learning": ["learning"],
+    "learning-add": ["learning", "add"],
     "readiness": ["readiness"],
     "proof-pack": ["proof-pack"],
     "release-summary": ["release-summary"],
@@ -126,23 +142,59 @@ def _run_safe(repo_root: Path, action: str, args: dict) -> dict:
         if not field or not answer:
             return {"code": 2, "output": "clarify requires field and answer"}
         cmd.extend(["--field", field, "--answer", answer])
+    elif action == "discover":
+        field = str(args.get("field", "")).strip()
+        value = str(args.get("value", "")).strip()
+        if bool(field) != bool(value):
+            return {"code": 2, "output": "discover requires both field and value when updating discovery"}
+        if field and value:
+            cmd.extend(["--field", field, "--value", value])
     elif action == "steer":
         field = str(args.get("field", "")).strip()
         value = str(args.get("value", "")).strip()
         if not field or not value:
             return {"code": 2, "output": "steer requires field and value"}
         cmd.extend(["--field", field, "--value", value])
-    elif action in {"build", "review"} and args.get("task"):
+    elif action in {"canon", "strategy", "requirements", "domain", "architecture", "execution-tasks", "repository-factory"} and args.get("force"):
+        cmd.append("--force")
+    if action == "repository-factory" and args.get("output"):
+        cmd.extend(["--output", str(args["output"])])
+    elif action in {"packet", "build", "review"} and args.get("task"):
         cmd.extend(["--task", str(args["task"])])
     elif action == "readiness" and args.get("stage"):
         cmd.extend(["--stage", str(args["stage"])])
     elif action in {"readiness", "proof-pack", "release-summary"} and args.get("target"):
         cmd.extend(["--target", str(args["target"])])
+    elif action == "evidence-add":
+        required = ["subject", "kind", "path", "producer", "summary"]
+        missing = [key for key in required if not str(args.get(key, "")).strip()]
+        if missing:
+            return {"code": 2, "output": f"evidence add requires: {', '.join(missing)}"}
+        if args.get("id"):
+            cmd.extend(["--id", str(args["id"])])
+        for key in required:
+            cmd.extend([f"--{key}", str(args[key])])
+        if args.get("checksum"):
+            cmd.extend(["--checksum", str(args["checksum"])])
+    elif action == "learning-add":
+        required = ["source_kind", "title", "summary", "action"]
+        missing = [key for key in required if not str(args.get(key, "")).strip()]
+        if missing:
+            return {"code": 2, "output": f"learning add requires: {', '.join(missing)}"}
+        cmd.extend(["--source-kind", str(args["source_kind"])])
+        cmd.extend(["--title", str(args["title"])])
+        cmd.extend(["--summary", str(args["summary"])])
+        cmd.extend(["--action", str(args["action"])])
+        for key in ["owner", "severity", "source_id"]:
+            if args.get(key):
+                cmd.extend([f"--{key.replace('_', '-')}", str(args[key])])
     proc = subprocess.run(cmd, cwd=repo_root, text=True, capture_output=True)
     return {"code": proc.returncode, "output": (proc.stdout + "\n" + proc.stderr).strip()[:12000]}
 
 
 def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph_issues: list) -> dict:
+    force_field = {"name": "force", "label": "Force", "type": "checkbox", "required": False}
+    target_field = {"name": "target", "label": "Target", "type": "text", "default": "mvp", "required": False}
     specs = [
         {
             "id": "discovery",
@@ -151,7 +203,20 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
             "artifacts": ["discovery/product-discovery-spec.md", "discovery/research-plan.md", "discovery/assumptions.md"],
             "gate": "discovery",
             "next_action": "Answer discovery gaps or run `python3 tools/echel.py discover`.",
-            "safe_action": {"label": "Check Discovery", "action": "readiness", "args": {"stage": "discovery"}},
+            "safe_actions": [
+                {"label": "List Discovery Gaps", "action": "discover", "args": {}, "description": "Inspect missing Product Discovery Specification fields."},
+                {
+                    "label": "Answer Discovery Field",
+                    "action": "discover",
+                    "args": {},
+                    "description": "Write a discovery answer into the PDS.",
+                    "fields": [
+                        {"name": "field", "label": "Field", "type": "text", "required": True, "placeholder": "problem"},
+                        {"name": "value", "label": "Answer", "type": "textarea", "required": True},
+                    ],
+                },
+                {"label": "Check Discovery", "action": "readiness", "args": {"stage": "discovery"}, "description": "Run the discovery stage gate."},
+            ],
         },
         {
             "id": "canon",
@@ -159,7 +224,10 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
             "role": "Product Manager",
             "artifacts": ["canon/product-canon.md", "canon/vision.md", "canon/product-principles.md", "canon/non-negotiables.md"],
             "next_action": "Refresh product canon from gated discovery.",
-            "safe_action": {"label": "Generate Canon", "action": "status", "args": {}},
+            "safe_actions": [
+                {"label": "Generate Canon", "action": "canon", "args": {}, "description": "Generate or refresh canon files from discovery.", "fields": [force_field]},
+                {"label": "Check Canon Drift", "action": "canon-drift", "args": {}, "description": "Detect contradictions between discovery and canon."},
+            ],
         },
         {
             "id": "strategy",
@@ -175,7 +243,10 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
                 "strategy/pmf-evidence.md",
             ],
             "next_action": "Review ICP, buyer/user model, wedge, PMF evidence, and pricing hypotheses.",
-            "safe_action": {"label": "Status", "action": "status", "args": {}},
+            "safe_actions": [
+                {"label": "Evaluate Strategy", "action": "strategy-readiness", "args": {}, "description": "Check strategy readiness before requirements."},
+                {"label": "Generate Strategy", "action": "strategy", "args": {}, "description": "Generate strategy artifacts from canon.", "fields": [force_field]},
+            ],
         },
         {
             "id": "requirements",
@@ -191,7 +262,10 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
             ],
             "gate": "requirements",
             "next_action": "Run requirement readiness before domain work.",
-            "safe_action": {"label": "Check Requirements", "action": "readiness", "args": {"stage": "requirements"}},
+            "safe_actions": [
+                {"label": "Generate Requirements", "action": "requirements", "args": {}, "description": "Generate requirements from canon and strategy.", "fields": [force_field]},
+                {"label": "Check Requirements", "action": "readiness", "args": {"stage": "requirements"}, "description": "Run the requirements stage gate."},
+            ],
         },
         {
             "id": "domain",
@@ -209,7 +283,10 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
             ],
             "gate": "domain",
             "next_action": "Resolve domain coverage, duplicate terms, or technology leakage before architecture.",
-            "safe_action": {"label": "Check Domain", "action": "readiness", "args": {"stage": "domain"}},
+            "safe_actions": [
+                {"label": "Build Domain Model", "action": "domain", "args": {}, "description": "Generate domain artifacts from gated requirements.", "fields": [force_field]},
+                {"label": "Check Domain", "action": "readiness", "args": {"stage": "domain"}, "description": "Run the domain stage gate."},
+            ],
         },
         {
             "id": "architecture",
@@ -228,7 +305,10 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
             ],
             "gate": "architecture",
             "next_action": "Pass architecture readiness before roadmap and repository-factory work.",
-            "safe_action": {"label": "Check Architecture", "action": "readiness", "args": {"stage": "architecture"}},
+            "safe_actions": [
+                {"label": "Generate Architecture", "action": "architecture", "args": {}, "description": "Generate architecture mappings from gated domain artifacts.", "fields": [force_field]},
+                {"label": "Check Architecture", "action": "readiness", "args": {"stage": "architecture"}, "description": "Run the architecture stage gate."},
+            ],
         },
         {
             "id": "roadmap",
@@ -242,7 +322,10 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
                 "roadmap/release-plan.md",
             ],
             "next_action": "Keep phase objectives, dependencies, demos, risks, and exit gates current.",
-            "safe_action": {"label": "Plan", "action": "plan", "args": {}},
+            "safe_actions": [
+                {"label": "Create Roadmap Plan", "action": "plan", "args": {}, "description": "Synthesize current planning output."},
+                {"label": "Generate Execution Tasks", "action": "execution-tasks", "args": {}, "description": "Create agent-executable tasks from phase rows.", "fields": [force_field]},
+            ],
         },
         {
             "id": "execution",
@@ -257,7 +340,10 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
                 "work/TASK_INDEX.md",
             ],
             "next_action": "Select the next planned task packet and verify dependencies.",
-            "safe_action": {"label": "Next Task", "action": "next", "args": {}},
+            "safe_actions": [
+                {"label": "Next Task", "action": "next", "args": {}, "description": "Select the next graph-aware task."},
+                {"label": "Create Work Packet", "action": "packet", "args": {}, "description": "Generate or inspect a task packet.", "fields": [{"name": "task", "label": "Task ID", "type": "text", "required": False, "placeholder": "TASK-1017"}]},
+            ],
         },
         {
             "id": "build",
@@ -265,7 +351,10 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
             "role": "Implementation Agent",
             "artifacts": ["engineering/development-workflow.md", "engineering/local-development.md"],
             "next_action": "Generate or inspect the current build packet before changing code.",
-            "safe_action": {"label": "Build Packet", "action": "build", "args": {}},
+            "safe_actions": [
+                {"label": "Build Packet", "action": "build", "args": {}, "description": "Create implementation handoff for the selected task.", "fields": [{"name": "task", "label": "Task ID", "type": "text", "required": False, "placeholder": "TASK-1017"}]},
+                {"label": "Review Task", "action": "review", "args": {}, "description": "Create a review report for a task.", "fields": [{"name": "task", "label": "Task ID", "type": "text", "required": False, "placeholder": "TASK-1017"}]},
+            ],
         },
         {
             "id": "validate",
@@ -281,7 +370,23 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
                 "validation/validation-report.md",
             ],
             "next_action": "Refresh validation summary and register missing evidence.",
-            "safe_action": {"label": "Review", "action": "review", "args": {}},
+            "safe_actions": [
+                {"label": "Run Validation Summary", "action": "validate", "args": {}, "description": "Refresh validation report and graph evidence targets."},
+                {
+                    "label": "Register Evidence",
+                    "action": "evidence-add",
+                    "args": {},
+                    "description": "Add checksum-backed evidence for task closure or release.",
+                    "fields": [
+                        {"name": "id", "label": "Evidence ID", "type": "text", "required": False, "placeholder": "EVID-001"},
+                        {"name": "subject", "label": "Subject", "type": "text", "required": True, "placeholder": "TASK-1017"},
+                        {"name": "kind", "label": "Kind", "type": "text", "required": True, "placeholder": "test"},
+                        {"name": "path", "label": "Path", "type": "text", "required": True, "placeholder": "wiki/reports/..."},
+                        {"name": "producer", "label": "Producer", "type": "text", "required": True, "default": "QA Agent"},
+                        {"name": "summary", "label": "Summary", "type": "textarea", "required": True},
+                    ],
+                },
+            ],
         },
         {
             "id": "release",
@@ -297,7 +402,11 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
             ],
             "gate": "release",
             "next_action": "Resolve release blockers: checklist rows, evidence, validation blockers, rollback, or risk acceptance.",
-            "safe_action": {"label": "Check Release", "action": "readiness", "args": {"stage": "release"}},
+            "safe_actions": [
+                {"label": "Check Release", "action": "readiness", "args": {"stage": "release"}, "description": "Run the release stage gate."},
+                {"label": "Create Proof Pack", "action": "proof-pack", "args": {}, "description": "Generate proof pack for a target.", "fields": [target_field]},
+                {"label": "Release Summary", "action": "release-summary", "args": {}, "description": "Generate release summary for a target.", "fields": [target_field]},
+            ],
         },
         {
             "id": "operate",
@@ -314,7 +423,23 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
                 "operations/learning-records.md",
             ],
             "next_action": "Capture operational learning and route follow-up through governed memory.",
-            "safe_action": {"label": "Status", "action": "status", "args": {}},
+            "safe_actions": [
+                {"label": "Learning Status", "action": "learning", "args": {}, "description": "Inspect operation learning records."},
+                {
+                    "label": "Record Learning",
+                    "action": "learning-add",
+                    "args": {},
+                    "description": "Route incident, RCA, feedback, roadmap, or strategy learning into product memory.",
+                    "fields": [
+                        {"name": "source_kind", "label": "Source", "type": "select", "required": True, "options": ["incident", "rca", "feedback", "roadmap-change", "strategy-change"]},
+                        {"name": "title", "label": "Title", "type": "text", "required": True},
+                        {"name": "summary", "label": "Summary", "type": "textarea", "required": True},
+                        {"name": "action", "label": "Action", "type": "select", "required": True, "options": ["task", "adr", "risk", "assumption", "strategy-change", "none"]},
+                        {"name": "owner", "label": "Owner", "type": "text", "required": False, "default": "Operations Steward"},
+                        {"name": "severity", "label": "Severity", "type": "text", "required": False, "default": "medium"},
+                    ],
+                },
+            ],
         },
         {
             "id": "governance",
@@ -322,7 +447,11 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
             "role": "Governance Auditor",
             "artifacts": ["reports/traceability-matrix.md", "reports/product-graph-report.md", "reports/wiki-health-report.md"],
             "next_action": "Audit source-of-truth integrity, traceability, graph health, and stale artifacts.",
-            "safe_action": {"label": "Graph Report", "action": "graph-report", "args": {}},
+            "safe_actions": [
+                {"label": "Graph Report", "action": "graph-report", "args": {}, "description": "Regenerate product graph report."},
+                {"label": "Traceability Matrix", "action": "traceability", "args": {}, "description": "Regenerate lifecycle traceability matrix."},
+                {"label": "Status", "action": "status", "args": {}, "description": "Inspect current product status."},
+            ],
         },
     ]
     stages = []
@@ -347,6 +476,7 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
         if spec["id"] == "governance" and graph_issues:
             blockers.extend(f"{issue.severity}: {issue.message}" for issue in graph_issues[:8])
         status = "blocked" if blockers else "ready"
+        safe_actions = spec.get("safe_actions") or [spec["safe_action"]]
         stages.append(
             {
                 "id": spec["id"],
@@ -355,7 +485,8 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
                 "role": spec["role"],
                 "blockers": blockers,
                 "next_action": spec["next_action"],
-                "safe_action": spec["safe_action"],
+                "safe_action": safe_actions[0],
+                "safe_actions": safe_actions,
                 "artifacts": spec["artifacts"],
             }
         )

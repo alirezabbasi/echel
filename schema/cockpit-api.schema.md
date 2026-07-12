@@ -40,6 +40,18 @@ Required top-level keys:
     "blockers": ["..."],
     "next_action": "...",
     "safe_action": {"label": "Check Discovery", "action": "readiness", "args": {"stage": "discovery"}},
+    "safe_actions": [
+      {
+        "label": "Answer Discovery Field",
+        "action": "discover",
+        "args": {},
+        "description": "Write a discovery answer into the PDS.",
+        "fields": [
+          {"name": "field", "label": "Field", "type": "text", "required": true},
+          {"name": "value", "label": "Answer", "type": "textarea", "required": true}
+        ]
+      }
+    ],
     "artifacts": ["discovery/product-discovery-spec.md"]
   },
   "stages": []
@@ -61,7 +73,14 @@ Required stages:
 - `operate`
 - `governance`
 
-Every stage must expose `status`, `role`, `blockers`, `next_action`, `safe_action`, and `artifacts` so the UI can always show the current lifecycle state, responsible AI role, blocking conditions, and next safe action.
+Every stage must expose `status`, `role`, `blockers`, `next_action`, `safe_action`, `safe_actions`, and `artifacts` so the UI can always show the current lifecycle state, responsible AI role, blocking conditions, and guided command-backed actions.
+
+Each `safe_actions` entry may include:
+- `label`: button or form title.
+- `action`: command bridge action name.
+- `args`: static arguments supplied by the lifecycle stage.
+- `description`: operator-facing action summary.
+- `fields`: optional form schema with `name`, `label`, `type`, `required`, `default`, `placeholder`, and `options`.
 
 ## Command Endpoint
 - Route: `POST /api/cockpit/command`
@@ -76,11 +95,27 @@ Request:
 
 Safe actions:
 - `clarify`
+- `discover`
+- `canon`
+- `canon-drift`
+- `strategy`
+- `strategy-readiness`
+- `requirements`
+- `domain`
+- `architecture`
+- `execution-tasks`
+- `repository-factory`
 - `steer`
 - `plan`
+- `packet`
 - `build`
 - `review`
 - `graph-report`
+- `traceability`
+- `validate`
+- `evidence-add`
+- `learning`
+- `learning-add`
 - `readiness`
 - `proof-pack`
 - `release-summary`
