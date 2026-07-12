@@ -9,7 +9,7 @@ updated: 2026-07-10
 
 ## Purpose
 
-The release plan defines the milestone path implied by the roadmap. TASK-0035 added the deployment artifact surface; TASK-0036 remains responsible for turning validation, evidence, deployment, rollback, secrets, risks, and blockers into a release gate. This document keeps the roadmap honest about what can be demonstrated, verified, and released at each milestone.
+The release plan defines the milestone path implied by the roadmap. TASK-0035 added the deployment artifact surface and TASK-0036 added the release readiness gate for validation, evidence, deployment, rollback, secrets, risks, and blockers. This document keeps the roadmap honest about what can be demonstrated, verified, and released at each milestone.
 
 ## Release Sequence
 
@@ -32,6 +32,7 @@ The release plan defines the milestone path implied by the roadmap. TASK-0035 ad
 | Graph validation | `python3 tools/echel.py graph validate` | Milestones that change graph nodes or links | Governance Auditor |
 | Unit tests | `python3 -m unittest discover -s tests` | Milestones that change tooling | QA Agent |
 | Doctor report | `python3 tools/echel.py doctor` | Release confidence review, with known upstream blockers documented | Governance Auditor |
+| Release readiness | `python3 tools/echel.py readiness --stage release` | Production readiness review | Release Manager |
 
 ## Release Guardrails
 

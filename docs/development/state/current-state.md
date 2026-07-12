@@ -57,11 +57,12 @@ Last updated: 2026-07-12
 - Added `echel validate` to summarize validation artifacts, refresh validation reports, and add validation test/evidence target nodes to the product graph.
 - Added `echel evidence add` so agents can register proof artifacts with subject, kind, path, checksum, producer, and summary without hand-editing the evidence registry.
 - Added `wiki/deployment/` artifacts for deployment architecture, environments, release process, rollback, secrets management, and production checklist inputs.
+- Added the release readiness gate so `echel readiness --stage release` evaluates validation blockers, deployment docs, rollback, production checklist status, registered evidence, and risk mitigation before production claims.
 
 ## Next
 
-1. Add release readiness gates that consume validation output, registered evidence, and deployment artifacts.
-2. Expand release readiness into production operation and post-release learning loops.
+1. Expand release readiness into production operation and post-release learning loops.
+2. Add operations artifacts that release readiness can consume.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 
 ## Risks/Blocks
@@ -70,4 +71,4 @@ Last updated: 2026-07-12
 - If new folders are added without a unique purpose, Echel may become harder for domain experts to navigate again.
 - Force-generating from incomplete discovery remains risky; gates should keep treating template `TBD` content as incomplete.
 - Requirements generation remains blocked until strategy is meaningful unless explicitly forced; the requirements gate now verifies the resulting artifacts before downstream domain work.
-- Traceability reporting still surfaces missing canon graph links; evidence and deployment artifacts now exist, but downstream release gates still need to consume them.
+- Traceability reporting still surfaces missing canon graph links; release readiness is now executable, but operations artifacts still need to feed production readiness.

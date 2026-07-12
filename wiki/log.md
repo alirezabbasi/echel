@@ -393,3 +393,9 @@ status: active
 - Product graph generation now includes deployment documents as deployment-stage artifact nodes.
 - Updated validation/security notes so release gate blockers now point to TASK-0036 rather than missing deployment docs.
 - TASK-0035 is complete; TASK-0036 should turn validation, evidence, deployment docs, risks, and blockers into an executable release gate.
+
+## [2026-07-12] release | readiness-gate
+- Added `GATE-RELEASE` and `python3 tools/echel.py readiness --stage release`.
+- Release readiness now checks validation reports and open blockers, deployment artifacts, rollback rows, production checklist status, registered evidence, and release risk mitigation or acceptance.
+- Marked EP3-004 and generated TASK-1014 done.
+- TASK-0036 is complete; TASK-0037 operations artifacts are the next production hardening task.

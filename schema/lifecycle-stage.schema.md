@@ -673,6 +673,7 @@ Gate conditions:
 - environments are separated where applicable
 - production checklist passes or exceptions are accepted
 - release risks are mitigated or accepted
+- `python3 tools/echel.py readiness --stage release` passes or reports explicit blockers
 
 Allowed next:
 

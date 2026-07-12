@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP3-004
 source_phase_file: execution/phase-3-production.md
@@ -74,7 +74,8 @@ python3 tools/echel.py doctor
 
 ## Progress Notes
 - 2026-07-12: TASK-0035 completed the deployment artifact portion of EP3-004 by adding `wiki/deployment/` documents for deployment architecture, environments, release process, rollback, secrets management, and production checklist.
-- TASK-0036 remains responsible for release gate code/tests that consume these deployment artifacts with validation output, registered evidence, risks, and blockers.
+- 2026-07-12: TASK-0036 added release gate code/tests that consume deployment artifacts with validation output, registered evidence, risks, and blockers.
+- `python3 tools/echel.py readiness --stage release` now blocks or passes production release readiness deterministically.
 
 ## Rollback Notes
 - Revert the files listed in this task if validation fails.
@@ -85,11 +86,11 @@ python3 tools/echel.py doctor
 - Add deployment and release docs.
 
 ## Definition of Done
-- [ ] TASK-1014 satisfies source phase task EP3-004.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1014 satisfies source phase task EP3-004.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Out of Scope
 - Work from later execution phase rows.

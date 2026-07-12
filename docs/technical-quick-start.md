@@ -84,6 +84,7 @@ python3 tools/echel.py execution-tasks
 python3 tools/echel.py repository-factory
 python3 tools/echel.py validate
 python3 tools/echel.py evidence add --id EVID-VALIDATION-001 --subject TEST-001 --kind validation-report --path wiki/reports/validation-summary.md --producer "QA Agent" --summary "Validation summary proof"
+python3 tools/echel.py readiness --stage release
 ```
 
 Architecture artifacts live under `wiki/architecture/` after the domain gate passes. `GATE-ARCHITECTURE` must pass before roadmap work because it checks deployment posture, data/security/observability models, ADR coverage, requirement/domain mappings, graph coverage, and overengineering risk. The root `wiki/architecture.md` remains a compatibility summary for current graph and cockpit views.
@@ -106,7 +107,7 @@ python app/main.py
 
 Validation artifacts live under `wiki/validation/`. They define test strategy, acceptance, integration, e2e, security, performance, and validation report surfaces that map tests to requirement IDs, task IDs, domain concepts, and acceptance criteria. `python3 tools/echel.py validate` summarizes those artifacts, writes `wiki/reports/validation-summary.md`, refreshes `wiki/validation/validation-report.md`, and adds validation test/evidence target nodes to the product graph. `python3 tools/echel.py evidence add` registers proof artifacts in `.echel/evidence_registry.json` with subject, kind, path, checksum, producer, and summary, then refreshes graph evidence nodes for task closure and release proof.
 
-Deployment artifacts live under `wiki/deployment/`. They define deployment architecture, environments, release process, rollback plan, secrets management, and production checklist inputs for the upcoming release gate. These documents keep deployment path, rollback, secret handling, and checklist evidence explicit before TASK-0036 makes release readiness executable.
+Deployment artifacts live under `wiki/deployment/`. They define deployment architecture, environments, release process, rollback plan, secrets management, and production checklist inputs for the release gate. `python3 tools/echel.py readiness --stage release` blocks production readiness when validation blockers, deployment docs, rollback, checklist rows, registered evidence, or release risks are unresolved.
 
 ## Graph And Memory Commands
 

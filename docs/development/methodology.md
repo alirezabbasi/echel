@@ -753,6 +753,7 @@ Acceptance criteria:
 Gate rule:
 
 - Do not mark release ready without validation evidence, deployment plan, rollback plan, and accepted risk state.
+- `GATE-RELEASE` / `python3 tools/echel.py readiness --stage release` checks validation blockers, deployment artifacts, rollback, production checklist rows, registered evidence, and release risk mitigation or acceptance before any production-ready claim.
 
 Prepares next stage by making the system operable.
 

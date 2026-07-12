@@ -9,7 +9,7 @@ updated: 2026-07-12
 
 ## Purpose
 
-This checklist is the release-stage gate input for production readiness. TASK-0036 will convert these rows into gate checks instead of relying on conversational confidence.
+This checklist is the release-stage gate input for production readiness. `python3 tools/echel.py readiness --stage release` treats pending rows as blockers unless they are passed, accepted, deferred, or backed by an accepted exception.
 
 ## Checklist
 
@@ -32,4 +32,4 @@ This checklist is the release-stage gate input for production readiness. TASK-00
 
 ## Gate Handoff
 
-TASK-0036 should treat `Pending` rows as blockers unless the row has an accepted exception in a release readiness artifact.
+Run `python3 tools/echel.py readiness --stage release` before any production claim. `Pending` rows remain intentional blockers until release evidence, risk state, and operational handoff are ready.

@@ -30,7 +30,7 @@ Generated from `wiki/execution/` phase artifacts by `python3 tools/echel.py exec
 | TASK-1011 ([[TASK-1011-add-validation-artifacts]]) | EP3-001 | Add validation artifacts | `execution/phase-3-production.md` | TASK-0032, EP2-004 | `make wiki-health` | Done |
 | TASK-1012 ([[TASK-1012-add-validation-command]]) | EP3-002 | Add validation command | `execution/phase-3-production.md` | EP3-001, TASK-0033 | `python3 -m unittest discover -s tests` | Done |
 | TASK-1013 ([[TASK-1013-add-evidence-registration]]) | EP3-003 | Add evidence registration | `execution/phase-3-production.md` | EP3-002, TASK-0034 | `python3 tools/echel.py doctor` | Done |
-| TASK-1014 ([[TASK-1014-add-deployment-and-release-gates]]) | EP3-004 | Add deployment and release gates | `execution/phase-3-production.md` | TASK-0035, TASK-0036 | `python3 tools/echel.py doctor` | Planned |
+| TASK-1014 ([[TASK-1014-add-deployment-and-release-gates]]) | EP3-004 | Add deployment and release gates | `execution/phase-3-production.md` | TASK-0035, TASK-0036 | `python3 tools/echel.py doctor` | Done |
 | TASK-1015 ([[TASK-1015-add-operations-artifacts]]) | EP3-005 | Add operations artifacts | `execution/phase-3-production.md` | TASK-0037 | `make wiki-health` | Planned |
 | TASK-1016 ([[TASK-1016-add-learning-loop]]) | EP4-001 | Add learning loop | `execution/phase-4-evolution.md` | TASK-0038, Phase 3 operations docs | `python3 -m unittest discover -s tests` | Planned |
 | TASK-1017 ([[TASK-1017-redesign-cockpit-around-lifecycle]]) | EP4-002 | Redesign cockpit around lifecycle | `execution/phase-4-evolution.md` | TASK-0039, TASK-0040, EP4-001 | `make wiki-health` | Planned |

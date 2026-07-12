@@ -24,5 +24,5 @@ Integration tests prove that Echel lifecycle commands, graph outputs, reports, g
 | Risk ID | Risk | Mitigation | Owner Task |
 | --- | --- | --- | --- |
 | VAL-RISK-001 | Validation reports can become stale if the command is not rerun after artifact changes. | Run `python3 tools/echel.py validate` before release and after validation artifact edits. | TASK-0033 |
-| VAL-RISK-002 | Evidence records can become stale if artifacts change after registration. | Re-register evidence after validation artifacts change and make release gates compare registry checksums. | TASK-0036 |
-| VAL-RISK-003 | Validation output is not yet consumed by release gates. | Add deployment and release gate checks in TASK-0036. | TASK-0036 |
+| VAL-RISK-002 | Evidence records can become stale if artifacts change after registration. | Re-register evidence after validation artifacts change before running `python3 tools/echel.py readiness --stage release`. | TASK-0036 |
+| VAL-RISK-003 | Operations artifacts are not yet consumed by production readiness. | Add operations artifacts and operations readiness checks in TASK-0037. | TASK-0037 |

@@ -26,10 +26,11 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use `python3 tools/echel.py validate` to summarize validation status and refresh graph validation nodes.
 - Use `python3 tools/echel.py evidence add` to register checksum-backed proof records for task closure and release evidence.
 - Use `wiki/deployment/` as the deployment-stage surface for deployment path, environments, rollback, secrets, and production checklist inputs.
+- Use `python3 tools/echel.py readiness --stage release` to gate production readiness with validation, deployment, rollback, checklist, evidence, and risk checks.
 
 ## Next
 
-- Add release readiness gates that consume validation output, registered evidence, and deployment artifacts.
+- Add operations artifacts that release readiness and operations handoff can consume.
 - Connect canon statements more fully into graph-backed traceability.
 
 ## Later

@@ -636,6 +636,41 @@ Old canon problem
             self.assertEqual([], validate_links([task], loaded_registry))
             self.assertIn("evidence:EVID-VALIDATION-001", node_ids)
 
+    def test_release_gate_passes_with_validation_deployment_evidence_and_accepted_risk(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_release_gate_sources(repo, checklist_status="Passed")
+            proof = repo / "wiki/reports/proof.md"
+            write(proof, "release proof\n")
+            register_evidence(
+                repo,
+                cfg,
+                evidence_id="EVID-RELEASE-001",
+                subject="release",
+                kind="release-proof",
+                path="wiki/reports/proof.md",
+                producer="QA Agent",
+                summary="Release proof artifact.",
+            )
+
+            result = run_stage_gate(repo, cfg, "release")
+
+            self.assertTrue(result.passed, "\n".join(result.failures))
+
+    def test_release_gate_blocks_pending_checklist_and_missing_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write_release_gate_sources(repo, checklist_status="Pending")
+
+            result = run_stage_gate(repo, cfg, "release")
+            failures = "\n".join(result.failures)
+
+            self.assertFalse(result.passed)
+            self.assertIn("production checklist is not passed", failures)
+            self.assertIn("release evidence is missing", failures)
+
     def test_low_confidence_assumptions_block_graph_validation(self) -> None:
         graph = {
             "version": 1,
@@ -1072,6 +1107,63 @@ Teams complete repeated workflows faster while retaining audit evidence.
 
 ## Stop Criteria
 Users cannot connect workflow memory to execution decisions.
+""",
+    )
+
+
+def write_release_gate_sources(repo: Path, checklist_status: str = "Passed") -> None:
+    write(repo / "wiki/validation/validation-report.md", "# Validation Report\n")
+    write(repo / "wiki/reports/validation-summary.md", "# Validation Summary\n")
+    write(
+        repo / "wiki/validation/security-tests.md",
+        """# Security Tests
+
+## Security Blockers
+
+- No open security blockers.
+""",
+    )
+    write(
+        repo / "wiki/risks.md",
+        """# Risks
+
+## Release Risk
+
+- Impact: Release could proceed without proof.
+- Mitigation: Release gate requires evidence and checklist approval.
+""",
+    )
+    write(
+        repo / "wiki/deployment/deployment-architecture.md",
+        "# Deployment Architecture\n\n## Deployment Path\n\nLocal release candidate is promoted after validation and evidence registration.\n",
+    )
+    write(
+        repo / "wiki/deployment/environments.md",
+        "# Environments\n\n| ID | Environment | Purpose | Status |\n| --- | --- | --- | --- |\n| ENV-001 | Local | Release verification | Active |\n",
+    )
+    write(
+        repo / "wiki/deployment/release-process.md",
+        "# Release Process\n\n| Step | Owner Role | Required Action | Evidence | Gate Behavior |\n| --- | --- | --- | --- | --- |\n| REL-PROC-001 | Release Manager | Verify release candidate. | Evidence registry | Block on missing proof. |\n",
+    )
+    write(
+        repo / "wiki/deployment/rollback-plan.md",
+        "# Rollback Plan\n\n| ID | Failure Mode | Detection Signal | Rollback Action | Data Handling | Owner | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n| RB-001 | Release command fails | Gate output | Restore previous commit | Preserve evidence | Release Manager | Draft |\n",
+    )
+    write(
+        repo / "wiki/deployment/secrets-management.md",
+        "# Secrets Management\n\n| ID | Secret Class | Examples | Allowed Storage | Prohibited Storage | Owner | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n| SEC-DEP-001 | Provider credentials | API keys | Environment | Repository | Security Reviewer | Draft |\n",
+    )
+    write(
+        repo / "wiki/deployment/production-checklist.md",
+        f"""# Production Checklist
+
+| ID | Area | Check | Required Evidence | Owner | Status |
+| --- | --- | --- | --- | --- | --- |
+| PROD-001 | Validation | Validation report exists. | wiki/validation/validation-report.md | QA Agent | {checklist_status} |
+| PROD-002 | Evidence | Release proof is registered. | EVID-### | QA Agent | {checklist_status} |
+| PROD-003 | Deployment | Deployment path is documented. | deployment-architecture.md | Release Manager | {checklist_status} |
+| PROD-004 | Rollback | Rollback is documented. | rollback-plan.md | Release Manager | {checklist_status} |
+| PROD-005 | Secrets | Secrets strategy exists. | secrets-management.md | Security Reviewer | {checklist_status} |
 """,
     )
 

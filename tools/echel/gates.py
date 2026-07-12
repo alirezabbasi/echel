@@ -12,6 +12,7 @@ from .discovery import DISCOVERY_FIELDS, discovery_root, _section_body, _is_tbd
 from .evidence import ensure_registry, validate_links, validate_registry
 from .primitives import validate_decisions, validate_gate_ids, validate_tasks
 from .requirements import AC_FILE, FUNCTIONAL_FILE, MVP_FILE, NFR_FILE, OOS_FILE, PRODUCT_FILE, requirements_root
+from .validation import collect_validation_issues
 
 
 ARCHITECTURE_FILES = [
@@ -24,6 +25,15 @@ ARCHITECTURE_FILES = [
     "workflow-architecture.md",
     "security-architecture.md",
     "observability-architecture.md",
+]
+
+DEPLOYMENT_FILES = [
+    "deployment-architecture.md",
+    "environments.md",
+    "release-process.md",
+    "rollback-plan.md",
+    "secrets-management.md",
+    "production-checklist.md",
 ]
 
 ARCHITECTURE_COMPLEXITY_TERMS = [
@@ -475,6 +485,128 @@ def _check_architecture(repo_root: Path, cfg: ProjectConfig) -> list[str]:
     return failures
 
 
+def _check_release(repo_root: Path, cfg: ProjectConfig) -> list[str]:
+    wiki = resolve_symbolic_path("$WIKI_ROOT", cfg, repo_root)
+    deployment_root = wiki / "deployment"
+    failures: list[str] = []
+
+    validation_report = wiki / "validation" / "validation-report.md"
+    validation_summary = wiki / "reports" / "validation-summary.md"
+    if not validation_report.exists():
+        failures.append("validation report missing: run `python3 tools/echel.py validate`")
+    if not validation_summary.exists():
+        failures.append("validation summary missing: run `python3 tools/echel.py validate`")
+    if validation_report.exists():
+        _risks, blockers = collect_validation_issues(repo_root, cfg)
+        open_blockers = [blocker for blocker in blockers if blocker.status == "open"]
+        for blocker in open_blockers:
+            failures.append(f"validation blocker is open: {blocker.issue_id} ({blocker.title})")
+
+    missing = [name for name in DEPLOYMENT_FILES if not (deployment_root / name).exists()]
+    if missing:
+        failures.extend(f"deployment artifact missing: wiki/deployment/{name}" for name in missing)
+        return failures
+
+    failures.extend(_deployment_artifact_completeness(deployment_root))
+    failures.extend(_rollback_plan_failures(deployment_root / "rollback-plan.md"))
+    failures.extend(_production_checklist_failures(deployment_root / "production-checklist.md"))
+    failures.extend(_release_evidence_failures(repo_root, cfg))
+    failures.extend(_release_risk_failures(wiki / "risks.md"))
+    return failures
+
+
+def _deployment_artifact_completeness(root: Path) -> list[str]:
+    failures: list[str] = []
+    for name in DEPLOYMENT_FILES:
+        path = root / name
+        text = path.read_text(encoding="utf-8")
+        content_lines = [
+            line.strip()
+            for line in text.splitlines()
+            if line.strip() and not line.startswith("---") and not re.fullmatch(r"\w+:\s*.*", line.strip())
+        ]
+        if not content_lines or any(line == "TBD" for line in content_lines):
+            failures.append(f"deployment artifact is incomplete: wiki/deployment/{name}")
+    return failures
+
+
+def _rollback_plan_failures(path: Path) -> list[str]:
+    rows = [
+        row for row in _table_rows(path)
+        if _valid_id(row.get("ID", ""), r"RB-\d{3}") and row.get("Status", "").lower() != "future"
+    ]
+    if not rows:
+        return ["rollback plan has no active RB-### rollback strategy rows"]
+    failures: list[str] = []
+    for row in rows:
+        rid = row.get("ID", "")
+        for field in ["Failure Mode", "Detection Signal", "Rollback Action", "Owner"]:
+            if _blank_or_tbd(row.get(field, "")):
+                failures.append(f"{rid} rollback row is incomplete: `{field}` must be populated")
+    return failures
+
+
+def _production_checklist_failures(path: Path) -> list[str]:
+    rows = [row for row in _table_rows(path) if _valid_id(row.get("ID", ""), r"PROD-\d{3}")]
+    if not rows:
+        return ["production checklist has no PROD-### rows"]
+    failures: list[str] = []
+    passing_statuses = {"passed", "accepted", "accepted exception", "deferred"}
+    for row in rows:
+        cid = row.get("ID", "")
+        status = row.get("Status", "").strip().lower()
+        if status not in passing_statuses:
+            failures.append(f"{cid} production checklist is not passed or accepted: status is `{row.get('Status', '') or 'Missing'}`")
+        for field in ["Area", "Check", "Required Evidence", "Owner"]:
+            if _blank_or_tbd(row.get(field, "")):
+                failures.append(f"{cid} production checklist row is incomplete: `{field}` must be populated")
+    return failures
+
+
+def _release_evidence_failures(repo_root: Path, cfg: ProjectConfig) -> list[str]:
+    reg = ensure_registry(repo_root / cfg.evidence_registry)
+    issues = [f"{issue.severity}: {issue.message}" for issue in validate_registry(reg, str(repo_root / cfg.evidence_registry))]
+    artifacts = reg.get("artifacts", {}) if isinstance(reg, dict) else {}
+    if not isinstance(artifacts, dict) or not artifacts:
+        issues.append("release evidence is missing: register at least one artifact with `python3 tools/echel.py evidence add`")
+        return issues
+    release_like = []
+    for evid, payload in artifacts.items():
+        if not isinstance(payload, dict):
+            continue
+        joined = " ".join(str(payload.get(field, "")) for field in ["subject", "kind", "summary"]).lower()
+        if any(token in joined for token in ["release", "validation", "proof", "deployment"]):
+            release_like.append(str(evid))
+    if not release_like:
+        issues.append("registered evidence does not reference release, validation, proof, or deployment")
+    return issues
+
+
+def _release_risk_failures(path: Path) -> list[str]:
+    if not path.exists():
+        return ["risk register missing: wiki/risks.md"]
+    rows = _table_rows(path)
+    failures: list[str] = []
+    for row in rows:
+        rid = row.get("Risk ID") or row.get("ID") or row.get("Risk")
+        if not rid:
+            continue
+        status = (row.get("Status") or row.get("Risk Status") or "").strip().lower()
+        mitigation = row.get("Mitigation") or row.get("Mitigation Plan") or row.get("Accepted By") or row.get("Owner")
+        if status in {"open", "unmitigated", "blocking", "blocked"}:
+            failures.append(f"{rid} release risk is not accepted or mitigated")
+        elif status and status not in {"mitigated", "accepted", "resolved", "closed", "done"}:
+            failures.append(f"{rid} release risk has unknown status `{status}`")
+        elif not status and _blank_or_tbd(mitigation):
+            failures.append(f"{rid} release risk has no mitigation or acceptance record")
+    if rows:
+        return failures
+    text = path.read_text(encoding="utf-8")
+    if re.search(r"^##\s+", text, flags=re.MULTILINE) and "Mitigation:" not in text and "Accepted" not in text:
+        failures.append("risk register has narrative risks without mitigation or acceptance")
+    return failures
+
+
 def _generated_architecture_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
     return [
         row for row in rows
@@ -777,6 +909,8 @@ CHECKS: dict[str, GateFn] = {
     "requirements": _check_requirements,
     "domain": _check_domain,
     "architecture": _check_architecture,
+    "release": _check_release,
+    "release-deployment": _check_release,
 }
 
 
@@ -792,6 +926,7 @@ def ensure_policy(path: Path) -> dict:
                 {"id": "GATE-REQUIREMENTS", "checks": ["requirements"]},
                 {"id": "GATE-DOMAIN", "checks": ["domain"]},
                 {"id": "GATE-ARCHITECTURE", "checks": ["architecture"]},
+                {"id": "GATE-RELEASE", "checks": ["release"]},
             ],
         }
         path.write_text(json.dumps(default, indent=2) + "\n", encoding="utf-8")

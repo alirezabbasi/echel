@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-07-12T13:00:40Z",
+  "generated_at": "2026-07-12T16:09:10Z",
   "nodes": [
     {
       "id": "architecture-component:ARCH-201",
@@ -907,7 +907,7 @@
       "type": "deployment-artifact",
       "title": "Production Checklist",
       "source": "deployment/production-checklist.md",
-      "summary": "This checklist is the release-stage gate input for production readiness. TASK-0036 will convert these rows into gate...",
+      "summary": "This checklist is the release-stage gate input for production readiness. `python3 tools/echel.py readiness --stage re...",
       "trace_id": "",
       "statement_type": "decision",
       "confidence": "unknown",
@@ -919,7 +919,7 @@
       "type": "deployment-artifact",
       "title": "Release Plan",
       "source": "roadmap/release-plan.md",
-      "summary": "The release plan defines the milestone path implied by the roadmap. TASK-0035 added the deployment artifact surface;...",
+      "summary": "The release plan defines the milestone path implied by the roadmap. TASK-0035 added the deployment artifact surface a...",
       "trace_id": "",
       "statement_type": "decision",
       "confidence": "unknown",

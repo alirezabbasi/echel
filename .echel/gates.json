@@ -38,6 +38,12 @@
       "checks": [
         "architecture"
       ]
+    },
+    {
+      "id": "GATE-RELEASE",
+      "checks": [
+        "release"
+      ]
     }
   ]
 }

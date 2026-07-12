@@ -197,3 +197,9 @@
 - Decision: Treat deployment readiness as a product-memory artifact surface before implementing the release gate.
 - Context: TASK-0035 needed deployment path, rollback, secrets, and production checklist information to exist as durable docs so TASK-0036 can gate release readiness deterministically instead of relying on prose or chat summaries.
 - Impact: `wiki/deployment/` now contains deployment architecture, environments, release process, rollback plan, secrets management, and production checklist artifacts. Product graph generation now includes deployment documents as `deployment-artifact` nodes with deployment-stage metadata.
+
+## DEC-0034
+
+- Decision: Implement production release readiness as a stage gate over validation, deployment, evidence, checklist, and risk artifacts.
+- Context: TASK-0036 needed release readiness to become executable after TASK-0035 created deployment artifacts and TASK-0034 made evidence registration possible.
+- Impact: `python3 tools/echel.py readiness --stage release` now checks validation reports and open blockers, required deployment docs, rollback rows, production checklist statuses, registered release-like evidence, and release risk mitigation or acceptance. `GATE-RELEASE` is included in the gate policy so `doctor` surfaces production readiness blockers explicitly.
