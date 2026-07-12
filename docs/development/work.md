@@ -19,7 +19,7 @@
 - [x] TASK-1012 Add validation command
 - [x] TASK-1013 Add evidence registration
 - [x] TASK-1014 Add deployment and release gates
-- [ ] TASK-1015 Add operations artifacts
+- [x] TASK-1015 Add operations artifacts
 - [ ] TASK-1016 Add learning loop
 - [ ] TASK-1017 Redesign cockpit around lifecycle
 - [ ] TASK-1018 Add governance integrity artifacts

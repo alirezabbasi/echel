@@ -37,6 +37,15 @@ status: active
 - [[decisions/ADR-0004-keep-product-wiki-outside-echel-core|Adr 0004 Keep Product Wiki Outside Echel Core]]
 - [[decisions/ADR-0005-adopt-vnext-architecture-artifact-model|Adr 0005 Adopt Vnext Architecture Artifact Model]]
 
+## Deployment
+
+- [[deployment/deployment-architecture|Deployment Architecture]]
+- [[deployment/environments|Environments]]
+- [[deployment/production-checklist|Production Checklist]]
+- [[deployment/release-process|Release Process]]
+- [[deployment/rollback-plan|Rollback Plan]]
+- [[deployment/secrets-management|Secrets Management]]
+
 ## Discovery
 
 - [[discovery/assumptions|Assumptions]]
@@ -93,6 +102,16 @@ status: active
 - [[knowledge/wiki-maintenance-standard|Wiki Maintenance Standard]]
 - [[knowledge/wiki|Wiki]]
 
+## Operations
+
+- [[operations/backup-and-recovery|Backup And Recovery]]
+- [[operations/change-management|Change Management]]
+- [[operations/evolution-backlog|Evolution Backlog]]
+- [[operations/incident-response|Incident Response]]
+- [[operations/observability|Observability]]
+- [[operations/runbook|Runbook]]
+- [[operations/sla-and-slo|Sla And Slo]]
+
 ## Reports
 
 - [[reports/conformance-report|Conformance Report]]
@@ -108,15 +127,6 @@ status: active
 - [[reports/validation-summary|Validation Summary]]
 - [[reports/wiki-health-report|Wiki Health Report]]
 - [[reports/work-packets/TASK-0001-initialize-project-wiki-packet|Task 0001 Initialize Project Wiki Packet]]
-
-## Deployment
-
-- [[deployment/deployment-architecture|Deployment Architecture]]
-- [[deployment/environments|Environments]]
-- [[deployment/production-checklist|Production Checklist]]
-- [[deployment/release-process|Release Process]]
-- [[deployment/rollback-plan|Rollback Plan]]
-- [[deployment/secrets-management|Secrets Management]]
 
 ## Requirements
 

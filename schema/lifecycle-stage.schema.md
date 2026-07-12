@@ -720,6 +720,7 @@ Gate conditions:
 - observability expectations are documented
 - backup and recovery are documented where applicable
 - evolution backlog is governed by evidence and strategy
+- TASK-0037 operations artifacts exist before TASK-0038 learning automation records incidents or feedback against them
 
 Allowed next:
 

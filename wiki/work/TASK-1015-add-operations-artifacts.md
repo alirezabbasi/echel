@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP3-005
 source_phase_file: execution/phase-3-production.md
@@ -70,6 +70,11 @@ make wiki-health
 make wiki-health
 ```
 
+## Progress Notes
+- 2026-07-13: TASK-0037 added `wiki/operations/` artifacts for runbook, observability, incident response, backup and recovery, SLA/SLO, change management, and evolution backlog.
+- Product graph generation now includes `wiki/operations/*.md` as operation-stage `operation-artifact` nodes.
+- The evolution backlog explicitly hands off TASK-0038 learning-loop automation as the next operations/evolution task.
+
 ## Rollback Notes
 - Revert the files listed in this task if validation fails.
 - Remove any generated artifacts created by this task before retrying.
@@ -79,11 +84,11 @@ make wiki-health
 - Add operations docs.
 
 ## Definition of Done
-- [ ] TASK-1015 satisfies source phase task EP3-005.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1015 satisfies source phase task EP3-005.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Out of Scope
 - Work from later execution phase rows.

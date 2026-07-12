@@ -399,3 +399,9 @@ status: active
 - Release readiness now checks validation reports and open blockers, deployment artifacts, rollback rows, production checklist status, registered evidence, and release risk mitigation or acceptance.
 - Marked EP3-004 and generated TASK-1014 done.
 - TASK-0036 is complete; TASK-0037 operations artifacts are the next production hardening task.
+
+## [2026-07-13] operations | artifact-surface
+- Added `wiki/operations/` with runbook, observability, incident response, backup and recovery, SLA/SLO, change management, and evolution backlog artifacts.
+- Operations docs define support ownership, incident severity and escalation, recovery objectives, service expectations, change governance, and learning backlog intake.
+- Product graph generation now includes operations documents as operations-stage `operation-artifact` nodes.
+- Marked EP3-005 and generated TASK-1015 done; TASK-0038 learning loop is the next operations/evolution task.

@@ -572,7 +572,13 @@ def _lifecycle_nodes(repo_root: Path, root: Path) -> list[GraphNode]:
     for deployment_path in deployment_paths:
         add_document("deployment-artifact", deployment_path)
 
-    for operation_path in [repo_root / "prompts" / "playbooks" / "operate.md", root / "agents" / "handoff-protocol.md", root / "execution" / "phase-3-production.md"]:
+    operation_paths = [
+        repo_root / "prompts" / "playbooks" / "operate.md",
+        root / "agents" / "handoff-protocol.md",
+        root / "execution" / "phase-3-production.md",
+        *sorted((root / "operations").glob("*.md")),
+    ]
+    for operation_path in operation_paths:
         add_document("operation-artifact", operation_path)
 
     add_document("contradiction", root / "knowledge" / "contradiction-management.md", "Contradiction Management")

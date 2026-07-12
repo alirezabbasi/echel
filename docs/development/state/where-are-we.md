@@ -1,6 +1,6 @@
 # Where Are We
 
-Last updated: 2026-07-12
+Last updated: 2026-07-13
 
 ## Completed
 
@@ -59,11 +59,13 @@ Last updated: 2026-07-12
 - Added the evidence registration command so agents can create checksum-backed evidence records and graph evidence nodes without hand-editing JSON.
 - Added the deployment artifact surface under `wiki/deployment/` so release gates can evaluate deployment path, environments, rollback, secrets, and production checklist state.
 - Added the release readiness gate so `python3 tools/echel.py readiness --stage release` blocks unresolved validation blockers, deployment gaps, rollback gaps, checklist gaps, missing evidence, and unmitigated risks.
+- Added the operations artifact surface under `wiki/operations/` so support handoff, observability, incident severity/escalation, backup/recovery, SLA/SLO, change control, and evolution backlog governance have durable memory.
+- Updated graph generation so operations documents appear as operations-stage `operation-artifact` nodes.
 
 ## Next
 
-1. Expand release readiness into production operation and post-release learning loops.
-2. Add operations artifacts that release readiness can consume.
+1. Add the learning loop that turns incidents, RCA, customer feedback, roadmap changes, and strategy changes into product memory updates.
+2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 
 ## Risks/Blocks
@@ -71,4 +73,4 @@ Last updated: 2026-07-12
 - Contract drift across docs/schema/tools could weaken deterministic validation if not gated.
 - Adding new folders without a unique purpose could reintroduce navigation complexity.
 - Template-derived content must not be promoted into canon or strategy as product truth.
-- Traceability reporting still shows canon statement gaps until canon nodes are generated; release readiness is executable, but operations artifacts still need to feed production readiness.
+- Traceability reporting still shows canon statement gaps until canon nodes are generated; release readiness is executable, and operations artifacts now exist but still need a learning loop and operations gate.

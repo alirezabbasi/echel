@@ -809,6 +809,7 @@ Acceptance criteria:
 Gate rule:
 
 - Post-release learning must feed new discoveries, decisions, risks, requirements, tasks, or roadmap updates.
+- TASK-0037 establishes `wiki/operations/` as the required operations artifact surface before TASK-0038 automates incidents, RCA, customer feedback, roadmap changes, and strategy changes into product memory.
 
 Prepares the next lifecycle loop by turning operations into product intelligence.
 

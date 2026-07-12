@@ -465,6 +465,7 @@ Old canon problem
             write(repo / "generated/product-repository/.github/workflows/ci.yml", "name: CI\n")
             write(repo / "wiki/deployment/deployment-architecture.md", "# Deployment Architecture\n\n## Purpose\n\nDeployment path.")
             write(repo / "prompts/playbooks/operate.md", "# Operations Playbook\n")
+            write(repo / "wiki/operations/runbook.md", "# Runbook\n\n## Purpose\n\nSupport operations guide.")
             write(repo / "wiki/knowledge/contradiction-management.md", "# Contradiction Management\n")
 
             graph = build_graph(repo, cfg)
@@ -481,6 +482,8 @@ Old canon problem
                     self.assertTrue(node.get("verification_status"))
             deployment_sources = {node.get("source") for node in nodes if node.get("type") == "deployment-artifact"}
             self.assertIn("deployment/deployment-architecture.md", deployment_sources)
+            operation_sources = {node.get("source") for node in nodes if node.get("type") == "operation-artifact"}
+            self.assertIn("operations/runbook.md", operation_sources)
             self.assertTrue(
                 {
                     "discovery-item",

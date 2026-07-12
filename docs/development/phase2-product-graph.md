@@ -43,7 +43,7 @@ python3 tools/echel.py status
 - Strategy and requirements: `strategy` and `requirement`.
 - Domain and architecture: `domain-concept`, `bounded-context`, `business-rule`, `architecture`, and `architecture-component`.
 - Execution and verification: `task`, `test`, and `evidence`.
-- Release and operation: `deployment-artifact`, `operation-artifact`, `milestone`, and `release`.
+- Release and operation: `deployment-artifact`, `operation-artifact`, `milestone`, and `release`; operation artifacts include `wiki/operations/*.md` support, incident, recovery, SLO, change, and evolution records.
 - Governance and evolution: `contradiction`, `learning`, `decision`, and `risk`.
 
 ## Metadata Discipline

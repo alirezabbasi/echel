@@ -203,3 +203,9 @@
 - Decision: Implement production release readiness as a stage gate over validation, deployment, evidence, checklist, and risk artifacts.
 - Context: TASK-0036 needed release readiness to become executable after TASK-0035 created deployment artifacts and TASK-0034 made evidence registration possible.
 - Impact: `python3 tools/echel.py readiness --stage release` now checks validation reports and open blockers, required deployment docs, rollback rows, production checklist statuses, registered release-like evidence, and release risk mitigation or acceptance. `GATE-RELEASE` is included in the gate policy so `doctor` surfaces production readiness blockers explicitly.
+
+## DEC-0035
+
+- Decision: Adopt `wiki/operations/` as the operations and evolution artifact surface before implementing the learning loop.
+- Context: TASK-0037 needed post-release operations to become product memory, not an informal handoff. Support, incident response, backup/recovery, SLA/SLO, change management, and evolution backlog governance need stable artifacts before TASK-0038 can automate learning updates.
+- Impact: `wiki/operations/` now contains runbook, observability, incident response, backup-and-recovery, SLA/SLO, change-management, and evolution-backlog artifacts. Product graph generation includes those files as operations-stage `operation-artifact` nodes, and TASK-0038 can consume the evolution backlog and incident model as its source contract.

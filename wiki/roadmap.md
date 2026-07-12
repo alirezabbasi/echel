@@ -27,12 +27,13 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use `python3 tools/echel.py evidence add` to register checksum-backed proof records for task closure and release evidence.
 - Use `wiki/deployment/` as the deployment-stage surface for deployment path, environments, rollback, secrets, and production checklist inputs.
 - Use `python3 tools/echel.py readiness --stage release` to gate production readiness with validation, deployment, rollback, checklist, evidence, and risk checks.
+- Use `wiki/operations/` as the operations-stage surface for runbook, observability, incident response, backup/recovery, SLA/SLO, change management, and evolution backlog governance.
 
 ## Next
 
-- Add operations artifacts that release readiness and operations handoff can consume.
+- Add the learning loop that consumes operations incidents, feedback, RCA, roadmap changes, and strategy changes.
 - Connect canon statements more fully into graph-backed traceability.
 
 ## Later
 
-- Add validation, release, operations, cockpit lifecycle, and governance readiness.
+- Add operations, cockpit lifecycle, and governance readiness gates.

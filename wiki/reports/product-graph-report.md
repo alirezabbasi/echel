@@ -7,8 +7,8 @@ status: active
 
 # Product Graph
 
-- Nodes: 268
-- Edges: 3564
+- Nodes: 314
+- Edges: 4408
 - Critical issues: 0
 - Major issues: 0
 - Minor issues: 0
@@ -23,17 +23,18 @@ status: active
 - component: 9
 - contradiction: 1
 - decision: 5
-- deployment-artifact: 2
+- deployment-artifact: 8
 - discovery-item: 25
 - domain-aggregate: 11
 - domain-concept: 12
 - domain-event: 11
 - domain-workflow: 11
+- evidence: 5
 - feature: 1
 - hypothesis: 1
 - learning: 2
 - need: 2
-- operation-artifact: 3
+- operation-artifact: 10
 - problem: 1
 - product: 1
 - release: 1
@@ -43,7 +44,7 @@ status: active
 - stakeholder: 6
 - strategy: 7
 - task: 79
-- test: 2
+- test: 30
 - user: 1
 - workflow: 1
 
@@ -72,20 +73,20 @@ status: active
 - architecture: 11
 - architecture-component: 19
 - task: 79
-- test: 2
-- evidence: 0
+- test: 30
+- evidence: 5
 - decision: 5
 - risk: 1
 - milestone: 0
 - release: 1
-- deployment-artifact: 2
-- operation-artifact: 3
+- deployment-artifact: 8
+- operation-artifact: 10
 - contradiction: 1
 - learning: 2
 
 ## Metadata Coverage
-- statement_type: 268/268
-- confidence: 268/268
-- source_stage: 268/268
-- verification_status: 268/268
-- trace_id: 218/268
+- statement_type: 314/314
+- confidence: 314/314
+- source_stage: 314/314
+- verification_status: 314/314
+- trace_id: 251/314

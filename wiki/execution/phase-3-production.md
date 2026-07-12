@@ -4,7 +4,7 @@ stage: execution-planning
 phase: phase-3-production
 status: draft
 owner: release
-updated: 2026-07-10
+updated: 2026-07-13
 ---
 # Phase 3 - Production
 
@@ -51,7 +51,7 @@ Make release readiness evidence-backed, deployment-aware, and operationally insp
 | EP3-002 | Add validation command | Run or summarize milestone validation. | Product owners need pass/fail/skipped/blocker visibility. | `echel validate` command and report output. | EP3-001, TASK-0033 | Reports passed, failed, skipped, risks, and blockers; adds test/evidence nodes to graph. | Unit and command tests | `python3 -m unittest discover -s tests` | Update quick start and validation docs. | CLI command, tests, reports. | Done |
 | EP3-003 | Add evidence registration | Let agents register evidence without hand-editing JSON. | Task closure and release proof need durable evidence records. | `echel evidence add` flow. | EP3-002, TASK-0034 | Evidence includes subject, kind, path, checksum, producer, summary. | Unit tests and registry validation | `python3 tools/echel.py doctor` | Update evidence docs. | Evidence command/tests/docs. | Done |
 | EP3-004 | Add deployment and release gates | Create deployment artifacts and production release readiness gate. | Deployment, rollback, secrets, and blockers must be evaluated before production. | Deployment docs and release gate checks. | TASK-0035, TASK-0036 | Deployment path, rollback, secrets, checklist, evidence, risks, and blockers are gated. | Gate tests and docs review | `python3 tools/echel.py doctor` | Add deployment and release docs. | Deployment docs, gate code/tests. | Done |
-| EP3-005 | Add operations artifacts | Create operation docs for support, incidents, backup, SLO, change, and evolution backlog. | Production systems need maintainable operations memory. | `wiki/operations/*.md` templates. | TASK-0037 | Support team can operate product; severity/escalation and evolution backlog are governed. | Documentation review | `make wiki-health` | Add operations docs. | Operations artifact files. | Planned |
+| EP3-005 | Add operations artifacts | Create operation docs for support, incidents, backup, SLO, change, and evolution backlog. | Production systems need maintainable operations memory. | `wiki/operations/*.md` templates. | TASK-0037 | Support team can operate product; severity/escalation and evolution backlog are governed. | Documentation review | `make wiki-health` | Add operations docs. | Operations artifact files. | Done |
 
 ## Definition Of Done
 
@@ -64,6 +64,7 @@ Make release readiness evidence-backed, deployment-aware, and operationally insp
 
 - 2026-07-12: TASK-0035 completed the deployment artifact templates for EP3-004.
 - 2026-07-12: TASK-0036 completed the release gate checks for EP3-004. Production readiness now blocks on checklist status, registered evidence, validation blockers, deployment docs, rollback, secrets, and risk state.
+- 2026-07-13: TASK-0037 completed the operations artifact templates for EP3-005. Operations handoff now has runbook, observability, incident response, backup/recovery, SLA/SLO, change management, and evolution backlog memory.
 
 ## Validation Method
 
@@ -80,8 +81,8 @@ python3 tools/echel.py doctor
 
 - Validation, deployment, and operations documentation.
 - New validation/evidence/release commands and tests in future tasks.
-- Gate policy updates when release readiness becomes executable.
+- Gate policy updates when release readiness becomes executable and when operations readiness becomes gated.
 
 ## Handoff To Phase 4
 
-Phase 4 may start once production readiness can be evaluated through validation reports, evidence records, deployment checks, and operations artifacts.
+Phase 4 may start once production readiness can be evaluated through validation reports, evidence records, deployment checks, operations artifacts, and the learning loop planned in TASK-0038.

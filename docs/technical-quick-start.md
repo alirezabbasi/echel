@@ -109,6 +109,8 @@ Validation artifacts live under `wiki/validation/`. They define test strategy, a
 
 Deployment artifacts live under `wiki/deployment/`. They define deployment architecture, environments, release process, rollback plan, secrets management, and production checklist inputs for the release gate. `python3 tools/echel.py readiness --stage release` blocks production readiness when validation blockers, deployment docs, rollback, checklist rows, registered evidence, or release risks are unresolved.
 
+Operations artifacts live under `wiki/operations/`. They define the runbook, observability signals, incident severity and escalation, backup and recovery, SLA/SLO expectations, change management, and evolution backlog used for post-release support and learning-loop handoff.
+
 ## Graph And Memory Commands
 
 ```bash
