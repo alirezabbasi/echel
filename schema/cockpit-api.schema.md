@@ -22,7 +22,46 @@ Required top-level keys:
 - `agent_activity`
 - `risks`
 - `decisions`
+- `lifecycle`
+- `readiness_detail`
 - `status_markdown`
+
+## Lifecycle Model
+
+`lifecycle` is the primary cockpit navigation contract. It represents the ordered Echel software-delivery lifecycle instead of artifact tabs.
+
+```json
+{
+  "current": {
+    "id": "discovery",
+    "title": "Discovery",
+    "status": "blocked",
+    "role": "Founder Interviewer",
+    "blockers": ["..."],
+    "next_action": "...",
+    "safe_action": {"label": "Check Discovery", "action": "readiness", "args": {"stage": "discovery"}},
+    "artifacts": ["discovery/product-discovery-spec.md"]
+  },
+  "stages": []
+}
+```
+
+Required stages:
+- `discovery`
+- `canon`
+- `strategy`
+- `requirements`
+- `domain`
+- `architecture`
+- `roadmap`
+- `execution`
+- `build`
+- `validate`
+- `release`
+- `operate`
+- `governance`
+
+Every stage must expose `status`, `role`, `blockers`, `next_action`, `safe_action`, and `artifacts` so the UI can always show the current lifecycle state, responsible AI role, blocking conditions, and next safe action.
 
 ## Command Endpoint
 - Route: `POST /api/cockpit/command`
@@ -42,6 +81,9 @@ Safe actions:
 - `build`
 - `review`
 - `graph-report`
+- `readiness`
+- `proof-pack`
+- `release-summary`
 - `status`
 - `next`
 

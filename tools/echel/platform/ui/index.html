@@ -50,6 +50,13 @@
     .node small { color:var(--muted); display:block; overflow-wrap:anywhere; }
     .form { display:grid; gap:8px; }
     input, select { min-height:36px; border:1px solid var(--line); border-radius:6px; background:white; color:var(--text); padding:8px; width:100%; }
+    .stage-shell { display:grid; grid-template-columns:minmax(0, 1fr) 320px; gap:14px; align-items:start; }
+    .stage-map { display:grid; gap:8px; }
+    .stage-card { border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:6px; padding:10px; background:#fbfcfd; cursor:pointer; }
+    .stage-card.blocked { border-left-color:var(--danger); }
+    .stage-card.active { outline:2px solid rgba(15,118,110,.22); background:white; }
+    .stage-meta { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
+    .always-on { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
     .chat-shell { display:grid; grid-template-columns:320px 1fr; gap:14px; }
     .messages { min-height:420px; max-height:58vh; overflow:auto; background:white; border:1px solid var(--line); border-radius:8px; padding:12px; }
     .msg { padding:10px; border-radius:6px; margin:8px 0; white-space:pre-wrap; }
@@ -59,7 +66,7 @@
     @media (max-width: 980px) {
       .app { grid-template-columns:1fr; }
       aside { position:static; }
-      .cols-4, .cols-3, .cols-2, .split, .chat-shell { grid-template-columns:1fr; }
+      .cols-4, .cols-3, .cols-2, .split, .stage-shell, .chat-shell { grid-template-columns:1fr; }
       header { align-items:flex-start; flex-direction:column; }
     }
   </style>
@@ -88,13 +95,8 @@
   </div>
 <script>
 let state = null;
-let active = 'dashboard';
+let active = null;
 let currentThread = null;
-const tabs = [
-  ['dashboard','#','Dashboard'], ['clarify','?','Clarify'], ['roadmap','>','Roadmap'],
-  ['work','+','Work'], ['architecture','A','Architecture'], ['graph','o','Graph'], ['packets','[]','Packets'],
-  ['reviews','*','Reviews'], ['readiness','R','Readiness'], ['risks','!','Risks'], ['contradictions','C','Contradictions'], ['activity','@','Activity'], ['decisions','D','Decisions'], ['chat','~','Chat']
-];
 
 function esc(s){return String(s ?? '').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
 async function api(path, opts={}) {
@@ -104,34 +106,79 @@ async function api(path, opts={}) {
 }
 async function load() {
   state = await api('/api/cockpit');
+  if(!active) active = state.lifecycle?.current?.id || state.lifecycle?.stages?.[0]?.id || 'chat';
   document.getElementById('title').textContent = state.project.title;
-  document.getElementById('subtitle').textContent = state.project.direction || state.project.problem || '';
+  const current = state.lifecycle?.current || {};
+  const blockerCount = current.blockers?.length || 0;
+  document.getElementById('subtitle').innerHTML = `<div class="always-on"><span class="pill ${current.status === 'blocked' ? 'danger' : 'ok'}">Current: ${esc(current.title || 'Unknown')}</span><span class="pill">${esc(current.role || 'Unassigned')}</span><span class="pill ${blockerCount ? 'danger' : 'ok'}">${blockerCount} blocker${blockerCount === 1 ? '' : 's'}</span><span>${esc(current.next_action || '')}</span></div>`;
   renderNav();
   render();
 }
 function renderNav(){
-  document.getElementById('nav').innerHTML = tabs.map(([id,icon,label]) =>
-    `<button class="${active===id?'active':''}" onclick="active='${id}';renderNav();render();"><span>${icon}</span><span>${label}</span></button>`
-  ).join('');
+  const stages = state.lifecycle?.stages || [];
+  const rows = stages.map(stage => {
+    const icon = stage.status === 'blocked' ? '!' : '✓';
+    return `<button class="${active===stage.id?'active':''}" onclick="setActive('${esc(stage.id)}')"><span>${icon}</span><span>${esc(stage.title)}</span></button>`;
+  });
+  rows.push(`<button class="${active==='chat'?'active':''}" onclick="setActive('chat')"><span>~</span><span>Chat</span></button>`);
+  document.getElementById('nav').innerHTML = rows.join('');
 }
+function setActive(id){ active=id; renderNav(); render(); }
 function metric(label, value, cls=''){return `<div class="panel metric"><span class="muted">${label}</span><strong class="${cls}">${esc(value)}</strong></div>`}
 function list(items, empty='None'){return items.length ? `<div class="list">${items.join('')}</div>` : `<div class="muted">${empty}</div>`}
 function render(){
   const v = document.getElementById('view');
-  if(active==='dashboard') v.innerHTML = dashboard();
-  if(active==='clarify') v.innerHTML = clarify();
-  if(active==='roadmap') v.innerHTML = roadmap();
-  if(active==='work') v.innerHTML = work();
-  if(active==='architecture') v.innerHTML = architecture();
-  if(active==='graph') v.innerHTML = graph();
-  if(active==='packets') v.innerHTML = reports('packets');
-  if(active==='reviews') v.innerHTML = reports('reviews');
-  if(active==='readiness') v.innerHTML = readiness();
-  if(active==='risks') v.innerHTML = risks();
-  if(active==='contradictions') v.innerHTML = contradictions();
-  if(active==='activity') v.innerHTML = activity();
-  if(active==='decisions') v.innerHTML = decisions();
   if(active==='chat') { v.innerHTML = chat(); initChat(); }
+  else v.innerHTML = lifecycleView(active);
+}
+function lifecycleView(id){
+  const stages = state.lifecycle?.stages || [];
+  const stage = stages.find(s => s.id === id) || state.lifecycle?.current || stages[0] || {};
+  const current = state.lifecycle?.current || stage;
+  return `<div class="grid">
+    <div class="grid cols-4">
+      ${metric('Current Stage', current.title || 'Unknown', current.status === 'blocked' ? 'danger' : 'ok')}
+      ${metric('Responsible AI Role', current.role || 'Unassigned')}
+      ${metric('Blockers', (current.blockers || []).length, (current.blockers || []).length ? 'danger' : 'ok')}
+      ${metric('Open Tasks', state.readiness.open_tasks)}
+    </div>
+    <div class="stage-shell">
+      <div class="grid">
+        ${stagePanel(stage)}
+        ${stageContext(stage.id)}
+      </div>
+      <div class="panel"><h2>Lifecycle Flow</h2><div class="stage-map">${stages.map(s=>`<div class="stage-card ${s.status === 'blocked' ? 'blocked' : ''} ${s.id === stage.id ? 'active' : ''}" onclick="setActive('${esc(s.id)}')"><div class="item-title">${esc(s.title)}</div><div class="stage-meta"><span class="pill ${s.status === 'blocked' ? 'danger' : 'ok'}">${esc(s.status)}</span><span class="pill">${esc(s.role)}</span><span class="pill">${(s.blockers||[]).length} blockers</span></div><div class="muted">${esc(s.next_action)}</div></div>`).join('')}</div></div>
+    </div>
+  </div>`;
+}
+function stagePanel(stage){
+  const blockers = stage.blockers || [];
+  const artifacts = stage.artifacts || [];
+  const action = stage.safe_action || null;
+  return `<div class="panel"><h2>${esc(stage.title || 'Lifecycle Stage')}</h2>
+    <div class="stage-meta"><span class="pill ${stage.status === 'blocked' ? 'danger' : 'ok'}">${esc(stage.status || 'unknown')}</span><span class="pill">${esc(stage.role || 'Unassigned')}</span></div>
+    <div class="grid cols-2">
+      <div><h3>Blockers</h3>${list(blockers.map(x=>`<div class="item">${esc(x)}</div>`), 'No blockers for this stage')}</div>
+      <div><h3>Next Action</h3><div class="item">${esc(stage.next_action || 'No action recorded')}</div>${action ? `<div class="toolbar"><button class="btn primary" onclick="runStageAction('${esc(stage.id)}')">${esc(action.label || 'Run Action')}</button></div>` : ''}</div>
+    </div>
+    <h3>Key Artifacts</h3>${list(artifacts.map(x=>`<div class="item mono">wiki/${esc(x)}</div>`), 'No artifacts registered for this stage')}
+  </div>`;
+}
+function stageContext(id){
+  if(id==='discovery') return clarify();
+  if(id==='canon') return dashboard();
+  if(id==='strategy') return risks();
+  if(id==='requirements') return readiness();
+  if(id==='domain') return graph();
+  if(id==='architecture') return architecture();
+  if(id==='roadmap') return roadmap();
+  if(id==='execution') return work();
+  if(id==='build') return reports('packets');
+  if(id==='validate') return reports('reviews');
+  if(id==='release') return readiness();
+  if(id==='operate') return activity();
+  if(id==='governance') return governance();
+  return dashboard();
 }
 function dashboard(){
   const r = state.readiness;
@@ -209,11 +256,13 @@ function activity(){
   </div>`;
 }
 function decisions(){return `<div class="panel"><h2>Decisions</h2>${list(state.decisions.map(d=>`<div class="item"><div class="item-title">${esc(d.title)}</div><div class="muted">${esc(d.path)}</div></div>`))}</div>`}
+function governance(){return `<div class="grid cols-2"><div>${graph()}</div><div class="grid">${contradictions()}${decisions()}</div></div>`}
 function chat(){
   return `<div class="chat-shell"><div class="panel"><h2>Provider</h2><input id="p-name" placeholder="name" /><select id="p-type"><option value="openai">openai</option><option value="anthropic">anthropic</option><option value="openai_compatible">openai_compatible</option></select><input id="p-model" placeholder="model" /><input id="p-base" placeholder="base url" /><input id="p-key" type="password" placeholder="api key" /><button class="btn primary" onclick="connectProvider()">Connect</button><select id="provider-select"></select><h2>Threads</h2><input id="thread-title" placeholder="title" /><button class="btn" onclick="createThread()">Create</button><div id="thread-list" class="list"></div></div><div><div id="chat-messages" class="messages"></div><div class="toolbar"><input id="message" placeholder="Message" /><button class="btn primary" onclick="sendMessage()">Send</button></div></div></div>`;
 }
 async function command(action,args={}){ const res = await api('/api/cockpit/command',{method:'POST',body:JSON.stringify({action,args})}); await load(); return res; }
 async function runCommand(action){ const res = await command(action); alert(res.output || (res.ok ? 'Done' : 'Failed')); }
+async function runStageAction(id){ const stage=(state.lifecycle?.stages||[]).find(s=>s.id===id); if(!stage?.safe_action) return; const res = await command(stage.safe_action.action, stage.safe_action.args || {}); alert(res.output || (res.ok ? 'Done' : 'Failed')); }
 async function answerClarification(){ const res = await command('clarify',{field:document.getElementById('clarify-field').value, answer:document.getElementById('clarify-answer').value}); document.getElementById('cmd-out').textContent = res.output; }
 async function loadProviders(){ const rows = await api('/api/providers'); document.getElementById('provider-select').innerHTML = rows.map(p=>`<option value="${p.id}">${esc(p.name)} (${esc(p.model)})</option>`).join(''); }
 async function connectProvider(){ await api('/api/providers/connect',{method:'POST',body:JSON.stringify({name:pval('p-name'),provider_type:pval('p-type'),base_url:pval('p-base'),model:pval('p-model'),api_key:pval('p-key')})}); await loadProviders(); }

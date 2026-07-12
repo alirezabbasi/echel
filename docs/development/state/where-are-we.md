@@ -62,10 +62,11 @@ Last updated: 2026-07-13
 - Added the operations artifact surface under `wiki/operations/` so support handoff, observability, incident severity/escalation, backup/recovery, SLA/SLO, change control, and evolution backlog governance have durable memory.
 - Updated graph generation so operations documents appear as operations-stage `operation-artifact` nodes.
 - Added the learning loop command and artifact structure so post-release signals can create task, ADR, risk, assumption, or strategy-change follow-ups.
+- Redesigned the cockpit as a lifecycle steering surface. Discovery through Governance are now the primary navigation model, and every stage exposes blockers, next action, responsible AI role, artifacts, and safe action metadata.
 
 ## Next
 
-1. Redesign the cockpit around lifecycle stages and guided stage actions.
+1. Deepen guided stage actions so cockpit stages can drive native generation, evaluation, evidence, and readiness workflows.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 
@@ -74,4 +75,4 @@ Last updated: 2026-07-13
 - Contract drift across docs/schema/tools could weaken deterministic validation if not gated.
 - Adding new folders without a unique purpose could reintroduce navigation complexity.
 - Template-derived content must not be promoted into canon or strategy as product truth.
-- Traceability reporting still shows canon statement gaps until canon nodes are generated; release readiness and learning capture are executable, while operations readiness still needs a dedicated gate.
+- Traceability reporting still shows canon statement gaps until canon nodes are generated; release readiness, learning capture, and cockpit lifecycle steering are executable, while operations readiness still needs a dedicated gate.

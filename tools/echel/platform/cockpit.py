@@ -6,6 +6,7 @@ import re
 import subprocess
 
 from ..config import ConfigError, load_config, resolve_symbolic_path
+from ..gates import run_stage_gate
 from ..graph import build_graph, graph_summary, validate_graph
 from ..memory_kernel import query_records
 from ..product import clarification_gaps, product_status
@@ -45,6 +46,7 @@ def cockpit_snapshot(repo_root: Path) -> dict:
     packets = _report_files(wiki / "reports" / "work-packets")
     reviews = _report_files(wiki / "reports" / "reviews")
     gaps = clarification_gaps(repo_root, cfg)
+    lifecycle = _lifecycle_stages(repo_root, cfg, wiki, tasks, graph_issues)
 
     return {
         "project": {
@@ -99,6 +101,7 @@ def cockpit_snapshot(repo_root: Path) -> dict:
         "risks": risks,
         "decisions": decisions,
         "readiness_detail": readiness_snapshot(repo_root, cfg),
+        "lifecycle": lifecycle,
         "status_markdown": product_status(repo_root, cfg),
     }
 
@@ -131,10 +134,233 @@ def _run_safe(repo_root: Path, action: str, args: dict) -> dict:
         cmd.extend(["--field", field, "--value", value])
     elif action in {"build", "review"} and args.get("task"):
         cmd.extend(["--task", str(args["task"])])
+    elif action == "readiness" and args.get("stage"):
+        cmd.extend(["--stage", str(args["stage"])])
     elif action in {"readiness", "proof-pack", "release-summary"} and args.get("target"):
         cmd.extend(["--target", str(args["target"])])
     proc = subprocess.run(cmd, cwd=repo_root, text=True, capture_output=True)
     return {"code": proc.returncode, "output": (proc.stdout + "\n" + proc.stderr).strip()[:12000]}
+
+
+def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph_issues: list) -> dict:
+    specs = [
+        {
+            "id": "discovery",
+            "title": "Discovery",
+            "role": "Founder Interviewer",
+            "artifacts": ["discovery/product-discovery-spec.md", "discovery/research-plan.md", "discovery/assumptions.md"],
+            "gate": "discovery",
+            "next_action": "Answer discovery gaps or run `python3 tools/echel.py discover`.",
+            "safe_action": {"label": "Check Discovery", "action": "readiness", "args": {"stage": "discovery"}},
+        },
+        {
+            "id": "canon",
+            "title": "Canon",
+            "role": "Product Manager",
+            "artifacts": ["canon/product-canon.md", "canon/vision.md", "canon/product-principles.md", "canon/non-negotiables.md"],
+            "next_action": "Refresh product canon from gated discovery.",
+            "safe_action": {"label": "Generate Canon", "action": "status", "args": {}},
+        },
+        {
+            "id": "strategy",
+            "title": "Strategy",
+            "role": "Strategy Analyst",
+            "artifacts": [
+                "strategy/icp.md",
+                "strategy/buyer-user-model.md",
+                "strategy/market-wedge.md",
+                "strategy/competitive-analysis.md",
+                "strategy/positioning.md",
+                "strategy/pricing-and-packaging.md",
+                "strategy/pmf-evidence.md",
+            ],
+            "next_action": "Review ICP, buyer/user model, wedge, PMF evidence, and pricing hypotheses.",
+            "safe_action": {"label": "Status", "action": "status", "args": {}},
+        },
+        {
+            "id": "requirements",
+            "title": "Requirements",
+            "role": "Product Manager",
+            "artifacts": [
+                "requirements/product-requirements.md",
+                "requirements/functional-requirements.md",
+                "requirements/non-functional-requirements.md",
+                "requirements/mvp-scope.md",
+                "requirements/out-of-scope.md",
+                "requirements/acceptance-criteria.md",
+            ],
+            "gate": "requirements",
+            "next_action": "Run requirement readiness before domain work.",
+            "safe_action": {"label": "Check Requirements", "action": "readiness", "args": {"stage": "requirements"}},
+        },
+        {
+            "id": "domain",
+            "title": "Domain",
+            "role": "Domain Modeler",
+            "artifacts": [
+                "domain/domain-overview.md",
+                "domain/ubiquitous-language.md",
+                "domain/bounded-contexts.md",
+                "domain/entities.md",
+                "domain/aggregates.md",
+                "domain/domain-events.md",
+                "domain/workflows.md",
+                "domain/policies-and-rules.md",
+            ],
+            "gate": "domain",
+            "next_action": "Resolve domain coverage, duplicate terms, or technology leakage before architecture.",
+            "safe_action": {"label": "Check Domain", "action": "readiness", "args": {"stage": "domain"}},
+        },
+        {
+            "id": "architecture",
+            "title": "Architecture",
+            "role": "Solution Architect",
+            "artifacts": [
+                "architecture/overview.md",
+                "architecture/context-map.md",
+                "architecture/component-architecture.md",
+                "architecture/data-architecture.md",
+                "architecture/api-architecture.md",
+                "architecture/event-architecture.md",
+                "architecture/workflow-architecture.md",
+                "architecture/security-architecture.md",
+                "architecture/observability-architecture.md",
+            ],
+            "gate": "architecture",
+            "next_action": "Pass architecture readiness before roadmap and repository-factory work.",
+            "safe_action": {"label": "Check Architecture", "action": "readiness", "args": {"stage": "architecture"}},
+        },
+        {
+            "id": "roadmap",
+            "title": "Roadmap",
+            "role": "Delivery Planner",
+            "artifacts": [
+                "roadmap/master-roadmap.md",
+                "roadmap/mvp-roadmap.md",
+                "roadmap/architecture-roadmap.md",
+                "roadmap/engineering-roadmap.md",
+                "roadmap/release-plan.md",
+            ],
+            "next_action": "Keep phase objectives, dependencies, demos, risks, and exit gates current.",
+            "safe_action": {"label": "Plan", "action": "plan", "args": {}},
+        },
+        {
+            "id": "execution",
+            "title": "Execution",
+            "role": "Delivery Planner",
+            "artifacts": [
+                "execution/phase-0-foundation.md",
+                "execution/phase-1-mvp.md",
+                "execution/phase-2-hardening.md",
+                "execution/phase-3-production.md",
+                "execution/phase-4-evolution.md",
+                "work/TASK_INDEX.md",
+            ],
+            "next_action": "Select the next planned task packet and verify dependencies.",
+            "safe_action": {"label": "Next Task", "action": "next", "args": {}},
+        },
+        {
+            "id": "build",
+            "title": "Build",
+            "role": "Implementation Agent",
+            "artifacts": ["engineering/development-workflow.md", "engineering/local-development.md"],
+            "next_action": "Generate or inspect the current build packet before changing code.",
+            "safe_action": {"label": "Build Packet", "action": "build", "args": {}},
+        },
+        {
+            "id": "validate",
+            "title": "Validate",
+            "role": "QA Agent",
+            "artifacts": [
+                "validation/test-strategy.md",
+                "validation/acceptance-tests.md",
+                "validation/integration-tests.md",
+                "validation/e2e-tests.md",
+                "validation/security-tests.md",
+                "validation/performance-tests.md",
+                "validation/validation-report.md",
+            ],
+            "next_action": "Refresh validation summary and register missing evidence.",
+            "safe_action": {"label": "Review", "action": "review", "args": {}},
+        },
+        {
+            "id": "release",
+            "title": "Release",
+            "role": "Release Manager",
+            "artifacts": [
+                "deployment/deployment-architecture.md",
+                "deployment/environments.md",
+                "deployment/release-process.md",
+                "deployment/rollback-plan.md",
+                "deployment/secrets-management.md",
+                "deployment/production-checklist.md",
+            ],
+            "gate": "release",
+            "next_action": "Resolve release blockers: checklist rows, evidence, validation blockers, rollback, or risk acceptance.",
+            "safe_action": {"label": "Check Release", "action": "readiness", "args": {"stage": "release"}},
+        },
+        {
+            "id": "operate",
+            "title": "Operate",
+            "role": "Operations Steward",
+            "artifacts": [
+                "operations/runbook.md",
+                "operations/observability.md",
+                "operations/incident-response.md",
+                "operations/backup-and-recovery.md",
+                "operations/sla-and-slo.md",
+                "operations/change-management.md",
+                "operations/evolution-backlog.md",
+                "operations/learning-records.md",
+            ],
+            "next_action": "Capture operational learning and route follow-up through governed memory.",
+            "safe_action": {"label": "Status", "action": "status", "args": {}},
+        },
+        {
+            "id": "governance",
+            "title": "Governance",
+            "role": "Governance Auditor",
+            "artifacts": ["reports/traceability-matrix.md", "reports/product-graph-report.md", "reports/wiki-health-report.md"],
+            "next_action": "Audit source-of-truth integrity, traceability, graph health, and stale artifacts.",
+            "safe_action": {"label": "Graph Report", "action": "graph-report", "args": {}},
+        },
+    ]
+    stages = []
+    for spec in specs:
+        blockers = []
+        for rel in spec["artifacts"]:
+            path = wiki / rel
+            if not path.exists():
+                blockers.append(f"missing artifact: wiki/{rel}")
+        gate_id = spec.get("gate")
+        if gate_id:
+            result = run_stage_gate(repo_root, cfg, gate_id)
+            blockers.extend(result.failures)
+        if spec["id"] == "execution":
+            open_tasks = sum(1 for item in tasks if item["status"] != "done")
+            if not tasks:
+                blockers.append("no execution tasks found")
+            elif open_tasks:
+                spec = {**spec, "next_action": f"Continue the next planned task; {open_tasks} task(s) remain open."}
+        if spec["id"] == "build" and not any(item["status"] != "done" for item in tasks):
+            spec = {**spec, "next_action": "No open task is ready for build; return to roadmap or evolution planning."}
+        if spec["id"] == "governance" and graph_issues:
+            blockers.extend(f"{issue.severity}: {issue.message}" for issue in graph_issues[:8])
+        status = "blocked" if blockers else "ready"
+        stages.append(
+            {
+                "id": spec["id"],
+                "title": spec["title"],
+                "status": status,
+                "role": spec["role"],
+                "blockers": blockers,
+                "next_action": spec["next_action"],
+                "safe_action": spec["safe_action"],
+                "artifacts": spec["artifacts"],
+            }
+        )
+    current = next((stage for stage in stages if stage["status"] == "blocked"), stages[-1] if stages else {})
+    return {"current": current, "stages": stages}
 
 
 def _tasks(wiki: Path) -> list[dict]:

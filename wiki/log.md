@@ -412,3 +412,9 @@ status: active
 - Learning actions can route follow-up to task packets, proposed ADRs, risks, assumptions, or strategy-change records.
 - Product graph generation now emits `LEARN-###` learning nodes from operations learning records.
 - Marked EP4-001 and generated TASK-1016 done; cockpit lifecycle redesign is next.
+
+## [2026-07-13] cockpit | lifecycle-navigation
+- Redesigned the cockpit around lifecycle stages from Discovery through Governance.
+- Cockpit snapshot stages now expose status, blockers, next action, responsible AI role, artifacts, and safe action metadata.
+- The UI uses lifecycle stages as primary navigation and keeps current stage, blocker count, next action, and responsible role visible in the header and stage detail.
+- TASK-0039 is complete; TASK-0040 remains responsible for deeper native guided actions per stage.

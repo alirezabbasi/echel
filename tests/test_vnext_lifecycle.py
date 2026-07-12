@@ -25,6 +25,7 @@ from echel.execution import (
 from echel.gates import run_stage_gate
 from echel.graph import build_graph, validate_graph
 from echel.learning import ensure_learning_files, record_learning
+from echel.platform.cockpit import cockpit_snapshot, run_cockpit_command
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
 from echel.repository_factory import repository_factory_generate, repository_factory_status
 from echel.strategy import strategy_generate, ensure_strategy_files
@@ -38,6 +39,45 @@ def write(path: Path, text: str) -> None:
 
 
 class VNextLifecycleTests(unittest.TestCase):
+    def test_cockpit_snapshot_exposes_lifecycle_stage_contract(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            snapshot = cockpit_snapshot(repo)
+
+            lifecycle = snapshot["lifecycle"]
+            stage_ids = [stage["id"] for stage in lifecycle["stages"]]
+
+            self.assertEqual(
+                stage_ids,
+                [
+                    "discovery",
+                    "canon",
+                    "strategy",
+                    "requirements",
+                    "domain",
+                    "architecture",
+                    "roadmap",
+                    "execution",
+                    "build",
+                    "validate",
+                    "release",
+                    "operate",
+                    "governance",
+                ],
+            )
+            self.assertIn(lifecycle["current"]["id"], stage_ids)
+            for stage in lifecycle["stages"]:
+                self.assertIn("role", stage)
+                self.assertIn("blockers", stage)
+                self.assertIn("next_action", stage)
+                self.assertIn("safe_action", stage)
+
+    def test_cockpit_readiness_command_accepts_stage_argument(self) -> None:
+        result = run_cockpit_command(ROOT, "readiness", {"stage": "discovery"})
+
+        self.assertIn("GATE-DISCOVERY", result.output)
+        self.assertIn(result.code, {0, 1})
+
     def test_canon_generation_does_not_promote_template_tbd(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repo = Path(tmp)

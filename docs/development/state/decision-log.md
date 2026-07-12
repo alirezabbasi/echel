@@ -215,3 +215,9 @@
 - Decision: Implement post-release learning as a routed CLI command over operations artifacts.
 - Context: TASK-0038 needed incidents, RCA, customer feedback, roadmap changes, and strategy changes to update product memory instead of becoming informal notes. The command must route learning into the right governance surface without allowing product behavior changes outside task packets.
 - Impact: `python3 tools/echel.py learning add` writes durable learning records under `wiki/operations/`, updates source-specific logs, regenerates the product graph, and can create follow-up tasks, proposed ADRs, risks, assumptions, or strategy-change records. Product behavior follow-up still routes through generated task packets and evidence expectations.
+
+## DEC-0037
+
+- Decision: Make lifecycle stages the cockpit's primary navigation and steering contract.
+- Context: TASK-0039 needed the cockpit to stop behaving like a collection of artifact tabs and instead show where the product is in the Echel lifecycle. Owners and AI roles need current stage, blockers, next action, and responsible role visible without hunting across reports.
+- Impact: `tools/echel/platform/cockpit.py` now emits ordered Discovery through Governance stage objects with status, role, blockers, next action, artifacts, and safe command metadata. The cockpit UI navigates by lifecycle stage, keeps the current stage visible in the header, and embeds existing artifact views as contextual stage evidence. TASK-0040 can deepen the command-backed guided actions without changing the navigation model.

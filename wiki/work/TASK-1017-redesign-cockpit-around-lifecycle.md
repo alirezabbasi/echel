@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: active
 stage: execution
 source_phase_task: EP4-002
 source_phase_file: execution/phase-4-evolution.md
@@ -83,10 +83,15 @@ make wiki-health
 
 ## Definition of Done
 - [ ] TASK-1017 satisfies source phase task EP4-002.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-0039 lifecycle navigation acceptance criteria are met: current stage, blockers, next action, and responsible AI role are always visible.
+- [ ] TASK-0040 guided native stage actions are complete.
+- [ ] Required tests and validation command pass for the full generated task.
+- [x] Relevant project memory and documentation are updated for TASK-0039.
+- [x] Changed files are limited to the TASK-0039 cockpit lifecycle-navigation scope or explicitly justified in the task notes.
+
+## Progress Notes
+
+- 2026-07-13: TASK-0039 completed the lifecycle navigation redesign. `tools/echel/platform/cockpit.py` now emits ordered lifecycle stages with role, blockers, next action, artifacts, and safe action metadata; the cockpit UI uses those stages as primary navigation and keeps the current stage, blockers, next action, and responsible AI role visible in the header and stage view. TASK-0040 remains open for richer native guided actions.
 
 ## Out of Scope
 - Work from later execution phase rows.

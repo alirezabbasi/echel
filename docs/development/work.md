@@ -21,7 +21,7 @@
 - [x] TASK-1014 Add deployment and release gates
 - [x] TASK-1015 Add operations artifacts
 - [x] TASK-1016 Add learning loop
-- [ ] TASK-1017 Redesign cockpit around lifecycle
+- [ ] TASK-1017 Redesign cockpit around lifecycle (TASK-0039 lifecycle navigation done; TASK-0040 guided actions pending)
 - [ ] TASK-1018 Add governance integrity artifacts
 - [ ] TASK-1019 Preserve migration compatibility
 - [ ] TASK-1020 Publish vNext proof and final gate
