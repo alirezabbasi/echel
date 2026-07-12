@@ -210,7 +210,7 @@ def render_validation_summary(items: list[ValidationItem], summary: ValidationSu
             "",
             "## Handoff To Evidence",
             "",
-            "TASK-0034 / TASK-1013 should turn evidence targets into registered evidence records with subject, kind, path, checksum, producer, and summary.",
+            "Use `python3 tools/echel.py evidence add` to turn evidence targets into registered evidence records with subject, kind, path, checksum, producer, and summary.",
         ]
     )
     return "\n".join(lines) + "\n"
@@ -269,7 +269,7 @@ def _upsert_graph_nodes(repo_root: Path, cfg: ProjectConfig, items: list[Validat
                 "type": "evidence",
                 "title": evidence_id,
                 "source": VALIDATION_REPORT,
-                "summary": "Validation evidence target; registration is handled by TASK-0034.",
+                "summary": "Validation evidence target; register with `python3 tools/echel.py evidence add`.",
                 "trace_id": evidence_id,
                 "statement_type": "fact",
                 "confidence": "low",

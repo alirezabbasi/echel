@@ -56,16 +56,17 @@ Last updated: 2026-07-12
 - Added the traceability matrix command and report so lifecycle coverage is visible from discovery through evidence, with canon and evidence gaps reported as broken chains.
 - Added the validation artifact surface under `wiki/validation/` so requirements, tasks, domain concepts, and acceptance criteria can be mapped before validation execution is automated.
 - Added the validation command so mapped validation artifacts are summarized into reports and graph test/evidence target nodes.
+- Added the evidence registration command so agents can create checksum-backed evidence records and graph evidence nodes without hand-editing JSON.
 
 ## Next
 
-1. Add evidence registration and connect evidence artifacts into graph-backed traceability.
-2. Add deployment and release readiness gates that consume validation output.
-3. Expand release readiness into production operation and post-release learning loops.
+1. Add deployment and release readiness gates that consume validation output and registered evidence.
+2. Expand release readiness into production operation and post-release learning loops.
+3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 
 ## Risks/Blocks
 
 - Contract drift across docs/schema/tools could weaken deterministic validation if not gated.
 - Adding new folders without a unique purpose could reintroduce navigation complexity.
 - Template-derived content must not be promoted into canon or strategy as product truth.
-- Traceability reporting currently shows canon and evidence as broken lifecycle links until canon statement nodes and registered evidence artifacts are connected; validation now identifies evidence targets for that follow-up work.
+- Traceability reporting still shows canon statement gaps until canon nodes are generated; evidence records can now be registered, but release gates still need to consume them.

@@ -24,11 +24,12 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use `wiki/reports/traceability-matrix.md` to inspect lifecycle coverage and broken canon/evidence chains.
 - Use `wiki/validation/` as the validation-stage mapping surface for requirements, tasks, domain concepts, and acceptance criteria.
 - Use `python3 tools/echel.py validate` to summarize validation status and refresh graph validation nodes.
+- Use `python3 tools/echel.py evidence add` to register checksum-backed proof records for task closure and release evidence.
 
 ## Next
 
-- Add evidence registration.
-- Connect canon statements and registered evidence into graph-backed traceability.
+- Add deployment and release readiness gates that consume validation output and registered evidence.
+- Connect canon statements more fully into graph-backed traceability.
 
 ## Later
 

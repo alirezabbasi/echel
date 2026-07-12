@@ -185,3 +185,9 @@
 - Decision: Implement `echel validate` as a validation-summary command over `wiki/validation/` artifacts that also upserts validation graph nodes.
 - Context: TASK-0033 needed pass/fail/skipped/blocker visibility without replacing the TASK-0032 validation model. It also needed validation tests and future evidence targets to appear in the product graph before evidence registration is automated.
 - Impact: `python3 tools/echel.py validate` now writes `wiki/reports/validation-summary.md`, refreshes `wiki/validation/validation-report.md`, upserts `test:*` and `evidence:*` nodes into `wiki/graph.manual.json`, regenerates `wiki/graph.json`, and reports passed, failed, skipped, blocked, risks, and blockers in the CLI.
+
+## DEC-0032
+
+- Decision: Make evidence registration a first-class CLI operation that writes structured registry records and refreshes evidence graph nodes.
+- Context: TASK-0034 needed agents to register proof without hand-editing `.echel/evidence_registry.json`, while preserving the existing task-closure rule that every closed task must reference registered evidence.
+- Impact: `python3 tools/echel.py evidence add` records subject, kind, path, checksum, producer, and summary, computes a SHA-256 checksum when possible, supports explicit evidence IDs for validation targets, regenerates `wiki/graph.json`, and leaves task closure dependent on registry-backed evidence IDs.

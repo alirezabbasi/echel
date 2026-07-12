@@ -1,4 +1,6 @@
 from pathlib import Path
+import hashlib
+import json
 import subprocess
 import sys
 import tempfile
@@ -13,6 +15,7 @@ from echel.canon import canon_generate, canon_status, detect_canon_drift, ensure
 from echel.config import load_config
 from echel.discovery import ensure_discovery_files
 from echel.domain import domain_generate, domain_status
+from echel.evidence import register_evidence, validate_links, validate_registry
 from echel.execution import (
     ExecutionTaskSource,
     execution_status,
@@ -557,6 +560,44 @@ Old canon problem
             self.assertIn("TEST-001", report)
             self.assertIn("EVID-VALIDATION-001", report)
             self.assertIn("test:TEST-001", node_ids)
+            self.assertIn("evidence:EVID-VALIDATION-001", node_ids)
+
+    def test_evidence_registration_records_required_fields_and_satisfies_links(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            proof = repo / "wiki/reports/proof.md"
+            write(proof, "proof artifact\n")
+            task = repo / "wiki/work/TASK-9000-proof.md"
+            write(task, "# TASK-9000\n\n## Evidence\n\nEVID-VALIDATION-001\n")
+
+            evid, record = register_evidence(
+                repo,
+                cfg,
+                evidence_id="EVID-VALIDATION-001",
+                subject="TASK-9000",
+                kind="validation-report",
+                path="wiki/reports/proof.md",
+                producer="QA Agent",
+                summary="Proof that validation ran.",
+            )
+            registry = (repo / ".echel/evidence_registry.json").read_text(encoding="utf-8")
+            graph = build_graph(repo, cfg)
+            node_ids = {node.get("id") for node in graph.get("nodes", []) if isinstance(node, dict)}
+
+            self.assertEqual("EVID-VALIDATION-001", evid)
+            self.assertEqual("TASK-9000", record["subject"])
+            self.assertEqual("validation-report", record["kind"])
+            self.assertEqual("wiki/reports/proof.md", record["path"])
+            self.assertEqual("QA Agent", record["producer"])
+            self.assertEqual("Proof that validation ran.", record["summary"])
+            self.assertEqual(
+                "sha256:" + hashlib.sha256(b"proof artifact\n").hexdigest(),
+                record["checksum"],
+            )
+            loaded_registry = json.loads(registry)
+            self.assertEqual([], validate_registry(loaded_registry, "registry"))
+            self.assertEqual([], validate_links([task], loaded_registry))
             self.assertIn("evidence:EVID-VALIDATION-001", node_ids)
 
     def test_low_confidence_assumptions_block_graph_validation(self) -> None:

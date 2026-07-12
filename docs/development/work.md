@@ -17,7 +17,7 @@
 - [x] TASK-1010 Generate traceability matrix
 - [x] TASK-1011 Add validation artifacts
 - [x] TASK-1012 Add validation command
-- [ ] TASK-1013 Add evidence registration
+- [x] TASK-1013 Add evidence registration
 - [ ] TASK-1014 Add deployment and release gates
 - [ ] TASK-1015 Add operations artifacts
 - [ ] TASK-1016 Add learning loop

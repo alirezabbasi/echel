@@ -381,3 +381,9 @@ status: active
 - Validation now writes `wiki/reports/validation-summary.md`, refreshes `wiki/validation/validation-report.md`, reports passed, failed, skipped, blocked, risks, and blockers, and upserts validation test/evidence target nodes into the product graph.
 - Marked EP3-002 and generated TASK-1012 done.
 - TASK-0033 is complete; TASK-0034 evidence registration is the next validation/evidence task.
+
+## [2026-07-12] evidence | registration-command
+- Added `python3 tools/echel.py evidence add`.
+- Evidence registration now records subject, kind, path, checksum, producer, and summary without hand-editing `.echel/evidence_registry.json`.
+- Evidence registration refreshes graph evidence nodes, and task closure remains blocked unless referenced evidence IDs exist in the registry.
+- Marked EP3-003, generated TASK-1013, and ENG-006 done; deployment and release gates are the next production hardening tasks.

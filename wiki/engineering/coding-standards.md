@@ -59,7 +59,7 @@ The final script is the authoritative aggregate command. Direct commands remain 
 - Code changes must cite the active `TASK-####` in the task or commit context.
 - Behavior changes update acceptance criteria and engineering docs when commands or boundaries change.
 - Architecture-impacting changes update architecture memory before the task is marked done.
-- Verification results become evidence once TASK-0034 adds the evidence registration command; until then, record commands and outcomes in task/state documentation.
+- Verification results become evidence through `python3 tools/echel.py evidence add`; records must include subject, kind, path, checksum, producer, and summary before task closure or release proof depends on them.
 
 ## Security Rules
 

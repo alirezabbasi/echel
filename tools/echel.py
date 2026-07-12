@@ -13,7 +13,7 @@ from echel.coherence import detect_drift
 from echel.conformance import run_conformance
 from echel.config import ConfigError, load_config, resolve_root_map, resolve_symbolic_path
 from echel.contracts import ensure_contracts, validate_transition
-from echel.evidence import ensure_registry, validate_links, validate_registry
+from echel.evidence import ensure_registry, register_evidence, validate_links, validate_registry
 from echel.execution import execution_status, execution_tasks_generate
 from echel.gates import run_gates, run_stage_gate
 from echel.graph import (
@@ -437,6 +437,40 @@ def cmd_validate(repo_root: Path) -> int:
     return 0
 
 
+def cmd_evidence_add(
+    repo_root: Path,
+    evidence_id: str | None,
+    subject: str,
+    kind: str,
+    path: str,
+    producer: str,
+    summary: str,
+    checksum: str | None,
+) -> int:
+    cfg = _load(repo_root)
+    try:
+        evid, record = register_evidence(
+            repo_root,
+            cfg,
+            evidence_id=evidence_id,
+            subject=subject,
+            kind=kind,
+            path=path,
+            producer=producer,
+            summary=summary,
+            checksum=checksum,
+        )
+    except (FileNotFoundError, ValueError) as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    print(f"Evidence registered: {evid}")
+    print(f"- subject: {record['subject']}")
+    print(f"- kind: {record['kind']}")
+    print(f"- path: {record['path']}")
+    print(f"- checksum: {record['checksum']}")
+    return 0
+
+
 def cmd_feature_add(repo_root: Path, title: str, summary: str) -> int:
     cfg = _load(repo_root)
     path = add_feature(repo_root, cfg, title=title, summary=summary)
@@ -815,6 +849,17 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("traceability")
     sub.add_parser("validate")
 
+    evidence = sub.add_parser("evidence")
+    evidence_sub = evidence.add_subparsers(dest="evidence_cmd", required=True)
+    evidence_add = evidence_sub.add_parser("add")
+    evidence_add.add_argument("--id", dest="evidence_id")
+    evidence_add.add_argument("--subject", required=True)
+    evidence_add.add_argument("--kind", required=True)
+    evidence_add.add_argument("--path", required=True)
+    evidence_add.add_argument("--producer", required=True)
+    evidence_add.add_argument("--summary", required=True)
+    evidence_add.add_argument("--checksum")
+
     feature = sub.add_parser("feature")
     feature_sub = feature.add_subparsers(dest="feature_cmd", required=True)
     feature_add = feature_sub.add_parser("add")
@@ -962,6 +1007,17 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_traceability(root)
     if args.cmd == "validate":
         return cmd_validate(root)
+    if args.cmd == "evidence" and args.evidence_cmd == "add":
+        return cmd_evidence_add(
+            root,
+            evidence_id=args.evidence_id,
+            subject=args.subject,
+            kind=args.kind,
+            path=args.path,
+            producer=args.producer,
+            summary=args.summary,
+            checksum=args.checksum,
+        )
     if args.cmd == "feature" and args.feature_cmd == "add":
         return cmd_feature_add(root, title=args.title, summary=args.summary)
     if args.cmd == "risk" and args.risk_cmd == "add":

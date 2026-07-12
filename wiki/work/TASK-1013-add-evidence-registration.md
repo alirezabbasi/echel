@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP3-003
 source_phase_file: execution/phase-3-production.md
@@ -72,6 +72,11 @@ python3 tools/echel.py doctor
 python3 tools/echel.py doctor
 ```
 
+## Completion Notes
+- Added `python3 tools/echel.py evidence add` with explicit or generated evidence IDs.
+- Evidence registration writes subject, kind, path, checksum, producer, summary, timestamps, and refreshes graph evidence nodes.
+- Registry validation now requires the full evidence record shape used by task closure and release proof.
+
 ## Rollback Notes
 - Revert the files listed in this task if validation fails.
 - Remove any generated artifacts created by this task before retrying.
@@ -81,11 +86,11 @@ python3 tools/echel.py doctor
 - Update evidence docs.
 
 ## Definition of Done
-- [ ] TASK-1013 satisfies source phase task EP3-003.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-1013 satisfies source phase task EP3-003.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Out of Scope
 - Work from later execution phase rows.
