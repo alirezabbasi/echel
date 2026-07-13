@@ -129,7 +129,7 @@ Inputs:
 Outputs:
 
 - Product repository root.
-- Product-owned `wiki/`.
+- Product-owned root `wiki/` with lifecycle folders and starter templates.
 - Internal `echel-core/`.
 - Initial configuration and operating docs.
 
@@ -138,6 +138,17 @@ Required artifacts:
 - Product README.
 - `wiki/project.md`.
 - `wiki/log.md`.
+- `wiki/discovery/product-discovery-spec.md`.
+- `wiki/canon/product-canon.md`.
+- `wiki/strategy/icp.md`.
+- `wiki/requirements/product-requirements.md`.
+- `wiki/domain/domain-overview.md`.
+- `wiki/architecture/overview.md`.
+- `wiki/execution/phase-0-foundation.md`.
+- `wiki/validation/test-strategy.md`.
+- `wiki/deployment/deployment-architecture.md`.
+- `wiki/operations/runbook.md`.
+- `wiki/governance/documentation-governance.md`.
 - `echel-core/project.echel`.
 
 Decisions:
@@ -151,6 +162,7 @@ Acceptance criteria:
 - Repository structure is clear.
 - Product memory is committed with the product.
 - Echel Core is isolated as framework machinery.
+- The generated root `wiki/` already exposes every lifecycle stage needed to progress from discovery through governance.
 - No product implementation starts yet.
 
 Prepares next stage by giving discovery a durable place to capture founder intent.

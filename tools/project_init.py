@@ -28,11 +28,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--solution", default="", help="Initial intended solution")
     parser.add_argument("--direction", default="", help="Initial product direction")
     parser.add_argument("--users", default="", help="Initial target users")
+    parser.add_argument("--buyers", default="", help="Initial buyers or approvers")
+    parser.add_argument("--operators", default="", help="Initial operators or support owners")
     parser.add_argument("--mvp", default="", help="Initial MVP scope")
+    parser.add_argument("--business-model", default="", help="Initial business model or value model")
+    parser.add_argument("--non-goals", default="", help="Initial explicit non-goals")
     parser.add_argument("--constraints", default="", help="Initial product/user constraints")
     parser.add_argument("--risks", default="", help="Initial product risks")
     parser.add_argument("--stack", default="", help="Initial preferred technical stack")
     parser.add_argument("--success", default="", help="Initial success criteria")
+    parser.add_argument("--research", default="", help="Initial research plan item")
     parser.add_argument(
         "--dest",
         default=".",
@@ -58,7 +63,26 @@ def copy_project_wiki_template(repo_root: Path, workspace_dir: Path) -> None:
     _ = repo_root
     dst = workspace_dir / "wiki"
     dst.mkdir(parents=True, exist_ok=True)
-    for folder in ["knowledge", "decisions", "work", "reports"]:
+    for folder in [
+        "agents",
+        "architecture",
+        "canon",
+        "decisions",
+        "deployment",
+        "discovery",
+        "domain",
+        "engineering",
+        "execution",
+        "governance",
+        "knowledge",
+        "operations",
+        "reports",
+        "requirements",
+        "roadmap",
+        "strategy",
+        "validation",
+        "work",
+    ]:
         (dst / folder).mkdir(parents=True, exist_ok=True)
     (dst / "project-brief.md").write_text(
         """---
@@ -78,6 +102,217 @@ This wiki is the product-owned memory for the software being built with Echel.
     )
     (dst / "log.md").write_text("---\ntype: log\nstatus: active\n---\n# Log\n", encoding="utf-8")
     (dst / "index.md").write_text("---\ntype: index\nstatus: active\n---\n# Index\n", encoding="utf-8")
+    write_lifecycle_templates(dst)
+
+
+def write_lifecycle_templates(wiki: Path) -> None:
+    templates = {
+        "discovery/product-discovery-spec.md": """---
+type: product-discovery-spec
+status: draft
+stage: discovery
+---
+# Product Discovery Specification
+
+## 01 Executive Summary
+
+| Field | Value | Statement Type | Confidence | Source ID |
+| --- | --- | --- | --- | --- |
+| Product Name | TBD | fact | medium | P-001 |
+| One-sentence description | TBD | assumption | low | P-002 |
+| Category | TBD | assumption | low | P-003 |
+| Target industry | TBD | assumption | low | P-004 |
+
+## 02 Problem
+
+TBD
+
+## 03 Users
+
+TBD
+
+## 04 Buyers
+
+TBD
+
+## 05 Operators
+
+TBD
+
+## 06 Current Workflow
+
+TBD
+
+## 07 Proposed Solution
+
+TBD
+
+## 08 Business Model
+
+TBD
+
+## 09 Success Criteria
+
+TBD
+
+## 10 Scope
+
+TBD
+
+## 11 Non Goals
+
+TBD
+
+## 12 Constraints
+
+TBD
+
+## 13 Assumptions
+
+TBD
+
+## 14 Risks
+
+TBD
+
+## 15 Open Questions
+
+TBD
+
+## Quality Gate
+
+- [ ] Problem clearly defined.
+- [ ] Buyer, user, and operator identified.
+- [ ] Current workflow documented.
+- [ ] Business value and success criteria measurable.
+- [ ] Non-goals, constraints, risks, assumptions, open questions, and research plan recorded.
+""",
+        "discovery/research-plan.md": """---
+type: research-plan
+status: draft
+stage: discovery
+---
+# Research Plan
+
+| ID | Topic | Question | Method | Owner | Status |
+| --- | --- | --- | --- | --- | --- |
+| RES-001 | Product discovery | What must be validated before canon? | Interview/research | Founder Interviewer | Planned |
+""",
+        "discovery/assumptions.md": """---
+type: assumptions
+status: draft
+stage: discovery
+---
+# Assumptions
+
+| ID | Statement | Type | Confidence | Validation Method | Status |
+| --- | --- | --- | --- | --- | --- |
+| A-001 | Initial product assumptions are not yet validated. | assumption | low | Discovery research | Open |
+""",
+        "canon/product-canon.md": "# Product Canon\n\n## What This Product Is\n\nTBD\n\n## What This Product Is Not\n\nTBD\n\n## Why This Product Exists\n\nTBD\n",
+        "canon/vision.md": "# Product Vision\n\n## Vision Statement\n\nTBD\n\n## Business Transformation\n\nTBD\n",
+        "canon/product-principles.md": "# Product Principles\n\n## Principles\n\n- TBD\n",
+        "canon/non-negotiables.md": "# Non-Negotiables\n\n## Hard Constraints\n\n- TBD\n",
+        "strategy/icp.md": "# Ideal Customer Profile\n\n## Primary ICP\n\nTBD\n",
+        "strategy/buyer-user-model.md": "# Buyer and User Model\n\n## Economic Buyer\n\nTBD\n\n## User\n\nTBD\n\n## Operator\n\nTBD\n",
+        "strategy/market-wedge.md": "# Market Wedge\n\n## Wedge Definition\n\nTBD\n",
+        "strategy/competitive-analysis.md": "# Competitive Analysis\n\n## Alternatives\n\n- TBD\n",
+        "strategy/positioning.md": "# Positioning\n\n## Positioning Statement\n\nTBD\n",
+        "strategy/pricing-and-packaging.md": "# Pricing and Packaging\n\n## Pricing Model\n\nTBD\n",
+        "strategy/pmf-evidence.md": "# PMF Evidence\n\n## Continue Criteria\n\nTBD\n\n## Stop Criteria\n\nTBD\n",
+        "requirements/product-requirements.md": "# Product Requirements\n\n| ID | Requirement | Source IDs | Priority | Phase | Status |\n| --- | --- | --- | --- | --- | --- |\n| REQ-001 | TBD | P-001 | P0 | MVP | Draft |\n",
+        "requirements/functional-requirements.md": "# Functional Requirements\n\n| ID | Requirement | Source IDs | Acceptance Criteria | Status |\n| --- | --- | --- | --- | --- |\n| REQ-001 | TBD | P-001 | AC-001 | Draft |\n",
+        "requirements/non-functional-requirements.md": "# Non-Functional Requirements\n\n| ID | Category | Requirement | Source IDs | Status |\n| --- | --- | --- | --- | --- |\n| NFR-001 | Reliability | TBD | P-001 | Draft |\n",
+        "requirements/mvp-scope.md": "# MVP Scope\n\n## MVP\n\n- TBD\n",
+        "requirements/out-of-scope.md": "# Out Of Scope\n\n## Exclusions\n\n- TBD\n",
+        "requirements/acceptance-criteria.md": "# Acceptance Criteria\n\n| ID | Requirement ID | Criteria | Status |\n| --- | --- | --- | --- |\n| AC-001 | REQ-001 | TBD | Draft |\n",
+        "domain/domain-overview.md": "# Domain Overview\n\n## Purpose\n\nTBD\n",
+        "domain/ubiquitous-language.md": "# Ubiquitous Language\n\n| ID | Term | Definition | Source IDs | Status |\n| --- | --- | --- | --- | --- |\n| DM-001 | TBD | TBD | REQ-001 | Draft |\n",
+        "domain/bounded-contexts.md": "# Bounded Contexts\n\n| ID | Context | Responsibility | Source IDs | Status |\n| --- | --- | --- | --- | --- |\n| BC-001 | TBD | TBD | REQ-001 | Draft |\n",
+        "domain/entities.md": "# Entities\n\n| ID | Entity | Context | Source IDs | Status |\n| --- | --- | --- | --- | --- |\n| ENT-001 | TBD | BC-001 | REQ-001 | Draft |\n",
+        "domain/aggregates.md": "# Aggregates\n\n| ID | Aggregate | Root Entity | Source IDs | Status |\n| --- | --- | --- | --- | --- |\n| AGG-001 | TBD | ENT-001 | REQ-001 | Draft |\n",
+        "domain/domain-events.md": "# Domain Events\n\n| ID | Event | Producer | Consumer | Status |\n| --- | --- | --- | --- | --- |\n| DE-001 | TBD | TBD | TBD | Draft |\n",
+        "domain/workflows.md": "# Domain Workflows\n\n| ID | Workflow | Source IDs | Status |\n| --- | --- | --- | --- |\n| WF-001 | TBD | REQ-001 | Draft |\n",
+        "domain/policies-and-rules.md": "# Policies And Rules\n\n| ID | Rule | Source IDs | Status |\n| --- | --- | --- | --- |\n| BR-001 | TBD | REQ-001 | Draft |\n",
+        "architecture/overview.md": "# Architecture Overview\n\n## Purpose\n\nTBD\n",
+        "architecture/context-map.md": "# Context Map\n\n## Contexts\n\nTBD\n",
+        "architecture/component-architecture.md": "# Component Architecture\n\n| ID | Component | Responsibility | Source IDs | Status |\n| --- | --- | --- | --- | --- |\n| ARCH-001 | TBD | TBD | BC-001 | Draft |\n",
+        "architecture/data-architecture.md": "# Data Architecture\n\n## Data Model\n\nTBD\n",
+        "architecture/api-architecture.md": "# API Architecture\n\n## API Surface\n\nTBD\n",
+        "architecture/event-architecture.md": "# Event Architecture\n\n## Events\n\nTBD\n",
+        "architecture/workflow-architecture.md": "# Workflow Architecture\n\n## Workflows\n\nTBD\n",
+        "architecture/security-architecture.md": "# Security Architecture\n\n## Security Model\n\nTBD\n",
+        "architecture/observability-architecture.md": "# Observability Architecture\n\n## Signals\n\nTBD\n",
+        "roadmap/master-roadmap.md": "# Master Roadmap\n\n| ID | Phase | Objective | Dependencies | Status |\n| --- | --- | --- | --- | --- |\n| RM-001 | Foundation | TBD | REQ-001 | Planned |\n",
+        "roadmap/mvp-roadmap.md": "# MVP Roadmap\n\n## MVP Goal\n\nTBD\n",
+        "roadmap/architecture-roadmap.md": "# Architecture Roadmap\n\n## Architecture Work\n\nTBD\n",
+        "roadmap/engineering-roadmap.md": "# Engineering Roadmap\n\n## Engineering Work\n\nTBD\n",
+        "roadmap/release-plan.md": "# Release Plan\n\n| ID | Release | Scope | Gate | Status |\n| --- | --- | --- | --- | --- |\n| REL-001 | MVP | TBD | Release readiness | Planned |\n",
+        "execution/phase-0-foundation.md": _phase_template("Phase 0 Foundation", "EP0-001"),
+        "execution/phase-1-mvp.md": _phase_template("Phase 1 MVP", "EP1-001"),
+        "execution/phase-2-hardening.md": _phase_template("Phase 2 Hardening", "EP2-001"),
+        "execution/phase-3-production.md": _phase_template("Phase 3 Production", "EP3-001"),
+        "execution/phase-4-evolution.md": _phase_template("Phase 4 Evolution", "EP4-001"),
+        "validation/test-strategy.md": "# Test Strategy\n\n| Validation ID | Scope | Requirement IDs | Task IDs | Evidence Target | Status |\n| --- | --- | --- | --- | --- | --- |\n| TEST-001 | TBD | REQ-001 | TASK-1001 | EVID-VALIDATION-001 | Planned |\n",
+        "validation/acceptance-tests.md": "# Acceptance Tests\n\n| ID | Scenario | Requirement IDs | Status |\n| --- | --- | --- | --- |\n| TEST-ACC-001 | TBD | REQ-001 | Planned |\n",
+        "validation/integration-tests.md": "# Integration Tests\n\n| ID | Scenario | Requirement IDs | Status |\n| --- | --- | --- | --- |\n| TEST-INT-001 | TBD | REQ-001 | Planned |\n",
+        "validation/e2e-tests.md": "# E2E Tests\n\n| ID | Scenario | Requirement IDs | Status |\n| --- | --- | --- | --- |\n| TEST-E2E-001 | TBD | REQ-001 | Planned |\n",
+        "validation/security-tests.md": "# Security Tests\n\n| ID | Scenario | Requirement IDs | Status |\n| --- | --- | --- | --- |\n| TEST-SEC-001 | TBD | NFR-001 | Planned |\n",
+        "validation/performance-tests.md": "# Performance Tests\n\n| ID | Scenario | Requirement IDs | Status |\n| --- | --- | --- | --- |\n| TEST-PERF-001 | TBD | NFR-001 | Planned |\n",
+        "validation/validation-report.md": "# Validation Report\n\n## Summary\n\nNo validation has run yet.\n",
+        "deployment/deployment-architecture.md": "# Deployment Architecture\n\n## Deployment Path\n\nTBD\n",
+        "deployment/environments.md": "# Environments\n\n| ID | Environment | Purpose | Status |\n| --- | --- | --- | --- |\n| ENV-001 | Local | Development and verification | Active |\n",
+        "deployment/release-process.md": "# Release Process\n\n## Process\n\nTBD\n",
+        "deployment/rollback-plan.md": "# Rollback Plan\n\n| ID | Failure Mode | Rollback Action | Owner | Status |\n| --- | --- | --- | --- | --- |\n| RB-001 | TBD | TBD | Release Manager | Draft |\n",
+        "deployment/secrets-management.md": "# Secrets Management\n\n## Strategy\n\nNo secrets are committed to the repository.\n",
+        "deployment/production-checklist.md": "# Production Checklist\n\n| ID | Area | Check | Owner | Status |\n| --- | --- | --- | --- | --- |\n| PROD-001 | Validation | Validation report exists. | QA Agent | Pending |\n",
+        "operations/runbook.md": "# Runbook\n\n## Routine Operations\n\nTBD\n",
+        "operations/observability.md": "# Observability\n\n## Signals\n\nTBD\n",
+        "operations/incident-response.md": "# Incident Response\n\n## Severity Model\n\nTBD\n",
+        "operations/backup-and-recovery.md": "# Backup And Recovery\n\n## Recovery Strategy\n\nTBD\n",
+        "operations/sla-and-slo.md": "# SLA And SLO\n\n## Service Objectives\n\nTBD\n",
+        "operations/change-management.md": "# Change Management\n\n## Change Classes\n\nTBD\n",
+        "operations/evolution-backlog.md": "# Evolution Backlog\n\n| ID | Item | Source | Status |\n| --- | --- | --- | --- |\n| EVO-001 | TBD | Learning loop | Planned |\n",
+        "operations/learning-records.md": "# Learning Records\n\n| ID | Source | Summary | Action | Status |\n| --- | --- | --- | --- | --- |\n| LEARN-001 | Initialization | No learning recorded yet. | none | Captured |\n",
+        "governance/documentation-governance.md": "# Documentation Governance\n\n## Source Of Truth Hierarchy\n\nDiscovery -> Canon -> Strategy -> Requirements -> Domain -> Architecture -> Roadmap -> Execution -> Validation -> Deployment -> Operations -> Governance.\n\n## Duplication Rules\n\nOne authoritative location per decision.\n\n## Deprecation Process\n\nLegacy pages remain until migration compatibility is verified.\n",
+        "governance/architecture-governance.md": "# Architecture Governance\n\n## Review Rules\n\nMajor architecture choices require ADR coverage.\n",
+        "governance/adr-process.md": "# ADR Process\n\n## When To Create ADRs\n\nCreate ADRs for architecture, release, security, data, or source-of-truth decisions.\n",
+        "governance/traceability-model.md": "# Traceability Model\n\n## Chain\n\nDiscovery -> Canon -> Strategy -> Requirement -> Domain -> Architecture -> Task -> Test -> Evidence.\n",
+        "governance/quality-gates.md": "# Quality Gates\n\n## Gates\n\nDiscovery, requirements, domain, architecture, release, integrity.\n",
+        "governance/repository-integrity-audit.md": "# Repository Integrity Audit Model\n\n## Scope\n\nMissing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, methodology violations, contradictions, and migration compatibility.\n",
+        "governance/contradictions.md": "# Contradiction Register\n\n| ID | Status | Title | Source Record | Type | Links | Impact | Resolution Task | Owner |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| CONTR-000 | Resolved | No contradictions recorded | none | none | None | No current impact. | CONTR-TASK-000 | Governance Auditor |\n",
+        "governance/migration-compatibility.md": "# Migration Compatibility Map\n\n## Purpose\n\nLegacy root pages remain supported while lifecycle folders become canonical.\n",
+        "engineering/repository-structure.md": "# Repository Structure\n\n## Purpose\n\nTBD\n",
+        "engineering/coding-standards.md": "# Coding Standards\n\n## Standards\n\nTBD\n",
+        "engineering/development-workflow.md": "# Development Workflow\n\n## Rule\n\nDo not implement product code before an approved task packet exists.\n",
+        "engineering/configuration-strategy.md": "# Configuration Strategy\n\n## Strategy\n\nTBD\n",
+        "engineering/local-development.md": "# Local Development\n\n## Commands\n\nTBD\n",
+        "agents/role-model.md": "# Agent Role Model\n\n## Roles\n\nFounder Interviewer, Product Manager, Domain Modeler, Solution Architect, Delivery Planner, Implementation Agent, QA Agent, Release Manager, Operations Steward, Governance Auditor.\n",
+        "agents/handoff-protocol.md": "# Agent Handoff Protocol\n\n## Required Handoff Summary\n\nSource artifacts, changed artifacts, decisions, assumptions, risks, unresolved questions, evidence, stale artifacts, and next-stage instructions.\n",
+        "work/TASK_INDEX.md": "# Execution Task Index\n\n| Task ID | Title | Source | Dependencies | Status |\n| --- | --- | --- | --- | --- |\n| TASK-1001 | Define first implementation task | execution/phase-0-foundation.md | REQ-001 | Planned |\n",
+    }
+    for rel, content in templates.items():
+        path = wiki / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if not path.exists():
+            path.write_text(_with_frontmatter(rel, content), encoding="utf-8")
+
+
+def _phase_template(title: str, task_id: str) -> str:
+    return f"""# {title}
+
+| Phase Task ID | Task | Objective | Business Reason | Scope | Dependencies | Acceptance Criteria | Tests Required | Validation Command | Documentation Updates | Expected Repo Changes | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| {task_id} | Define first scoped task | Convert lifecycle memory into one agent-executable task. | Agents need explicit bounded work. | Task definition only. | REQ-001 | Task has objective, files, tests, rollback, and DoD. | Documentation review | `make wiki-health` | Update work index. | No product code. | Planned |
+"""
+
+
+def _with_frontmatter(rel: str, content: str) -> str:
+    if content.startswith("---"):
+        return content
+    doc_type = Path(rel).stem.replace("_", "-")
+    stage = rel.split("/", 1)[0] if "/" in rel else "product-memory"
+    return f"---\ntype: {doc_type}\nstatus: draft\nstage: {stage}\n---\n{content}"
 
 
 def write_generated_core_config(echel_core_dir: Path) -> None:
@@ -213,11 +448,16 @@ def write_product_pages(
     solution: str,
     direction: str,
     users: str,
+    buyers: str,
+    operators: str,
     mvp: str,
+    business_model: str,
+    non_goals: str,
     constraints: str,
     risks: str,
     stack: str,
     success: str,
+    research: str,
 ) -> None:
     wiki = workspace_dir / "wiki"
     pages = {
@@ -241,6 +481,17 @@ status: active
 
 ## Preferred Stack
 - {stack or "TBD"}
+
+## Lifecycle Compatibility
+
+This legacy root page remains supported for old links and product-memory continuity.
+
+- Lifecycle stage: `repository-initialization`
+- Compatibility mode: source summary
+- Canonical lifecycle artifacts:
+  - [[canon/product-canon]]
+  - [[canon/vision]]
+- Migration map: [[governance/migration-compatibility]]
 """,
         "problem.md": f"""---
 type: product-problem
@@ -259,6 +510,17 @@ TBD
 
 ## Risks
 - {risks or "TBD"}
+
+## Lifecycle Compatibility
+
+This legacy root page remains supported for old links and product-memory continuity.
+
+- Lifecycle stage: `discovery`
+- Compatibility mode: compatibility summary
+- Canonical lifecycle artifacts:
+  - [[discovery/product-discovery-spec]]
+  - [[canon/product-canon]]
+- Migration map: [[governance/migration-compatibility]]
 """,
         "users.md": f"""---
 type: product-users
@@ -286,6 +548,17 @@ status: draft
 
 ## Core Capabilities
 - TBD
+
+## Lifecycle Compatibility
+
+This legacy root page remains supported for old links and product-memory continuity.
+
+- Lifecycle stage: `canon`
+- Compatibility mode: compatibility summary
+- Canonical lifecycle artifacts:
+  - [[canon/product-canon]]
+  - [[requirements/product-requirements]]
+- Migration map: [[governance/migration-compatibility]]
 """,
         "scope.md": f"""---
 type: product-scope
@@ -300,7 +573,18 @@ status: draft
 - TBD
 
 ## Out of Scope
-- TBD
+- {non_goals or "TBD"}
+
+## Lifecycle Compatibility
+
+This legacy root page remains supported for old links and product-memory continuity.
+
+- Lifecycle stage: `requirements`
+- Compatibility mode: compatibility summary
+- Canonical lifecycle artifacts:
+  - [[requirements/mvp-scope]]
+  - [[requirements/out-of-scope]]
+- Migration map: [[governance/migration-compatibility]]
 """,
         "roadmap.md": """---
 type: roadmap
@@ -316,6 +600,18 @@ status: draft
 
 ## Later
 - TBD
+
+## Lifecycle Compatibility
+
+This legacy root page remains supported for old links and product-memory continuity.
+
+- Lifecycle stage: `roadmap`
+- Compatibility mode: compatibility summary
+- Canonical lifecycle artifacts:
+  - [[roadmap/master-roadmap]]
+  - [[roadmap/mvp-roadmap]]
+  - [[roadmap/release-plan]]
+- Migration map: [[governance/migration-compatibility]]
 """,
         "architecture.md": f"""---
 type: product-architecture
@@ -334,6 +630,18 @@ TBD
 
 ## Open Architecture Questions
 - TBD
+
+## Lifecycle Compatibility
+
+This legacy root page remains supported for old links and product-memory continuity.
+
+- Lifecycle stage: `architecture`
+- Compatibility mode: compatibility summary
+- Canonical lifecycle artifacts:
+  - [[architecture/overview]]
+  - [[architecture/component-architecture]]
+  - [[architecture/data-architecture]]
+- Migration map: [[governance/migration-compatibility]]
 """,
         "workflows.md": """---
 type: product-workflows
@@ -348,6 +656,72 @@ status: draft
     for rel, content in pages.items():
         path = wiki / rel
         path.write_text(content, encoding="utf-8")
+    update_lifecycle_context(wiki, project_name, problem, solution, direction, users, buyers, operators, mvp, business_model, non_goals, constraints, risks, stack, success, research)
+
+
+def update_lifecycle_context(
+    wiki: Path,
+    project_name: str,
+    problem: str,
+    solution: str,
+    direction: str,
+    users: str,
+    buyers: str,
+    operators: str,
+    mvp: str,
+    business_model: str,
+    non_goals: str,
+    constraints: str,
+    risks: str,
+    stack: str,
+    success: str,
+    research: str,
+) -> None:
+    pds = wiki / "discovery" / "product-discovery-spec.md"
+    text = pds.read_text(encoding="utf-8")
+    text = _replace_section_body(text, "02 Problem", problem or "TBD")
+    text = _replace_section_body(text, "03 Users", users or "TBD")
+    text = _replace_section_body(text, "04 Buyers", buyers or "TBD")
+    text = _replace_section_body(text, "05 Operators", operators or "TBD")
+    text = _replace_section_body(text, "07 Proposed Solution", solution or "TBD")
+    text = _replace_section_body(text, "08 Business Model", business_model or "TBD")
+    text = _replace_section_body(text, "09 Success Criteria", success or "TBD")
+    text = _replace_section_body(text, "10 Scope", mvp or "TBD")
+    text = _replace_section_body(text, "11 Non Goals", non_goals or "TBD")
+    text = _replace_section_body(text, "12 Constraints", constraints or "TBD")
+    text = _replace_section_body(text, "13 Assumptions", "Initial assumptions require discovery validation.")
+    text = _replace_section_body(text, "14 Risks", risks or "TBD")
+    text = _replace_section_body(text, "15 Open Questions", research or "TBD")
+    pds.write_text(text, encoding="utf-8")
+
+    replacements = {
+        "canon/product-canon.md": {
+            "What This Product Is": solution or direction or "TBD",
+            "What This Product Is Not": non_goals or "TBD",
+            "Why This Product Exists": problem or "TBD",
+        },
+        "canon/vision.md": {"Vision Statement": direction or "TBD", "Business Transformation": success or "TBD"},
+        "strategy/icp.md": {"Primary ICP": buyers or users or "TBD"},
+        "strategy/buyer-user-model.md": {"Economic Buyer": buyers or "TBD", "User": users or "TBD", "Operator": operators or "TBD"},
+        "requirements/mvp-scope.md": {"MVP": f"- {mvp or 'TBD'}"},
+        "requirements/out-of-scope.md": {"Exclusions": f"- {non_goals or 'TBD'}"},
+        "architecture/overview.md": {"Purpose": f"Preferred stack: {stack or 'TBD'}"},
+    }
+    for rel, sections in replacements.items():
+        path = wiki / rel
+        doc = path.read_text(encoding="utf-8")
+        for heading, body in sections.items():
+            doc = _replace_section_body(doc, heading, body)
+        path.write_text(doc, encoding="utf-8")
+
+    research_path = wiki / "discovery" / "research-plan.md"
+    research_text = research_path.read_text(encoding="utf-8")
+    if research:
+        research_text = research_text.replace(
+            "| RES-001 | Product discovery | What must be validated before canon? | Interview/research | Founder Interviewer | Planned |",
+            f"| RES-001 | Product discovery | {research} | Interview/research | Founder Interviewer | Planned |",
+        )
+        research_path.write_text(research_text, encoding="utf-8")
 
 
 def update_project_wiki_context(
@@ -359,13 +733,35 @@ def update_project_wiki_context(
     solution: str,
     direction: str,
     users: str,
+    buyers: str,
+    operators: str,
     mvp: str,
+    business_model: str,
+    non_goals: str,
     constraints: str,
     risks: str,
     stack: str,
     success: str,
+    research: str,
 ) -> None:
-    write_product_pages(workspace_dir, project_name, problem, solution, direction, users, mvp, constraints, risks, stack, success)
+    write_product_pages(
+        workspace_dir,
+        project_name,
+        problem,
+        solution,
+        direction,
+        users,
+        buyers,
+        operators,
+        mvp,
+        business_model,
+        non_goals,
+        constraints,
+        risks,
+        stack,
+        success,
+        research,
+    )
     brief = workspace_dir / "wiki" / "project-brief.md"
     if brief.exists() and "# Project Brief" in brief.read_text(encoding="utf-8"):
         text = brief.read_text(encoding="utf-8").replace("# Project Brief", f"# Project Brief - {project_name}", 1)
@@ -377,6 +773,10 @@ def update_project_wiki_context(
             text = _replace_section_body(text, "Product Direction", direction)
         if mvp:
             text = _replace_section_body(text, "MVP", mvp)
+        if business_model:
+            text = _replace_section_body(text, "Business Model", business_model)
+        if non_goals:
+            text = _replace_section_body(text, "Non Goals", non_goals)
         if constraints:
             text = _replace_section_body(text, "Constraints", constraints)
         if risks:
@@ -435,11 +835,16 @@ def main() -> int:
         args.solution,
         args.direction,
         args.users,
+        args.buyers,
+        args.operators,
         args.mvp,
+        args.business_model,
+        args.non_goals,
         args.constraints,
         args.risks,
         args.stack,
         args.success,
+        args.research,
     )
 
     print(f"Initialized workspace: {workspace_dir}")

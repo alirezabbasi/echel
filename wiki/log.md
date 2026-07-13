@@ -447,3 +447,9 @@ status: active
 - Added `python3 tools/echel.py migration compatibility`.
 - Root wiki pages now keep `Lifecycle Compatibility` sections that point old links toward canonical lifecycle artifacts.
 - TASK-0044 is complete; TASK-0045 initialization flow update and TASK-0046 generated-project verification remain in EP4-004.
+
+## [2026-07-13] initialization | methodology-complete-projects
+- Updated project initialization so generated projects start with discovery, canon, strategy, requirements, domain, architecture, roadmap, execution, validation, deployment, operations, governance, engineering, agents, and work templates under root `wiki/`.
+- Extended the wizard and `make init-project` to collect buyer, operator, business model, non-goals, and research inputs and seed them into lifecycle memory.
+- Preserved the product/framework boundary: product memory stays at root `wiki/`, Echel Core stays under `echel-core/`, and generated `project.echel` resolves `WIKI_ROOT` as `../wiki`.
+- TASK-0045 is complete; TASK-0046 generated-project verification remains in EP4-004.

@@ -35,11 +35,16 @@ def main() -> int:
     solution = ask("Intended solution", "")
     direction = ask("Product direction", "")
     users = ask("Target users", "")
+    buyers = ask("Target buyers or approvers", "")
+    operators = ask("Operators or support owners", "")
     mvp = ask("MVP scope", "")
+    business_model = ask("Business model or value model", "")
+    non_goals = ask("Non-goals", "")
     constraints = ask("Constraints", "")
     risks = ask("Risks", "")
     stack = ask("Preferred stack", "")
     success = ask("Success criteria", "")
+    research = ask("Initial research question", "")
 
     cmd = [
         "python3",
@@ -58,11 +63,16 @@ def main() -> int:
         ("--solution", solution),
         ("--direction", direction),
         ("--users", users),
+        ("--buyers", buyers),
+        ("--operators", operators),
         ("--mvp", mvp),
+        ("--business-model", business_model),
+        ("--non-goals", non_goals),
         ("--constraints", constraints),
         ("--risks", risks),
         ("--stack", stack),
         ("--success", success),
+        ("--research", research),
     ]:
         if value:
             cmd.extend([flag, value])

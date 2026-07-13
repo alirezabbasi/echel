@@ -23,7 +23,7 @@
 - [x] TASK-1016 Add learning loop
 - [x] TASK-1017 Redesign cockpit around lifecycle
 - [x] TASK-1018 Add governance integrity artifacts
-- [ ] TASK-1019 Preserve migration compatibility (TASK-0044 done; TASK-0045/TASK-0046 pending)
+- [ ] TASK-1019 Preserve migration compatibility (TASK-0044/TASK-0045 done; TASK-0046 pending)
 - [ ] TASK-1020 Publish vNext proof and final gate
 
 ## In Progress

@@ -35,10 +35,11 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use `python3 tools/echel.py integrity audit` to report missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations.
 - Use `python3 tools/echel.py contradictions sync` to promote local contradiction records into `wiki/governance/contradictions.md`, graph nodes, and resolution tasks.
 - Use `python3 tools/echel.py migration compatibility` to preserve old root wiki links while mapping them to lifecycle artifacts.
+- Use updated initialization so new projects start with methodology-complete root `wiki/` lifecycle templates while Echel Core remains under `echel-core/`.
 
 ## Next
 
-- Update initialization so new projects start with the methodology-complete lifecycle structure.
+- Add generated-project verification for the full vNext lifecycle initialization.
 - Connect canon statements more fully into graph-backed traceability.
 
 ## Later

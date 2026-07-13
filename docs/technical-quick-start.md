@@ -23,11 +23,16 @@ make init-project \
   SOLUTION="..." \
   DIRECTION="..." \
   USERS="..." \
+  BUYERS="..." \
+  OPERATORS="..." \
   MVP="..." \
+  BUSINESS_MODEL="..." \
+  NON_GOALS="..." \
   CONSTRAINTS="..." \
   RISKS="..." \
   STACK="..." \
-  SUCCESS="..."
+  SUCCESS="..." \
+  RESEARCH="..."
 ```
 
 Existing repository:
@@ -45,6 +50,8 @@ Generated layout:
 ```
 
 `wiki/` belongs to the product repository. `echel-core/` is framework infrastructure and is ignored by the generated project repository.
+
+New projects initialize with the full vNext lifecycle surface under root `wiki/`: discovery, canon, strategy, requirements, domain, architecture, roadmap, execution, validation, deployment, operations, governance, engineering, agents, and work templates. Legacy root pages such as `project.md`, `problem.md`, `solution.md`, `scope.md`, `roadmap.md`, and `architecture.md` remain compatibility summaries that point into the lifecycle folders.
 
 ## Validate Initialization
 

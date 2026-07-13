@@ -672,6 +672,70 @@ Old canon problem
             self.assertIn("| `wiki/project.md` | repository-initialization |", text)
             self.assertIn("| `wiki/work/` | execution |", text)
 
+    def test_project_init_creates_methodology_complete_wiki_at_product_root(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            proc = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "tools/project_init.py"),
+                    "--name",
+                    "sentinel",
+                    "--mode",
+                    "scratch",
+                    "--dest",
+                    tmp,
+                    "--problem",
+                    "Trading teams cannot validate signals consistently.",
+                    "--solution",
+                    "A signal validation workflow.",
+                    "--direction",
+                    "Turn signal review into auditable workflow.",
+                    "--users",
+                    "Traders",
+                    "--buyers",
+                    "Prop firms",
+                    "--operators",
+                    "Risk operations",
+                    "--mvp",
+                    "Validate raw signals",
+                    "--business-model",
+                    "Subscription",
+                    "--non-goals",
+                    "No live trade execution",
+                    "--research",
+                    "Which signal sources matter first?",
+                ],
+                cwd=ROOT,
+                text=True,
+                capture_output=True,
+            )
+
+            self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+            workspace = Path(tmp) / "sentinel"
+            wiki = workspace / "wiki"
+            echel_core = workspace / "echel-core"
+            for rel in [
+                "discovery/product-discovery-spec.md",
+                "canon/product-canon.md",
+                "strategy/icp.md",
+                "requirements/product-requirements.md",
+                "domain/domain-overview.md",
+                "architecture/overview.md",
+                "execution/phase-0-foundation.md",
+                "validation/test-strategy.md",
+                "deployment/deployment-architecture.md",
+                "operations/runbook.md",
+                "governance/documentation-governance.md",
+            ]:
+                self.assertTrue((wiki / rel).exists(), rel)
+            self.assertTrue(echel_core.exists())
+            self.assertIn('"WIKI_ROOT": "../wiki"', (echel_core / "project.echel").read_text(encoding="utf-8"))
+            self.assertIn("echel-core/", (workspace / ".gitignore").read_text(encoding="utf-8"))
+            pds = (wiki / "discovery/product-discovery-spec.md").read_text(encoding="utf-8")
+            self.assertIn("Trading teams cannot validate signals consistently.", pds)
+            self.assertIn("Prop firms", pds)
+            self.assertIn("No live trade execution", (wiki / "scope.md").read_text(encoding="utf-8"))
+
     def test_integrity_audit_reports_required_governance_categories(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repo = Path(tmp)

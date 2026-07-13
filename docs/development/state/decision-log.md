@@ -251,3 +251,9 @@
 - Decision: Preserve root wiki pages as compatibility summaries while vNext lifecycle folders become the canonical methodology surface.
 - Context: TASK-0044 needed existing `project.md`, `problem.md`, `solution.md`, `scope.md`, `roadmap.md`, `architecture.md`, and `work/` links to remain usable while the repository moves into discovery, canon, requirements, architecture, roadmap, execution, validation, deployment, operations, and governance folders.
 - Impact: `python3 tools/echel.py migration compatibility` now creates or verifies lifecycle directories, appends compatibility sections to legacy root pages, and writes `wiki/governance/migration-compatibility.md` as the durable map from old surfaces to canonical lifecycle artifacts. TASK-0045 can now update initialization without breaking old product-memory links.
+
+## DEC-0043
+
+- Decision: Initialize new projects with the methodology-complete lifecycle wiki at the product root while keeping Echel Core isolated under `echel-core/`.
+- Context: TASK-0045 needed generated projects to begin as AI-native software engineering workspaces, not documentation stubs, without reversing the product/framework ownership boundary established by root `wiki/` and `WIKI_ROOT`.
+- Impact: `tools/project_init.py`, `tools/init_wizard.py`, and `make init-project` now seed discovery, canon, strategy, requirements, domain, architecture, roadmap, execution, validation, deployment, operations, governance, engineering, agents, and work templates in root `wiki/`. Generated `echel-core/project.echel` still points `WIKI_ROOT` to `../wiki`, and generated product repositories still ignore `echel-core/`.

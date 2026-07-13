@@ -30,7 +30,7 @@ init-wizard:
 	python3 tools/init_wizard.py
 
 init-project:
-	python3 tools/project_init.py --name "$${NAME:?Set NAME=<project-name>}" --mode "$${MODE:-scratch}" --dest "$${DEST:-.}" $${SOURCE:+--source "$$SOURCE"} $${PROBLEM:+--problem "$$PROBLEM"} $${SOLUTION:+--solution "$$SOLUTION"} $${DIRECTION:+--direction "$$DIRECTION"} $${USERS:+--users "$$USERS"} $${MVP:+--mvp "$$MVP"} $${CONSTRAINTS:+--constraints "$$CONSTRAINTS"} $${RISKS:+--risks "$$RISKS"} $${STACK:+--stack "$$STACK"} $${SUCCESS:+--success "$$SUCCESS"}
+	python3 tools/project_init.py --name "$${NAME:?Set NAME=<project-name>}" --mode "$${MODE:-scratch}" --dest "$${DEST:-.}" $${SOURCE:+--source "$$SOURCE"} $${PROBLEM:+--problem "$$PROBLEM"} $${SOLUTION:+--solution "$$SOLUTION"} $${DIRECTION:+--direction "$$DIRECTION"} $${USERS:+--users "$$USERS"} $${BUYERS:+--buyers "$$BUYERS"} $${OPERATORS:+--operators "$$OPERATORS"} $${MVP:+--mvp "$$MVP"} $${BUSINESS_MODEL:+--business-model "$$BUSINESS_MODEL"} $${NON_GOALS:+--non-goals "$$NON_GOALS"} $${CONSTRAINTS:+--constraints "$$CONSTRAINTS"} $${RISKS:+--risks "$$RISKS"} $${STACK:+--stack "$$STACK"} $${SUCCESS:+--success "$$SUCCESS"} $${RESEARCH:+--research "$$RESEARCH"}
 
 verify-phase1:
 	python3 tools/verify_phase1.py

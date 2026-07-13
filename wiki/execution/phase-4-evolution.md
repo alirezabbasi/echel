@@ -72,6 +72,7 @@ Make product evolution visible, governed, and repeatable across future projects 
 - 2026-07-13: TASK-0042 completed the repository integrity audit command portion of EP4-003. `python3 tools/echel.py integrity audit` writes `wiki/reports/repository-integrity-audit.md` and reports missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations.
 - 2026-07-13: TASK-0043 completed the contradiction artifact portion of EP4-003. `python3 tools/echel.py contradictions sync` writes `wiki/governance/contradictions.md`, creates graph contradiction nodes, and adds resolution task rows for visible conflict closure.
 - 2026-07-13: TASK-0044 completed the legacy page mapping portion of EP4-004. `python3 tools/echel.py migration compatibility` writes `wiki/governance/migration-compatibility.md`, verifies lifecycle directories, and appends compatibility references to root wiki pages so old links remain usable during vNext adoption.
+- 2026-07-13: TASK-0045 completed the initialization flow portion of EP4-004. `tools/project_init.py`, `tools/init_wizard.py`, and `make init-project` now create methodology-complete root `wiki/` lifecycle templates while preserving `echel-core/` as framework infrastructure with `WIKI_ROOT` pointing back to `../wiki`. TASK-0046 remains responsible for dedicated generated-project verification.
 
 ## Validation Method
 

@@ -16,10 +16,9 @@ make init-wizard
 
 The wizard collects the minimum essential information to initialize:
 
-- project mission and boundaries
-- architecture references and decision policy
-- execution standards and task structure
-- governance, memory, and quality-gate controls
+- project mission, problem, users, buyers, operators, business model, MVP, non-goals, and research needs
+- the root product `wiki/` with discovery, canon, strategy, requirements, domain, architecture, execution, validation, deployment, operations, governance, engineering, agents, and work templates
+- the `echel-core/` framework boundary, operating method, prompts, schemas, tools, governance, memory, and quality-gate controls
 
 ### 2) Validate the initialization
 

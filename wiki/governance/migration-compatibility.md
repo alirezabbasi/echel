@@ -31,7 +31,8 @@ This map preserves old root wiki pages while Echel moves product memory into the
 - Do not delete `wiki/project.md`, `wiki/problem.md`, `wiki/solution.md`, `wiki/scope.md`, `wiki/roadmap.md`, `wiki/architecture.md`, or `wiki/work/` while product code, graph extraction, cockpit views, or older prompts still reference them.
 - New lifecycle work should update the canonical lifecycle artifact first, then refresh or summarize the legacy page when compatibility readers need it.
 - Old links remain valid through the preserved files and the compatibility sections appended to each root page.
-- Future initialization work must create the lifecycle folders directly while still preserving these root compatibility surfaces.
+- Initialization now creates the lifecycle folders directly while still preserving these root compatibility surfaces.
+- Generated projects keep product memory at root `wiki/` and Echel Core under `echel-core/` with `WIKI_ROOT` set to `../wiki`.
 
 ## Verification
 
