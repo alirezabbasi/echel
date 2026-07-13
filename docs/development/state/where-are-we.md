@@ -64,10 +64,11 @@ Last updated: 2026-07-13
 - Added the learning loop command and artifact structure so post-release signals can create task, ADR, risk, assumption, or strategy-change follow-ups.
 - Redesigned the cockpit as a lifecycle steering surface. Discovery through Governance are now the primary navigation model, and every stage exposes blockers, next action, responsible AI role, artifacts, and safe action metadata.
 - Added guided cockpit actions for native stage workflows, including discovery field updates, lifecycle artifact generation, readiness checks, work packets, validation summaries, evidence registration, proof/release summaries, operation learning capture, graph reports, and traceability.
+- Added the governance artifact surface under `wiki/governance/`, including documentation governance, architecture governance, ADR process, traceability model, quality gates, and repository integrity audit baseline.
 
 ## Next
 
-1. Expand governance artifacts, integrity audit, and contradiction resolution.
+1. Implement the repository integrity audit command and contradiction artifacts.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 

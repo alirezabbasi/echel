@@ -581,6 +581,15 @@ def _lifecycle_nodes(repo_root: Path, root: Path) -> list[GraphNode]:
     for operation_path in operation_paths:
         add_document("operation-artifact", operation_path)
 
+    governance_paths = [
+        repo_root / "prompts" / "playbooks" / "govern.md",
+        root / "agents" / "role-model.md",
+        root / "execution" / "phase-4-evolution.md",
+        *sorted((root / "governance").glob("*.md")),
+    ]
+    for governance_path in governance_paths:
+        add_document("governance-artifact", governance_path)
+
     learning_records = root / "operations" / "learning-records.md"
     if learning_records.exists():
         for row in _table_rows(learning_records):
@@ -675,6 +684,7 @@ def _report_node_types() -> list[str]:
         "release",
         "deployment-artifact",
         "operation-artifact",
+        "governance-artifact",
         "contradiction",
         "learning",
     ]
@@ -710,6 +720,7 @@ def _infer_statement_type(node_type: str, summary: str = "") -> str:
         "architecture-component": "decision",
         "deployment-artifact": "decision",
         "operation-artifact": "decision",
+        "governance-artifact": "decision",
         "contradiction": "observation",
         "learning": "observation",
         "evidence": "fact",
@@ -731,6 +742,7 @@ def _infer_source_stage(source: str, node_type: str) -> str:
         "execution": "execution",
         "deployment": "deployment",
         "operations": "operations",
+        "governance": "governance",
         "work": "execution",
         "decisions": "governance",
         "reports": "validation",
@@ -756,6 +768,7 @@ def _infer_source_stage(source: str, node_type: str) -> str:
         "evidence": "validation",
         "deployment-artifact": "deployment",
         "operation-artifact": "operations",
+        "governance-artifact": "governance",
         "learning": "evolution",
         "contradiction": "governance",
         "task": "execution",

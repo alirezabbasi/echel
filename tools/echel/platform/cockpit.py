@@ -445,7 +445,17 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
             "id": "governance",
             "title": "Governance",
             "role": "Governance Auditor",
-            "artifacts": ["reports/traceability-matrix.md", "reports/product-graph-report.md", "reports/wiki-health-report.md"],
+            "artifacts": [
+                "governance/documentation-governance.md",
+                "governance/architecture-governance.md",
+                "governance/adr-process.md",
+                "governance/traceability-model.md",
+                "governance/quality-gates.md",
+                "governance/repository-integrity-audit.md",
+                "reports/traceability-matrix.md",
+                "reports/product-graph-report.md",
+                "reports/wiki-health-report.md",
+            ],
             "next_action": "Audit source-of-truth integrity, traceability, graph health, and stale artifacts.",
             "safe_actions": [
                 {"label": "Graph Report", "action": "graph-report", "args": {}, "description": "Regenerate product graph report."},

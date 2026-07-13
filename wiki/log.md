@@ -424,3 +424,9 @@ status: active
 - Guided actions now cover discovery updates, lifecycle artifact generation, readiness checks, execution tasks, work packets, build/review packets, validation summaries, evidence registration, release reports, learning capture, graph reports, and traceability.
 - The cockpit command bridge remains allow-listed and delegates to existing `tools/echel.py` commands rather than duplicating lifecycle workflow logic in the UI.
 - Marked EP4-002 and generated TASK-1017 done; TASK-0041 governance artifact expansion is next.
+
+## [2026-07-13] governance | artifact-surface
+- Added `wiki/governance/` with documentation governance, architecture governance, ADR process, traceability model, quality gates, and repository integrity audit baseline.
+- Governance docs make source-of-truth hierarchy, duplication rules, and deprecation process explicit.
+- Product graph generation now includes governance documents as governance-stage `governance-artifact` nodes.
+- TASK-0041 is complete; TASK-0042 integrity audit command and TASK-0043 contradiction artifacts remain next within EP4-003.

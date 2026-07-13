@@ -540,6 +540,8 @@ Old canon problem
             write(repo / "wiki/deployment/deployment-architecture.md", "# Deployment Architecture\n\n## Purpose\n\nDeployment path.")
             write(repo / "prompts/playbooks/operate.md", "# Operations Playbook\n")
             write(repo / "wiki/operations/runbook.md", "# Runbook\n\n## Purpose\n\nSupport operations guide.")
+            write(repo / "prompts/playbooks/govern.md", "# Governance Playbook\n")
+            write(repo / "wiki/governance/documentation-governance.md", "# Documentation Governance\n\n## Purpose\n\nGovernance guide.")
             write(repo / "wiki/knowledge/contradiction-management.md", "# Contradiction Management\n")
 
             graph = build_graph(repo, cfg)
@@ -558,6 +560,8 @@ Old canon problem
             self.assertIn("deployment/deployment-architecture.md", deployment_sources)
             operation_sources = {node.get("source") for node in nodes if node.get("type") == "operation-artifact"}
             self.assertIn("operations/runbook.md", operation_sources)
+            governance_sources = {node.get("source") for node in nodes if node.get("type") == "governance-artifact"}
+            self.assertIn("governance/documentation-governance.md", governance_sources)
             self.assertTrue(
                 {
                     "discovery-item",
@@ -574,10 +578,34 @@ Old canon problem
                     "test",
                     "deployment-artifact",
                     "operation-artifact",
+                    "governance-artifact",
                     "contradiction",
                     "learning",
                 }.issubset(node_types)
             )
+
+    def test_governance_docs_define_source_truth_duplication_and_deprecation(self) -> None:
+        root = ROOT / "wiki" / "governance"
+        expected = [
+            "documentation-governance.md",
+            "architecture-governance.md",
+            "adr-process.md",
+            "traceability-model.md",
+            "quality-gates.md",
+            "repository-integrity-audit.md",
+        ]
+
+        for name in expected:
+            with self.subTest(name=name):
+                self.assertTrue((root / name).exists())
+
+        documentation = (root / "documentation-governance.md").read_text(encoding="utf-8")
+        self.assertIn("## Source Of Truth Hierarchy", documentation)
+        self.assertIn("## Duplication Rules", documentation)
+        self.assertIn("## Deprecation Process", documentation)
+        audit = (root / "repository-integrity-audit.md").read_text(encoding="utf-8")
+        for phrase in ["Missing docs", "Stale docs", "Broken traceability", "Missing ADRs", "Missing tests", "Missing evidence", "Methodology violations"]:
+            self.assertIn(phrase, audit)
 
     def test_traceability_matrix_reports_lifecycle_and_broken_chains(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

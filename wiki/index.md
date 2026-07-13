@@ -79,6 +79,15 @@ status: active
 - [[execution/phase-3-production|Phase 3 Production]]
 - [[execution/phase-4-evolution|Phase 4 Evolution]]
 
+## Governance
+
+- [[governance/adr-process|Adr Process]]
+- [[governance/architecture-governance|Architecture Governance]]
+- [[governance/documentation-governance|Documentation Governance]]
+- [[governance/quality-gates|Quality Gates]]
+- [[governance/repository-integrity-audit|Repository Integrity Audit]]
+- [[governance/traceability-model|Traceability Model]]
+
 ## Knowledge
 
 - [[knowledge/ai-native-engineering-os|Ai Native Engineering Os]]

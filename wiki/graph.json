@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-07-12T21:34:20Z",
+  "generated_at": "2026-07-13T05:16:49Z",
   "nodes": [
     {
       "id": "architecture-component:ARCH-201",
@@ -1872,6 +1872,114 @@
       "statement_type": "observation",
       "confidence": "unknown",
       "source_stage": "product-memory",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "governance-artifact:adr-process",
+      "type": "governance-artifact",
+      "title": "ADR Process",
+      "source": "governance/adr-process.md",
+      "summary": "The ADR process records major decisions so AI agents can understand what is settled, what is rejected, and what must...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "governance",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "governance-artifact:ai-agent-role-model",
+      "type": "governance-artifact",
+      "title": "AI Agent Role Model",
+      "source": "agents/role-model.md",
+      "summary": "This document defines Echel's virtual delivery team. It is the product-memory counterpart to the methodology contract...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "governance",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "governance-artifact:architecture-governance",
+      "type": "governance-artifact",
+      "title": "Architecture Governance",
+      "source": "governance/architecture-governance.md",
+      "summary": "Architecture governance keeps architecture decisions traceable, boring by default, aligned with domain language, and...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "governance",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "governance-artifact:documentation-governance",
+      "type": "governance-artifact",
+      "title": "Documentation Governance",
+      "source": "governance/documentation-governance.md",
+      "summary": "Documentation governance defines how Echel product memory stays coherent as discovery, canon, strategy, requirements,...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "governance",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "governance-artifact:govern-playbook",
+      "type": "governance-artifact",
+      "title": "Govern Playbook",
+      "source": "prompts/playbooks/govern.md",
+      "summary": "Govern Playbook",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "governance",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "governance-artifact:phase-4-evolution",
+      "type": "governance-artifact",
+      "title": "Phase 4 - Evolution",
+      "source": "execution/phase-4-evolution.md",
+      "summary": "Phase 4 turns Echel from a gated delivery system into a continuously improving AI-native product operating system. It...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "execution",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "governance-artifact:quality-gates",
+      "type": "governance-artifact",
+      "title": "Quality Gates",
+      "source": "governance/quality-gates.md",
+      "summary": "Quality gates convert governance rules into executable or reviewable checkpoints. They stop lifecycle progress when p...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "governance",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "governance-artifact:repository-integrity-audit",
+      "type": "governance-artifact",
+      "title": "Repository Integrity Audit",
+      "source": "governance/repository-integrity-audit.md",
+      "summary": "The repository integrity audit defines what the future `python3 tools/echel.py integrity audit` command must report a...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "governance",
+      "verification_status": "unverified"
+    },
+    {
+      "id": "governance-artifact:traceability-model",
+      "type": "governance-artifact",
+      "title": "Traceability Model",
+      "source": "governance/traceability-model.md",
+      "summary": "The traceability model defines how Echel proves that product intent survives from discovery through implementation, v...",
+      "trace_id": "",
+      "statement_type": "decision",
+      "confidence": "unknown",
+      "source_stage": "governance",
       "verification_status": "unverified"
     },
     {
@@ -17793,6 +17901,51 @@
       "from_id": "product:root",
       "to_id": "evidence:EVID-VALIDATION-005",
       "type": "expects_evidence"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "governance-artifact:adr-process",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "governance-artifact:ai-agent-role-model",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "governance-artifact:architecture-governance",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "governance-artifact:documentation-governance",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "governance-artifact:govern-playbook",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "governance-artifact:phase-4-evolution",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "governance-artifact:quality-gates",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "governance-artifact:repository-integrity-audit",
+      "type": "has_lifecycle_artifact"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "governance-artifact:traceability-model",
+      "type": "has_lifecycle_artifact"
     },
     {
       "from_id": "product:root",

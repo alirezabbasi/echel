@@ -82,6 +82,7 @@ Lifecycle node types:
 - `test`
 - `deployment-artifact`
 - `operation-artifact`
+- `governance-artifact`
 - `contradiction`
 - `learning`
 

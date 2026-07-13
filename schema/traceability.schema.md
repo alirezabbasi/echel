@@ -322,7 +322,7 @@ The graph should support a `trace_id` index for fast lookup by methodology ID. T
 
 Current implementation status:
 
-- TASK-0029 adds first-class lifecycle node types for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings.
+- TASK-0029 adds first-class lifecycle node types for discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tests, deployment artifacts, operation artifacts, contradictions, and learnings. TASK-0041 adds governance artifacts as first-class graph nodes.
 - TASK-0030 enriches graph nodes with statement type, confidence, source stage, verification status, and trace ID metadata where available. When confidence is not declared by the source artifact, graph nodes use `unknown` rather than silently claiming certainty.
 - Low-confidence assumptions that are not verified, accepted, or resolved are critical graph validation issues because later lifecycle stages must not treat them as safe facts.
 

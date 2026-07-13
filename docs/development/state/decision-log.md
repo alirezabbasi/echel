@@ -227,3 +227,9 @@
 - Decision: Treat cockpit guided actions as a schema-driven safe command bridge, not as independent workflow logic.
 - Context: TASK-0040 needed lifecycle stages to perform native work from the cockpit: answer discovery questions, generate lifecycle artifacts, create work packets, register evidence, record learning, and run readiness or governance checks. Reimplementing those workflows in the browser would split authority away from the CLI and product memory.
 - Impact: Cockpit stages now expose `safe_actions` with command names, static args, descriptions, and optional form fields. The UI renders those actions generically and submits them through `/api/cockpit/command`, while `tools/echel/platform/cockpit.py` remains the allow-listed command boundary for lifecycle generation, evidence, learning, validation, readiness, and governance commands.
+
+## DEC-0039
+
+- Decision: Adopt `wiki/governance/` as the governance and integrity artifact surface before implementing integrity automation.
+- Context: TASK-0041 needed governance to become durable product memory instead of scattered rules across methodology prose, schema notes, and operations docs. TASK-0042 and TASK-0043 need stable governance docs for source-of-truth hierarchy, duplication, deprecation, ADR expectations, traceability, gates, and audit reporting.
+- Impact: `wiki/governance/` now contains documentation governance, architecture governance, ADR process, traceability model, quality gates, and repository integrity audit baseline. Product graph generation includes governance docs as `governance-artifact` nodes, and the cockpit Governance stage now lists those artifacts alongside traceability, graph, and wiki-health reports.
