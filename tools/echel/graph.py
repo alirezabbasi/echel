@@ -581,6 +581,21 @@ def _lifecycle_nodes(repo_root: Path, root: Path) -> list[GraphNode]:
     for operation_path in operation_paths:
         add_document("operation-artifact", operation_path)
 
+    contradictions = root / "governance" / "contradictions.md"
+    if contradictions.exists():
+        for row in _contradiction_rows(contradictions):
+            add(
+                f"contradiction:{row['id']}",
+                "contradiction",
+                row["title"],
+                "governance/contradictions.md",
+                row["summary"],
+                row["id"],
+                "observation",
+                "medium",
+                row["status"].lower() or "open",
+            )
+
     governance_paths = [
         repo_root / "prompts" / "playbooks" / "govern.md",
         root / "agents" / "role-model.md",
@@ -844,14 +859,14 @@ def _table_rows(path: Path) -> list[list[str]]:
 
 def _trace_id(row: list[str]) -> str:
     for cell in row:
-        match = re.search(r"\b(?:P|U|B|O|WF|PP|S|NC|C|R|CMP|A|H|REQ|NFR|AC|BR|DM|BC|AGG|DE|ARCH|LEARN)-\d{3,4}\b", cell)
+        match = re.search(r"\b(?:P|U|B|O|WF|PP|S|NC|C|R|CMP|A|H|REQ|NFR|AC|BR|DM|BC|AGG|DE|ARCH|LEARN|CONTR)-\d{3,4}\b", cell)
         if match:
             return match.group(0)
     return ""
 
 
 def _trace_id_from_node_id(node_id: str) -> str:
-    match = re.search(r"\b(?:P|U|B|O|WF|PP|S|NC|C|R|CMP|A|H|REQ|NFR|AC|BR|DM|BC|AGG|DE|ARCH|ADR|TASK|TEST|EVID|LEARN)-\d{3,4}\b", node_id)
+    match = re.search(r"\b(?:P|U|B|O|WF|PP|S|NC|C|R|CMP|A|H|REQ|NFR|AC|BR|DM|BC|AGG|DE|ARCH|ADR|TASK|TEST|EVID|LEARN|CONTR)-\d{3,4}\b", node_id)
     return match.group(0) if match else ""
 
 
@@ -884,6 +899,28 @@ def _row_title(row: list[str], fallback: str) -> str:
         if _meaningful(cell):
             return f"{fallback} {cell}"
     return fallback
+
+
+def _contradiction_rows(path: Path) -> list[dict[str, str]]:
+    rows = []
+    for row in _table_rows(path):
+        if not row or not re.match(r"^CONTR-\d{3}$", row[0]) or row[0] == "CONTR-000":
+            continue
+        status = row[1] if len(row) > 1 else "Open"
+        title = row[2] if len(row) > 2 else row[0]
+        source = row[3] if len(row) > 3 else "unknown"
+        links = row[5] if len(row) > 5 else "Unlinked"
+        impact = row[6] if len(row) > 6 else ""
+        task = row[7] if len(row) > 7 else ""
+        rows.append(
+            {
+                "id": row[0],
+                "status": status,
+                "title": title,
+                "summary": f"Status: {status}. Source: {source}. Links: {links}. Impact: {impact}. Resolution task: {task}.",
+            }
+        )
+    return rows
 
 
 def _source_path(path: Path, repo_root: Path, wiki_root_path: Path) -> str:

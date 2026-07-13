@@ -13,6 +13,7 @@ from echel.coherence import detect_drift
 from echel.conformance import run_conformance
 from echel.config import ConfigError, load_config, resolve_root_map, resolve_symbolic_path
 from echel.contracts import ensure_contracts, validate_transition
+from echel.contradictions import sync_contradictions
 from echel.evidence import ensure_registry, register_evidence, validate_links, validate_registry
 from echel.execution import execution_status, execution_tasks_generate
 from echel.gates import run_gates, run_stage_gate
@@ -763,6 +764,16 @@ def cmd_memory_query(repo_root: Path, record_type: str | None, contradiction_onl
     return 0
 
 
+def cmd_contradictions_sync(repo_root: Path) -> int:
+    cfg = _load(repo_root)
+    path, rows = sync_contradictions(repo_root, cfg)
+    open_count = sum(1 for row in rows if row.status.lower() == "open")
+    print(f"Contradiction register written: {path}")
+    print(f"- contradictions: {len(rows)}")
+    print(f"- open: {open_count}")
+    return 0
+
+
 def cmd_conformance_run(repo_root: Path) -> int:
     results, report_path = run_conformance(repo_root)
     code = 0
@@ -991,6 +1002,10 @@ def build_parser() -> argparse.ArgumentParser:
     mquery.add_argument("--contradictions", action="store_true")
     mquery.add_argument("--text")
 
+    contradictions = sub.add_parser("contradictions")
+    contradictions_sub = contradictions.add_subparsers(dest="contradictions_cmd", required=True)
+    contradictions_sub.add_parser("sync")
+
     conf = sub.add_parser("conformance")
     conf_sub = conf.add_subparsers(dest="conformance_cmd", required=True)
     conf_sub.add_parser("run")
@@ -1130,6 +1145,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_memory_add(root, record_type=args.type, title=args.title, links=args.link, contradiction=args.contradiction, payload=args.payload)
     if args.cmd == "memory" and args.memory_cmd == "query":
         return cmd_memory_query(root, record_type=args.type, contradiction_only=args.contradictions, text=args.text)
+    if args.cmd == "contradictions" and args.contradictions_cmd == "sync":
+        return cmd_contradictions_sync(root)
     if args.cmd == "conformance" and args.conformance_cmd == "run":
         return cmd_conformance_run(root)
     if args.cmd == "migration" and args.migration_cmd == "plan":

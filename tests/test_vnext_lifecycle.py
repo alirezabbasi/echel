@@ -13,6 +13,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 from echel.architecture import architecture_generate, architecture_status
 from echel.canon import canon_generate, canon_status, detect_canon_drift, ensure_canon_files
 from echel.config import load_config
+from echel.contradictions import sync_contradictions
 from echel.discovery import ensure_discovery_files
 from echel.domain import domain_generate, domain_status
 from echel.evidence import register_evidence, validate_links, validate_registry
@@ -26,6 +27,7 @@ from echel.gates import run_stage_gate
 from echel.graph import build_graph, validate_graph
 from echel.integrity import integrity_findings, write_integrity_audit
 from echel.learning import ensure_learning_files, record_learning
+from echel.memory_kernel import append_record
 from echel.platform.cockpit import cockpit_snapshot, run_cockpit_command
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
 from echel.repository_factory import repository_factory_generate, repository_factory_status
@@ -99,6 +101,7 @@ class VNextLifecycleTests(unittest.TestCase):
             self.assertIn("learning-add", actions_by_stage["operate"])
             self.assertIn("traceability", actions_by_stage["governance"])
             self.assertIn("integrity-audit", actions_by_stage["governance"])
+            self.assertIn("contradictions-sync", actions_by_stage["governance"])
 
     def test_cockpit_readiness_command_accepts_stage_argument(self) -> None:
         result = run_cockpit_command(ROOT, "readiness", {"stage": "discovery"})
@@ -595,6 +598,7 @@ Old canon problem
             "traceability-model.md",
             "quality-gates.md",
             "repository-integrity-audit.md",
+            "contradictions.md",
         ]
 
         for name in expected:
@@ -606,8 +610,36 @@ Old canon problem
         self.assertIn("## Duplication Rules", documentation)
         self.assertIn("## Deprecation Process", documentation)
         audit = (root / "repository-integrity-audit.md").read_text(encoding="utf-8")
-        for phrase in ["Missing docs", "Stale docs", "Broken traceability", "Missing ADRs", "Missing tests", "Missing evidence", "Methodology violations"]:
+        for phrase in ["Missing docs", "Stale docs", "Broken traceability", "Missing ADRs", "Missing tests", "Missing evidence", "Methodology violations", "Contradictions"]:
             self.assertIn(phrase, audit)
+
+    def test_contradiction_sync_promotes_memory_into_graph_and_tasks(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            append_record(
+                repo,
+                record_type="canon-drift",
+                title="Discovery and canon disagree on target buyer",
+                links=["B-001", "REQ-101"],
+                contradiction=True,
+                payload={"impact": "Buyer contradiction can misroute strategy and requirements."},
+            )
+
+            path, rows = sync_contradictions(repo, cfg)
+            report_path, findings = write_integrity_audit(repo, cfg)
+            graph = build_graph(repo, cfg)
+            node_ids = {node.get("id") for node in graph.get("nodes", []) if isinstance(node, dict)}
+
+            text = path.read_text(encoding="utf-8")
+            self.assertEqual(repo / "wiki/governance/contradictions.md", path)
+            self.assertEqual(1, len(rows))
+            self.assertIn("CONTR-001", text)
+            self.assertIn("CONTR-TASK-001", text)
+            self.assertIn("Resolution Workflow", text)
+            self.assertIn("contradiction:CONTR-001", node_ids)
+            self.assertIn("Contradictions", report_path.read_text(encoding="utf-8"))
+            self.assertTrue(any(f.area == "Contradictions" for f in findings))
 
     def test_integrity_audit_reports_required_governance_categories(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -620,7 +652,7 @@ Old canon problem
 
             report = report_path.read_text(encoding="utf-8")
             self.assertIn("## Findings", report)
-            for phrase in ["Missing docs", "Stale docs", "Broken traceability", "Missing ADRs", "Missing tests", "Missing evidence", "Methodology violations"]:
+            for phrase in ["Missing docs", "Stale docs", "Broken traceability", "Missing ADRs", "Missing tests", "Missing evidence", "Methodology violations", "Contradictions"]:
                 self.assertIn(phrase, report)
             self.assertTrue(any(f.area == "Missing docs" for f in findings))
             self.assertTrue(any(f.area == "Missing tests" for f in findings))

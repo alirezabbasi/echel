@@ -7,8 +7,8 @@ status: active
 
 # Product Graph
 
-- Nodes: 329
-- Edges: 4471
+- Nodes: 330
+- Edges: 4472
 - Critical issues: 0
 - Major issues: 0
 - Minor issues: 0
@@ -31,7 +31,7 @@ status: active
 - domain-workflow: 11
 - evidence: 5
 - feature: 1
-- governance-artifact: 9
+- governance-artifact: 10
 - hypothesis: 1
 - learning: 2
 - need: 2
@@ -82,13 +82,13 @@ status: active
 - release: 1
 - deployment-artifact: 8
 - operation-artifact: 16
-- governance-artifact: 9
+- governance-artifact: 10
 - contradiction: 1
 - learning: 2
 
 ## Metadata Coverage
-- statement_type: 329/329
-- confidence: 329/329
-- source_stage: 329/329
-- verification_status: 329/329
-- trace_id: 251/329
+- statement_type: 330/330
+- confidence: 330/330
+- source_stage: 330/330
+- verification_status: 330/330
+- trace_id: 251/330

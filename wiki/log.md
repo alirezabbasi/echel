@@ -429,11 +429,16 @@ status: active
 - Added `wiki/governance/` with documentation governance, architecture governance, ADR process, traceability model, quality gates, and repository integrity audit baseline.
 - Governance docs make source-of-truth hierarchy, duplication rules, and deprecation process explicit.
 - Product graph generation now includes governance documents as governance-stage `governance-artifact` nodes.
-- TASK-0041 is complete; TASK-0042 integrity audit command and TASK-0043 contradiction artifacts remain next within EP4-003.
+- TASK-0041 is complete; TASK-0042 integrity audit command and TASK-0043 contradiction artifacts were next within EP4-003.
 
 ## [2026-07-13] governance | integrity-audit
 - Generated repository integrity audit [[reports/repository-integrity-audit]].
 - Added `python3 tools/echel.py integrity audit`.
 - The audit command reports missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations.
 - The cockpit Governance stage can now run the integrity audit through the safe command bridge.
-- TASK-0042 is complete; TASK-0043 contradiction artifacts remain next within EP4-003.
+- TASK-0042 is complete; TASK-0043 contradiction artifacts were next within EP4-003.
+## [2026-07-13] governance | contradictions
+- Synced contradiction artifact [[governance/contradictions]].
+- Added `python3 tools/echel.py contradictions sync`.
+- Contradiction records now promote into committed governance memory, graph contradiction rows, cockpit Governance actions, and integrity findings for open conflicts.
+- TASK-0043 and EP4-003 governance integrity artifacts are complete; TASK-0044 migration compatibility is next.

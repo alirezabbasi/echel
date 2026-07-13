@@ -238,4 +238,10 @@
 
 - Decision: Implement repository integrity audit as a deterministic report command over existing product memory, graph, traceability, evidence, validation, and task records.
 - Context: TASK-0042 needed `python3 tools/echel.py integrity audit` to expose missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations without waiting for contradiction artifact automation.
-- Impact: `tools/echel/integrity.py` now writes `wiki/reports/repository-integrity-audit.md`, returns non-zero when critical findings exist, and is exposed through the CLI and cockpit Governance stage. TASK-0043 remains responsible for durable contradiction artifacts and resolution tasks.
+- Impact: `tools/echel/integrity.py` now writes `wiki/reports/repository-integrity-audit.md`, returns non-zero when critical findings exist, and is exposed through the CLI and cockpit Governance stage. TASK-0043 completed durable contradiction artifacts and resolution tasks afterward.
+
+## DEC-0041
+
+- Decision: Promote contradiction handling from local memory records into a governance-owned product-memory register.
+- Context: TASK-0043 needed contradictions to be visible, traceable, and resolvable instead of remaining only in `.echel/memory_records.jsonl` or the cockpit runtime snapshot.
+- Impact: `python3 tools/echel.py contradictions sync` writes `wiki/governance/contradictions.md`, creates resolution task rows for every contradiction, regenerates graph contradiction nodes from that register, adds contradiction findings to the integrity audit, and exposes the sync action in the cockpit Governance stage.

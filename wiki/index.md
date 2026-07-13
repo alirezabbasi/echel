@@ -83,6 +83,7 @@ status: active
 
 - [[governance/adr-process|Adr Process]]
 - [[governance/architecture-governance|Architecture Governance]]
+- [[governance/contradictions|Contradictions]]
 - [[governance/documentation-governance|Documentation Governance]]
 - [[governance/quality-gates|Quality Gates]]
 - [[governance/repository-integrity-audit|Repository Integrity Audit]]

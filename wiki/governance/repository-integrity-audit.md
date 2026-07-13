@@ -29,6 +29,7 @@ The repository integrity audit defines what `python3 tools/echel.py integrity au
 make wiki-health
 python3 tools/echel.py graph validate
 python3 tools/echel.py traceability
+python3 tools/echel.py contradictions sync
 python3 tools/echel.py validate
 python3 tools/echel.py readiness --stage release
 python3 tools/echel.py doctor
@@ -69,3 +70,5 @@ python3 tools/echel.py doctor
 - contradictions
 
 The command writes a durable report to `wiki/reports/repository-integrity-audit.md` and returns non-zero for critical unresolved findings unless accepted exceptions are recorded.
+
+Contradiction findings are read from `wiki/governance/contradictions.md`. Refresh that register with `python3 tools/echel.py contradictions sync` before the audit when local memory records may contain new contradictions.

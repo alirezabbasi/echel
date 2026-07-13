@@ -66,10 +66,11 @@ Last updated: 2026-07-13
 - Added guided cockpit actions for native stage workflows, including discovery field updates, lifecycle artifact generation, readiness checks, work packets, validation summaries, evidence registration, proof/release summaries, operation learning capture, graph reports, and traceability.
 - Added the governance artifact surface under `wiki/governance/`, including documentation governance, architecture governance, ADR process, traceability model, quality gates, and repository integrity audit baseline.
 - Added the repository integrity audit command so `python3 tools/echel.py integrity audit` reports missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations.
+- Added the contradiction register command so `python3 tools/echel.py contradictions sync` turns local contradiction records into `wiki/governance/contradictions.md`, graph contradiction nodes, and explicit resolution tasks.
 
 ## Next
 
-1. Add contradiction artifacts and resolution workflow.
+1. Preserve migration compatibility while existing product pages move into the vNext lifecycle model.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 

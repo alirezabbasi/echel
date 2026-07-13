@@ -123,6 +123,7 @@ python3 tools/echel.py graph validate
 python3 tools/echel.py graph report
 python3 tools/echel.py traceability
 python3 tools/echel.py integrity audit
+python3 tools/echel.py contradictions sync
 python3 tools/echel.py feature add --title "..."
 python3 tools/echel.py risk add --title "..." --mitigation "..."
 python3 tools/echel.py link --from <node-id> --to <node-id>
@@ -130,6 +131,7 @@ python3 tools/echel.py link --from <node-id> --to <node-id>
 
 `python3 tools/echel.py traceability` writes `wiki/reports/traceability-matrix.md`, showing the lifecycle chain from discovery through evidence and highlighting missing canon or evidence links.
 `python3 tools/echel.py integrity audit` writes `wiki/reports/repository-integrity-audit.md`, reporting missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations.
+`python3 tools/echel.py contradictions sync` writes `wiki/governance/contradictions.md`, promotes local contradiction records into graph nodes, and creates resolution task rows.
 
 ## Readiness Commands
 
@@ -170,7 +172,7 @@ http://127.0.0.1:8787
 
 The cockpit is organized around the Echel lifecycle: Discovery, Canon, Strategy, Requirements, Domain, Architecture, Roadmap, Execution, Build, Validate, Release, Operate, and Governance. The header always shows the current stage, responsible AI role, blocker count, and next action; each stage embeds relevant artifact context and guided command-backed actions such as answering discovery fields, generating canon/strategy/requirements/domain/architecture artifacts, creating work packets, registering evidence, recording learning, and running readiness or governance reports.
 
-Governance artifacts live under `wiki/governance/`. They define the source-of-truth hierarchy, duplication and deprecation rules, ADR process, traceability model, quality gates, and repository integrity audit baseline.
+Governance artifacts live under `wiki/governance/`. They define the source-of-truth hierarchy, duplication and deprecation rules, ADR process, traceability model, quality gates, repository integrity audit baseline, and contradiction register.
 
 ## Verification
 

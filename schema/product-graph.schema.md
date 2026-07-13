@@ -86,7 +86,7 @@ Lifecycle node types:
 - `contradiction`
 - `learning`
 
-The lifecycle node types make the graph represent the full methodology path rather than only the early product/task memory model. They may be extracted from structured rows when stable methodology IDs exist, or from lifecycle artifact registers when a stage exists but the product has not yet captured non-template rows.
+The lifecycle node types make the graph represent the full methodology path rather than only the early product/task memory model. They may be extracted from structured rows when stable methodology IDs exist, or from lifecycle artifact registers when a stage exists but the product has not yet captured non-template rows. Contradiction nodes are extracted from `wiki/governance/contradictions.md` so conflict handling is part of committed product memory, not only local runtime state.
 
 ## Edge
 ```json

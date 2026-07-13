@@ -831,6 +831,7 @@ Outputs:
 - Traceability matrix.
 - Quality gates.
 - Repository integrity audit.
+- Contradiction register and resolution tasks.
 
 Required artifacts:
 
@@ -840,6 +841,7 @@ Required artifacts:
 - `wiki/governance/traceability-model.md`.
 - `wiki/governance/quality-gates.md`.
 - `wiki/governance/repository-integrity-audit.md`.
+- `wiki/governance/contradictions.md`.
 
 Decisions:
 
@@ -848,6 +850,7 @@ Decisions:
 - Review requirements.
 - Release and quality gates.
 - Architecture review process.
+- Contradiction resolution ownership.
 
 Acceptance criteria:
 

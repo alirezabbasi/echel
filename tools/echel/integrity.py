@@ -56,6 +56,7 @@ REQUIRED_DOCS = [
     "governance/traceability-model.md",
     "governance/quality-gates.md",
     "governance/repository-integrity-audit.md",
+    "governance/contradictions.md",
 ]
 
 
@@ -81,6 +82,7 @@ def integrity_findings(repo_root: Path, cfg: ProjectConfig) -> list[IntegrityFin
     findings.extend(_missing_tests(root))
     findings.extend(_missing_evidence(repo_root, cfg, root))
     findings.extend(_methodology_violations(root))
+    findings.extend(_open_contradictions(root))
 
     return [
         IntegrityFinding(f"AUD-{idx:03d}", f.severity, f.area, f.source, f.impact, f.required_action, f.owner, f.status)
@@ -132,6 +134,7 @@ def integrity_report(findings: list[IntegrityFinding]) -> str:
             "- Missing tests",
             "- Missing evidence",
             "- Methodology violations",
+            "- Contradictions",
         ]
     )
     return "\n".join(lines)
@@ -305,6 +308,34 @@ def _methodology_violations(root: Path) -> list[IntegrityFinding]:
                 )
             )
     return findings[:80]
+
+
+def _open_contradictions(root: Path) -> list[IntegrityFinding]:
+    path = root / "governance" / "contradictions.md"
+    findings = []
+    if not path.exists():
+        return findings
+    for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("| CONTR-") or "---" in stripped or "CONTR-000" in stripped:
+            continue
+        cells = [cell.strip().strip("`") for cell in stripped.strip("|").split("|")]
+        if len(cells) < 8:
+            continue
+        status = cells[1].lower()
+        if status in {"resolved", "accepted"}:
+            continue
+        findings.append(
+            _finding(
+                "major",
+                "Contradictions",
+                "wiki/governance/contradictions.md",
+                f"{cells[0]} remains {cells[1]}: {cells[2]}",
+                f"Complete {cells[7]} or record an accepted exception.",
+                "Governance Auditor",
+            )
+        )
+    return findings[:40]
 
 
 def _finding(severity: str, area: str, source: str, impact: str, action: str, owner: str) -> IntegrityFinding:

@@ -759,6 +759,7 @@ Required artifacts:
 - `wiki/governance/traceability-model.md`
 - `wiki/governance/quality-gates.md`
 - `wiki/governance/repository-integrity-audit.md`
+- `wiki/governance/contradictions.md`
 
 Gate conditions:
 
@@ -767,6 +768,7 @@ Gate conditions:
 - every major architecture decision has ADR coverage
 - every MVP requirement traces to code, tests, and evidence
 - stale or contradictory artifacts are reported
+- contradiction rows have resolution tasks or accepted owner decisions
 
 Allowed next:
 
