@@ -760,6 +760,7 @@ Required artifacts:
 - `wiki/governance/quality-gates.md`
 - `wiki/governance/repository-integrity-audit.md`
 - `wiki/governance/contradictions.md`
+- `wiki/governance/migration-compatibility.md`
 
 Gate conditions:
 
@@ -769,6 +770,7 @@ Gate conditions:
 - every MVP requirement traces to code, tests, and evidence
 - stale or contradictory artifacts are reported
 - contradiction rows have resolution tasks or accepted owner decisions
+- legacy root product-memory pages remain mapped to lifecycle artifacts
 
 Allowed next:
 

@@ -15,3 +15,15 @@ Make Echel the default platform for starting and evolving software products thro
 
 ## Success Criteria
 - A user can define a product, clarify direction, plan MVP work, and get the next verified implementation packet.
+
+## Lifecycle Compatibility
+
+This legacy root page remains supported for old links and product-memory continuity.
+
+- Lifecycle stage: `repository-initialization`
+- Compatibility mode: source summary
+- Canonical lifecycle artifacts:
+  - [[project]]
+  - [[canon/product-canon]]
+  - [[canon/vision]]
+- Migration map: [[governance/migration-compatibility]]

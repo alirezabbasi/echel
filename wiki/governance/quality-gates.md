@@ -22,6 +22,7 @@ Quality gates convert governance rules into executable or reviewable checkpoints
 | Architecture readiness | `python3 tools/echel.py readiness --stage architecture` | Roadmap, execution task, and repository generation from incomplete architecture. |
 | Release readiness | `python3 tools/echel.py readiness --stage release` | Production claims without validation, deployment, rollback, checklist, evidence, and risk coverage. |
 | Contradiction sync | `python3 tools/echel.py contradictions sync` | Hidden conflict records that have not been promoted into product memory. |
+| Migration compatibility | `python3 tools/echel.py migration compatibility` | Broken old links or unmapped root product-memory pages during vNext adoption. |
 | Doctor | `python3 tools/echel.py doctor` | Combined primitive validation, evidence, drift, and configured gates. |
 
 ## Gate Outcomes

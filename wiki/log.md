@@ -442,3 +442,8 @@ status: active
 - Added `python3 tools/echel.py contradictions sync`.
 - Contradiction records now promote into committed governance memory, graph contradiction rows, cockpit Governance actions, and integrity findings for open conflicts.
 - TASK-0043 and EP4-003 governance integrity artifacts are complete; TASK-0044 migration compatibility is next.
+## [2026-07-13] migration | compatibility
+- Generated migration compatibility map [[governance/migration-compatibility]].
+- Added `python3 tools/echel.py migration compatibility`.
+- Root wiki pages now keep `Lifecycle Compatibility` sections that point old links toward canonical lifecycle artifacts.
+- TASK-0044 is complete; TASK-0045 initialization flow update and TASK-0046 generated-project verification remain in EP4-004.

@@ -66,10 +66,11 @@ Last updated: 2026-07-13
 - Added `wiki/governance/` artifacts for documentation governance, architecture governance, ADR process, traceability model, quality gates, and repository integrity audit baseline, making source-of-truth hierarchy, duplication rules, and deprecation process explicit.
 - Added `python3 tools/echel.py integrity audit`, which writes `wiki/reports/repository-integrity-audit.md` and reports missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations.
 - Added `python3 tools/echel.py contradictions sync` and `wiki/governance/contradictions.md` so local contradiction memory is promoted into product memory with graph nodes and resolution tasks.
+- Added `python3 tools/echel.py migration compatibility` and `wiki/governance/migration-compatibility.md` so legacy root wiki pages remain usable while mapped into the vNext lifecycle folders.
 
 ## Next
 
-1. Preserve migration compatibility while moving existing product pages into the vNext lifecycle model.
+1. Update initialization so new projects start with the methodology-complete lifecycle structure.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 

@@ -245,3 +245,9 @@
 - Decision: Promote contradiction handling from local memory records into a governance-owned product-memory register.
 - Context: TASK-0043 needed contradictions to be visible, traceable, and resolvable instead of remaining only in `.echel/memory_records.jsonl` or the cockpit runtime snapshot.
 - Impact: `python3 tools/echel.py contradictions sync` writes `wiki/governance/contradictions.md`, creates resolution task rows for every contradiction, regenerates graph contradiction nodes from that register, adds contradiction findings to the integrity audit, and exposes the sync action in the cockpit Governance stage.
+
+## DEC-0042
+
+- Decision: Preserve root wiki pages as compatibility summaries while vNext lifecycle folders become the canonical methodology surface.
+- Context: TASK-0044 needed existing `project.md`, `problem.md`, `solution.md`, `scope.md`, `roadmap.md`, `architecture.md`, and `work/` links to remain usable while the repository moves into discovery, canon, requirements, architecture, roadmap, execution, validation, deployment, operations, and governance folders.
+- Impact: `python3 tools/echel.py migration compatibility` now creates or verifies lifecycle directories, appends compatibility sections to legacy root pages, and writes `wiki/governance/migration-compatibility.md` as the durable map from old surfaces to canonical lifecycle artifacts. TASK-0045 can now update initialization without breaking old product-memory links.

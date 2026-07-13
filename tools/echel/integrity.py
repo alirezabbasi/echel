@@ -57,6 +57,7 @@ REQUIRED_DOCS = [
     "governance/quality-gates.md",
     "governance/repository-integrity-audit.md",
     "governance/contradictions.md",
+    "governance/migration-compatibility.md",
 ]
 
 
@@ -83,6 +84,7 @@ def integrity_findings(repo_root: Path, cfg: ProjectConfig) -> list[IntegrityFin
     findings.extend(_missing_evidence(repo_root, cfg, root))
     findings.extend(_methodology_violations(root))
     findings.extend(_open_contradictions(root))
+    findings.extend(_migration_compatibility(root))
 
     return [
         IntegrityFinding(f"AUD-{idx:03d}", f.severity, f.area, f.source, f.impact, f.required_action, f.owner, f.status)
@@ -135,6 +137,7 @@ def integrity_report(findings: list[IntegrityFinding]) -> str:
             "- Missing evidence",
             "- Methodology violations",
             "- Contradictions",
+            "- Migration compatibility",
         ]
     )
     return "\n".join(lines)
@@ -336,6 +339,38 @@ def _open_contradictions(root: Path) -> list[IntegrityFinding]:
             )
         )
     return findings[:40]
+
+
+def _migration_compatibility(root: Path) -> list[IntegrityFinding]:
+    findings = []
+    for rel in ["project.md", "problem.md", "solution.md", "scope.md", "roadmap.md", "architecture.md"]:
+        path = root / rel
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        if "## Lifecycle Compatibility" not in text or "governance/migration-compatibility" not in text:
+            findings.append(
+                _finding(
+                    "major",
+                    "Migration compatibility",
+                    f"wiki/{rel}",
+                    "Legacy root page is missing lifecycle compatibility references.",
+                    "Run `python3 tools/echel.py migration compatibility` and verify old links remain usable.",
+                    "Governance Auditor",
+                )
+            )
+    if not (root / "governance" / "migration-compatibility.md").exists():
+        findings.append(
+            _finding(
+                "critical",
+                "Migration compatibility",
+                "wiki/governance/migration-compatibility.md",
+                "No durable map exists from legacy root pages to lifecycle artifacts.",
+                "Run `python3 tools/echel.py migration compatibility`.",
+                "Governance Auditor",
+            )
+        )
+    return findings
 
 
 def _finding(severity: str, area: str, source: str, impact: str, action: str, owner: str) -> IntegrityFinding:

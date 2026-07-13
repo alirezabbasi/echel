@@ -49,6 +49,7 @@ def _run_echel_command(repo_root: Path, command_line: str) -> tuple[int, str]:
         "doctor",
         "sync-memory",
         "migration plan",
+        "migration compatibility",
         "conformance run",
         "adapters list",
         "status",
@@ -61,7 +62,7 @@ def _run_echel_command(repo_root: Path, command_line: str) -> tuple[int, str]:
     ]
     cmd = command_line.strip()
     if not any(cmd.startswith(prefix) for prefix in allowed_prefixes):
-        return 1, "blocked command; allowed: start, doctor, sync-memory, migration plan, conformance run, adapters list"
+        return 1, "blocked command; allowed: start, doctor, sync-memory, migration plan, migration compatibility, conformance run, adapters list"
     proc = subprocess.run(
         ["python3", "tools/echel.py", *cmd.split()],
         cwd=str(repo_root),

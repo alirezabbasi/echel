@@ -33,3 +33,15 @@ Local-first AI-native software engineering operating system with product-owned M
 - How should generated architecture mappings be refined into concrete repository modules in TASK-0024?
 - What exact checks belong in the future architecture readiness gate?
 - Which architecture choices need new ADRs after architecture generation?
+
+## Lifecycle Compatibility
+
+This legacy root page remains supported for old links and product-memory continuity.
+
+- Lifecycle stage: `architecture`
+- Compatibility mode: compatibility summary
+- Canonical lifecycle artifacts:
+  - [[architecture/overview]]
+  - [[architecture/component-architecture]]
+  - [[architecture/data-architecture]]
+- Migration map: [[governance/migration-compatibility]]

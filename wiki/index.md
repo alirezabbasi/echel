@@ -85,6 +85,7 @@ status: active
 - [[governance/architecture-governance|Architecture Governance]]
 - [[governance/contradictions|Contradictions]]
 - [[governance/documentation-governance|Documentation Governance]]
+- [[governance/migration-compatibility|Migration Compatibility]]
 - [[governance/quality-gates|Quality Gates]]
 - [[governance/repository-integrity-audit|Repository Integrity Audit]]
 - [[governance/traceability-model|Traceability Model]]

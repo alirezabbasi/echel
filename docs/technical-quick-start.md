@@ -151,9 +151,12 @@ python3 tools/echel.py close-task TASK-0001
 python3 tools/echel.py sync-memory
 python3 tools/echel.py conformance run
 python3 tools/echel.py migration plan
+python3 tools/echel.py migration compatibility
 python3 tools/echel.py workspace move --dry-run
 python3 tools/echel.py workspace move --apply
 ```
+
+`python3 tools/echel.py migration compatibility` keeps legacy root pages such as `wiki/project.md`, `wiki/problem.md`, `wiki/solution.md`, `wiki/scope.md`, `wiki/roadmap.md`, `wiki/architecture.md`, and `wiki/work/` usable while mapping them to the vNext lifecycle folders in `wiki/governance/migration-compatibility.md`.
 
 ## Product Cockpit
 
@@ -172,7 +175,7 @@ http://127.0.0.1:8787
 
 The cockpit is organized around the Echel lifecycle: Discovery, Canon, Strategy, Requirements, Domain, Architecture, Roadmap, Execution, Build, Validate, Release, Operate, and Governance. The header always shows the current stage, responsible AI role, blocker count, and next action; each stage embeds relevant artifact context and guided command-backed actions such as answering discovery fields, generating canon/strategy/requirements/domain/architecture artifacts, creating work packets, registering evidence, recording learning, and running readiness or governance reports.
 
-Governance artifacts live under `wiki/governance/`. They define the source-of-truth hierarchy, duplication and deprecation rules, ADR process, traceability model, quality gates, repository integrity audit baseline, and contradiction register.
+Governance artifacts live under `wiki/governance/`. They define the source-of-truth hierarchy, duplication and deprecation rules, ADR process, traceability model, quality gates, repository integrity audit baseline, contradiction register, and migration compatibility map.
 
 ## Verification
 

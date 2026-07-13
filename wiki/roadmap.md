@@ -34,12 +34,25 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use `wiki/governance/` as the governance-stage surface for source-of-truth hierarchy, duplication/deprecation rules, ADR process, traceability model, quality gates, and repository integrity audit baseline.
 - Use `python3 tools/echel.py integrity audit` to report missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations.
 - Use `python3 tools/echel.py contradictions sync` to promote local contradiction records into `wiki/governance/contradictions.md`, graph nodes, and resolution tasks.
+- Use `python3 tools/echel.py migration compatibility` to preserve old root wiki links while mapping them to lifecycle artifacts.
 
 ## Next
 
-- Preserve migration compatibility while moving existing product pages into the vNext lifecycle model.
+- Update initialization so new projects start with the methodology-complete lifecycle structure.
 - Connect canon statements more fully into graph-backed traceability.
 
 ## Later
 
 - Add operations and governance readiness gates.
+
+## Lifecycle Compatibility
+
+This legacy root page remains supported for old links and product-memory continuity.
+
+- Lifecycle stage: `roadmap`
+- Compatibility mode: compatibility summary
+- Canonical lifecycle artifacts:
+  - [[roadmap/master-roadmap]]
+  - [[roadmap/mvp-roadmap]]
+  - [[roadmap/release-plan]]
+- Migration map: [[governance/migration-compatibility]]

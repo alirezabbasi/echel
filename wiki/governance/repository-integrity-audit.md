@@ -22,6 +22,7 @@ The repository integrity audit defines what `python3 tools/echel.py integrity au
 | Missing evidence | Closed tasks, validation claims, or release claims without registry-backed evidence. |
 | Methodology violations | Code before task packet, downstream work before gate pass, assumptions treated as facts, or unrecorded exceptions. |
 | Contradictions | Conflicting product memory, stale canon, unresolved risk, or incompatible architecture statements. |
+| Migration compatibility | Root product-memory pages missing lifecycle compatibility references or old links broken during vNext adoption. |
 
 ## Manual Audit Commands
 
@@ -30,6 +31,7 @@ make wiki-health
 python3 tools/echel.py graph validate
 python3 tools/echel.py traceability
 python3 tools/echel.py contradictions sync
+python3 tools/echel.py migration compatibility
 python3 tools/echel.py validate
 python3 tools/echel.py readiness --stage release
 python3 tools/echel.py doctor
@@ -72,3 +74,5 @@ python3 tools/echel.py doctor
 The command writes a durable report to `wiki/reports/repository-integrity-audit.md` and returns non-zero for critical unresolved findings unless accepted exceptions are recorded.
 
 Contradiction findings are read from `wiki/governance/contradictions.md`. Refresh that register with `python3 tools/echel.py contradictions sync` before the audit when local memory records may contain new contradictions.
+
+Migration compatibility is recorded in `wiki/governance/migration-compatibility.md`. Refresh it with `python3 tools/echel.py migration compatibility` before changing initialization or moving root wiki pages.

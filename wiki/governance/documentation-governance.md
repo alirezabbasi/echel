@@ -75,3 +75,4 @@ Governance-owned artifacts should include:
 - Downstream docs link to upstream sources instead of copying authority.
 - Governance failures create a blocker, accepted exception, contradiction, or remediation task.
 - Local contradiction records must be promoted with `python3 tools/echel.py contradictions sync` so `wiki/governance/contradictions.md` remains the visible product-memory register.
+- Legacy root pages must keep a `Lifecycle Compatibility` section until `python3 tools/echel.py migration compatibility` and wiki health confirm old links remain usable.

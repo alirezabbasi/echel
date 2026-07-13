@@ -27,6 +27,7 @@ from echel.gates import run_stage_gate
 from echel.graph import build_graph, validate_graph
 from echel.integrity import integrity_findings, write_integrity_audit
 from echel.learning import ensure_learning_files, record_learning
+from echel.lifecycle_migration import ensure_migration_compatibility
 from echel.memory_kernel import append_record
 from echel.platform.cockpit import cockpit_snapshot, run_cockpit_command
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
@@ -102,6 +103,7 @@ class VNextLifecycleTests(unittest.TestCase):
             self.assertIn("traceability", actions_by_stage["governance"])
             self.assertIn("integrity-audit", actions_by_stage["governance"])
             self.assertIn("contradictions-sync", actions_by_stage["governance"])
+            self.assertIn("migration-compatibility", actions_by_stage["governance"])
 
     def test_cockpit_readiness_command_accepts_stage_argument(self) -> None:
         result = run_cockpit_command(ROOT, "readiness", {"stage": "discovery"})
@@ -599,6 +601,7 @@ Old canon problem
             "quality-gates.md",
             "repository-integrity-audit.md",
             "contradictions.md",
+            "migration-compatibility.md",
         ]
 
         for name in expected:
@@ -640,6 +643,34 @@ Old canon problem
             self.assertIn("contradiction:CONTR-001", node_ids)
             self.assertIn("Contradictions", report_path.read_text(encoding="utf-8"))
             self.assertTrue(any(f.area == "Contradictions" for f in findings))
+
+    def test_migration_compatibility_preserves_legacy_pages_and_lifecycle_dirs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write(repo / "wiki/project.md", "# Legacy Project\n\n## Product Direction\n\nKeep old direction.")
+            write(repo / "wiki/problem.md", "# Legacy Problem\n\n## Problem Statement\n\nOld problem remains linked.")
+            write(repo / "wiki/solution.md", "# Legacy Solution\n\n## Solution Concept\n\nOld solution remains linked.")
+            write(repo / "wiki/scope.md", "# Legacy Scope\n\n## MVP\n\n- Old MVP")
+            write(repo / "wiki/roadmap.md", "# Legacy Roadmap\n\n## Now\n\n- Old roadmap")
+            write(repo / "wiki/architecture.md", "# Legacy Architecture\n\n## System Shape\n\nOld architecture")
+            write(repo / "wiki/work/TASK-0001-old.md", "# Old task\n")
+            write(repo / "wiki/log.md", "# Log\n")
+
+            report, created = ensure_migration_compatibility(repo, cfg)
+
+            self.assertEqual(repo / "wiki/governance/migration-compatibility.md", report)
+            self.assertTrue(created)
+            for rel in ["discovery", "canon", "strategy", "requirements", "domain", "architecture", "roadmap", "execution", "validation", "deployment", "operations", "governance"]:
+                self.assertTrue((repo / "wiki" / rel).is_dir())
+            project = (repo / "wiki/project.md").read_text(encoding="utf-8")
+            problem = (repo / "wiki/problem.md").read_text(encoding="utf-8")
+            text = report.read_text(encoding="utf-8")
+            self.assertIn("Keep old direction.", project)
+            self.assertIn("## Lifecycle Compatibility", project)
+            self.assertIn("discovery/product-discovery-spec", problem)
+            self.assertIn("| `wiki/project.md` | repository-initialization |", text)
+            self.assertIn("| `wiki/work/` | execution |", text)
 
     def test_integrity_audit_reports_required_governance_categories(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

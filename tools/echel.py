@@ -30,6 +30,7 @@ from echel.graph import (
 )
 from echel.integrity import write_integrity_audit
 from echel.learning import ensure_learning_files, learning_status, record_learning
+from echel.lifecycle_migration import ensure_migration_compatibility
 from echel.memory_kernel import append_record, contradiction_summary, query_records
 from echel.migration_planner import plan_waves
 from echel.platform.runtime import ensure_platform_config, load_platform_config
@@ -796,6 +797,14 @@ def cmd_migration_plan(repo_root: Path) -> int:
     return 0
 
 
+def cmd_migration_compatibility(repo_root: Path) -> int:
+    cfg = _load(repo_root)
+    path, created = ensure_migration_compatibility(repo_root, cfg)
+    print(f"migration compatibility map written: {path}")
+    print(f"- created lifecycle dirs: {len(created)}")
+    return 0
+
+
 def cmd_contract_check(repo_root: Path, current: str, target: str) -> int:
     contract = ensure_contracts(repo_root)
     doctor_pass = cmd_doctor(repo_root) == 0
@@ -1013,6 +1022,7 @@ def build_parser() -> argparse.ArgumentParser:
     mig = sub.add_parser("migration")
     mig_sub = mig.add_subparsers(dest="migration_cmd", required=True)
     mig_sub.add_parser("plan")
+    mig_sub.add_parser("compatibility")
 
     contracts = sub.add_parser("contracts")
     ctr_sub = contracts.add_subparsers(dest="contracts_cmd", required=True)
@@ -1151,6 +1161,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_conformance_run(root)
     if args.cmd == "migration" and args.migration_cmd == "plan":
         return cmd_migration_plan(root)
+    if args.cmd == "migration" and args.migration_cmd == "compatibility":
+        return cmd_migration_compatibility(root)
     if args.cmd == "contracts" and args.contracts_cmd == "check":
         return cmd_contract_check(root, current=args.current, target=args.target)
     if args.cmd == "adapters" and args.adapters_cmd == "list":

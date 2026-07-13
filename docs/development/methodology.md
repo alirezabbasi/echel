@@ -832,6 +832,7 @@ Outputs:
 - Quality gates.
 - Repository integrity audit.
 - Contradiction register and resolution tasks.
+- Migration compatibility map.
 
 Required artifacts:
 
@@ -842,6 +843,7 @@ Required artifacts:
 - `wiki/governance/quality-gates.md`.
 - `wiki/governance/repository-integrity-audit.md`.
 - `wiki/governance/contradictions.md`.
+- `wiki/governance/migration-compatibility.md`.
 
 Decisions:
 
@@ -851,6 +853,7 @@ Decisions:
 - Release and quality gates.
 - Architecture review process.
 - Contradiction resolution ownership.
+- Backward-compatible migration of legacy product-memory pages.
 
 Acceptance criteria:
 

@@ -52,7 +52,7 @@ Examples:
 - Validate can run validation summaries and register evidence.
 - Release can run release readiness, proof packs, and release summaries.
 - Operate can inspect or record learning.
-- Governance can regenerate graph, traceability, repository integrity, and contradiction-register reports.
+- Governance can regenerate graph, traceability, repository integrity, contradiction-register, and migration-compatibility reports.
 
 ## Data Flow
 The cockpit reads product state from `wiki/`, graph state from `wiki/graph.json`, generated reports from `wiki/reports/`, lifecycle gates from `tools/echel/gates.py`, readiness state from `tools/echel/readiness.py`, and safe command output from `tools/echel.py`.
@@ -77,6 +77,7 @@ The cockpit reads product state from `wiki/`, graph state from `wiki/graph.json`
 - `traceability`
 - `integrity-audit`
 - `contradictions-sync`
+- `migration-compatibility`
 - `validate`
 - `evidence-add`
 - `learning`
