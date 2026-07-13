@@ -453,3 +453,9 @@ status: active
 - Extended the wizard and `make init-project` to collect buyer, operator, business model, non-goals, and research inputs and seed them into lifecycle memory.
 - Preserved the product/framework boundary: product memory stays at root `wiki/`, Echel Core stays under `echel-core/`, and generated `project.echel` resolves `WIKI_ROOT` as `../wiki`.
 - TASK-0045 is complete; TASK-0046 generated-project verification remains in EP4-004.
+
+## [2026-07-13] verification | vnext-generated-project
+- Added `tools/verify_vnext_generated_project.py` and `make verify-vnext-generated`.
+- The verifier initializes a scratch project, checks the full lifecycle template surface under root `wiki/`, confirms `WIKI_ROOT: ../wiki`, and confirms no product wiki is created inside `echel-core/`.
+- The verifier runs representative Echel commands from generated `echel-core/`: `start`, `discover`, discovery readiness, `status`, graph report, graph validate, traceability, migration compatibility, and `make wiki-health`.
+- TASK-0046 and EP4-004 are complete; TASK-0047 documentation packaging is next.

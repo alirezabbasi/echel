@@ -257,3 +257,9 @@
 - Decision: Initialize new projects with the methodology-complete lifecycle wiki at the product root while keeping Echel Core isolated under `echel-core/`.
 - Context: TASK-0045 needed generated projects to begin as AI-native software engineering workspaces, not documentation stubs, without reversing the product/framework ownership boundary established by root `wiki/` and `WIKI_ROOT`.
 - Impact: `tools/project_init.py`, `tools/init_wizard.py`, and `make init-project` now seed discovery, canon, strategy, requirements, domain, architecture, roadmap, execution, validation, deployment, operations, governance, engineering, agents, and work templates in root `wiki/`. Generated `echel-core/project.echel` still points `WIKI_ROOT` to `../wiki`, and generated product repositories still ignore `echel-core/`.
+
+## DEC-0044
+
+- Decision: Treat vNext generated-project verification as a dedicated script and Make target instead of a hidden unit-test-only check.
+- Context: TASK-0046 needed proof that generated projects preserve lifecycle structure, execute Echel commands from `echel-core/`, and keep product memory outside framework internals.
+- Impact: `tools/verify_vnext_generated_project.py` and `make verify-vnext-generated` now initialize a scratch project, verify the lifecycle root `wiki/`, validate `WIKI_ROOT: ../wiki`, run representative Echel commands from the generated core, and fail loudly when the product/framework boundary regresses.

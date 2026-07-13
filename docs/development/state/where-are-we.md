@@ -69,10 +69,11 @@ Last updated: 2026-07-13
 - Added the contradiction register command so `python3 tools/echel.py contradictions sync` turns local contradiction records into `wiki/governance/contradictions.md`, graph contradiction nodes, and explicit resolution tasks.
 - Added the migration compatibility command so `python3 tools/echel.py migration compatibility` preserves root wiki pages, maps them to lifecycle artifacts, and keeps old links valid while vNext folders become canonical.
 - Updated initialization so new projects start with the methodology-complete root `wiki/` lifecycle surface while the Echel framework remains isolated under `echel-core/`.
+- Added generated-project vNext verification through `make verify-vnext-generated`, proving lifecycle structure, core command execution from `echel-core/`, and product-wiki separation.
 
 ## Next
 
-1. Add generated-project verification for the full vNext lifecycle initialization.
+1. Rewrite README and release-facing quick start around the product-to-repository factory.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 

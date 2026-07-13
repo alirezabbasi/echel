@@ -61,6 +61,14 @@ make wiki-health
 python3 tools/echel.py doctor
 ```
 
+To verify the full vNext generated-project contract from an Echel Core checkout, run:
+
+```bash
+make verify-vnext-generated
+```
+
+This initializes a scratch project, verifies the complete lifecycle `wiki/` at the product root, confirms `WIKI_ROOT` points from `echel-core/` to `../wiki`, and runs representative Echel commands from the generated core.
+
 ## Product Commands
 
 ```bash

@@ -59,7 +59,7 @@ def copy_core_template(repo_root: Path, echel_core_dir: Path) -> None:
             shutil.copy2(src, dst)
 
 
-def copy_project_wiki_template(repo_root: Path, workspace_dir: Path) -> None:
+def copy_project_wiki_template(repo_root: Path, workspace_dir: Path, project_name: str) -> None:
     _ = repo_root
     dst = workspace_dir / "wiki"
     dst.mkdir(parents=True, exist_ok=True)
@@ -102,10 +102,10 @@ This wiki is the product-owned memory for the software being built with Echel.
     )
     (dst / "log.md").write_text("---\ntype: log\nstatus: active\n---\n# Log\n", encoding="utf-8")
     (dst / "index.md").write_text("---\ntype: index\nstatus: active\n---\n# Index\n", encoding="utf-8")
-    write_lifecycle_templates(dst)
+    write_lifecycle_templates(dst, project_name)
 
 
-def write_lifecycle_templates(wiki: Path) -> None:
+def write_lifecycle_templates(wiki: Path, project_name: str) -> None:
     templates = {
         "discovery/product-discovery-spec.md": """---
 type: product-discovery-spec
@@ -291,6 +291,11 @@ stage: discovery
         "agents/handoff-protocol.md": "# Agent Handoff Protocol\n\n## Required Handoff Summary\n\nSource artifacts, changed artifacts, decisions, assumptions, risks, unresolved questions, evidence, stale artifacts, and next-stage instructions.\n",
         "work/TASK_INDEX.md": "# Execution Task Index\n\n| Task ID | Title | Source | Dependencies | Status |\n| --- | --- | --- | --- | --- |\n| TASK-1001 | Define first implementation task | execution/phase-0-foundation.md | REQ-001 | Planned |\n",
     }
+    from echel.discovery import _default_assumptions, _default_pds, _default_research
+
+    templates["discovery/product-discovery-spec.md"] = _default_pds(project_name)
+    templates["discovery/research-plan.md"] = _default_research()
+    templates["discovery/assumptions.md"] = _default_assumptions()
     for rel, content in templates.items():
         path = wiki / rel
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -683,15 +688,17 @@ def update_lifecycle_context(
     text = _replace_section_body(text, "03 Users", users or "TBD")
     text = _replace_section_body(text, "04 Buyers", buyers or "TBD")
     text = _replace_section_body(text, "05 Operators", operators or "TBD")
-    text = _replace_section_body(text, "07 Proposed Solution", solution or "TBD")
-    text = _replace_section_body(text, "08 Business Model", business_model or "TBD")
-    text = _replace_section_body(text, "09 Success Criteria", success or "TBD")
-    text = _replace_section_body(text, "10 Scope", mvp or "TBD")
-    text = _replace_section_body(text, "11 Non Goals", non_goals or "TBD")
-    text = _replace_section_body(text, "12 Constraints", constraints or "TBD")
-    text = _replace_section_body(text, "13 Assumptions", "Initial assumptions require discovery validation.")
-    text = _replace_section_body(text, "14 Risks", risks or "TBD")
-    text = _replace_section_body(text, "15 Open Questions", research or "TBD")
+    text = _replace_section_body(text, "08 Proposed Solution", solution or "TBD")
+    text = _replace_section_body(text, "09 Product Vision", direction or "TBD")
+    text = _replace_section_body(text, "10 Business Model", business_model or "TBD")
+    text = _replace_section_body(text, "11 Success Criteria", success or "TBD")
+    text = _replace_section_body(text, "12 Scope", mvp or "TBD")
+    text = _replace_section_body(text, "13 Non-Goals", non_goals or "TBD")
+    text = _replace_section_body(text, "14 Constraints", constraints or "TBD")
+    text = _replace_section_body(text, "15 Assumptions", "Initial assumptions require discovery validation.")
+    text = _replace_section_body(text, "17 Risks", risks or "TBD")
+    text = _replace_section_body(text, "22 Open Questions", research or "TBD")
+    text = _replace_section_body(text, "23 Research Plan", research or "TBD")
     pds.write_text(text, encoding="utf-8")
 
     replacements = {
@@ -717,10 +724,39 @@ def update_lifecycle_context(
     research_path = wiki / "discovery" / "research-plan.md"
     research_text = research_path.read_text(encoding="utf-8")
     if research:
-        research_text = research_text.replace(
-            "| RES-001 | Product discovery | What must be validated before canon? | Interview/research | Founder Interviewer | Planned |",
-            f"| RES-001 | Product discovery | {research} | Interview/research | Founder Interviewer | Planned |",
-        )
+        research_text = """---
+type: discovery-research-plan
+status: draft
+stage: discovery
+---
+# Research Plan
+
+This document tracks research activities required before later lifecycle stages can proceed. Research findings must be recorded with statement type and confidence.
+
+## Research Areas
+
+### Market Research
+
+| ID | Topic | Method | Owner | Due Date | Status | Finding |
+| --- | --- | --- | --- | --- | --- | --- |
+| RES-001 | Product discovery | Interview/research | Founder Interviewer | Accepted during initialization | planned | Initial research question: """ + research + """ |
+
+## Research Rules
+
+- Every research finding must be tagged with statement type (`fact`, `observation`, `assumption`, `hypothesis`).
+- Every research finding must include confidence level.
+- Research that invalidates upstream assumptions must trigger a contradiction record and propagate the change.
+- Research results feed into the Product Discovery Specification, Product Canon, and Product Strategy.
+
+## Research Completion Criteria
+
+- [ ] Market size and wedge are validated or explicitly marked as hypothesis.
+- [ ] Technology constraints are confirmed.
+- [ ] Legal and compliance requirements are identified.
+- [ ] Domain terminology is stable.
+- [ ] Competitive landscape is mapped.
+- [ ] All high-priority open questions from the PDS are answered or accepted.
+"""
         research_path.write_text(research_text, encoding="utf-8")
 
 
@@ -821,7 +857,7 @@ def main() -> int:
         workspace_dir.mkdir(parents=True, exist_ok=False)
 
     copy_core_template(repo_root, echel_core_dir)
-    copy_project_wiki_template(repo_root, workspace_dir)
+    copy_project_wiki_template(repo_root, workspace_dir, args.name)
     write_generated_core_config(echel_core_dir)
     reset_generated_core_state(echel_core_dir)
     ensure_workspace_gitignore(workspace_dir)

@@ -35,5 +35,5 @@ Generated from `wiki/execution/` phase artifacts by `python3 tools/echel.py exec
 | TASK-1016 ([[TASK-1016-add-learning-loop]]) | EP4-001 | Add learning loop | `execution/phase-4-evolution.md` | TASK-0038, Phase 3 operations docs | `python3 -m unittest discover -s tests` | Done |
 | TASK-1017 ([[TASK-1017-redesign-cockpit-around-lifecycle]]) | EP4-002 | Redesign cockpit around lifecycle | `execution/phase-4-evolution.md` | TASK-0039, TASK-0040, EP4-001 | `make wiki-health` | Done |
 | TASK-1018 ([[TASK-1018-add-governance-integrity-artifacts]]) | EP4-003 | Add governance integrity artifacts | `execution/phase-4-evolution.md` | TASK-0041, TASK-0042, TASK-0043 | `python3 tools/echel.py doctor` | Done |
-| TASK-1019 ([[TASK-1019-preserve-migration-compatibility]]) | EP4-004 | Preserve migration compatibility | `execution/phase-4-evolution.md` | TASK-0044, TASK-0045, TASK-0046 | `make wiki-health` | Active |
+| TASK-1019 ([[TASK-1019-preserve-migration-compatibility]]) | EP4-004 | Preserve migration compatibility | `execution/phase-4-evolution.md` | TASK-0044, TASK-0045, TASK-0046 | `make wiki-health` | Done |
 | TASK-1020 ([[TASK-1020-publish-vnext-proof-and-final-gate]]) | EP4-005 | Publish vNext proof and final gate | `execution/phase-4-evolution.md` | TASK-0047, TASK-0048, TASK-0049, TASK-0050 | `python3 tools/echel.py doctor` | Planned |

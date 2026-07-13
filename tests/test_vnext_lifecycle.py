@@ -734,7 +734,19 @@ Old canon problem
             pds = (wiki / "discovery/product-discovery-spec.md").read_text(encoding="utf-8")
             self.assertIn("Trading teams cannot validate signals consistently.", pds)
             self.assertIn("Prop firms", pds)
+            self.assertIn("## 13 Non-Goals", pds)
             self.assertIn("No live trade execution", (wiki / "scope.md").read_text(encoding="utf-8"))
+
+    def test_vnext_generated_project_verification_script_passes(self) -> None:
+        proc = subprocess.run(
+            [sys.executable, str(ROOT / "tools/verify_vnext_generated_project.py")],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+        )
+
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        self.assertIn("vNext generated-project verification passed", proc.stdout)
 
     def test_integrity_audit_reports_required_governance_categories(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

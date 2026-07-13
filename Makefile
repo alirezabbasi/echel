@@ -1,4 +1,4 @@
-.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project verify-phase1 verify-phase2 verify-phase3 verify-phase4 verify-phase5 echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-packet echel-build echel-review echel-steer echel-graph-build echel-graph-validate echel-graph-report echel-feature-add echel-risk-add echel-link echel-milestone echel-readiness echel-proof-pack echel-release-summary echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
+.PHONY: session-bootstrap wiki-index wiki-lint wiki-health new-task file-query ingest-initial validate-governance wrw init-wizard init-project verify-phase1 verify-phase2 verify-phase3 verify-phase4 verify-phase5 verify-vnext-generated echel-start echel-define echel-clarify echel-plan echel-status echel-next echel-packet echel-build echel-review echel-steer echel-graph-build echel-graph-validate echel-graph-report echel-feature-add echel-risk-add echel-link echel-milestone echel-readiness echel-proof-pack echel-release-summary echel-doctor echel-close-task echel-sync-memory echel-workspace-move-dry-run echel-memory-query echel-conformance echel-migration-plan echel-contract-check echel-adapters echel-platform-init echel-platform-up
 
 session-bootstrap:
 	python3 tools/session_bootstrap.py
@@ -46,6 +46,9 @@ verify-phase4:
 
 verify-phase5:
 	python3 tools/verify_phase5.py
+
+verify-vnext-generated:
+	python3 tools/verify_vnext_generated_project.py
 
 echel-start:
 	python3 tools/echel.py start

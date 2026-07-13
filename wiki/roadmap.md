@@ -39,7 +39,7 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 
 ## Next
 
-- Add generated-project verification for the full vNext lifecycle initialization.
+- Rewrite README and release-facing quick start around the product-to-repository factory.
 - Connect canon statements more fully into graph-backed traceability.
 
 ## Later
