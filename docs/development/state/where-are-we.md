@@ -70,10 +70,11 @@ Last updated: 2026-07-13
 - Added the migration compatibility command so `python3 tools/echel.py migration compatibility` preserves root wiki pages, maps them to lifecycle artifacts, and keeps old links valid while vNext folders become canonical.
 - Updated initialization so new projects start with the methodology-complete root `wiki/` lifecycle surface while the Echel framework remains isolated under `echel-core/`.
 - Added generated-project vNext verification through `make verify-vnext-generated`, proving lifecycle structure, core command execution from `echel-core/`, and product-wiki separation.
+- Rewrote the README to present Echel as a complete AI-native Product-to-Repository Factory and to distinguish methodology, product memory, graph, cockpit, agents, evidence, and readiness.
 
 ## Next
 
-1. Rewrite README and release-facing quick start around the product-to-repository factory.
+1. Add the vNext technical quick start command sequence.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 

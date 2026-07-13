@@ -69,10 +69,11 @@ Last updated: 2026-07-13
 - Added `python3 tools/echel.py migration compatibility` and `wiki/governance/migration-compatibility.md` so legacy root wiki pages remain usable while mapped into the vNext lifecycle folders.
 - Updated project initialization so generated projects now start with a methodology-complete root `wiki/` containing discovery, canon, strategy, requirements, domain, architecture, roadmap, execution, validation, deployment, operations, governance, engineering, agents, and work templates while Echel Core remains under `echel-core/`.
 - Added `make verify-vnext-generated` and `tools/verify_vnext_generated_project.py` to prove generated projects pass lifecycle structure checks, run Echel commands from `echel-core/`, and keep product `wiki/` outside Echel Core.
+- Rewrote the README around Echel as an AI-native Product-to-Repository Factory, with the discovery-to-operations lifecycle and operating surfaces made explicit.
 
 ## Next
 
-1. Rewrite README and release-facing quick start around the product-to-repository factory.
+1. Add the vNext technical quick start command sequence.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 

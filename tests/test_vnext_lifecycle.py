@@ -1507,5 +1507,38 @@ stage: execution-planning
     )
 
 
+class ReadmeVNextTests(unittest.TestCase):
+    def test_readme_presents_product_to_repository_factory_and_core_surfaces(self) -> None:
+        text = (ROOT / "README.md").read_text(encoding="utf-8")
+
+        required = [
+            "Product-To-Repository Factory",
+            "Raw idea",
+            "Product Discovery Specification",
+            "Product Canon",
+            "Product Strategy",
+            "Requirements",
+            "Domain Model",
+            "Architecture",
+            "Roadmap",
+            "Execution Tasks",
+            "Validation",
+            "Deployment",
+            "Operations",
+            "Governance and Learning",
+            "### Methodology",
+            "### Product Memory",
+            "### Product Graph",
+            "### Cockpit",
+            "### Agents",
+            "### Evidence",
+            "### Readiness",
+            "make verify-vnext-generated",
+        ]
+        for phrase in required:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, text)
+
+
 if __name__ == "__main__":
     unittest.main()

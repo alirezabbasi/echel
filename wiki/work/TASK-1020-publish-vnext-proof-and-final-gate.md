@@ -84,10 +84,18 @@ python3 tools/echel.py doctor
 
 ## Definition of Done
 - [ ] TASK-1020 satisfies source phase task EP4-005.
+- [x] TASK-0047 README rewrite is complete.
+- [ ] TASK-0048 vNext technical quick start is complete.
+- [ ] TASK-0049 vNext proof pack is complete.
+- [ ] TASK-0050 final readiness gate is complete.
 - [ ] All acceptance criteria are met without broadening the task scope.
 - [ ] Required tests and validation command pass.
 - [ ] Relevant project memory and documentation are updated.
 - [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+
+## Progress Notes
+
+- 2026-07-13: TASK-0047 rewrote `README.md` around Echel as an AI-native Product-to-Repository Factory. The README now explains the discovery-to-operations lifecycle and distinguishes methodology, product memory, graph, cockpit, agents, evidence, and readiness. TASK-0048 remains responsible for the full vNext command quick start.
 
 ## Out of Scope
 - Work from later execution phase rows.

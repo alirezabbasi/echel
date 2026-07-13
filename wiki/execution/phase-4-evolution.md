@@ -74,6 +74,7 @@ Make product evolution visible, governed, and repeatable across future projects 
 - 2026-07-13: TASK-0044 completed the legacy page mapping portion of EP4-004. `python3 tools/echel.py migration compatibility` writes `wiki/governance/migration-compatibility.md`, verifies lifecycle directories, and appends compatibility references to root wiki pages so old links remain usable during vNext adoption.
 - 2026-07-13: TASK-0045 completed the initialization flow portion of EP4-004. `tools/project_init.py`, `tools/init_wizard.py`, and `make init-project` now create methodology-complete root `wiki/` lifecycle templates while preserving `echel-core/` as framework infrastructure with `WIKI_ROOT` pointing back to `../wiki`. TASK-0046 remains responsible for dedicated generated-project verification.
 - 2026-07-13: TASK-0046 completed EP4-004 generated-project verification. `make verify-vnext-generated` initializes a full lifecycle project, checks root `wiki/` templates, confirms `WIKI_ROOT: ../wiki`, proves product memory stays outside `echel-core/`, and runs representative Echel commands from the generated core.
+- 2026-07-13: TASK-0047 completed the README portion of EP4-005. The root README now presents Echel as an AI-native Product-to-Repository Factory, explains the discovery-to-operations lifecycle, and distinguishes methodology, product memory, graph, cockpit, agents, evidence, and readiness.
 
 ## Validation Method
 

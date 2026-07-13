@@ -263,3 +263,9 @@
 - Decision: Treat vNext generated-project verification as a dedicated script and Make target instead of a hidden unit-test-only check.
 - Context: TASK-0046 needed proof that generated projects preserve lifecycle structure, execute Echel commands from `echel-core/`, and keep product memory outside framework internals.
 - Impact: `tools/verify_vnext_generated_project.py` and `make verify-vnext-generated` now initialize a scratch project, verify the lifecycle root `wiki/`, validate `WIKI_ROOT: ../wiki`, run representative Echel commands from the generated core, and fail loudly when the product/framework boundary regresses.
+
+## DEC-0045
+
+- Decision: Position the root README around the Product-to-Repository Factory rather than a developer-tool feature list.
+- Context: TASK-0047 needed the public entry point to reflect vNext: Echel is an AI-native software engineering methodology and operating system spanning discovery, canon, strategy, requirements, domain, architecture, execution, validation, deployment, operations, governance, and learning.
+- Impact: `README.md` now explains the lifecycle and separates methodology, product memory, graph, cockpit, agents, evidence, and readiness as distinct operating surfaces. TASK-0048 remains responsible for expanding the technical quick start command sequence.

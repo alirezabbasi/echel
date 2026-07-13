@@ -459,3 +459,9 @@ status: active
 - The verifier initializes a scratch project, checks the full lifecycle template surface under root `wiki/`, confirms `WIKI_ROOT: ../wiki`, and confirms no product wiki is created inside `echel-core/`.
 - The verifier runs representative Echel commands from generated `echel-core/`: `start`, `discover`, discovery readiness, `status`, graph report, graph validate, traceability, migration compatibility, and `make wiki-health`.
 - TASK-0046 and EP4-004 are complete; TASK-0047 documentation packaging is next.
+
+## [2026-07-13] documentation | product-to-repository-readme
+- Rewrote `README.md` around Echel as an AI-native Product-to-Repository Factory.
+- Added the discovery-to-operations lifecycle and separated methodology, product memory, graph, cockpit, agents, evidence, and readiness as distinct operating surfaces.
+- Preserved root `wiki/` and `echel-core/` ownership guidance for generated projects.
+- TASK-0047 is complete; TASK-0048 vNext technical quick start is next.

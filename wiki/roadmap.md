@@ -39,7 +39,7 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 
 ## Next
 
-- Rewrite README and release-facing quick start around the product-to-repository factory.
+- Add the vNext technical quick start command sequence.
 - Connect canon statements more fully into graph-backed traceability.
 
 ## Later
