@@ -112,6 +112,7 @@ Safe actions:
 - `review`
 - `graph-report`
 - `traceability`
+- `integrity-audit`
 - `validate`
 - `evidence-add`
 - `learning`

@@ -136,6 +136,7 @@ status: active
 - [[reports/readiness/mvp-readiness|Mvp Readiness]]
 - [[reports/releases/mvp-release-summary|Mvp Release Summary]]
 - [[reports/repository-factory/generated-repository|Generated Repository]]
+- [[reports/repository-integrity-audit|Repository Integrity Audit]]
 - [[reports/reviews/TASK-0001-initialize-project-wiki-review|Task 0001 Initialize Project Wiki Review]]
 - [[reports/traceability-matrix|Traceability Matrix]]
 - [[reports/v2-requirements-hardening-audit|V2 Requirements Hardening Audit]]

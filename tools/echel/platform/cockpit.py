@@ -39,6 +39,7 @@ SAFE_COMMANDS = {
     "review": ["review"],
     "graph-report": ["graph", "report"],
     "traceability": ["traceability"],
+    "integrity-audit": ["integrity", "audit"],
     "validate": ["validate"],
     "evidence-add": ["evidence", "add"],
     "learning": ["learning"],
@@ -460,6 +461,7 @@ def _lifecycle_stages(repo_root: Path, cfg, wiki: Path, tasks: list[dict], graph
             "safe_actions": [
                 {"label": "Graph Report", "action": "graph-report", "args": {}, "description": "Regenerate product graph report."},
                 {"label": "Traceability Matrix", "action": "traceability", "args": {}, "description": "Regenerate lifecycle traceability matrix."},
+                {"label": "Integrity Audit", "action": "integrity-audit", "args": {}, "description": "Generate repository integrity audit report."},
                 {"label": "Status", "action": "status", "args": {}, "description": "Inspect current product status."},
             ],
         },

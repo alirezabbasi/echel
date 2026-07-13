@@ -233,3 +233,9 @@
 - Decision: Adopt `wiki/governance/` as the governance and integrity artifact surface before implementing integrity automation.
 - Context: TASK-0041 needed governance to become durable product memory instead of scattered rules across methodology prose, schema notes, and operations docs. TASK-0042 and TASK-0043 need stable governance docs for source-of-truth hierarchy, duplication, deprecation, ADR expectations, traceability, gates, and audit reporting.
 - Impact: `wiki/governance/` now contains documentation governance, architecture governance, ADR process, traceability model, quality gates, and repository integrity audit baseline. Product graph generation includes governance docs as `governance-artifact` nodes, and the cockpit Governance stage now lists those artifacts alongside traceability, graph, and wiki-health reports.
+
+## DEC-0040
+
+- Decision: Implement repository integrity audit as a deterministic report command over existing product memory, graph, traceability, evidence, validation, and task records.
+- Context: TASK-0042 needed `python3 tools/echel.py integrity audit` to expose missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations without waiting for contradiction artifact automation.
+- Impact: `tools/echel/integrity.py` now writes `wiki/reports/repository-integrity-audit.md`, returns non-zero when critical findings exist, and is exposed through the CLI and cockpit Governance stage. TASK-0043 remains responsible for durable contradiction artifacts and resolution tasks.

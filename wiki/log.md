@@ -430,3 +430,10 @@ status: active
 - Governance docs make source-of-truth hierarchy, duplication rules, and deprecation process explicit.
 - Product graph generation now includes governance documents as governance-stage `governance-artifact` nodes.
 - TASK-0041 is complete; TASK-0042 integrity audit command and TASK-0043 contradiction artifacts remain next within EP4-003.
+
+## [2026-07-13] governance | integrity-audit
+- Generated repository integrity audit [[reports/repository-integrity-audit]].
+- Added `python3 tools/echel.py integrity audit`.
+- The audit command reports missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations.
+- The cockpit Governance stage can now run the integrity audit through the safe command bridge.
+- TASK-0042 is complete; TASK-0043 contradiction artifacts remain next within EP4-003.

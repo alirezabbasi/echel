@@ -27,6 +27,7 @@ from echel.graph import (
     write_graph,
     write_graph_report,
 )
+from echel.integrity import write_integrity_audit
 from echel.learning import ensure_learning_files, learning_status, record_learning
 from echel.memory_kernel import append_record, contradiction_summary, query_records
 from echel.migration_planner import plan_waves
@@ -635,6 +636,20 @@ def cmd_doctor(repo_root: Path) -> int:
     return code
 
 
+def cmd_integrity_audit(repo_root: Path) -> int:
+    cfg = _load(repo_root)
+    path, findings = write_integrity_audit(repo_root, cfg)
+    critical = sum(1 for finding in findings if finding.severity == "critical")
+    major = sum(1 for finding in findings if finding.severity == "major")
+    minor = sum(1 for finding in findings if finding.severity == "minor")
+    print(f"Repository integrity audit written: {path}")
+    print(f"- critical: {critical}")
+    print(f"- major: {major}")
+    print(f"- minor: {minor}")
+    print(f"- total: {len(findings)}")
+    return 1 if critical else 0
+
+
 def _set_task_status(path: Path, done: bool) -> None:
     text = path.read_text(encoding="utf-8")
     new_status = "status: done" if done else "status: planned"
@@ -823,6 +838,10 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("start")
     sub.add_parser("doctor")
 
+    integrity = sub.add_parser("integrity")
+    integrity_sub = integrity.add_subparsers(dest="integrity_cmd", required=True)
+    integrity_sub.add_parser("audit")
+
     define = sub.add_parser("define")
     define.add_argument("--name")
     define.add_argument("--problem")
@@ -1008,6 +1027,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_start(root)
     if args.cmd == "doctor":
         return cmd_doctor(root)
+    if args.cmd == "integrity" and args.integrity_cmd == "audit":
+        return cmd_integrity_audit(root)
     if args.cmd == "define":
         return cmd_define(
             root,

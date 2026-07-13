@@ -32,10 +32,11 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use the cockpit lifecycle navigation to inspect Discovery through Governance stages, blockers, responsible AI roles, next actions, artifacts, and safe actions.
 - Use cockpit guided actions to run native stage workflows for discovery answers, lifecycle generation, readiness, packets, validation, evidence, release reporting, learning, graph reports, and traceability.
 - Use `wiki/governance/` as the governance-stage surface for source-of-truth hierarchy, duplication/deprecation rules, ADR process, traceability model, quality gates, and repository integrity audit baseline.
+- Use `python3 tools/echel.py integrity audit` to report missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations.
 
 ## Next
 
-- Implement the repository integrity audit command and contradiction artifacts.
+- Add contradiction artifacts and resolution workflow.
 - Connect canon statements more fully into graph-backed traceability.
 
 ## Later

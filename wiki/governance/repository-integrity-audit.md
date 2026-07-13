@@ -4,11 +4,11 @@ status: active
 stage: governance-integrity
 owner: Governance Auditor
 ---
-# Repository Integrity Audit
+# Repository Integrity Audit Model
 
 ## Purpose
 
-The repository integrity audit defines what the future `python3 tools/echel.py integrity audit` command must report and what the Governance Auditor can inspect manually until that command exists.
+The repository integrity audit defines what `python3 tools/echel.py integrity audit` reports and what the Governance Auditor reviews before later governance work proceeds.
 
 ## Audit Scope
 
@@ -55,7 +55,7 @@ python3 tools/echel.py doctor
 | AUD-002 | critical | Release evidence | `GATE-RELEASE` | Production release cannot be claimed without checklist and evidence coverage. | Register evidence and complete or accept production checklist rows. | Release Manager | Open |
 | AUD-003 | major | Traceability | `wiki/reports/traceability-matrix.md` | Canon/evidence graph links are not yet complete. | Add graph-backed canon statement links and evidence coverage in future traceability work. | Governance Auditor | Open |
 
-## Future Command Contract
+## Command Contract
 
 `python3 tools/echel.py integrity audit` should read the same governance model and report:
 
@@ -68,4 +68,4 @@ python3 tools/echel.py doctor
 - methodology violations
 - contradictions
 
-The command should write a durable report under `wiki/reports/` and return non-zero for critical unresolved findings unless accepted exceptions are recorded.
+The command writes a durable report to `wiki/reports/repository-integrity-audit.md` and returns non-zero for critical unresolved findings unless accepted exceptions are recorded.

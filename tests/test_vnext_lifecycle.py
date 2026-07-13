@@ -24,6 +24,7 @@ from echel.execution import (
 )
 from echel.gates import run_stage_gate
 from echel.graph import build_graph, validate_graph
+from echel.integrity import integrity_findings, write_integrity_audit
 from echel.learning import ensure_learning_files, record_learning
 from echel.platform.cockpit import cockpit_snapshot, run_cockpit_command
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
@@ -97,6 +98,7 @@ class VNextLifecycleTests(unittest.TestCase):
             self.assertIn("proof-pack", actions_by_stage["release"])
             self.assertIn("learning-add", actions_by_stage["operate"])
             self.assertIn("traceability", actions_by_stage["governance"])
+            self.assertIn("integrity-audit", actions_by_stage["governance"])
 
     def test_cockpit_readiness_command_accepts_stage_argument(self) -> None:
         result = run_cockpit_command(ROOT, "readiness", {"stage": "discovery"})
@@ -606,6 +608,29 @@ Old canon problem
         audit = (root / "repository-integrity-audit.md").read_text(encoding="utf-8")
         for phrase in ["Missing docs", "Stale docs", "Broken traceability", "Missing ADRs", "Missing tests", "Missing evidence", "Methodology violations"]:
             self.assertIn(phrase, audit)
+
+    def test_integrity_audit_reports_required_governance_categories(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+            write(repo / "wiki/requirements/product-requirements.md", "# Product Requirements\n\n| ID | Requirement |\n| --- | --- |\n| REQ-999 | Missing validation coverage |\n")
+            write(repo / "wiki/work/TASK-9999-example.md", "---\nstatus: done\n---\n# Done Without Evidence\n")
+
+            report_path, findings = write_integrity_audit(repo, cfg)
+
+            report = report_path.read_text(encoding="utf-8")
+            self.assertIn("## Findings", report)
+            for phrase in ["Missing docs", "Stale docs", "Broken traceability", "Missing ADRs", "Missing tests", "Missing evidence", "Methodology violations"]:
+                self.assertIn(phrase, report)
+            self.assertTrue(any(f.area == "Missing docs" for f in findings))
+            self.assertTrue(any(f.area == "Missing tests" for f in findings))
+            self.assertTrue(any(f.area == "Methodology violations" for f in findings))
+
+    def test_integrity_findings_include_current_release_evidence_gap(self) -> None:
+        cfg = load_config(ROOT)
+        findings = integrity_findings(ROOT, cfg)
+
+        self.assertTrue(any(f.area == "Missing evidence" for f in findings))
 
     def test_traceability_matrix_reports_lifecycle_and_broken_chains(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

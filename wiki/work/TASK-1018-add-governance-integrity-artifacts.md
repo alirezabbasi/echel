@@ -84,7 +84,7 @@ python3 tools/echel.py doctor
 ## Definition of Done
 - [ ] TASK-1018 satisfies source phase task EP4-003.
 - [x] TASK-0041 governance artifact expansion is complete.
-- [ ] TASK-0042 repository integrity audit command is complete.
+- [x] TASK-0042 repository integrity audit command is complete.
 - [ ] TASK-0043 contradiction artifacts are complete.
 - [ ] All acceptance criteria are met without broadening the task scope.
 - [x] Required tests and validation command pass for TASK-0041 scope.
@@ -94,6 +94,7 @@ python3 tools/echel.py doctor
 ## Progress Notes
 
 - 2026-07-13: TASK-0041 added `wiki/governance/documentation-governance.md`, `architecture-governance.md`, `adr-process.md`, `traceability-model.md`, `quality-gates.md`, and `repository-integrity-audit.md`. The docs make source-of-truth hierarchy, duplication rules, and deprecation process explicit, and define the future integrity audit reporting model for missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, methodology violations, and contradictions.
+- 2026-07-13: TASK-0042 added `python3 tools/echel.py integrity audit`. The command writes `wiki/reports/repository-integrity-audit.md`, returns non-zero when critical findings exist, and reports missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations. TASK-0043 remains open for contradiction artifact/resolution workflow.
 
 ## Out of Scope
 - Work from later execution phase rows.

@@ -69,6 +69,7 @@ Make product evolution visible, governed, and repeatable across future projects 
 - 2026-07-13: TASK-0039 completed the lifecycle navigation portion of EP4-002. Cockpit snapshot and UI now expose Discovery through Governance stages, current stage, blockers, next action, responsible AI role, artifacts, and command-backed safe action metadata. TASK-0040 remains responsible for deeper native guided actions per stage.
 - 2026-07-13: TASK-0040 completed EP4-002 guided stage actions. Each cockpit lifecycle stage now exposes schema-driven safe actions for native generation, readiness, packets, validation, evidence registration, release reporting, learning capture, graph reports, and traceability.
 - 2026-07-13: TASK-0041 completed the governance artifact expansion portion of EP4-003. `wiki/governance/` now defines documentation governance, architecture governance, ADR process, traceability model, quality gates, and repository integrity audit baseline. TASK-0042 and TASK-0043 remain responsible for the executable integrity audit and contradiction artifacts.
+- 2026-07-13: TASK-0042 completed the repository integrity audit command portion of EP4-003. `python3 tools/echel.py integrity audit` writes `wiki/reports/repository-integrity-audit.md` and reports missing docs, stale docs, broken traceability, missing ADRs, missing tests, missing evidence, and methodology violations.
 
 ## Validation Method
 
