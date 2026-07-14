@@ -14,6 +14,7 @@ class BrownfieldReferenceJourneyTests(unittest.TestCase):
         cls.text = JOURNEY.read_text(encoding="utf-8")
 
     def test_scenario_covers_ingestion_change_and_evolution(self):
+        self.assertIn("Status: accepted", self.text)
         self.assertIn("## Scenario and measurable outcome", self.text)
         self.assertIn("inspect the repository without modifying it", self.text)
         self.assertIn("reviewed waitlist increment", self.text)

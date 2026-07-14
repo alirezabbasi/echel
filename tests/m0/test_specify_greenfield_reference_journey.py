@@ -14,6 +14,7 @@ class GreenfieldReferenceJourneyTests(unittest.TestCase):
         cls.text = JOURNEY.read_text(encoding="utf-8")
 
     def test_scenario_has_bounded_input_and_measurable_outcome(self):
+        self.assertIn("Status: accepted", self.text)
         self.assertIn("## Scenario and measurable outcome", self.text)
         self.assertIn("## Starting inputs", self.text)
         self.assertIn("running, verified MVP increment", self.text)
