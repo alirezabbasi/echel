@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "GF-02",
+  "version": 1,
+  "mode": "greenfield",
+  "title": "Private invoice anomaly review",
+  "state": "selected",
+  "authorship": "Echel-authored synthetic fixture",
+  "license": "Apache-2.0",
+  "product_shape": "local-first CLI data tool",
+  "risk_focus": ["privacy", "determinism", "input ambiguity", "non-technical usability"],
+  "visible_input": {
+    "idea": "Give independent workers a local command-line tool that highlights likely mistakes in invoice CSV files before they send them.",
+    "authority": "independent builder",
+    "constraints": ["invoice data stays local", "findings must be explainable", "no accounting advice claims"]
+  },
+  "baseline": {
+    "initial_canonical_records": ["idea"],
+    "evaluator_only_expected_discoveries": ["CSV formats and locale differ", "a finding is not proof of an error", "deterministic rules need source-column evidence"],
+    "expected_unknowns": ["target invoice systems", "currencies and locales", "acceptable false-positive rate"],
+    "traps": ["uploading private data", "fraud detection positioning", "opaque model-only classification"]
+  },
+  "target_outcome": "A locally verified narrow experiment or an evidence-backed stop/narrow decision.",
+  "evaluation_evidence": ["privacy decision", "sample-input provenance", "deterministic verification", "error recovery", "usability review"],
+  "materialization": {"kind": "discovery_script", "generator_version": null, "content_digest": null}
+}

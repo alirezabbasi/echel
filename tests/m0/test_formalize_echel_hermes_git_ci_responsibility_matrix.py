@@ -20,6 +20,7 @@ class ResponsibilityMatrixTests(unittest.TestCase):
         )
 
     def test_every_critical_capability_has_one_owner(self):
+        self.assertIn("Status: accepted", self.text)
         self.assertGreaterEqual(len(self.capabilities), 30)
         ids = [capability_id for capability_id, _, _ in self.capabilities]
         self.assertEqual(len(ids), len(set(ids)))

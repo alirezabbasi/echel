@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "GF-01",
+  "version": 1,
+  "mode": "greenfield",
+  "title": "Community shift coordination",
+  "state": "selected",
+  "authorship": "Echel-authored synthetic fixture",
+  "license": "Apache-2.0",
+  "product_shape": "collaborative web workflow",
+  "risk_focus": ["problem validation", "scope control", "domain rules", "progressive knowledge"],
+  "visible_input": {
+    "idea": "Help a small volunteer group coordinate recurring food-bank collection shifts without relying on spreadsheets and message threads.",
+    "authority": "independent builder",
+    "constraints": ["begin with minimum structured information", "no real personal data"]
+  },
+  "baseline": {
+    "initial_canonical_records": ["idea"],
+    "evaluator_only_expected_discoveries": ["coordinator and volunteer are distinct actors", "missed or overbooked shifts require evidence", "one organization and one workflow is sufficient for an MVP"],
+    "expected_unknowns": ["market demand", "notification need", "authentication approach"],
+    "traps": ["general volunteer-management platform", "premature multi-tenancy", "unsupported opportunity claims"]
+  },
+  "target_outcome": "A verified vertical MVP or an evidence-backed stop/narrow decision.",
+  "evaluation_evidence": ["decision trace", "question review", "task specification", "context explanation", "verification evidence", "backward learning"],
+  "materialization": {"kind": "discovery_script", "generator_version": null, "content_digest": null}
+}

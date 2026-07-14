@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "GF-03",
+  "version": 1,
+  "mode": "greenfield",
+  "title": "Webhook delivery relay",
+  "state": "selected",
+  "authorship": "Echel-authored synthetic fixture",
+  "license": "Apache-2.0",
+  "product_shape": "hosted developer API",
+  "risk_focus": ["delivery semantics", "security", "operability", "cost assumptions"],
+  "visible_input": {
+    "idea": "Let small SaaS teams send webhooks reliably without building retry infrastructure.",
+    "authority": "founder-builder",
+    "constraints": ["first experiment must be operable by one maintainer", "secrets cannot enter product knowledge"]
+  },
+  "baseline": {
+    "initial_canonical_records": ["idea"],
+    "evaluator_only_expected_discoveries": ["reliability requires explicit delivery semantics", "tenant isolation and signing are product constraints", "retry policy needs measurable outcomes"],
+    "expected_unknowns": ["willingness to pay", "event volume", "retention needs", "provider constraints"],
+    "traps": ["general event platform", "exactly-once claims", "premature distributed architecture"]
+  },
+  "target_outcome": "A measurable delivery experiment with bounded reliability semantics or an evidence-backed stop/narrow decision.",
+  "evaluation_evidence": ["hypothesis trace", "security boundary", "operational acceptance conditions", "cost assumptions", "release evidence"],
+  "materialization": {"kind": "discovery_script", "generator_version": null, "content_digest": null}
+}

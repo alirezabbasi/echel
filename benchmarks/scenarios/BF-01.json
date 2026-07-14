@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "BF-01",
+  "version": 1,
+  "mode": "brownfield",
+  "title": "Ledger CLI tagging",
+  "state": "selected",
+  "authorship": "Echel-authored synthetic fixture",
+  "license": "Apache-2.0",
+  "product_shape": "Python CLI with SQLite",
+  "risk_focus": ["safe ingestion", "data migration", "undo semantics", "stale documentation"],
+  "visible_input": {
+    "change_request": "Add batch tagging of imported transactions with an undo command.",
+    "repository_access": "local read-only preflight",
+    "expected_toolchain": "Python 3.11 and stdlib unittest"
+  },
+  "baseline": {
+    "ground_truth_observations": ["CSV import and report export are separate CLI commands", "SQLite writes cross parser and repository modules", "duplicate-import behavior changed in Git history", "architecture notes name a removed service"],
+    "reviewable_inferences": ["transaction boundaries are insufficient for batch undo", "the stale service name must not become accepted architecture"],
+    "expected_unknowns": ["maximum import size", "whether tags are ordered", "retention policy"],
+    "traps": ["executing package hooks during ingestion", "trusting stale documentation", "implementing undo without migration rollback evidence"]
+  },
+  "target_outcome": "A verified, backward-compatible batch-tagging slice with explicit undo and migration evidence.",
+  "evaluation_evidence": ["ingestion coverage", "baseline review", "impact precision", "migration verification", "incremental re-ingestion"],
+  "materialization": {"kind": "synthetic_git_repository", "generator_version": null, "git_head": null, "tree_digest": null, "license_digest": null, "clean_verify": null}
+}

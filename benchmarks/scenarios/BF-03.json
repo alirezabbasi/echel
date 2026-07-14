@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "BF-03",
+  "version": 1,
+  "mode": "brownfield",
+  "title": "Delivery-event replay",
+  "state": "selected",
+  "authorship": "Echel-authored synthetic fixture",
+  "license": "Apache-2.0",
+  "product_shape": "Go event-processing service with embedded storage",
+  "risk_focus": ["concurrency", "cancellation", "operational safety", "audit evidence"],
+  "visible_input": {
+    "change_request": "Add a bounded command that replays selected dead-letter delivery events.",
+    "repository_access": "local read-only preflight",
+    "expected_toolchain": "current declared Go toolchain and go test"
+  },
+  "baseline": {
+    "ground_truth_observations": ["handlers run concurrently with bounded workers", "event IDs are deduplicated in embedded storage", "health and metrics endpoints expose queue state", "Git history records a shutdown race"],
+    "reviewable_inferences": ["replay must share deduplication semantics", "shutdown cancellation is an impacted operational boundary"],
+    "expected_unknowns": ["maximum replay volume", "operator authorization source", "dead-letter retention"],
+    "traps": ["unbounded replay", "bypassing deduplication", "claiming operational safety from unit tests alone"]
+  },
+  "target_outcome": "A verified bounded replay command with authorization, cancellation, deduplication, and audit evidence.",
+  "evaluation_evidence": ["package-boundary precision", "concurrency impact", "permission policy", "operational verification", "incremental re-ingestion"],
+  "materialization": {"kind": "synthetic_git_repository", "generator_version": null, "git_head": null, "tree_digest": null, "license_digest": null, "clean_verify": null}
+}

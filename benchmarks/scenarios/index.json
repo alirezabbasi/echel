@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "suite_id": "echel-2-core",
+  "suite_version": 1,
+  "license": "Apache-2.0",
+  "scenarios": [
+    "GF-01.json",
+    "GF-02.json",
+    "GF-03.json",
+    "BF-01.json",
+    "BF-02.json",
+    "BF-03.json"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "BF-02",
+  "version": 1,
+  "mode": "brownfield",
+  "title": "Appointment waitlist API",
+  "state": "selected",
+  "authorship": "Echel-authored synthetic fixture",
+  "license": "Apache-2.0",
+  "product_shape": "TypeScript HTTP service with PostgreSQL",
+  "risk_focus": ["conflicting evidence", "API compatibility", "concurrency", "authorization"],
+  "visible_input": {
+    "change_request": "Add idempotent waitlist enrollment and promotion for full appointments.",
+    "repository_access": "local read-only preflight",
+    "expected_toolchain": "supported Node LTS, TypeScript strict mode, and Jest"
+  },
+  "baseline": {
+    "ground_truth_observations": ["OpenAPI says full appointments reject enrollment", "PostgreSQL constraints enforce capacity indirectly", "integration tests cover duplicate booking", "unfinished history mentions a waitlist without accepted rules"],
+    "reviewable_inferences": ["promotion needs a transaction boundary", "unfinished history is evidence of intent only after review"],
+    "expected_unknowns": ["promotion notification", "coordinator override", "waitlist expiry"],
+    "traps": ["treating branch text as accepted truth", "breaking existing error responses", "ignoring concurrent enrollment"]
+  },
+  "target_outcome": "A verified waitlist slice with explicit ordering, idempotency, compatibility, and migration behavior.",
+  "evaluation_evidence": ["contradiction handling", "baseline approval", "API impact", "concurrency verification", "rollback evidence"],
+  "materialization": {"kind": "synthetic_git_repository", "generator_version": null, "git_head": null, "tree_digest": null, "license_digest": null, "clean_verify": null}
+}
