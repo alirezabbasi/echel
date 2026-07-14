@@ -26,6 +26,8 @@ The [core record schema reference](docs/reference/core-schemas.md) defines Echel
 
 The [domain value-object reference](docs/reference/domain-value-objects.md) documents typed identifiers, revisions, confidence, status vocabularies, and stable validation failures.
 
+The [canonical repository layout](docs/reference/canonical-repository-layout.md) defines safe project discovery and the repository-owned record collections.
+
 ## Why Echel changed
 
 The first implementation proved that lifecycle knowledge, agent work packets, traceability, and verification could be connected. It also created the entire SDLC documentation structure upfront and represented the same truth through wiki pages, graph files, memory records, reports, and compatibility views. The machinery grew faster than the product knowledge it was meant to support.

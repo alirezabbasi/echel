@@ -20,7 +20,7 @@ VerificationRunner ─ Reproducible evidence
 
 ## Canonical state
 
-A product repository contains `.echel/project.json`, `.echel/policy.json`, and record collections. These files are human-reviewable and versioned with product code.
+A product repository keeps canonical records in typed collections beneath `.echel/records/`. The [canonical repository layout](reference/canonical-repository-layout.md) is safely discoverable only within the containing Git root. Record and policy files are introduced progressively by the workflows that need them; empty future-stage documents are not initialized.
 
 There is no canonical generated graph. Relationships are explicit record identifiers. A future SQLite index may accelerate search, but it must remain disposable.
 

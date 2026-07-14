@@ -1,3 +1,10 @@
 from .files import FileStore, StoreError
+from .layout import CanonicalRepository, RECORD_COLLECTIONS, RepositoryError
 
-__all__ = ["FileStore", "StoreError"]
+__all__ = [
+    "CanonicalRepository",
+    "FileStore",
+    "RECORD_COLLECTIONS",
+    "RepositoryError",
+    "StoreError",
+]
