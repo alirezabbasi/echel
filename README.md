@@ -1,217 +1,79 @@
 # Echel
 
-![Echel Banner](assets/echel.png)
+Echel is progressive SDLC memory for AI-native software engineering.
 
-## AI-Native Software Engineering OS
+It starts with one raw idea, asks only the questions required by the current stage, and lets product knowledge mature alongside implementation. Echel supplies an AI agent with the smallest trustworthy context needed for a work item and promotes verified discoveries back into durable project memory only after approval.
 
-Echel is a practical methodology and local operating system for turning a raw product idea into an execution-ready software repository.
+Echel owns methodology and product truth. Hermes is the first supported multi-model agent runtime; it owns sessions, tools, delegation, and model execution.
 
-It exists because AI can produce code quickly, but successful products need more than output. They need durable product memory, traceable requirements, stable domain language, architecture decisions, agent-ready tasks, verification evidence, release readiness, operations knowledge, and a loop for learning after delivery.
+## Why Echel changed
 
-Echel is not an AI coding assistant and it is not only a documentation framework. It is the control layer around AI-assisted software engineering: the system that preserves what the product means, decides when work is ready, gives agents bounded context, and proves progress with evidence.
+The first implementation proved that lifecycle knowledge, agent work packets, traceability, and verification could be connected. It also created the entire SDLC documentation structure upfront and represented the same truth through wiki pages, graph files, memory records, reports, and compatibility views. The machinery grew faster than the product knowledge it was meant to support.
 
-## Product-To-Repository Factory
+Echel v2 returns to the original principle: begin with the minimum structured information and add knowledge only when the project learns something. The methodology remains; its implementation is now progressive instead of template-driven. Generic agent responsibilities move behind runtime adapters so Echel can concentrate on durable product meaning, context, and evidence.
 
-Echel takes a product from discovery to operation through one connected lifecycle:
+See [Why Echel v2](docs/v2-reset.md) for the audience, rationale, continuity, and tradeoffs behind the reset.
 
-```text
-Raw idea
--> Product Discovery Specification
--> Product Canon
--> Product Strategy
--> Requirements
--> Domain Model
--> Architecture
--> Roadmap
--> Execution Tasks
--> Repository Baseline
--> Implementation
--> Validation
--> Deployment
--> Operations
--> Governance and Learning
-```
-
-Each stage has a durable place in the product wiki, a responsible AI role, source artifacts, acceptance criteria, and downstream handoff rules. Later work must refine earlier product truth instead of silently reinterpreting it.
-
-## Why It Matters
-
-Most AI-assisted development fails in the gaps between artifacts.
-
-- Ideas are too vague, so requirements become unstable.
-- Requirements are not traceable, so architecture drifts.
-- Architecture is not tied to domain language, so code invents concepts.
-- Tasks are too broad, so agents mix unrelated changes.
-- Verification is informal, so done work lacks proof.
-- Product memory is scattered, so every session starts over.
-
-Echel closes those gaps by making the product lifecycle explicit, inspectable, and executable.
-
-## Core Methodology
-
-### Discovery
-
-The Product Discovery Specification captures the founder or domain expert contract: problem, users, buyers, operators, current workflow, pain points, solution concept, business model, success criteria, scope, non-goals, constraints, assumptions, hypotheses, risks, open questions, and research needs.
-
-Every important statement should carry a type, confidence, and traceability ID so AI agents do not treat assumptions as facts.
-
-### Canon
-
-Product Canon becomes the source of product truth after discovery. It records what the product is, what it is not, why it exists, who it serves, why customers would pay, product principles, and non-negotiables.
-
-### Strategy
-
-Strategy turns canon into market and business focus: ICP, buyer/user/operator model, wedge, competition, positioning, pricing, packaging, and PMF evidence.
-
-### Requirements
-
-Requirements convert strategy into testable scope. MVP, later work, out-of-scope items, acceptance criteria, dependencies, risks, and non-functional requirements are separated before implementation planning begins.
-
-### Domain
-
-Domain modeling defines the product language before architecture. Ubiquitous language, bounded contexts, entities, aggregates, events, workflows, policies, and business rules make sure everyone builds from the same business concepts.
-
-### Architecture
-
-Architecture maps domain and requirements into system shape, components, data, APIs, events, workflow, security, observability, deployment posture, and ADRs. Complexity must be justified.
-
-### Roadmap And Execution
-
-Roadmap artifacts define delivery phases and release plans. Execution phase artifacts become one-session, agent-executable task packets with objective, scope, files, dependencies, acceptance criteria, tests, rollback notes, documentation updates, and definition of done.
-
-### Validation And Evidence
-
-Validation artifacts map tests to requirement IDs, task IDs, domain concepts, and acceptance criteria. Evidence records capture proof with subject, kind, path, checksum, producer, and summary.
-
-### Deployment And Operations
-
-Deployment artifacts define environments, release process, rollback, secrets, and production checklist. Operations artifacts define runbook, observability, incident response, backup and recovery, SLO/SLA, change management, and evolution backlog.
-
-### Governance And Learning
-
-Governance artifacts define source-of-truth hierarchy, ADR process, traceability, quality gates, repository integrity, migration compatibility, and contradiction handling. The learning loop turns incidents, RCA, customer feedback, roadmap changes, and strategy changes into durable follow-up work.
-
-## Operating Surfaces
-
-Echel is built from several connected surfaces. They are distinct on purpose.
-
-### Methodology
-
-The methodology defines the lifecycle, stage gates, source-of-truth hierarchy, traceability rules, and AI-agent role boundaries. It answers: what must be true before the next stage can safely begin?
-
-### Product Memory
-
-Product memory lives in root `wiki/` in generated projects. It is committed with the product and contains discovery, canon, strategy, requirements, domain, architecture, roadmap, execution, validation, deployment, operations, governance, work, decisions, reports, agents, and engineering docs.
-
-Echel Core lives separately under `echel-core/` and uses `WIKI_ROOT` to operate on the product wiki without owning it.
-
-### Product Graph
-
-The product graph connects lifecycle artifacts: discovery items, assumptions, hypotheses, buyers, stakeholders, strategy, requirements, domain concepts, bounded contexts, business rules, architecture components, tasks, tests, evidence, deployment artifacts, operations artifacts, contradictions, and learnings.
-
-Graph nodes preserve statement type, confidence, source stage, verification status, and trace IDs where available.
-
-### Cockpit
-
-The cockpit is the product steering surface. It shows lifecycle stages from Discovery through Governance, blockers, next action, responsible AI role, artifacts, and safe command-backed actions.
-
-### Agents
-
-Echel models a virtual delivery team: Founder Interviewer, Business Analyst, Product Manager, Strategy Analyst, Domain Modeler, Solution Architect, Delivery Planner, Implementation Agent, QA Agent, Security Reviewer, Release Manager, Operations Steward, and Governance Auditor.
-
-Each role has responsibilities, inputs, outputs, and forbidden actions. Handoffs preserve decisions, assumptions, risks, unresolved questions, evidence, stale artifacts, and next-stage instructions.
-
-### Evidence
-
-Evidence is the proof layer. Tasks, validation, release readiness, and proof packs should rely on registered evidence rather than conversational claims.
-
-### Readiness
-
-Readiness gates report whether a stage or release can proceed. They surface missing discovery, vague requirements, domain inconsistency, architecture gaps, release blockers, evidence gaps, risks, and governance issues.
-
-## Generated Project Shape
-
-New projects are initialized as product repositories:
+## Lifecycle
 
 ```text
-<project-name>/
-  wiki/          product-owned memory committed with the project
-  echel-core/    Echel methodology, schemas, prompts, tools, and automation
+Idea → Problem → Vision → Strategy → Requirements → Domain → Architecture
+→ Roadmap → Execution plan → Tasks → Repository → Implementation
+→ Validation → Deployment → Operations and evolution
 ```
 
-`wiki/` is part of the product. `echel-core/` is framework infrastructure and is ignored by the generated product repository.
+Stages are maturity states, not pre-created documentation folders. A project receives a new record only when it learns something. It advances when current knowledge is usable for the next decision, and later evidence may revise any earlier stage.
 
-## Start
+## Quick start
+
+Echel has no runtime dependencies beyond Python 3.11.
 
 ```bash
-make init-wizard
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -e .
+
+mkdir my-product && cd my-product
+echel init "My Product" --idea "A concise raw idea"
+echel status
+echel advance
+echel add problem "The observed problem" --status accepted --confidence high
+echel add user "The person affected by the problem" --status accepted
+echel status
 ```
 
-Non-interactive:
+Create bounded work and compile its context:
 
 ```bash
-make init-project \
-  NAME=my-product \
-  MODE=scratch \
-  DEST=. \
-  PROBLEM="..." \
-  SOLUTION="..." \
-  DIRECTION="..." \
-  USERS="..." \
-  BUYERS="..." \
-  OPERATORS="..." \
-  MVP="..." \
-  BUSINESS_MODEL="..." \
-  NON_GOALS="..." \
-  CONSTRAINTS="..." \
-  RISKS="..." \
-  STACK="..." \
-  SUCCESS="..." \
-  RESEARCH="..."
+echel work "First experiment" \
+  --objective "Test the highest-risk assumption" \
+  --relates-to CLM-001 \
+  --accept "The assumption has a measurable result" \
+  --verify "python3 -m unittest discover -s tests"
+
+echel context WORK-001
+echel run WORK-001                 # safe Hermes command preview
+echel run WORK-001 --execute       # invoke Hermes
+echel verify WORK-001
 ```
 
-Then:
+All durable product state lives under `.echel/` as small, reviewable JSON records. Generated indexes and agent conversation memory are not product truth.
+
+## Design boundaries
+
+- Echel owns product knowledge, lifecycle maturity, work context, provenance, and verification policy.
+- Hermes owns the agent loop, multi-LLM execution, tools, sessions, and bounded delegation.
+- Git owns version history and isolated implementation work.
+- CI and deployment systems own authoritative build and release execution.
+- Agent-proposed knowledge changes require review before becoming accepted truth.
+
+See [Architecture](docs/architecture.md), [Methodology](docs/methodology.md), and [Hermes integration](docs/hermes.md).
+
+## Development
 
 ```bash
-cd <project-name>/echel-core
-make wiki-health
-python3 tools/echel.py status
+python3 -m unittest discover -s tests -v
+PYTHONPATH=src python3 -m echel.cli.main lifecycle
 ```
 
-Verify the vNext generated-project contract:
-
-```bash
-make verify-vnext-generated
-```
-
-## Command Path
-
-The lifecycle command path is:
-
-```bash
-python3 tools/echel.py discover
-python3 tools/echel.py readiness --stage discovery
-python3 tools/echel.py canon
-python3 tools/echel.py strategy
-python3 tools/echel.py requirements
-python3 tools/echel.py readiness --stage requirements
-python3 tools/echel.py domain
-python3 tools/echel.py readiness --stage domain
-python3 tools/echel.py architecture
-python3 tools/echel.py readiness --stage architecture
-python3 tools/echel.py execution-tasks
-python3 tools/echel.py repository-factory
-python3 tools/echel.py validate
-python3 tools/echel.py evidence add --id EVID-VALIDATION-001 --subject TEST-001 --kind validation-report --path wiki/reports/validation-summary.md --producer "QA Agent" --summary "Validation proof"
-python3 tools/echel.py readiness --stage release
-python3 tools/echel.py learning
-```
-
-## Learn More
-
-- [Technical Quick Start](docs/technical-quick-start.md)
-- [Methodology Contract](docs/development/methodology.md)
-- [Product Graph](docs/development/phase2-product-graph.md)
-- [Agent Work Packets](docs/development/phase3-agent-work-packets.md)
-- [Product Cockpit](docs/development/phase4-product-cockpit.md)
-- [Readiness And Proof Packs](docs/development/phase5-readiness-and-proof-packs.md)
+The previous implementation is preserved locally in ignored `v1/` and is not part of the new source tree.

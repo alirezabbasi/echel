@@ -1,7 +1,13 @@
 .env
 .venv/
+.obsidian/
+v1/
 __pycache__/
 *.pyc
+*.egg-info/
+.pytest_cache/
+build/
+dist/
 .DS_Store
 raw/codebase/*/.git/
 self/
@@ -12,4 +18,3 @@ wiki/.obsidian/
 # Echel platform runtime state
 .echel/platform/*.db
 .echel/platform/*.db-*
-

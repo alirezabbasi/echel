@@ -1,6 +1,0 @@
-{
-  "app_name": "generated-product",
-  "environment": "local",
-  "log_level": "INFO",
-  "health_check": "app.main.health_check"
-}
