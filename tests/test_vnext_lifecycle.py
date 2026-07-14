@@ -32,7 +32,7 @@ from echel.memory_kernel import append_record
 from echel.platform.cockpit import cockpit_snapshot, run_cockpit_command
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
 from echel.repository_factory import repository_factory_generate, repository_factory_status
-from echel.readiness import proof_pack
+from echel.readiness import proof_pack, vnext_final_readiness
 from echel.strategy import strategy_generate, ensure_strategy_files
 from echel.traceability import traceability_matrix_report, write_traceability_matrix
 from echel.validation import run_validation
@@ -1629,6 +1629,43 @@ class VNextProofPackTests(unittest.TestCase):
 
             self.assertIn("| Release |", text)
             self.assertIn("| Governance |", text)
+
+    def test_vnext_final_readiness_reports_release_certification_checks(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+
+            path = vnext_final_readiness(repo, cfg)
+            text = path.read_text(encoding="utf-8")
+
+            required_checks = [
+                "No critical graph issues",
+                "No missing stage templates",
+                "No missing command docs",
+                "No missing evidence for completed tasks",
+                "No unreviewed major changes",
+                "vNext proof pack generated",
+                "vNext release summary generated",
+            ]
+            for check in required_checks:
+                with self.subTest(check=check):
+                    self.assertIn(check, text)
+            self.assertTrue((repo / "wiki/reports/proof-packs/vnext-proof-pack.md").exists())
+            self.assertTrue((repo / "wiki/reports/releases/vnext-release-summary.md").exists())
+
+    def test_vnext_final_cli_returns_nonzero_when_certification_is_blocked(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            result = subprocess.run(
+                [sys.executable, str(ROOT / "tools/echel.py"), "vnext-final"],
+                cwd=tmp,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("vNext final readiness written", result.stdout)
+            self.assertTrue((Path(tmp) / "wiki/reports/readiness/vnext-final-readiness.md").exists())
 
 
 if __name__ == "__main__":

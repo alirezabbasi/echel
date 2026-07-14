@@ -23,7 +23,6 @@
 - [x] TASK-1016 Add learning loop
 - [x] TASK-1017 Redesign cockpit around lifecycle
 - [x] TASK-1018 Add governance integrity artifacts
-- [ ] TASK-1020 Publish vNext proof and final gate
 
 ## In Progress
 
@@ -91,3 +90,5 @@
 - [x] TASK-0047 Rewrite README around Product-to-Repository Factory
 - [x] TASK-0048 Add vNext Technical Quick Start
 - [x] TASK-0049 Add vNext Proof Pack
+- [x] TASK-0050 Final vNext Readiness Gate
+- [x] TASK-1020 Publish vNext proof and final gate

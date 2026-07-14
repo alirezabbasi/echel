@@ -13,6 +13,7 @@ python3 tools/echel.py readiness --target mvp
 python3 tools/echel.py proof-pack --target mvp
 python3 tools/echel.py proof-pack --target vnext
 python3 tools/echel.py release-summary --target mvp
+python3 tools/echel.py vnext-final
 ```
 
 ## What Readiness Checks
@@ -30,6 +31,7 @@ python3 tools/echel.py release-summary --target mvp
 - `wiki/reports/releases/{target}-release-summary.md`
 
 When the target is `vnext`, the proof pack also includes methodology coverage, command coverage, graph coverage, cockpit coverage, and remaining risks for final vNext certification.
+`python3 tools/echel.py vnext-final` generates the final vNext gate report and release summary, then returns non-zero when certification is blocked by graph criticals, lifecycle templates, command docs, task evidence, review coverage, proof pack generation, or release summary generation.
 
 ## Cockpit
 The cockpit includes a readiness view with status, blockers, readiness reports, proof packs, release summaries, and actions.

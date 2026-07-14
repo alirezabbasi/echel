@@ -88,13 +88,13 @@ target: vnext
 - TASK-1017 (done): TASK-1017 - Redesign cockpit around lifecycle
 - TASK-1018 (done): TASK-1018 - Add governance integrity artifacts
 - TASK-1019 (done): TASK-1019 - Preserve migration compatibility
-- TASK-1020 (planned): TASK-1020 - Publish vNext proof and final gate
+- TASK-1020 (done): TASK-1020 - Publish vNext proof and final gate
 
 ## Reviews
 - [[../../reports/reviews/TASK-0001-initialize-project-wiki-review]]
 
 ## Evidence Registry
-- Registered artifacts: 0
+- Registered artifacts: 1
 
 ## Methodology Coverage Matrix
 | Stage | Artifact coverage | Command or gate coverage | Responsible role | Status |
@@ -130,8 +130,8 @@ target: vnext
 | `operate` | Operations learning capture and routed follow-up | Implemented through `learning` and `learning add` |
 
 ## Graph Coverage
-- Nodes: 331
-- Edges: 4473
+- Nodes: 332
+- Edges: 4474
 
 | Stage | Nodes | Status |
 | --- | ---: | --- |
@@ -142,7 +142,7 @@ target: vnext
 | domain | 70 | Covered |
 | architecture | 39 | Covered |
 | execution | 81 | Covered |
-| validation | 35 | Covered |
+| validation | 36 | Covered |
 | deployment | 7 | Covered |
 | operations | 15 | Covered |
 | governance | 17 | Covered |
@@ -164,7 +164,7 @@ target: vnext
 | domain-concept | 12 |
 | domain-event | 11 |
 | domain-workflow | 11 |
-| evidence | 5 |
+| evidence | 6 |
 | feature | 1 |
 | governance-artifact | 11 |
 | hypothesis | 1 |
@@ -204,7 +204,7 @@ target: vnext
 ## Remaining Risks
 - Discovery gate remains blocked for the current Echel product memory until founder-grade PDS fields are completed.
 - Release gate remains blocked until production checklist rows are passed or accepted and release evidence is registered.
-- Integrity audit still reports completed task evidence gaps that TASK-0050 must either close or record as accepted exceptions.
+- Final readiness gate reports existing evidence, stale-doc, and traceability gaps until they are closed or accepted by governance.
 - Traceability still needs tighter canon statement linkage before final certification can claim full chain closure.
 
 
@@ -213,7 +213,7 @@ target: vnext
 
 ## Readiness Issues
 - **warning** 5 open clarification question(s)
-- **warning** 6 open task(s) remain
+- **warning** 5 open task(s) remain
 - **blocker** done tasks missing registered evidence: TASK-0005, TASK-0006, TASK-0007, TASK-0008, TASK-0009, TASK-0010, TASK-0011, TASK-0012
 - **warning** review reports have open checks: TASK-0001-initialize-project-wiki-review
 

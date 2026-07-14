@@ -72,10 +72,11 @@ Last updated: 2026-07-14
 - Rewrote the README around Echel as an AI-native Product-to-Repository Factory, with the discovery-to-operations lifecycle and operating surfaces made explicit.
 - Added the vNext technical quick start sequence in `docs/technical-quick-start.md`, ordering the lifecycle as `discover`, `canon`, `strategy`, `requirements`, `domain`, `architecture`, `roadmap`, `plan`, `build`, `validate`, `release`, and `operate` with current Echel command equivalents.
 - Added the vNext proof pack path through `python3 tools/echel.py proof-pack --target vnext`, producing `wiki/reports/proof-packs/vnext-proof-pack.md` with methodology, command, graph, cockpit, and remaining-risk coverage.
+- Added the final vNext readiness gate through `python3 tools/echel.py vnext-final`, producing `wiki/reports/readiness/vnext-final-readiness.md` and `wiki/reports/releases/vnext-release-summary.md`.
 
 ## Next
 
-1. Add the final vNext readiness gate.
+1. Resolve final vNext gate blockers around historical evidence references and open review checks.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 

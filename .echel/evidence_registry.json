@@ -1,4 +1,15 @@
 {
   "version": 1,
-  "artifacts": {}
+  "artifacts": {
+    "EVID-TASK-0050-FINAL": {
+      "subject": "TASK-1020",
+      "kind": "proof",
+      "path": "wiki/reports/readiness/vnext-final-readiness.md",
+      "checksum": "sha256:7f7ae29846b9534b5814c3d4570959e18d37de3f9ae09ccc4acd7ad95dd1ab2c",
+      "producer": "Governance Auditor",
+      "summary": "TASK-0050 final vNext release readiness proof",
+      "created_at": "2026-07-14T10:52:51Z",
+      "updated_at": "2026-07-14T10:54:33Z"
+    }
+  }
 }

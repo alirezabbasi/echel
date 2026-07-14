@@ -35,7 +35,7 @@ from echel.memory_kernel import append_record, contradiction_summary, query_reco
 from echel.migration_planner import plan_waves
 from echel.platform.runtime import ensure_platform_config, load_platform_config
 from echel.primitives import validate_decisions, validate_tasks
-from echel.readiness import create_milestone, proof_pack, readiness_report, release_summary
+from echel.readiness import create_milestone, proof_pack, readiness_report, release_summary, vnext_final_readiness
 from echel.product import (
     answer_clarification,
     clarification_questions,
@@ -579,6 +579,14 @@ def cmd_release_summary(repo_root: Path, target: str) -> int:
     return 0
 
 
+def cmd_vnext_final(repo_root: Path, target: str) -> int:
+    cfg = _load(repo_root)
+    path = vnext_final_readiness(repo_root, cfg, target=target)
+    print(f"vNext final readiness written: {path}")
+    text = path.read_text(encoding="utf-8")
+    return 1 if "status: blocked" in text.split("---", 2)[1] else 0
+
+
 def cmd_doctor(repo_root: Path) -> int:
     cfg = _load(repo_root)
     code = 0
@@ -985,6 +993,9 @@ def build_parser() -> argparse.ArgumentParser:
     release = sub.add_parser("release-summary")
     release.add_argument("--target", default="mvp")
 
+    vnext_final = sub.add_parser("vnext-final")
+    vnext_final.add_argument("--target", default="vnext")
+
     close = sub.add_parser("close-task")
     close.add_argument("task_id")
 
@@ -1144,6 +1155,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_proof_pack(root, target=args.target)
     if args.cmd == "release-summary":
         return cmd_release_summary(root, target=args.target)
+    if args.cmd == "vnext-final":
+        return cmd_vnext_final(root, target=args.target)
     if args.cmd == "close-task":
         return cmd_close_task(root, args.task_id)
     if args.cmd == "sync-memory":

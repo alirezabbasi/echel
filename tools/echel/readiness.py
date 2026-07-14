@@ -148,6 +148,21 @@ target: {target}
     return report
 
 
+def vnext_final_readiness(repo_root: Path, cfg: ProjectConfig, target: str = "vnext") -> Path:
+    root = wiki_root(repo_root, cfg)
+    graph = build_graph(repo_root, cfg)
+    proof = proof_pack(repo_root, cfg, target=target)
+    summary = release_summary(repo_root, cfg, target=target)
+    checks = _vnext_final_checks(repo_root, cfg, root, graph, proof, summary)
+    blocked = [check for check in checks if check["status"] != "PASS"]
+    report_dir = root / "reports" / "readiness"
+    report_dir.mkdir(parents=True, exist_ok=True)
+    report = report_dir / f"{_slug(target)}-final-readiness.md"
+    report.write_text(_vnext_final_report(target, checks, proof, summary), encoding="utf-8")
+    _append_log(root, "readiness", f"Generated vNext final readiness gate [[reports/readiness/{report.stem}]].")
+    return report
+
+
 def readiness_snapshot(repo_root: Path, cfg: ProjectConfig, target: str = "mvp") -> dict:
     graph = build_graph(repo_root, cfg)
     issues = evaluate_readiness(repo_root, cfg, target, graph)
@@ -309,21 +324,7 @@ def _vnext_proof_sections(root: Path, graph: dict) -> str:
 
 
 def _methodology_coverage(root: Path) -> str:
-    rows = [
-        ("Discovery", ["discovery/product-discovery-spec.md", "discovery/research-plan.md", "discovery/assumptions.md"], "discover, readiness --stage discovery", "Founder Interviewer"),
-        ("Canon", ["canon/product-canon.md", "canon/vision.md", "canon/product-principles.md", "canon/non-negotiables.md"], "canon, canon-drift", "Product Manager"),
-        ("Strategy", ["strategy/icp.md", "strategy/buyer-user-model.md", "strategy/market-wedge.md", "strategy/competitive-analysis.md", "strategy/positioning.md", "strategy/pricing-and-packaging.md", "strategy/pmf-evidence.md"], "strategy, strategy-readiness", "Product Strategist"),
-        ("Requirements", ["requirements/product-requirements.md", "requirements/functional-requirements.md", "requirements/non-functional-requirements.md", "requirements/mvp-scope.md", "requirements/out-of-scope.md", "requirements/acceptance-criteria.md"], "requirements, readiness --stage requirements", "Business Analyst"),
-        ("Domain", ["domain/domain-overview.md", "domain/ubiquitous-language.md", "domain/bounded-contexts.md", "domain/entities.md", "domain/aggregates.md", "domain/domain-events.md", "domain/workflows.md", "domain/policies-and-rules.md"], "domain, readiness --stage domain", "Domain Modeler"),
-        ("Architecture", ["architecture/overview.md", "architecture/context-map.md", "architecture/component-architecture.md", "architecture/data-architecture.md", "architecture/api-architecture.md", "architecture/event-architecture.md", "architecture/workflow-architecture.md", "architecture/security-architecture.md", "architecture/observability-architecture.md"], "architecture, readiness --stage architecture", "Solution Architect"),
-        ("Roadmap", ["roadmap/master-roadmap.md", "roadmap/mvp-roadmap.md", "roadmap/architecture-roadmap.md", "roadmap/engineering-roadmap.md", "roadmap/release-plan.md"], "plan, execution-tasks", "Delivery Planner"),
-        ("Execution", ["execution/phase-0-foundation.md", "execution/phase-1-mvp.md", "execution/phase-2-hardening.md", "execution/phase-3-production.md", "execution/phase-4-evolution.md", "work/TASK_INDEX.md"], "execution-tasks, packet, next", "Delivery Planner"),
-        ("Build", ["engineering/development-workflow.md", "engineering/local-development.md"], "repository-factory, build, review", "Implementation Agent"),
-        ("Validate", ["validation/test-strategy.md", "validation/acceptance-tests.md", "validation/integration-tests.md", "validation/e2e-tests.md", "validation/security-tests.md", "validation/performance-tests.md", "validation/validation-report.md"], "validate, evidence add", "QA Agent"),
-        ("Release", ["deployment/deployment-architecture.md", "deployment/environments.md", "deployment/release-process.md", "deployment/rollback-plan.md", "deployment/secrets-management.md", "deployment/production-checklist.md"], "readiness --stage release, proof-pack, release-summary", "Release Manager"),
-        ("Operate", ["operations/runbook.md", "operations/observability.md", "operations/incident-response.md", "operations/backup-and-recovery.md", "operations/sla-and-slo.md", "operations/change-management.md", "operations/evolution-backlog.md", "operations/learning-records.md"], "learning, learning add", "Operations Steward"),
-        ("Governance", ["governance/documentation-governance.md", "governance/architecture-governance.md", "governance/adr-process.md", "governance/traceability-model.md", "governance/quality-gates.md", "governance/repository-integrity-audit.md", "governance/contradictions.md", "governance/migration-compatibility.md"], "traceability, integrity audit, contradictions sync, migration compatibility", "Governance Auditor"),
-    ]
+    rows = _vnext_methodology_rows()
     lines = [
         "| Stage | Artifact coverage | Command or gate coverage | Responsible role | Status |",
         "| --- | --- | --- | --- | --- |",
@@ -429,10 +430,171 @@ def _vnext_remaining_risks() -> str:
         [
             "- Discovery gate remains blocked for the current Echel product memory until founder-grade PDS fields are completed.",
             "- Release gate remains blocked until production checklist rows are passed or accepted and release evidence is registered.",
-            "- Integrity audit still reports completed task evidence gaps that TASK-0050 must either close or record as accepted exceptions.",
+            "- Final readiness gate reports existing evidence, stale-doc, and traceability gaps until they are closed or accepted by governance.",
             "- Traceability still needs tighter canon statement linkage before final certification can claim full chain closure.",
         ]
     )
+
+
+def _vnext_final_checks(
+    repo_root: Path,
+    cfg: ProjectConfig,
+    root: Path,
+    graph: dict,
+    proof: Path,
+    summary: Path,
+) -> list[dict]:
+    graph_issues = validate_graph(graph)
+    critical_graph = [issue.message for issue in graph_issues if issue.severity == "critical"]
+    missing_templates = _missing_vnext_templates(root)
+    missing_command_docs = _missing_vnext_command_docs(repo_root)
+    missing_evidence = _done_tasks_missing_evidence(repo_root, cfg, root)
+    unreviewed_major = _unreviewed_major_changes(root)
+    missing_release_summary = [] if summary.exists() else [summary.relative_to(root).as_posix()]
+    missing_proof = [] if proof.exists() else [proof.relative_to(root).as_posix()]
+    return [
+        _final_check("No critical graph issues", critical_graph, "Graph validation has no critical findings."),
+        _final_check("No missing stage templates", missing_templates, "All required lifecycle stage templates exist."),
+        _final_check("No missing command docs", missing_command_docs, "Technical quick start documents the vNext command surface."),
+        _final_check("No missing evidence for completed tasks", missing_evidence, "Completed tasks reference registered evidence."),
+        _final_check("No unreviewed major changes", unreviewed_major, "Major release changes have review or governance coverage."),
+        _final_check("vNext proof pack generated", missing_proof, "vNext proof pack exists."),
+        _final_check("vNext release summary generated", missing_release_summary, "vNext release summary exists."),
+    ]
+
+
+def _vnext_final_report(target: str, checks: list[dict], proof: Path, summary: Path) -> str:
+    status = "blocked" if any(check["status"] != "PASS" for check in checks) else "ready"
+    lines = [
+        "---",
+        "type: vnext-final-readiness",
+        f"status: {status}",
+        f"target: {target}",
+        "---",
+        f"# vNext Final Readiness - {target}",
+        "",
+        "## Certification",
+        f"- Status: {status}",
+        f"- Proof pack: [[../proof-packs/{proof.stem}]]",
+        f"- Release summary: [[../releases/{summary.stem}]]",
+        "",
+        "## Gate Checks",
+        "",
+        "| Check | Status | Findings |",
+        "| --- | --- | --- |",
+    ]
+    for check in checks:
+        findings = "; ".join(check["findings"][:8]) if check["findings"] else check["pass_message"]
+        if len(check["findings"]) > 8:
+            findings += f"; ... {len(check['findings']) - 8} more"
+        lines.append(f"| {check['name']} | {check['status']} | {_escape_pipe(findings)} |")
+    lines.extend(
+        [
+            "",
+            "## Required Remediation",
+        ]
+    )
+    blockers = [check for check in checks if check["status"] != "PASS"]
+    if not blockers:
+        lines.append("- None. vNext is ready for release certification.")
+    else:
+        for check in blockers:
+            lines.append(f"- {check['name']}: resolve {len(check['findings'])} finding(s) before certifying vNext as ready.")
+    return "\n".join(lines) + "\n"
+
+
+def _final_check(name: str, findings: list[str], pass_message: str) -> dict:
+    return {
+        "name": name,
+        "status": "PASS" if not findings else "BLOCKED",
+        "findings": findings,
+        "pass_message": pass_message,
+    }
+
+
+def _missing_vnext_templates(root: Path) -> list[str]:
+    missing = []
+    for stage, artifacts, _commands, _role in _vnext_methodology_rows():
+        for rel in artifacts:
+            if not (root / rel).exists():
+                missing.append(f"{stage}: wiki/{rel}")
+    return missing
+
+
+def _missing_vnext_command_docs(repo_root: Path) -> list[str]:
+    quick_start = repo_root / "docs" / "technical-quick-start.md"
+    if not quick_start.exists():
+        return ["docs/technical-quick-start.md"]
+    text = quick_start.read_text(encoding="utf-8")
+    required = [
+        "`discover`",
+        "`canon`",
+        "`strategy`",
+        "`requirements`",
+        "`domain`",
+        "`architecture`",
+        "`roadmap`",
+        "`plan`",
+        "`build`",
+        "`validate`",
+        "`release`",
+        "`operate`",
+        "python3 tools/echel.py proof-pack --target vnext",
+        "python3 tools/echel.py vnext-final",
+    ]
+    return [item for item in required if item not in text]
+
+
+def _done_tasks_missing_evidence(repo_root: Path, cfg: ProjectConfig, root: Path) -> list[str]:
+    registry = ensure_registry(Path(repo_root) / cfg.evidence_registry)
+    known = set(registry.get("artifacts", {}).keys()) if isinstance(registry, dict) else set()
+    missing = []
+    for task in _tasks(root):
+        if task["status"] != "done":
+            continue
+        text = task["path"].read_text(encoding="utf-8", errors="ignore")
+        links = extract_evidence_links(text)
+        if not links:
+            missing.append(f"{task['id']}: no evidence reference")
+        else:
+            unknown = [link for link in links if link not in known]
+            if unknown:
+                missing.append(f"{task['id']}: unregistered evidence {', '.join(unknown)}")
+    return missing
+
+
+def _unreviewed_major_changes(root: Path) -> list[str]:
+    reviews = sorted((root / "reports" / "reviews").glob("*.md"))
+    if not reviews:
+        return ["No review reports found."]
+    open_checks = []
+    for review in reviews:
+        text = review.read_text(encoding="utf-8", errors="ignore")
+        if "- [ ]" in text:
+            open_checks.append(f"{review.relative_to(root).as_posix()} has open review checks")
+    return open_checks
+
+
+def _vnext_methodology_rows() -> list[tuple[str, list[str], str, str]]:
+    return [
+        ("Discovery", ["discovery/product-discovery-spec.md", "discovery/research-plan.md", "discovery/assumptions.md"], "discover, readiness --stage discovery", "Founder Interviewer"),
+        ("Canon", ["canon/product-canon.md", "canon/vision.md", "canon/product-principles.md", "canon/non-negotiables.md"], "canon, canon-drift", "Product Manager"),
+        ("Strategy", ["strategy/icp.md", "strategy/buyer-user-model.md", "strategy/market-wedge.md", "strategy/competitive-analysis.md", "strategy/positioning.md", "strategy/pricing-and-packaging.md", "strategy/pmf-evidence.md"], "strategy, strategy-readiness", "Product Strategist"),
+        ("Requirements", ["requirements/product-requirements.md", "requirements/functional-requirements.md", "requirements/non-functional-requirements.md", "requirements/mvp-scope.md", "requirements/out-of-scope.md", "requirements/acceptance-criteria.md"], "requirements, readiness --stage requirements", "Business Analyst"),
+        ("Domain", ["domain/domain-overview.md", "domain/ubiquitous-language.md", "domain/bounded-contexts.md", "domain/entities.md", "domain/aggregates.md", "domain/domain-events.md", "domain/workflows.md", "domain/policies-and-rules.md"], "domain, readiness --stage domain", "Domain Modeler"),
+        ("Architecture", ["architecture/overview.md", "architecture/context-map.md", "architecture/component-architecture.md", "architecture/data-architecture.md", "architecture/api-architecture.md", "architecture/event-architecture.md", "architecture/workflow-architecture.md", "architecture/security-architecture.md", "architecture/observability-architecture.md"], "architecture, readiness --stage architecture", "Solution Architect"),
+        ("Roadmap", ["roadmap/master-roadmap.md", "roadmap/mvp-roadmap.md", "roadmap/architecture-roadmap.md", "roadmap/engineering-roadmap.md", "roadmap/release-plan.md"], "plan, execution-tasks", "Delivery Planner"),
+        ("Execution", ["execution/phase-0-foundation.md", "execution/phase-1-mvp.md", "execution/phase-2-hardening.md", "execution/phase-3-production.md", "execution/phase-4-evolution.md", "work/TASK_INDEX.md"], "execution-tasks, packet, next", "Delivery Planner"),
+        ("Build", ["engineering/development-workflow.md", "engineering/local-development.md"], "repository-factory, build, review", "Implementation Agent"),
+        ("Validate", ["validation/test-strategy.md", "validation/acceptance-tests.md", "validation/integration-tests.md", "validation/e2e-tests.md", "validation/security-tests.md", "validation/performance-tests.md", "validation/validation-report.md"], "validate, evidence add", "QA Agent"),
+        ("Release", ["deployment/deployment-architecture.md", "deployment/environments.md", "deployment/release-process.md", "deployment/rollback-plan.md", "deployment/secrets-management.md", "deployment/production-checklist.md"], "readiness --stage release, proof-pack, release-summary", "Release Manager"),
+        ("Operate", ["operations/runbook.md", "operations/observability.md", "operations/incident-response.md", "operations/backup-and-recovery.md", "operations/sla-and-slo.md", "operations/change-management.md", "operations/evolution-backlog.md", "operations/learning-records.md"], "learning, learning add", "Operations Steward"),
+        ("Governance", ["governance/documentation-governance.md", "governance/architecture-governance.md", "governance/adr-process.md", "governance/traceability-model.md", "governance/quality-gates.md", "governance/repository-integrity-audit.md", "governance/contradictions.md", "governance/migration-compatibility.md"], "traceability, integrity audit, contradictions sync, migration compatibility", "Governance Auditor"),
+    ]
+
+
+def _escape_pipe(value: str) -> str:
+    return value.replace("|", "\\|").replace("\n", " ")
 
 
 def _format_tasks(tasks: list[dict]) -> str:

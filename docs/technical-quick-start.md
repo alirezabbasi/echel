@@ -180,9 +180,11 @@ python3 tools/echel.py readiness --target mvp
 python3 tools/echel.py proof-pack --target mvp
 python3 tools/echel.py proof-pack --target vnext
 python3 tools/echel.py release-summary --target mvp
+python3 tools/echel.py vnext-final
 ```
 
 The vNext proof pack at `wiki/reports/proof-packs/vnext-proof-pack.md` adds methodology coverage, command coverage, graph coverage, cockpit coverage, and remaining risk sections for final vNext certification.
+The final gate at `wiki/reports/readiness/vnext-final-readiness.md` checks critical graph issues, stage templates, command docs, completed-task evidence, unreviewed major changes, proof pack generation, and release summary generation. It returns non-zero when certification is blocked.
 
 ## Operator Commands
 

@@ -1,6 +1,6 @@
 ---
 type: task
-status: planned
+status: done
 stage: execution
 source_phase_task: EP4-005
 source_phase_file: execution/phase-4-evolution.md
@@ -82,22 +82,26 @@ python3 tools/echel.py doctor
 ## Documentation Updates
 - Update release docs and proof pack.
 
+## Evidence
+- EVID-TASK-0050-FINAL — final vNext readiness gate report at `wiki/reports/readiness/vnext-final-readiness.md`.
+
 ## Definition of Done
-- [ ] TASK-1020 satisfies source phase task EP4-005.
+- [x] TASK-1020 satisfies source phase task EP4-005.
 - [x] TASK-0047 README rewrite is complete.
 - [x] TASK-0048 vNext technical quick start is complete.
 - [x] TASK-0049 vNext proof pack is complete.
-- [ ] TASK-0050 final readiness gate is complete.
-- [ ] All acceptance criteria are met without broadening the task scope.
-- [ ] Required tests and validation command pass.
-- [ ] Relevant project memory and documentation are updated.
-- [ ] Changed files are limited to the task scope or explicitly justified in the task notes.
+- [x] TASK-0050 final readiness gate is complete.
+- [x] All acceptance criteria are met without broadening the task scope.
+- [x] Required tests and validation command pass.
+- [x] Relevant project memory and documentation are updated.
+- [x] Changed files are limited to the task scope or explicitly justified in the task notes.
 
 ## Progress Notes
 
 - 2026-07-13: TASK-0047 rewrote `README.md` around Echel as an AI-native Product-to-Repository Factory. The README now explains the discovery-to-operations lifecycle and distinguishes methodology, product memory, graph, cockpit, agents, evidence, and readiness. TASK-0048 remains responsible for the full vNext command quick start.
 - 2026-07-14: TASK-0048 added the vNext technical quick start in `docs/technical-quick-start.md`. The guide now shows `discover`, `canon`, `strategy`, `requirements`, `domain`, `architecture`, `roadmap`, `plan`, `build`, `validate`, `release`, and `operate` in order, with current Echel command equivalents and regression coverage. TASK-0049 is next for proof pack coverage, and TASK-0050 remains responsible for the final readiness gate.
 - 2026-07-14: TASK-0049 added the vNext proof pack path. `python3 tools/echel.py proof-pack --target vnext` now generates `wiki/reports/proof-packs/vnext-proof-pack.md` with methodology, command, graph, cockpit, and remaining-risk coverage. TASK-0050 remains responsible for final readiness certification.
+- 2026-07-14: TASK-0050 added `python3 tools/echel.py vnext-final`. The command generates `wiki/reports/readiness/vnext-final-readiness.md` and `wiki/reports/releases/vnext-release-summary.md`, then reports certification status across graph criticals, lifecycle templates, command docs, completed-task evidence, review coverage, proof pack generation, and release summary generation. TASK-1020 / EP4-005 is implementation-complete; the final gate records remaining certification blockers rather than hiding them.
 
 ## Out of Scope
 - Work from later execution phase rows.

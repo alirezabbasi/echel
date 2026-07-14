@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-07-13T16:54:57Z",
+  "generated_at": "2026-07-14T10:56:04Z",
   "nodes": [
     {
       "id": "architecture-component:ARCH-201",
@@ -1801,6 +1801,18 @@
       "confidence": "unknown",
       "source_stage": "domain",
       "verification_status": "unverified"
+    },
+    {
+      "id": "evidence:EVID-TASK-0050-FINAL",
+      "type": "evidence",
+      "title": "EVID-TASK-0050-FINAL",
+      "source": "wiki/reports/readiness/vnext-final-readiness.md",
+      "summary": "TASK-0050 final vNext release readiness proof",
+      "trace_id": "TASK-0050",
+      "statement_type": "fact",
+      "confidence": "unknown",
+      "source_stage": "validation",
+      "verification_status": "verified"
     },
     {
       "id": "evidence:EVID-VALIDATION-001",
@@ -17900,6 +17912,11 @@
       "from_id": "product:root",
       "to_id": "domain-workflow:WF-DM-211",
       "type": "defines"
+    },
+    {
+      "from_id": "product:root",
+      "to_id": "evidence:EVID-TASK-0050-FINAL",
+      "type": "has_evidence"
     },
     {
       "from_id": "product:root",

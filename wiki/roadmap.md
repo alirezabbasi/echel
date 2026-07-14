@@ -38,10 +38,11 @@ The vNext roadmap now lives in dedicated lifecycle artifacts:
 - Use updated initialization so new projects start with methodology-complete root `wiki/` lifecycle templates while Echel Core remains under `echel-core/`.
 - Use `docs/technical-quick-start.md` as the operator command sequence for the vNext lifecycle: `discover`, `canon`, `strategy`, `requirements`, `domain`, `architecture`, `roadmap`, `plan`, `build`, `validate`, `release`, and `operate`.
 - Use `python3 tools/echel.py proof-pack --target vnext` to generate the vNext proof pack with methodology, command, graph, cockpit, and remaining-risk coverage.
+- Use `python3 tools/echel.py vnext-final` to generate the final vNext readiness gate and release summary.
 
 ## Next
 
-- Add the final vNext readiness gate.
+- Resolve final vNext readiness blockers around historical evidence references and open review checks.
 - Connect canon statements more fully into graph-backed traceability.
 
 ## Later
