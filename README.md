@@ -8,7 +8,7 @@ Echel owns methodology and product truth. Hermes is the first supported multi-mo
 
 The accepted [Echel 2 product contract](docs/product/product-contract.md) defines both greenfield product creation and existing-project evolution, target audiences, responsibility boundaries, core scope, and explicit non-goals. The [ubiquitous language](docs/product/ubiquitous-language.md) gives every public Echel term one stable meaning and maps overloaded v1 language.
 
-The [greenfield reference journey](docs/product/greenfield-reference-journey.md) defines the first reproducible end-to-end scenario used to design and evaluate progressive product creation.
+The [greenfield reference journey](docs/product/greenfield-reference-journey.md) and [brownfield reference journey](docs/product/brownfield-reference-journey.md) define reproducible end-to-end scenarios used to design and evaluate progressive product creation and existing-product evolution.
 
 ## Why Echel changed
 
