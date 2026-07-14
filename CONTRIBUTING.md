@@ -33,6 +33,8 @@ git diff --check
 
 Report exact commands and results. A passing command is evidence, not automatic acceptance.
 
+Install the optional quality tools with `python -m pip install -e '.[quality]'` before running `make quality` or the individual typing, lint, packaging, and security targets. See the [quality baseline](docs/contributing/quality.md) for CI jobs, supported Python versions, and failure handling.
+
 ## Handoff
 
 Use the [pull-request template](.github/PULL_REQUEST_TEMPLATE.md) or provide the same information with a patch:

@@ -20,6 +20,8 @@ Foundational architecture choices are recorded in the [architecture decision ind
 
 Contributors should begin with [CONTRIBUTING.md](CONTRIBUTING.md); the complete [task-packet workflow](docs/contributing/task-workflow.md) and [task template](docs/contributing/task-packet-template.md) define how work is selected, executed, verified, reviewed, and accepted.
 
+The [quality baseline](docs/contributing/quality.md) documents local and CI checks across supported Python versions.
+
 ## Why Echel changed
 
 The first implementation proved that lifecycle knowledge, agent work packets, traceability, and verification could be connected. It also created the entire SDLC documentation structure upfront and represented the same truth through wiki pages, graph files, memory records, reports, and compatibility views. The machinery grew faster than the product knowledge it was meant to support.

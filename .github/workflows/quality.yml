@@ -1,0 +1,159 @@
+name: quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  unit:
+    name: unit / Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run unit tests
+        run: make unit
+
+  scenarios:
+    name: scenarios / Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run integration and contract scenarios
+        run: make scenarios
+
+  typing:
+    name: typing
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install typing tool
+        run: python -m pip install 'mypy>=1.11,<2'
+      - name: Check types
+        run: make typing
+
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install lint tool
+        run: python -m pip install 'ruff>=0.6,<1'
+      - name: Check source and tests
+        run: make lint
+
+  packaging:
+    name: packaging
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install packaging tools
+        run: python -m pip install 'build>=1.2,<2' 'twine>=5,<7'
+      - name: Build and inspect distributions
+        run: make package-check
+      - name: Install wheel and smoke test
+        run: |
+          python -m venv /tmp/echel-wheel-test
+          /tmp/echel-wheel-test/bin/python -m pip install --no-deps dist/*.whl
+          /tmp/echel-wheel-test/bin/echel lifecycle
+
+  security:
+    name: security
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install project and security scanner
+        run: python -m pip install -e . 'bandit>=1.7,<2'
+      - name: Scan source and validate environment
+        run: make security
+
+  dependency-review:
+    name: dependency review
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/dependency-review-action@v4
+
+  baseline:
+    name: required quality baseline
+    if: always()
+    needs: [unit, scenarios, typing, lint, packaging, security]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require all core jobs
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+
+          results = {name: data["result"] for name, data in json.loads(os.environ["NEEDS_JSON"]).items()}
+          failed = {name: result for name, result in results.items() if result != "success"}
+          print(json.dumps(results, indent=2, sort_keys=True))
+          if failed:
+              raise SystemExit(f"required jobs did not succeed: {failed}")
+          PY
