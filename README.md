@@ -16,6 +16,8 @@ The [benchmark suite](docs/product/benchmark-suite.md) selects three greenfield 
 
 The [evaluation metric specification](docs/product/evaluation-metrics.md) defines reproducible context, task-success, rework, onboarding, evidence, safety, and cost measurements for those scenarios.
 
+Foundational architecture choices are recorded in the [architecture decision index](docs/decisions/README.md), with consequences and replacement conditions kept explicit.
+
 ## Why Echel changed
 
 The first implementation proved that lifecycle knowledge, agent work packets, traceability, and verification could be connected. It also created the entire SDLC documentation structure upfront and represented the same truth through wiki pages, graph files, memory records, reports, and compatibility views. The machinery grew faster than the product knowledge it was meant to support.

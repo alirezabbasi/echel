@@ -4,7 +4,7 @@
 
 - Specification version: 1
 - Product version: Echel 2
-- Status: proposed for metric-contract review
+- Status: accepted
 - Authority: Echel maintainers
 - Last reviewed: 2026-07-15
 - Depends on: [Echel 2 benchmark suite](benchmark-suite.md)

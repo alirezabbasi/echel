@@ -18,6 +18,8 @@ class EvaluationMetricSpecificationTests(unittest.TestCase):
         cls.metrics = {item["id"]: item for item in cls.catalog["metrics"]}
 
     def test_required_metric_families_are_machine_readable(self):
+        self.assertIn("Status: accepted", self.text)
+        self.assertEqual(self.catalog["status"], "accepted")
         categories = {item["category"] for item in self.metrics.values()}
         self.assertEqual(categories, {"context", "task", "rework", "onboarding", "evidence"})
         for metric_id in (

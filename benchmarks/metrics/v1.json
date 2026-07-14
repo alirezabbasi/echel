@@ -2,7 +2,7 @@
   "schema_version": 1,
   "specification_id": "echel-2-metrics",
   "specification_version": 1,
-  "status": "proposed",
+  "status": "accepted",
   "metrics": [
     {"id": "CTX-PRECISION", "category": "context", "unit": "ratio", "direction": "higher", "numerator": "required_or_helpful_included", "denominator": "evaluable_included", "threshold": {"operator": ">=", "value": 0.80}},
     {"id": "CTX-RECALL", "category": "context", "unit": "ratio", "direction": "higher", "numerator": "required_included", "denominator": "required_candidates", "threshold": {"operator": ">=", "value": 0.95}},
