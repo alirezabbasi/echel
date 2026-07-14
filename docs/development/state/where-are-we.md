@@ -1,6 +1,6 @@
 # Where Are We
 
-Last updated: 2026-07-13
+Last updated: 2026-07-14
 
 ## Completed
 
@@ -71,10 +71,11 @@ Last updated: 2026-07-13
 - Updated initialization so new projects start with the methodology-complete root `wiki/` lifecycle surface while the Echel framework remains isolated under `echel-core/`.
 - Added generated-project vNext verification through `make verify-vnext-generated`, proving lifecycle structure, core command execution from `echel-core/`, and product-wiki separation.
 - Rewrote the README to present Echel as a complete AI-native Product-to-Repository Factory and to distinguish methodology, product memory, graph, cockpit, agents, evidence, and readiness.
+- Added the vNext technical quick start command sequence so the docs now show the full lifecycle order from `discover` through `operate`, including current Echel command equivalents for roadmap, planning, build, release, and operations handoff.
 
 ## Next
 
-1. Add the vNext technical quick start command sequence.
+1. Add the vNext proof pack coverage matrix.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 

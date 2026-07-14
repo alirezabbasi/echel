@@ -69,6 +69,27 @@ make verify-vnext-generated
 
 This initializes a scratch project, verifies the complete lifecycle `wiki/` at the product root, confirms `WIKI_ROOT` points from `echel-core/` to `../wiki`, and runs representative Echel commands from the generated core.
 
+## vNext Lifecycle Quick Start
+
+Run the product lifecycle in this order. The left column is the methodology verb an owner or agent should use when describing the work; the right column is the current Echel command surface that executes or verifies that step.
+
+| Order | Lifecycle command | Echel command |
+| --- | --- | --- |
+| 1 | `discover` | `python3 tools/echel.py discover` |
+| 2 | `canon` | `python3 tools/echel.py canon` |
+| 3 | `strategy` | `python3 tools/echel.py strategy` |
+| 4 | `requirements` | `python3 tools/echel.py requirements` |
+| 5 | `domain` | `python3 tools/echel.py domain` |
+| 6 | `architecture` | `python3 tools/echel.py architecture` |
+| 7 | `roadmap` | Review `wiki/roadmap/` after `python3 tools/echel.py readiness --stage architecture` passes |
+| 8 | `plan` | `python3 tools/echel.py execution-tasks` followed by `python3 tools/echel.py plan` when a product-owner work item is needed |
+| 9 | `build` | `python3 tools/echel.py repository-factory` then `python3 tools/echel.py build` |
+| 10 | `validate` | `python3 tools/echel.py validate` and `python3 tools/echel.py evidence add --id EVID-VALIDATION-001 --subject TEST-001 --kind validation-report --path wiki/reports/validation-summary.md --producer "QA Agent" --summary "Validation summary proof"` |
+| 11 | `release` | `python3 tools/echel.py readiness --stage release` then `python3 tools/echel.py release-summary --target mvp` |
+| 12 | `operate` | `python3 tools/echel.py learning` and `python3 tools/echel.py learning add --source-kind incident --title "..." --summary "..." --action task` |
+
+The sequence is intentionally gate-first: each stage consumes product memory from the prior stage, writes or verifies the next lifecycle surface, and leaves evidence that the following agent can inspect without relying on chat history.
+
 ## Product Commands
 
 ```bash
@@ -96,10 +117,13 @@ python3 tools/echel.py readiness --stage domain
 python3 tools/echel.py architecture
 python3 tools/echel.py readiness --stage architecture
 python3 tools/echel.py execution-tasks
+python3 tools/echel.py plan
 python3 tools/echel.py repository-factory
+python3 tools/echel.py build
 python3 tools/echel.py validate
 python3 tools/echel.py evidence add --id EVID-VALIDATION-001 --subject TEST-001 --kind validation-report --path wiki/reports/validation-summary.md --producer "QA Agent" --summary "Validation summary proof"
 python3 tools/echel.py readiness --stage release
+python3 tools/echel.py release-summary --target mvp
 python3 tools/echel.py learning
 python3 tools/echel.py learning add --source-kind incident --title "..." --summary "..." --action task
 ```

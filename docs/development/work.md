@@ -89,3 +89,4 @@
 - [x] TASK-0059 Rewrite README as product overview
 - [x] TASK-1019 Preserve migration compatibility
 - [x] TASK-0047 Rewrite README around Product-to-Repository Factory
+- [x] TASK-0048 Add vNext Technical Quick Start

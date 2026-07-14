@@ -1,6 +1,6 @@
 # Current State
 
-Last updated: 2026-07-13
+Last updated: 2026-07-14
 
 ## Completed
 
@@ -70,10 +70,11 @@ Last updated: 2026-07-13
 - Updated project initialization so generated projects now start with a methodology-complete root `wiki/` containing discovery, canon, strategy, requirements, domain, architecture, roadmap, execution, validation, deployment, operations, governance, engineering, agents, and work templates while Echel Core remains under `echel-core/`.
 - Added `make verify-vnext-generated` and `tools/verify_vnext_generated_project.py` to prove generated projects pass lifecycle structure checks, run Echel commands from `echel-core/`, and keep product `wiki/` outside Echel Core.
 - Rewrote the README around Echel as an AI-native Product-to-Repository Factory, with the discovery-to-operations lifecycle and operating surfaces made explicit.
+- Added the vNext technical quick start sequence in `docs/technical-quick-start.md`, ordering the lifecycle as `discover`, `canon`, `strategy`, `requirements`, `domain`, `architecture`, `roadmap`, `plan`, `build`, `validate`, `release`, and `operate` with current Echel command equivalents.
 
 ## Next
 
-1. Add the vNext technical quick start command sequence.
+1. Add the vNext proof pack coverage matrix.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 

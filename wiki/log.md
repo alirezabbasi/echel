@@ -465,3 +465,9 @@ status: active
 - Added the discovery-to-operations lifecycle and separated methodology, product memory, graph, cockpit, agents, evidence, and readiness as distinct operating surfaces.
 - Preserved root `wiki/` and `echel-core/` ownership guidance for generated projects.
 - TASK-0047 is complete; TASK-0048 vNext technical quick start is next.
+
+## [2026-07-14] documentation | vnext-technical-quick-start
+- Added the vNext lifecycle quick start sequence to `docs/technical-quick-start.md`.
+- The guide now shows `discover`, `canon`, `strategy`, `requirements`, `domain`, `architecture`, `roadmap`, `plan`, `build`, `validate`, `release`, and `operate` in methodology order with the current executable Echel commands or command-backed handoffs for each stage.
+- Added regression coverage that keeps the ordered quick start command surface present.
+- TASK-0048 is complete; TASK-0049 vNext proof pack is next.

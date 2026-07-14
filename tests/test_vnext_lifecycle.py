@@ -1540,5 +1540,53 @@ class ReadmeVNextTests(unittest.TestCase):
                 self.assertIn(phrase, text)
 
 
+class TechnicalQuickStartVNextTests(unittest.TestCase):
+    def test_quick_start_shows_vnext_lifecycle_commands_in_order(self) -> None:
+        text = (ROOT / "docs/technical-quick-start.md").read_text(encoding="utf-8")
+
+        required_order = [
+            "`discover`",
+            "`canon`",
+            "`strategy`",
+            "`requirements`",
+            "`domain`",
+            "`architecture`",
+            "`roadmap`",
+            "`plan`",
+            "`build`",
+            "`validate`",
+            "`release`",
+            "`operate`",
+        ]
+
+        positions = []
+        for command in required_order:
+            with self.subTest(command=command):
+                index = text.find(command)
+                self.assertNotEqual(index, -1)
+                positions.append(index)
+        self.assertEqual(positions, sorted(positions))
+
+        command_examples = [
+            "python3 tools/echel.py discover",
+            "python3 tools/echel.py canon",
+            "python3 tools/echel.py strategy",
+            "python3 tools/echel.py requirements",
+            "python3 tools/echel.py domain",
+            "python3 tools/echel.py architecture",
+            "python3 tools/echel.py execution-tasks",
+            "python3 tools/echel.py plan",
+            "python3 tools/echel.py repository-factory",
+            "python3 tools/echel.py build",
+            "python3 tools/echel.py validate",
+            "python3 tools/echel.py readiness --stage release",
+            "python3 tools/echel.py release-summary --target mvp",
+            "python3 tools/echel.py learning",
+        ]
+        for command in command_examples:
+            with self.subTest(command=command):
+                self.assertIn(command, text)
+
+
 if __name__ == "__main__":
     unittest.main()
