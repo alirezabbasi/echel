@@ -4,7 +4,7 @@
 
 - Suite version: 1
 - Product version: Echel 2
-- Status: proposed for benchmark-selection review
+- Status: accepted
 - Authority: Echel maintainers
 - Last reviewed: 2026-07-15
 - Depends on: [Greenfield reference journey](greenfield-reference-journey.md) and [brownfield reference journey](brownfield-reference-journey.md)

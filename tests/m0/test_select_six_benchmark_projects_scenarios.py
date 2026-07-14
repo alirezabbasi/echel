@@ -21,6 +21,7 @@ class BenchmarkSelectionTests(unittest.TestCase):
         ]
 
     def test_catalog_has_exactly_three_scenarios_per_entry_mode(self):
+        self.assertIn("Status: accepted", self.contract)
         self.assertEqual(len(self.manifests), 6)
         self.assertEqual(sum(item["mode"] == "greenfield" for item in self.manifests), 3)
         self.assertEqual(sum(item["mode"] == "brownfield" for item in self.manifests), 3)

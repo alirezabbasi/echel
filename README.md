@@ -14,6 +14,8 @@ The [responsibility and authority contract](docs/product/responsibility-matrix.m
 
 The [benchmark suite](docs/product/benchmark-suite.md) selects three greenfield and three brownfield scenarios used to compare Echel’s methodology, context quality, execution portability, and long-term learning.
 
+The [evaluation metric specification](docs/product/evaluation-metrics.md) defines reproducible context, task-success, rework, onboarding, evidence, safety, and cost measurements for those scenarios.
+
 ## Why Echel changed
 
 The first implementation proved that lifecycle knowledge, agent work packets, traceability, and verification could be connected. It also created the entire SDLC documentation structure upfront and represented the same truth through wiki pages, graph files, memory records, reports, and compatibility views. The machinery grew faster than the product knowledge it was meant to support.
