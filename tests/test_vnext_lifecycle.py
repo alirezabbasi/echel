@@ -32,6 +32,7 @@ from echel.memory_kernel import append_record
 from echel.platform.cockpit import cockpit_snapshot, run_cockpit_command
 from echel.requirements import ensure_requirements_files, requirements_generate, requirements_status
 from echel.repository_factory import repository_factory_generate, repository_factory_status
+from echel.readiness import proof_pack
 from echel.strategy import strategy_generate, ensure_strategy_files
 from echel.traceability import traceability_matrix_report, write_traceability_matrix
 from echel.validation import run_validation
@@ -1586,6 +1587,48 @@ class TechnicalQuickStartVNextTests(unittest.TestCase):
         for command in command_examples:
             with self.subTest(command=command):
                 self.assertIn(command, text)
+
+
+class VNextProofPackTests(unittest.TestCase):
+    def test_vnext_proof_pack_includes_required_coverage_sections(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            cfg = load_config(repo)
+
+            path = proof_pack(repo, cfg, target="vnext")
+            text = path.read_text(encoding="utf-8")
+
+            required_sections = [
+                "## Methodology Coverage Matrix",
+                "## Command Coverage",
+                "## Graph Coverage",
+                "## Cockpit Coverage",
+                "## Remaining Risks",
+            ]
+            for section in required_sections:
+                with self.subTest(section=section):
+                    self.assertIn(section, text)
+
+            required_lifecycle_commands = [
+                "`discover`",
+                "`canon`",
+                "`strategy`",
+                "`requirements`",
+                "`domain`",
+                "`architecture`",
+                "`roadmap`",
+                "`plan`",
+                "`build`",
+                "`validate`",
+                "`release`",
+                "`operate`",
+            ]
+            for command in required_lifecycle_commands:
+                with self.subTest(command=command):
+                    self.assertIn(command, text)
+
+            self.assertIn("| Release |", text)
+            self.assertIn("| Governance |", text)
 
 
 if __name__ == "__main__":

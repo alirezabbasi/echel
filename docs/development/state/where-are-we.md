@@ -72,10 +72,11 @@ Last updated: 2026-07-14
 - Added generated-project vNext verification through `make verify-vnext-generated`, proving lifecycle structure, core command execution from `echel-core/`, and product-wiki separation.
 - Rewrote the README to present Echel as a complete AI-native Product-to-Repository Factory and to distinguish methodology, product memory, graph, cockpit, agents, evidence, and readiness.
 - Added the vNext technical quick start command sequence so the docs now show the full lifecycle order from `discover` through `operate`, including current Echel command equivalents for roadmap, planning, build, release, and operations handoff.
+- Added the vNext proof pack so `python3 tools/echel.py proof-pack --target vnext` writes methodology coverage, command coverage, graph coverage, cockpit coverage, and remaining risks into one certification artifact.
 
 ## Next
 
-1. Add the vNext proof pack coverage matrix.
+1. Add the final vNext readiness gate.
 2. Expand release readiness into production operation checks once operations gates are implemented.
 3. Continue hardening graph-backed traceability around canon statements and evidence coverage.
 

@@ -471,3 +471,14 @@ status: active
 - The guide now shows `discover`, `canon`, `strategy`, `requirements`, `domain`, `architecture`, `roadmap`, `plan`, `build`, `validate`, `release`, and `operate` in methodology order with the current executable Echel commands or command-backed handoffs for each stage.
 - Added regression coverage that keeps the ordered quick start command surface present.
 - TASK-0048 is complete; TASK-0049 vNext proof pack is next.
+
+## [2026-07-14] readiness | readiness
+- Generated readiness report [[reports/readiness/vnext-readiness]].
+
+## [2026-07-14] proof-pack | readiness
+- Generated proof pack [[reports/proof-packs/vnext-proof-pack]].
+
+## [2026-07-14] documentation | vnext-proof-pack
+- Extended `python3 tools/echel.py proof-pack --target vnext` with methodology, command, graph, cockpit, and remaining-risk coverage.
+- Generated [[reports/proof-packs/vnext-proof-pack]] as the vNext certification proof artifact.
+- TASK-0049 is complete; TASK-0050 final vNext readiness gate is next.

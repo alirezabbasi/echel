@@ -178,8 +178,11 @@ python3 tools/echel.py link --from <node-id> --to <node-id>
 python3 tools/echel.py milestone --name "MVP" --kind release
 python3 tools/echel.py readiness --target mvp
 python3 tools/echel.py proof-pack --target mvp
+python3 tools/echel.py proof-pack --target vnext
 python3 tools/echel.py release-summary --target mvp
 ```
+
+The vNext proof pack at `wiki/reports/proof-packs/vnext-proof-pack.md` adds methodology coverage, command coverage, graph coverage, cockpit coverage, and remaining risk sections for final vNext certification.
 
 ## Operator Commands
 

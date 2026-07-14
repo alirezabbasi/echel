@@ -86,7 +86,7 @@ python3 tools/echel.py doctor
 - [ ] TASK-1020 satisfies source phase task EP4-005.
 - [x] TASK-0047 README rewrite is complete.
 - [x] TASK-0048 vNext technical quick start is complete.
-- [ ] TASK-0049 vNext proof pack is complete.
+- [x] TASK-0049 vNext proof pack is complete.
 - [ ] TASK-0050 final readiness gate is complete.
 - [ ] All acceptance criteria are met without broadening the task scope.
 - [ ] Required tests and validation command pass.
@@ -97,6 +97,7 @@ python3 tools/echel.py doctor
 
 - 2026-07-13: TASK-0047 rewrote `README.md` around Echel as an AI-native Product-to-Repository Factory. The README now explains the discovery-to-operations lifecycle and distinguishes methodology, product memory, graph, cockpit, agents, evidence, and readiness. TASK-0048 remains responsible for the full vNext command quick start.
 - 2026-07-14: TASK-0048 added the vNext technical quick start in `docs/technical-quick-start.md`. The guide now shows `discover`, `canon`, `strategy`, `requirements`, `domain`, `architecture`, `roadmap`, `plan`, `build`, `validate`, `release`, and `operate` in order, with current Echel command equivalents and regression coverage. TASK-0049 is next for proof pack coverage, and TASK-0050 remains responsible for the final readiness gate.
+- 2026-07-14: TASK-0049 added the vNext proof pack path. `python3 tools/echel.py proof-pack --target vnext` now generates `wiki/reports/proof-packs/vnext-proof-pack.md` with methodology, command, graph, cockpit, and remaining-risk coverage. TASK-0050 remains responsible for final readiness certification.
 
 ## Out of Scope
 - Work from later execution phase rows.

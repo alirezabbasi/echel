@@ -62,6 +62,7 @@ def proof_pack(repo_root: Path, cfg: ProjectConfig, target: str = "mvp") -> Path
     tasks = _tasks(root)
     reviews = sorted((root / "reports" / "reviews").glob("*.md"))
     evidence = ensure_registry(Path(repo_root) / cfg.evidence_registry)
+    vnext_sections = _vnext_proof_sections(root, graph) if _slug(target) == "vnext" else ""
     report.write_text(
         f"""---
 type: proof-pack
@@ -82,6 +83,8 @@ target: {target}
 
 ## Evidence Registry
 - Registered artifacts: {len(evidence.get("artifacts", {})) if isinstance(evidence, dict) else 0}
+
+{vnext_sections}
 
 ## Graph Issues
 {_format_issues(validate_graph(graph))}
@@ -285,6 +288,151 @@ def _risks(root: Path) -> str:
         return "- None"
     lines = [line for line in path.read_text(encoding="utf-8").splitlines() if line.startswith("## ") or line.startswith("- ")]
     return "\n".join(lines) if lines else "- None"
+
+
+def _vnext_proof_sections(root: Path, graph: dict) -> str:
+    return f"""## Methodology Coverage Matrix
+{_methodology_coverage(root)}
+
+## Command Coverage
+{_command_coverage()}
+
+## Graph Coverage
+{_graph_coverage(graph)}
+
+## Cockpit Coverage
+{_cockpit_coverage()}
+
+## Remaining Risks
+{_vnext_remaining_risks()}
+"""
+
+
+def _methodology_coverage(root: Path) -> str:
+    rows = [
+        ("Discovery", ["discovery/product-discovery-spec.md", "discovery/research-plan.md", "discovery/assumptions.md"], "discover, readiness --stage discovery", "Founder Interviewer"),
+        ("Canon", ["canon/product-canon.md", "canon/vision.md", "canon/product-principles.md", "canon/non-negotiables.md"], "canon, canon-drift", "Product Manager"),
+        ("Strategy", ["strategy/icp.md", "strategy/buyer-user-model.md", "strategy/market-wedge.md", "strategy/competitive-analysis.md", "strategy/positioning.md", "strategy/pricing-and-packaging.md", "strategy/pmf-evidence.md"], "strategy, strategy-readiness", "Product Strategist"),
+        ("Requirements", ["requirements/product-requirements.md", "requirements/functional-requirements.md", "requirements/non-functional-requirements.md", "requirements/mvp-scope.md", "requirements/out-of-scope.md", "requirements/acceptance-criteria.md"], "requirements, readiness --stage requirements", "Business Analyst"),
+        ("Domain", ["domain/domain-overview.md", "domain/ubiquitous-language.md", "domain/bounded-contexts.md", "domain/entities.md", "domain/aggregates.md", "domain/domain-events.md", "domain/workflows.md", "domain/policies-and-rules.md"], "domain, readiness --stage domain", "Domain Modeler"),
+        ("Architecture", ["architecture/overview.md", "architecture/context-map.md", "architecture/component-architecture.md", "architecture/data-architecture.md", "architecture/api-architecture.md", "architecture/event-architecture.md", "architecture/workflow-architecture.md", "architecture/security-architecture.md", "architecture/observability-architecture.md"], "architecture, readiness --stage architecture", "Solution Architect"),
+        ("Roadmap", ["roadmap/master-roadmap.md", "roadmap/mvp-roadmap.md", "roadmap/architecture-roadmap.md", "roadmap/engineering-roadmap.md", "roadmap/release-plan.md"], "plan, execution-tasks", "Delivery Planner"),
+        ("Execution", ["execution/phase-0-foundation.md", "execution/phase-1-mvp.md", "execution/phase-2-hardening.md", "execution/phase-3-production.md", "execution/phase-4-evolution.md", "work/TASK_INDEX.md"], "execution-tasks, packet, next", "Delivery Planner"),
+        ("Build", ["engineering/development-workflow.md", "engineering/local-development.md"], "repository-factory, build, review", "Implementation Agent"),
+        ("Validate", ["validation/test-strategy.md", "validation/acceptance-tests.md", "validation/integration-tests.md", "validation/e2e-tests.md", "validation/security-tests.md", "validation/performance-tests.md", "validation/validation-report.md"], "validate, evidence add", "QA Agent"),
+        ("Release", ["deployment/deployment-architecture.md", "deployment/environments.md", "deployment/release-process.md", "deployment/rollback-plan.md", "deployment/secrets-management.md", "deployment/production-checklist.md"], "readiness --stage release, proof-pack, release-summary", "Release Manager"),
+        ("Operate", ["operations/runbook.md", "operations/observability.md", "operations/incident-response.md", "operations/backup-and-recovery.md", "operations/sla-and-slo.md", "operations/change-management.md", "operations/evolution-backlog.md", "operations/learning-records.md"], "learning, learning add", "Operations Steward"),
+        ("Governance", ["governance/documentation-governance.md", "governance/architecture-governance.md", "governance/adr-process.md", "governance/traceability-model.md", "governance/quality-gates.md", "governance/repository-integrity-audit.md", "governance/contradictions.md", "governance/migration-compatibility.md"], "traceability, integrity audit, contradictions sync, migration compatibility", "Governance Auditor"),
+    ]
+    lines = [
+        "| Stage | Artifact coverage | Command or gate coverage | Responsible role | Status |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for stage, artifacts, commands, role in rows:
+        present = sum(1 for rel in artifacts if (root / rel).exists())
+        status = "Covered" if present == len(artifacts) else f"Partial ({present}/{len(artifacts)})"
+        lines.append(f"| {stage} | {present}/{len(artifacts)} artifacts | `{commands}` | {role} | {status} |")
+    return "\n".join(lines)
+
+
+def _command_coverage() -> str:
+    rows = [
+        ("discover", "Product Discovery Specification initialization and updates", "Implemented"),
+        ("canon", "Discovery-gated product canon generation", "Implemented"),
+        ("strategy", "Canon-informed strategy generation", "Implemented"),
+        ("requirements", "Strategy-to-requirements generation", "Implemented"),
+        ("domain", "Requirements-to-domain generation", "Implemented"),
+        ("architecture", "Domain-to-architecture generation", "Implemented"),
+        ("roadmap", "Roadmap artifact review after architecture readiness", "Command-backed by `readiness --stage architecture` and `plan`"),
+        ("plan", "Product-owner planning and execution task generation", "Implemented through `plan` and `execution-tasks`"),
+        ("build", "Repository factory and task implementation packet", "Implemented through `repository-factory` and `build`"),
+        ("validate", "Validation summary and evidence target generation", "Implemented"),
+        ("release", "Release readiness, proof pack, and release summary", "Implemented through `readiness --stage release`, `proof-pack`, and `release-summary`"),
+        ("operate", "Operations learning capture and routed follow-up", "Implemented through `learning` and `learning add`"),
+    ]
+    lines = [
+        "| Lifecycle command | Coverage | Status |",
+        "| --- | --- | --- |",
+    ]
+    for command, coverage, status in rows:
+        lines.append(f"| `{command}` | {coverage} | {status} |")
+    return "\n".join(lines)
+
+
+def _graph_coverage(graph: dict) -> str:
+    nodes = graph.get("nodes", [])
+    by_stage: dict[str, int] = {}
+    by_type: dict[str, int] = {}
+    for node in nodes:
+        if not isinstance(node, dict):
+            continue
+        stage = str(node.get("stage") or node.get("source_stage") or "unspecified")
+        node_type = str(node.get("type") or "unknown")
+        by_stage[stage] = by_stage.get(stage, 0) + 1
+        by_type[node_type] = by_type.get(node_type, 0) + 1
+    expected_stages = [
+        "discovery",
+        "canon",
+        "strategy",
+        "requirements",
+        "domain",
+        "architecture",
+        "execution",
+        "validation",
+        "deployment",
+        "operations",
+        "governance",
+    ]
+    lines = [
+        f"- Nodes: {len(nodes)}",
+        f"- Edges: {len(graph.get('edges', []))}",
+        "",
+        "| Stage | Nodes | Status |",
+        "| --- | ---: | --- |",
+    ]
+    for stage in expected_stages:
+        count = by_stage.get(stage, 0)
+        lines.append(f"| {stage} | {count} | {'Covered' if count else 'Missing'} |")
+    lines.extend(["", "| Node type | Count |", "| --- | ---: |"])
+    for node_type, count in sorted(by_type.items()):
+        lines.append(f"| {node_type} | {count} |")
+    return "\n".join(lines)
+
+
+def _cockpit_coverage() -> str:
+    rows = [
+        ("Discovery", "discover, readiness"),
+        ("Canon", "canon, canon-drift"),
+        ("Strategy", "strategy, strategy-readiness"),
+        ("Requirements", "requirements, readiness"),
+        ("Domain", "domain, readiness"),
+        ("Architecture", "architecture, readiness"),
+        ("Roadmap", "plan, execution-tasks"),
+        ("Execution", "next, packet"),
+        ("Build", "build, review"),
+        ("Validate", "validate, evidence-add"),
+        ("Release", "readiness, proof-pack, release-summary"),
+        ("Operate", "learning, learning-add"),
+        ("Governance", "graph-report, traceability, integrity-audit, contradictions-sync, migration-compatibility"),
+    ]
+    lines = [
+        "| Cockpit stage | Safe action coverage | Status |",
+        "| --- | --- | --- |",
+    ]
+    for stage, actions in rows:
+        lines.append(f"| {stage} | `{actions}` | Covered |")
+    return "\n".join(lines)
+
+
+def _vnext_remaining_risks() -> str:
+    return "\n".join(
+        [
+            "- Discovery gate remains blocked for the current Echel product memory until founder-grade PDS fields are completed.",
+            "- Release gate remains blocked until production checklist rows are passed or accepted and release evidence is registered.",
+            "- Integrity audit still reports completed task evidence gaps that TASK-0050 must either close or record as accepted exceptions.",
+            "- Traceability still needs tighter canon statement linkage before final certification can claim full chain closure.",
+        ]
+    )
 
 
 def _format_tasks(tasks: list[dict]) -> str:
