@@ -24,6 +24,8 @@ The [quality baseline](docs/contributing/quality.md) documents local and CI chec
 
 The [core record schema reference](docs/reference/core-schemas.md) defines Echel’s versioned canonical entity contracts and forward-compatible extension rules.
 
+The [domain value-object reference](docs/reference/domain-value-objects.md) documents typed identifiers, revisions, confidence, status vocabularies, and stable validation failures.
+
 ## Why Echel changed
 
 The first implementation proved that lifecycle knowledge, agent work packets, traceability, and verification could be connected. It also created the entire SDLC documentation structure upfront and represented the same truth through wiki pages, graph files, memory records, reports, and compatibility views. The machinery grew faster than the product knowledge it was meant to support.
