@@ -55,7 +55,7 @@ The quality dependency ranges are centralized under the `quality` optional depen
 - Checkout does not persist credentials.
 - Jobs use supported GitHub-maintained action major versions and bounded timeouts.
 - Pull requests never execute deployment or release behavior.
-- Source tests require no network or project dependency installation.
+- CI installs declared project dependencies before source tests; test execution itself uses no network.
 - Quality tools execute against repository source but their output is evidence only; scanners cannot accept findings or mutate product knowledge.
 - Bandit blocks medium/high-severity findings at medium-or-higher confidence. Low-severity findings remain review inputs and become explicit tasks when their threat context warrants change.
 - Concurrency cancels superseded runs on the same ref, while GitHub retains their terminal evidence.

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.echel.dev/v1/record.schema.json",
+  "title": "Echel canonical record v1",
+  "oneOf": [
+    {"$ref": "#/$defs/project"}, {"$ref": "#/$defs/claim"},
+    {"$ref": "#/$defs/decision"}, {"$ref": "#/$defs/artifact"},
+    {"$ref": "#/$defs/relationship"}, {"$ref": "#/$defs/finding"},
+    {"$ref": "#/$defs/workItem"}, {"$ref": "#/$defs/taskSpecification"},
+    {"$ref": "#/$defs/run"}, {"$ref": "#/$defs/evidence"},
+    {"$ref": "#/$defs/release"}, {"$ref": "#/$defs/learning"}
+  ],
+  "$defs": {
+    "identifier": {"type": "string", "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9][A-Za-z0-9._-]*$", "maxLength": 160},
+    "nonEmpty": {"type": "string", "minLength": 1},
+    "identifierList": {"type": "array", "items": {"$ref": "#/$defs/identifier"}, "uniqueItems": true},
+    "provenance": {
+      "type": "object",
+      "required": ["actor", "origin", "method"],
+      "properties": {
+        "actor": {"$ref": "#/$defs/nonEmpty"},
+        "origin": {"$ref": "#/$defs/nonEmpty"},
+        "method": {"enum": ["human", "import", "inference", "runtime", "system"]},
+        "source_refs": {"$ref": "#/$defs/identifierList"}
+      },
+      "additionalProperties": false
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"},
+      "additionalProperties": true
+    },
+    "envelope": {
+      "type": "object",
+      "required": ["schema_version", "record_type", "id", "revision", "created_at", "updated_at", "provenance"],
+      "properties": {
+        "schema_version": {"const": 1},
+        "record_type": {"type": "string"},
+        "id": {"$ref": "#/$defs/identifier"},
+        "revision": {"type": "integer", "minimum": 1},
+        "created_at": {"type": "string", "format": "date-time"},
+        "updated_at": {"type": "string", "format": "date-time"},
+        "provenance": {"$ref": "#/$defs/provenance"},
+        "extensions": {"$ref": "#/$defs/extensions"}
+      }
+    },
+    "project": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["name", "mode", "maturity"],
+      "properties": {"record_type": {"const": "project"}, "name": {"$ref": "#/$defs/nonEmpty"}, "mode": {"enum": ["idea", "repository"]}, "maturity": {"$ref": "#/$defs/nonEmpty"}},
+      "unevaluatedProperties": false
+    },
+    "claim": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["statement", "status", "confidence"],
+      "properties": {"record_type": {"const": "claim"}, "statement": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["proposed", "accepted", "rejected", "superseded"]}, "confidence": {"type": "number", "minimum": 0, "maximum": 1}},
+      "unevaluatedProperties": false
+    },
+    "decision": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["title", "outcome", "status"],
+      "properties": {"record_type": {"const": "decision"}, "title": {"$ref": "#/$defs/nonEmpty"}, "outcome": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["proposed", "accepted", "rejected", "superseded"]}, "alternatives": {"type": "array", "items": {"type": "string"}}},
+      "unevaluatedProperties": false
+    },
+    "artifact": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["kind", "uri", "digest"],
+      "properties": {"record_type": {"const": "artifact"}, "kind": {"$ref": "#/$defs/nonEmpty"}, "uri": {"$ref": "#/$defs/nonEmpty"}, "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}},
+      "unevaluatedProperties": false
+    },
+    "relationship": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["source", "predicate", "target"],
+      "properties": {"record_type": {"const": "relationship"}, "source": {"$ref": "#/$defs/identifier"}, "predicate": {"$ref": "#/$defs/nonEmpty"}, "target": {"$ref": "#/$defs/identifier"}},
+      "unevaluatedProperties": false
+    },
+    "finding": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["kind", "statement", "status", "severity"],
+      "properties": {"record_type": {"const": "finding"}, "kind": {"$ref": "#/$defs/nonEmpty"}, "statement": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["open", "accepted", "resolved", "dismissed"]}, "severity": {"enum": ["info", "warning", "error", "critical"]}, "affects": {"$ref": "#/$defs/identifierList"}},
+      "unevaluatedProperties": false
+    },
+    "workItem": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["title", "objective", "status", "priority"],
+      "properties": {"record_type": {"const": "work_item"}, "title": {"$ref": "#/$defs/nonEmpty"}, "objective": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["planned", "ready", "in_progress", "review", "done", "blocked", "cancelled"]}, "priority": {"enum": ["P0", "P1", "P2", "P3"]}, "depends_on": {"$ref": "#/$defs/identifierList"}, "acceptance": {"type": "array", "items": {"$ref": "#/$defs/nonEmpty"}}},
+      "unevaluatedProperties": false
+    },
+    "taskSpecification": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["work_item", "objective", "instructions", "acceptance", "verification"],
+      "properties": {"record_type": {"const": "task_specification"}, "revision": {"const": 1}, "work_item": {"$ref": "#/$defs/identifier"}, "objective": {"$ref": "#/$defs/nonEmpty"}, "instructions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/nonEmpty"}}, "acceptance": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/nonEmpty"}}, "verification": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/nonEmpty"}}},
+      "unevaluatedProperties": false
+    },
+    "run": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["task_specification", "runtime", "status"],
+      "properties": {"record_type": {"const": "run"}, "task_specification": {"$ref": "#/$defs/identifier"}, "runtime": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["created", "running", "cancelled", "failed", "succeeded"]}, "context_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}},
+      "unevaluatedProperties": false
+    },
+    "evidence": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["subject", "kind", "summary", "result"],
+      "properties": {"record_type": {"const": "evidence"}, "subject": {"$ref": "#/$defs/identifier"}, "kind": {"$ref": "#/$defs/nonEmpty"}, "summary": {"$ref": "#/$defs/nonEmpty"}, "result": {"enum": ["pass", "fail", "inconclusive"]}, "artifact": {"$ref": "#/$defs/identifier"}},
+      "unevaluatedProperties": false
+    },
+    "release": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["version", "status", "artifacts"],
+      "properties": {"record_type": {"const": "release"}, "version": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["planned", "candidate", "released", "withdrawn"]}, "artifacts": {"$ref": "#/$defs/identifierList"}, "evidence": {"$ref": "#/$defs/identifierList"}},
+      "unevaluatedProperties": false
+    },
+    "learning": {
+      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "required": ["observation", "implication", "status"],
+      "properties": {"record_type": {"const": "learning"}, "observation": {"$ref": "#/$defs/nonEmpty"}, "implication": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["proposed", "accepted", "rejected", "applied"]}, "evidence": {"$ref": "#/$defs/identifierList"}},
+      "unevaluatedProperties": false
+    }
+  }
+}

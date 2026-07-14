@@ -11,7 +11,7 @@ requires-python = ">=3.11"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [{name = "Echel contributors"}]
-dependencies = []
+dependencies = ["jsonschema>=4.23,<5"]
 
 [project.optional-dependencies]
 quality = [
@@ -20,6 +20,7 @@ quality = [
     "mypy>=1.11,<2",
     "ruff>=0.6,<1",
     "twine>=5,<7",
+    "types-jsonschema>=4.23,<5",
 ]
 
 [project.scripts]
