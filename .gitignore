@@ -2,6 +2,7 @@
 .venv/
 .obsidian/
 v1/
+echelit/
 __pycache__/
 *.pyc
 *.egg-info/
