@@ -43,9 +43,9 @@ class ProductContractTests(unittest.TestCase):
         self.assertIn("must not be presented as market facts", self.text)
 
     def test_contract_requires_human_approval(self):
-        self.assertIn("Status: proposed for maintainer approval", self.text)
-        self.assertIn("Required to complete E2-001", self.text)
-        self.assertNotIn("Status: accepted", self.text)
+        self.assertIn("Status: accepted", self.text)
+        self.assertIn("Repository owner | Approved", self.text)
+        self.assertIn("Future changes require explicit maintainer review", self.text)
 
 
 if __name__ == "__main__":

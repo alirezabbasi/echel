@@ -6,7 +6,7 @@ It starts with one raw idea, asks only the questions required by the current sta
 
 Echel owns methodology and product truth. Hermes is the first supported multi-model agent runtime; it owns sessions, tools, delegation, and model execution.
 
-The proposed [Echel 2 product contract](docs/product/product-contract.md) defines both greenfield product creation and existing-project evolution, target audiences, responsibility boundaries, core scope, explicit non-goals, and approval criteria.
+The accepted [Echel 2 product contract](docs/product/product-contract.md) defines both greenfield product creation and existing-project evolution, target audiences, responsibility boundaries, core scope, and explicit non-goals. The [ubiquitous language](docs/product/ubiquitous-language.md) gives every public Echel term one stable meaning and maps overloaded v1 language.
 
 ## Why Echel changed
 

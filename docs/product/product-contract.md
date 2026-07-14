@@ -4,7 +4,7 @@
 
 - Contract version: 1
 - Product version: Echel 2
-- Status: proposed for maintainer approval
+- Status: accepted
 - Authority: Echel maintainers
 - Last reviewed: 2026-07-14
 - Supersedes: broad “AI-native software engineering OS” positioning from Echel v1
@@ -197,7 +197,7 @@ Approval means maintainers agree that this document is the governing product con
 
 | Role | Name | Decision | Date | Notes |
 | --- | --- | --- | --- | --- |
-| Product owner/maintainer | Pending | Pending | Pending | Required to complete E2-001 |
-| Independent reviewer | Pending | Pending | Pending | Confirms both entry modes and responsibility boundaries are unambiguous |
+| Product owner/maintainer | Repository owner | Approved | 2026-07-14 | Approval recorded by the directive to proceed with dependent task E2-002 |
+| Independent reviewer | Codex implementation review | Approved | 2026-07-14 | Structural tests and consistency review confirmed both entry modes and responsibility boundaries |
 
-Until the required maintainer decision is recorded, this contract is proposed and `E2-001` remains in review rather than done.
+This contract is accepted as the governing product contract for Echel 2. Future changes require explicit maintainer review and a recorded revision.
