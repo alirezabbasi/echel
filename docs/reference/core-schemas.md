@@ -16,6 +16,10 @@ Accepted or rejected claims, decisions, and learnings also carry the core
 [authority evidence](knowledge-authority.md) for the exact proposal revision a
 human reviewed. Runtime provenance never substitutes for this decision evidence.
 
+Relationship records require existing typed endpoints, a predicate, a specific
+reason, ordinary provenance, and the versioned policy that allowed the link.
+See [explicit relationships](explicit-relationships.md).
+
 ## Compatibility policy
 
 - `schema_version` is a major integer. Readers reject unsupported majors with

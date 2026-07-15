@@ -84,8 +84,8 @@
     },
     "relationship": {
       "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
-      "required": ["source", "predicate", "target"],
-      "properties": {"record_type": {"const": "relationship"}, "source": {"$ref": "#/$defs/identifier"}, "predicate": {"$ref": "#/$defs/nonEmpty"}, "target": {"$ref": "#/$defs/identifier"}},
+      "required": ["source", "predicate", "target", "reason", "policy"],
+      "properties": {"record_type": {"const": "relationship"}, "source": {"$ref": "#/$defs/identifier"}, "predicate": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}, "target": {"$ref": "#/$defs/identifier"}, "reason": {"$ref": "#/$defs/nonEmpty"}, "policy": {"$ref": "#/$defs/nonEmpty"}},
       "unevaluatedProperties": false
     },
     "finding": {
