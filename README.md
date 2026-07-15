@@ -42,6 +42,8 @@ The [finding and impact contract](docs/reference/findings-and-impact.md) records
 
 The [lifecycle maturity contract](docs/reference/lifecycle-maturity.md) explains forward advance and reviewed stale propagation when later evidence challenges earlier knowledge.
 
+The [lifecycle profile contract](docs/reference/lifecycle-profiles.md) applies prototype, product, production, or regulated minimum policy to the same project flow.
+
 ## Why Echel changed
 
 The first implementation proved that lifecycle knowledge, agent work packets, traceability, and verification could be connected. It also created the entire SDLC documentation structure upfront and represented the same truth through wiki pages, graph files, memory records, reports, and compatibility views. The machinery grew faster than the product knowledge it was meant to support.

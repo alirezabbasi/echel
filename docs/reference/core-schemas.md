@@ -26,6 +26,7 @@ carry attributable [finding decision evidence](findings-and-impact.md).
 
 Claims carry lifecycle kind and stage. Project advance and explicit backward
 knowledge revision follow the [lifecycle maturity contract](lifecycle-maturity.md).
+Projects also select one explicit [lifecycle policy profile](lifecycle-profiles.md).
 
 ## Compatibility policy
 

@@ -7,6 +7,9 @@ canonical claims, active findings, and explicit `affects` relationships. Its
 result explains missing knowledge, blocking findings, cautions, and the next
 stage without changing repository state.
 
+The selected [lifecycle profile](lifecycle-profiles.md) adds inspectable minimum
+claim kinds to this base stage policy without changing the stage sequence.
+
 Forward advance is deliberately small. The current stage must have its minimum
 accepted claims and no active `error` or `critical` finding affecting those
 claims. Warning and info findings remain visible as cautions. A human holding

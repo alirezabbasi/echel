@@ -9,6 +9,7 @@ from echel.authority import AUTHORITY_CAPABILITY, Principal
 from echel.domain.value_objects import Identifier
 from echel.findings import ACTIVE_FINDING_STATES
 from echel.methodology.lifecycle import get_stage, next_stage
+from echel.profiles import get_profile
 from echel.relationships import ENDPOINT_TYPES
 from echel.storage import CanonicalRecordStore, RecordExpectation, RecordWritePlan, TransactionJournal
 
@@ -33,6 +34,9 @@ class MaturityAssessment:
     project_id: str
     current: str
     next: str | None
+    profile: str
+    policy: str
+    required_kinds: tuple[str, ...]
     usable: bool
     missing_kinds: tuple[str, ...]
     blocking_findings: tuple[str, ...]
@@ -49,6 +53,9 @@ class MaturityAssessment:
             "project_id": self.project_id,
             "current": self.current,
             "next": self.next,
+            "profile": self.profile,
+            "policy": self.policy,
+            "required_kinds": list(self.required_kinds),
             "usable": self.usable,
             "missing_kinds": list(self.missing_kinds),
             "blocking_findings": list(self.blocking_findings),
@@ -105,14 +112,16 @@ class LifecycleService:
     def assess(self, project_id: str) -> MaturityAssessment:
         project = self.store.load("project", project_id).record
         stage = get_stage(str(project["maturity"]))
+        profile = get_profile(str(project["profile"]))
+        required_kinds = profile.required_for(stage.id, stage.required_kinds)
         accepted = {
             str(loaded.record["kind"]): str(loaded.record["id"])
             for loaded in self.store.scan("claim")
             if loaded.record.get("status") == "accepted"
             and loaded.record.get("stage") == stage.id
         }
-        missing = tuple(kind for kind in stage.required_kinds if kind not in accepted)
-        required_ids = frozenset(accepted.get(kind) for kind in stage.required_kinds) - {None}
+        missing = tuple(kind for kind in required_kinds if kind not in accepted)
+        required_ids = frozenset(accepted.get(kind) for kind in required_kinds) - {None}
         blocking: list[str] = []
         cautions: list[str] = []
         affected_by_finding = self._finding_targets()
@@ -131,6 +140,9 @@ class LifecycleService:
             project_id=project_id,
             current=stage.id,
             next=following.id if following else None,
+            profile=profile.id,
+            policy=f"{profile.id}/v1",
+            required_kinds=required_kinds,
             usable=not missing and not blocking,
             missing_kinds=missing,
             blocking_findings=tuple(sorted(blocking)),

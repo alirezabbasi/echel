@@ -68,6 +68,21 @@
       },
       "additionalProperties": false
     },
+    "profileTransition": {
+      "type": "object",
+      "required": ["actor", "actor_kind", "capability", "from", "to", "rationale", "decided_at", "project_revision"],
+      "properties": {
+        "actor": {"$ref": "#/$defs/identifier"},
+        "actor_kind": {"const": "human"},
+        "capability": {"const": "profile:change"},
+        "from": {"enum": ["prototype", "product", "production", "regulated"]},
+        "to": {"enum": ["prototype", "product", "production", "regulated"]},
+        "rationale": {"$ref": "#/$defs/nonEmpty"},
+        "decided_at": {"type": "string", "format": "date-time"},
+        "project_revision": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
     "staleness": {
       "type": "object",
       "required": ["actor", "actor_kind", "capability", "finding", "root", "previous_status", "reason", "decided_at", "record_revision"],
@@ -105,8 +120,8 @@
     },
     "project": {
       "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
-      "required": ["name", "mode", "maturity"],
-      "properties": {"record_type": {"const": "project"}, "name": {"$ref": "#/$defs/nonEmpty"}, "mode": {"enum": ["idea", "repository"]}, "maturity": {"enum": ["idea", "problem", "vision", "strategy", "requirements", "domain", "architecture", "roadmap", "execution-plan", "tasks", "repository", "implementation", "validation", "deployment", "operations"]}, "maturity_transition": {"$ref": "#/$defs/maturityTransition"}},
+      "required": ["name", "mode", "maturity", "profile"],
+      "properties": {"record_type": {"const": "project"}, "name": {"$ref": "#/$defs/nonEmpty"}, "mode": {"enum": ["idea", "repository"]}, "maturity": {"enum": ["idea", "problem", "vision", "strategy", "requirements", "domain", "architecture", "roadmap", "execution-plan", "tasks", "repository", "implementation", "validation", "deployment", "operations"]}, "profile": {"enum": ["prototype", "product", "production", "regulated"]}, "maturity_transition": {"$ref": "#/$defs/maturityTransition"}, "profile_transition": {"$ref": "#/$defs/profileTransition"}},
       "unevaluatedProperties": false
     },
     "claim": {
