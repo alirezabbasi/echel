@@ -24,6 +24,9 @@ Findings remain separate from the records they challenge. Their impact is
 derived from explicit relationships, and accepted/resolved/dismissed states
 carry attributable [finding decision evidence](findings-and-impact.md).
 
+Claims carry lifecycle kind and stage. Project advance and explicit backward
+knowledge revision follow the [lifecycle maturity contract](lifecycle-maturity.md).
+
 ## Compatibility policy
 
 - `schema_version` is a major integer. Readers reject unsupported majors with

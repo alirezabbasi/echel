@@ -91,15 +91,15 @@ class RecordStatus:
     """A status validated within the lifecycle vocabulary of one record type."""
 
     ALLOWED: ClassVar[dict[str, frozenset[str]]] = {
-        "claim": frozenset({"proposed", "accepted", "rejected", "superseded"}),
-        "decision": frozenset({"proposed", "accepted", "rejected", "superseded"}),
+        "claim": frozenset({"proposed", "accepted", "rejected", "superseded", "stale"}),
+        "decision": frozenset({"proposed", "accepted", "rejected", "superseded", "stale"}),
         "finding": frozenset({"open", "accepted", "resolved", "dismissed"}),
         "work_item": frozenset(
             {"planned", "ready", "in_progress", "review", "done", "blocked", "cancelled"}
         ),
         "run": frozenset({"created", "running", "cancelled", "failed", "succeeded"}),
         "release": frozenset({"planned", "candidate", "released", "withdrawn"}),
-        "learning": frozenset({"proposed", "accepted", "rejected", "applied"}),
+        "learning": frozenset({"proposed", "accepted", "rejected", "applied", "stale"}),
     }
 
     record_type: str

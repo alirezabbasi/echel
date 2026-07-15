@@ -40,6 +40,8 @@ The [explicit-relationship contract](docs/reference/explicit-relationships.md) r
 
 The [finding and impact contract](docs/reference/findings-and-impact.md) records contradictions without silently rewriting affected knowledge and keeps resolution under human authority.
 
+The [lifecycle maturity contract](docs/reference/lifecycle-maturity.md) explains forward advance and reviewed stale propagation when later evidence challenges earlier knowledge.
+
 ## Why Echel changed
 
 The first implementation proved that lifecycle knowledge, agent work packets, traceability, and verification could be connected. It also created the entire SDLC documentation structure upfront and represented the same truth through wiki pages, graph files, memory records, reports, and compatibility views. The machinery grew faster than the product knowledge it was meant to support.
