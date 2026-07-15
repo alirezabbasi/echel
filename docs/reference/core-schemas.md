@@ -4,7 +4,7 @@ Echel's canonical knowledge is a set of small, independently addressable JSON
 records. Version 1 defines twelve record types: project, claim, decision,
 artifact, relationship, finding, work item, immutable task specification, run,
 evidence, release, and learning. Their shared contract is
-[`schemas/v1/record.schema.json`](../../schemas/v1/record.schema.json).
+[`record.schema.json`](../../src/echel/schemas/v1/record.schema.json).
 
 Every record carries a stable typed identifier, schema version, monotonically
 increasing revision, timestamps, and provenance. The schema rejects unknown

@@ -7,6 +7,7 @@ from uuid import uuid4
 
 
 RECORD_COLLECTIONS = (
+    "artifacts",
     "claims",
     "decisions",
     "relationships",

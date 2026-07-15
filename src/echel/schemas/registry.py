@@ -42,7 +42,7 @@ class SchemaRegistry:
     """Validate canonical records without coupling storage to entity classes."""
 
     def __init__(self, schema_root: Path | None = None):
-        root = schema_root or Path(__file__).resolve().parents[3] / "schemas" / "v1"
+        root = schema_root or Path(__file__).resolve().parent / "v1"
         schema_path = root / "record.schema.json"
         try:
             schema = json.loads(schema_path.read_text(encoding="utf-8"))

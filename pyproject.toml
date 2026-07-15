@@ -29,6 +29,9 @@ echel = "echel.cli.main:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+echel = ["schemas/v1/*.json"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 

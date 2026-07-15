@@ -66,7 +66,9 @@ class DomainValueObjectTests(unittest.TestCase):
         self.assertEqual(7, checked)
 
     def test_status_vocabulary_matches_schema_contract(self) -> None:
-        schema = json.loads((ROOT / "schemas" / "v1" / "record.schema.json").read_text())
+        schema = json.loads(
+            (ROOT / "src" / "echel" / "schemas" / "v1" / "record.schema.json").read_text()
+        )
         definitions = {
             "claim": "claim",
             "decision": "decision",

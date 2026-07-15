@@ -8,7 +8,7 @@ unrelated Echel state.
 ```text
 .echel/
   records/
-    claims/ decisions/ relationships/ findings/ work/
+    artifacts/ claims/ decisions/ relationships/ findings/ work/
     tasks/ runs/ evidence/ releases/ learnings/
   cache/
 ```
@@ -25,6 +25,6 @@ leave a partial `.echel/`. `CanonicalRepository.discover(path)` supports normal
 repositories and Git worktrees (`.git` may be a directory or file). Missing,
 malformed, duplicate, and path-escape conditions return structured errors.
 
-The repository layout defines location and discovery only. Schema-validated
-atomic record writes begin with E2-014; direct filesystem writes are not an
-authorized alternative.
+The repository layout defines location and discovery. [Canonical record writes](canonical-record-writes.md)
+provide schema-validated preview and atomic single-record replacement; direct
+filesystem writes are not an authorized alternative.
