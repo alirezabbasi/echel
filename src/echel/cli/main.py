@@ -7,6 +7,7 @@ import sys
 
 from echel.context.compiler import ContextCompiler
 from echel.initialization import IdeaInitializationService, InitializationError
+from echel.methodology.clarification import ClarificationError, ClarificationService
 from echel.model.records import Run
 from echel.runtimes.base import RunRequest
 from echel.runtimes.hermes import HermesRuntime
@@ -32,6 +33,11 @@ def parser() -> argparse.ArgumentParser:
     init.add_argument("--dry-run", action="store_true", help="validate and explain without writing")
 
     commands.add_parser("status", help="show current maturity and next action")
+    clarify = commands.add_parser("clarify", help="ask the next material clarification")
+    clarify.add_argument(
+        "--exclude", action="append", default=[], metavar="QUESTION_ID",
+        help="do not repeat a question already asked in this interaction",
+    )
     commands.add_parser("lifecycle", help="show the progressive methodology")
 
     add = commands.add_parser("add", help="add product knowledge")
@@ -93,6 +99,29 @@ def main(argv: list[str] | None = None) -> int:
             _emit(plan if args.dry_run else service.apply(plan), args.json)
             return 0
         except InitializationError as exc:
+            if args.json:
+                print(json.dumps({"error": exc.to_dict()}, indent=2), file=sys.stderr)
+            else:
+                print(f"echel: {exc}", file=sys.stderr)
+            return 2
+    if args.command == "clarify":
+        try:
+            clarification = ClarificationService().inspect(args.root, args.exclude)
+            if args.json:
+                _emit(clarification, True)
+            elif clarification.question:
+                print(clarification.question.prompt)
+                print(f"Why: {clarification.question.reason}")
+                print(f"Question ID: {clarification.question.id}")
+                print("Next: answer, defer, or supply evidence for this question.")
+            else:
+                print("No unasked material problem clarification remains.")
+                if clarification.unresolved_kinds:
+                    print("Next: resume a deferred question before assessing problem maturity.")
+                else:
+                    print("Next: review the captured problem knowledge before advancing.")
+            return 0
+        except ClarificationError as exc:
             if args.json:
                 print(json.dumps({"error": exc.to_dict()}, indent=2), file=sys.stderr)
             else:

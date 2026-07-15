@@ -96,6 +96,16 @@ Initialization returns the next action without inventing problem, vision,
 strategy, architecture, or work records. See the [idea initialization
 contract](docs/reference/idea-initialization.md).
 
+Ask the next material problem question without changing product memory:
+
+```bash
+echel clarify
+```
+
+The [adaptive clarification contract](docs/reference/adaptive-clarification.md)
+explains deterministic gap selection, request-scoped deferral, and why answers
+remain proposals for the downstream problem-definition workflow.
+
 All durable product state lives under `.echel/` as small, reviewable JSON records. Generated indexes and agent conversation memory are not product truth.
 
 Local search and explicit-link traversal use a [disposable SQLite/FTS index](docs/reference/disposable-index.md) that is fully rebuildable from those records.
