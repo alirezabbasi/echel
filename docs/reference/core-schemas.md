@@ -33,8 +33,9 @@ Projects also select one explicit [lifecycle policy profile](lifecycle-profiles.
 - `schema_version` is a major integer. Readers reject unsupported majors with
   `ECHEL-SCHEMA-VERSION-UNSUPPORTED`; they never guess or silently migrate.
 - Additive metadata uses `extensions`, allowing older readers to round-trip data.
-- Breaking field or semantic changes require a new version, explicit migration,
-  preview, backup, and rollback. Migration infrastructure is delivered by E2-022.
+- Breaking field or semantic changes require a new version and the explicit
+  [migration workflow](schema-migrations.md), including preview, backup,
+  recovery, and guarded rollback.
 - Schemas contain no defaults: omission is visible and deterministic.
 - Stable errors distinguish load failure, unsupported version, unknown record
   type, and structurally invalid data.
