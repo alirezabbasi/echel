@@ -11,6 +11,7 @@ unrelated Echel state.
     artifacts/ claims/ decisions/ relationships/ findings/ work/
     tasks/ runs/ evidence/ releases/ learnings/
   cache/
+    index.sqlite3  # created only when the disposable index is built
   backups/       # created only by an applied migration
   migrations/    # present only while migration recovery is required
 ```
@@ -23,6 +24,8 @@ placeholder content for future lifecycle stages.
 
 Migration backup and journal directories are created lazily. They are operational
 recovery state, not canonical records, and can never authorize knowledge.
+The [SQLite/FTS index](disposable-index.md) is also created lazily and may be
+deleted and rebuilt from canonical records at any time.
 
 `CanonicalRepository.create(path)` requires the actual Git root and constructs
 the layout through a temporary sibling directory so a failed operation does not

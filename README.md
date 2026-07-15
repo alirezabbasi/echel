@@ -99,6 +99,8 @@ echel verify WORK-001
 
 All durable product state lives under `.echel/` as small, reviewable JSON records. Generated indexes and agent conversation memory are not product truth.
 
+Local search and explicit-link traversal use a [disposable SQLite/FTS index](docs/reference/disposable-index.md) that is fully rebuildable from those records.
+
 ## Design boundaries
 
 - Echel owns product knowledge, lifecycle maturity, work context, provenance, and verification policy.
