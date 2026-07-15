@@ -141,8 +141,11 @@ class RelationshipService:
         reason: str,
         provenance: dict[str, str],
         created_at: str,
+        pending_endpoints: dict[str, str] | None = None,
     ) -> RelationshipTransition:
-        source_type, target_type = self._validate_link(source, predicate, target, reason)
+        source_type, target_type = self._validate_link(
+            source, predicate, target, reason, pending_endpoints or {}
+        )
         record: dict[str, Any] = {
             "schema_version": 1,
             "record_type": "relationship",
@@ -190,7 +193,12 @@ class RelationshipService:
         return self.store.write(record, transition.expectation)
 
     def _validate_link(
-        self, source: str, predicate: str, target: str, reason: str
+        self,
+        source: str,
+        predicate: str,
+        target: str,
+        reason: str,
+        pending_endpoints: dict[str, str] | None = None,
     ) -> tuple[str, str]:
         if not reason.strip():
             raise RelationshipError(
@@ -198,8 +206,9 @@ class RelationshipService:
                 "reason",
                 "state why this relationship is useful",
             )
-        source_type = self._endpoint_type(source, "source")
-        target_type = self._endpoint_type(target, "target")
+        pending = pending_endpoints or {}
+        source_type = self._endpoint_type(source, "source", pending)
+        target_type = self._endpoint_type(target, "target", pending)
         if source == target:
             raise RelationshipError(
                 "ECHEL-RELATIONSHIP-SELF-LINK",
@@ -214,7 +223,7 @@ class RelationshipService:
             )
         return source_type, target_type
 
-    def _endpoint_type(self, value: str, field: str) -> str:
+    def _endpoint_type(self, value: str, field: str, pending: dict[str, str]) -> str:
         try:
             identifier = Identifier(value)
         except (TypeError, ValueError) as exc:
@@ -228,6 +237,15 @@ class RelationshipService:
                 field,
                 f"unsupported endpoint namespace {identifier.namespace!r}",
             )
+        pending_type = pending.get(value)
+        if pending_type is not None:
+            if pending_type != record_type:
+                raise RelationshipError(
+                    "ECHEL-RELATIONSHIP-ENDPOINT-INVALID",
+                    field,
+                    f"pending endpoint {value!r} does not match type {pending_type!r}",
+                )
+            return record_type
         try:
             self.store.load(record_type, value)
         except RuntimeError as exc:

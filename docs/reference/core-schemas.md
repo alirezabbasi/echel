@@ -20,6 +20,10 @@ Relationship records require existing typed endpoints, a predicate, a specific
 reason, ordinary provenance, and the versioned policy that allowed the link.
 See [explicit relationships](explicit-relationships.md).
 
+Findings remain separate from the records they challenge. Their impact is
+derived from explicit relationships, and accepted/resolved/dismissed states
+carry attributable [finding decision evidence](findings-and-impact.md).
+
 ## Compatibility policy
 
 - `schema_version` is a major integer. Readers reject unsupported majors with

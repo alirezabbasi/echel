@@ -153,6 +153,28 @@ class CanonicalRecordStore:
             path=path,
         )
 
+    def scan(self, record_type: str) -> tuple[LoadedRecord, ...]:
+        """Read one canonical record family in deterministic identity order."""
+
+        location = RECORD_LOCATIONS.get(record_type)
+        if location is None:
+            raise RepositoryError(
+                "ECHEL-RECORD-TYPE-UNMAPPED",
+                self.repository.root,
+                f"no canonical location for {record_type!r}",
+            )
+        collection, namespace = location
+        if collection is None:
+            path = self.repository.root / "project.json"
+            if not path.is_file():
+                return ()
+            record, _ = self._read_current(path)
+            return (self.load(record_type, str(record["id"])),)
+        records = []
+        for path in sorted(self.repository.collection(collection).glob("*.json")):
+            records.append(self.load(record_type, f"{namespace}:{path.stem}"))
+        return tuple(records)
+
     def preview_write(
         self, record: dict[str, Any], expectation: RecordExpectation | None = None
     ) -> RecordWritePlan:
