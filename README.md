@@ -74,28 +74,27 @@ python3 -m venv .venv
 pip install -e .
 
 mkdir my-product && cd my-product
-echel init "My Product" --idea "A concise raw idea"
-echel status
-echel advance
-echel add problem "The observed problem" --status accepted --confidence high
-echel add user "The person affected by the problem" --status accepted
-echel status
+git init
+echel init "My Product" \
+  --mode idea \
+  --idea "A concise raw idea" \
+  --owner user:builder \
+  --profile prototype
 ```
 
-Create bounded work and compile its context:
+Preview the exact two-record mutation first when desired:
 
 ```bash
-echel work "First experiment" \
-  --objective "Test the highest-risk assumption" \
-  --relates-to CLM-001 \
-  --accept "The assumption has a measurable result" \
-  --verify "python3 -m unittest discover -s tests"
-
-echel context WORK-001
-echel run WORK-001                 # safe Hermes command preview
-echel run WORK-001 --execute       # invoke Hermes
-echel verify WORK-001
+echel --json init "My Product" \
+  --mode idea \
+  --idea "A concise raw idea" \
+  --owner user:builder \
+  --dry-run
 ```
+
+Initialization returns the next action without inventing problem, vision,
+strategy, architecture, or work records. See the [idea initialization
+contract](docs/reference/idea-initialization.md).
 
 All durable product state lives under `.echel/` as small, reviewable JSON records. Generated indexes and agent conversation memory are not product truth.
 

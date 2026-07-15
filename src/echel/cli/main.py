@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 
 from echel.context.compiler import ContextCompiler
+from echel.initialization import IdeaInitializationService, InitializationError
 from echel.model.records import Run
 from echel.runtimes.base import RunRequest
 from echel.runtimes.hermes import HermesRuntime
@@ -20,10 +21,15 @@ def parser() -> argparse.ArgumentParser:
     root.add_argument("--json", action="store_true", help="emit machine-readable output")
     commands = root.add_subparsers(dest="command", required=True)
 
-    init = commands.add_parser("init", help="start with one raw idea")
+    init = commands.add_parser("init", help="initialize the minimum truthful project state")
     init.add_argument("name")
+    init.add_argument("--mode", choices=("idea",), default="idea")
     init.add_argument("--idea", required=True)
-    init.add_argument("--profile", choices=("prototype", "product", "production", "regulated"), default="product")
+    init.add_argument("--owner", required=True, help="responsible person as user:local-id")
+    init.add_argument("--id", dest="project_id", help="stable project:local-id")
+    init.add_argument("--profile", choices=("prototype", "product", "production", "regulated"), default="prototype")
+    init.add_argument("--config", action="append", default=[], metavar="KEY=VALUE")
+    init.add_argument("--dry-run", action="store_true", help="validate and explain without writing")
 
     commands.add_parser("status", help="show current maturity and next action")
     commands.add_parser("lifecycle", help="show the progressive methodology")
@@ -72,12 +78,30 @@ def _emit(payload, machine: bool) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
+    if args.command == "init":
+        try:
+            service = IdeaInitializationService()
+            plan = service.preview(
+                args.root,
+                args.name,
+                args.idea,
+                args.owner,
+                args.profile,
+                service.parse_config(args.config),
+                args.project_id,
+            )
+            _emit(plan if args.dry_run else service.apply(plan), args.json)
+            return 0
+        except InitializationError as exc:
+            if args.json:
+                print(json.dumps({"error": exc.to_dict()}, indent=2), file=sys.stderr)
+            else:
+                print(f"echel: {exc}", file=sys.stderr)
+            return 2
     store = FileStore(args.root)
     workflow = WorkflowService(store)
     try:
-        if args.command == "init":
-            _emit(store.initialize(args.name, args.idea, args.profile), args.json)
-        elif args.command == "status":
+        if args.command == "status":
             state = workflow.status()
             if args.json:
                 _emit(state, True)

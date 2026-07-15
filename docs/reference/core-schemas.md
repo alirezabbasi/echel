@@ -27,6 +27,9 @@ carry attributable [finding decision evidence](findings-and-impact.md).
 Claims carry lifecycle kind and stage. Project advance and explicit backward
 knowledge revision follow the [lifecycle maturity contract](lifecycle-maturity.md).
 Projects also select one explicit [lifecycle policy profile](lifecycle-profiles.md).
+The [idea initialization contract](idea-initialization.md) uses the existing
+project extension boundary for owner/config metadata and creates one proposed
+raw-idea claim; it does not add another canonical entity or schema version.
 
 ## Compatibility policy
 
