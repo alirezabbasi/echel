@@ -104,6 +104,9 @@ The [query and impact APIs](docs/reference/query-and-impact-apis.md) rehydrate
 canonical provenance and explain every traversal path.
 Deterministic [import/export and integrity diagnostics](docs/reference/portability-and-integrity.md)
 support local recovery and transfer without promoting caches or generated views.
+The reproducible [M1 kernel gate](docs/reference/m1-kernel-gate.md) measures the
+declared storage, indexing, projection, and recovery targets without overstating
+unexecuted product-scenario results.
 
 ## Design boundaries
 
