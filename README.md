@@ -102,6 +102,8 @@ All durable product state lives under `.echel/` as small, reviewable JSON record
 Local search and explicit-link traversal use a [disposable SQLite/FTS index](docs/reference/disposable-index.md) that is fully rebuildable from those records.
 The [query and impact APIs](docs/reference/query-and-impact-apis.md) rehydrate
 canonical provenance and explain every traversal path.
+Deterministic [import/export and integrity diagnostics](docs/reference/portability-and-integrity.md)
+support local recovery and transfer without promoting caches or generated views.
 
 ## Design boundaries
 
