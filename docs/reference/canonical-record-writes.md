@@ -18,6 +18,7 @@ record type. Project is the one singleton at `.echel/project.json`; all other co
 types have collections under `.echel/records/`.
 
 Identical content is a no-op. Revision-conflict detection is intentionally not
-part of this boundary yet; E2-016 adds optimistic concurrency. E2-015 coordinates
+part of this boundary yet; E2-016 adds optimistic concurrency. The
+[multi-record transaction journal](multi-record-transactions.md) coordinates
 mutations spanning multiple records. Direct writes, runtime memory, and cache
 content never become equivalent alternatives to this canonical path.
