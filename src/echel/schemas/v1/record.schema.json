@@ -25,6 +25,20 @@
       },
       "additionalProperties": false
     },
+    "authority": {
+      "type": "object",
+      "required": ["action", "actor", "actor_kind", "capability", "rationale", "decided_at", "proposal_revision"],
+      "properties": {
+        "action": {"enum": ["accepted", "rejected"]},
+        "actor": {"$ref": "#/$defs/identifier"},
+        "actor_kind": {"const": "human"},
+        "capability": {"const": "knowledge:decide"},
+        "rationale": {"$ref": "#/$defs/nonEmpty"},
+        "decided_at": {"type": "string", "format": "date-time"},
+        "proposal_revision": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
     "extensions": {
       "type": "object",
       "propertyNames": {"pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"},
@@ -51,15 +65,15 @@
       "unevaluatedProperties": false
     },
     "claim": {
-      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "allOf": [{"$ref": "#/$defs/envelope"}, {"if": {"properties": {"status": {"const": "accepted"}}}, "then": {"required": ["authority"], "properties": {"authority": {"properties": {"action": {"const": "accepted"}}}}}}, {"if": {"properties": {"status": {"const": "rejected"}}}, "then": {"required": ["authority"], "properties": {"authority": {"properties": {"action": {"const": "rejected"}}}}}}], "type": "object",
       "required": ["statement", "status", "confidence"],
-      "properties": {"record_type": {"const": "claim"}, "statement": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["proposed", "accepted", "rejected", "superseded"]}, "confidence": {"type": "number", "minimum": 0, "maximum": 1}},
+      "properties": {"record_type": {"const": "claim"}, "statement": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["proposed", "accepted", "rejected", "superseded"]}, "confidence": {"type": "number", "minimum": 0, "maximum": 1}, "authority": {"$ref": "#/$defs/authority"}},
       "unevaluatedProperties": false
     },
     "decision": {
-      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "allOf": [{"$ref": "#/$defs/envelope"}, {"if": {"properties": {"status": {"const": "accepted"}}}, "then": {"required": ["authority"], "properties": {"authority": {"properties": {"action": {"const": "accepted"}}}}}}, {"if": {"properties": {"status": {"const": "rejected"}}}, "then": {"required": ["authority"], "properties": {"authority": {"properties": {"action": {"const": "rejected"}}}}}}], "type": "object",
       "required": ["title", "outcome", "status"],
-      "properties": {"record_type": {"const": "decision"}, "title": {"$ref": "#/$defs/nonEmpty"}, "outcome": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["proposed", "accepted", "rejected", "superseded"]}, "alternatives": {"type": "array", "items": {"type": "string"}}},
+      "properties": {"record_type": {"const": "decision"}, "title": {"$ref": "#/$defs/nonEmpty"}, "outcome": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["proposed", "accepted", "rejected", "superseded"]}, "alternatives": {"type": "array", "items": {"type": "string"}}, "authority": {"$ref": "#/$defs/authority"}},
       "unevaluatedProperties": false
     },
     "artifact": {
@@ -111,9 +125,9 @@
       "unevaluatedProperties": false
     },
     "learning": {
-      "allOf": [{"$ref": "#/$defs/envelope"}], "type": "object",
+      "allOf": [{"$ref": "#/$defs/envelope"}, {"if": {"properties": {"status": {"const": "accepted"}}}, "then": {"required": ["authority"], "properties": {"authority": {"properties": {"action": {"const": "accepted"}}}}}}, {"if": {"properties": {"status": {"const": "rejected"}}}, "then": {"required": ["authority"], "properties": {"authority": {"properties": {"action": {"const": "rejected"}}}}}}], "type": "object",
       "required": ["observation", "implication", "status"],
-      "properties": {"record_type": {"const": "learning"}, "observation": {"$ref": "#/$defs/nonEmpty"}, "implication": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["proposed", "accepted", "rejected", "applied"]}, "evidence": {"$ref": "#/$defs/identifierList"}},
+      "properties": {"record_type": {"const": "learning"}, "observation": {"$ref": "#/$defs/nonEmpty"}, "implication": {"$ref": "#/$defs/nonEmpty"}, "status": {"enum": ["proposed", "accepted", "rejected", "applied"]}, "evidence": {"$ref": "#/$defs/identifierList"}, "authority": {"$ref": "#/$defs/authority"}},
       "unevaluatedProperties": false
     }
   }

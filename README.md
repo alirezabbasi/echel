@@ -34,6 +34,8 @@ The [multi-record transaction journal](docs/reference/multi-record-transactions.
 
 The [optimistic-concurrency contract](docs/reference/optimistic-concurrency.md) prevents stale agents and direct edits from silently overwriting newer knowledge.
 
+The [knowledge-authority contract](docs/reference/knowledge-authority.md) separates agent proposals from attributable human acceptance and rejection.
+
 ## Why Echel changed
 
 The first implementation proved that lifecycle knowledge, agent work packets, traceability, and verification could be connected. It also created the entire SDLC documentation structure upfront and represented the same truth through wiki pages, graph files, memory records, reports, and compatibility views. The machinery grew faster than the product knowledge it was meant to support.

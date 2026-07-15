@@ -9,7 +9,7 @@ import shutil
 from typing import Any
 from uuid import uuid4
 
-from echel.domain import Identifier
+from echel.domain.value_objects import Identifier
 from echel.storage.layout import RepositoryError
 from echel.storage.records import CanonicalRecordStore, RecordExpectation, RecordWritePlan
 

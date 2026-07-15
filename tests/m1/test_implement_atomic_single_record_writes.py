@@ -21,6 +21,12 @@ ROOT = Path(__file__).resolve().parents[2]
 VALID_RECORDS = json.loads(
     (ROOT / "schemas" / "v1" / "fixtures" / "valid-records.json").read_text()
 )
+for _record in VALID_RECORDS:
+    if _record["revision"] > 1:
+        _record["revision"] = 1
+        _record["status"] = "proposed"
+        _record["updated_at"] = _record["created_at"]
+        _record.pop("authority", None)
 
 
 class AtomicRecordWriteTests(unittest.TestCase):

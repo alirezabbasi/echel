@@ -12,6 +12,10 @@ top-level fields. Optional metadata belongs under `extensions`, whose keys must
 be namespaced (for example `dev.echel.plugin`). Readers must preserve extension
 values unchanged and must not interpret them as overrides of core fields.
 
+Accepted or rejected claims, decisions, and learnings also carry the core
+[authority evidence](knowledge-authority.md) for the exact proposal revision a
+human reviewed. Runtime provenance never substitutes for this decision evidence.
+
 ## Compatibility policy
 
 - `schema_version` is a major integer. Readers reject unsupported majors with

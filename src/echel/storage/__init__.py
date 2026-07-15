@@ -2,6 +2,7 @@ from .files import FileStore, StoreError
 from .layout import CanonicalRepository, RECORD_COLLECTIONS, RepositoryError
 from .records import (
     CanonicalRecordStore,
+    LoadedRecord,
     RECORD_LOCATIONS,
     RecordConflictError,
     RecordExpectation,
@@ -17,6 +18,7 @@ __all__ = [
     "RECORD_LOCATIONS",
     "RecordConflictError",
     "RecordExpectation",
+    "LoadedRecord",
     "RecordWritePlan",
     "RepositoryError",
     "StoreError",

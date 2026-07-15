@@ -10,7 +10,7 @@ import re
 from typing import Any, Iterator
 from uuid import uuid4
 
-from echel.domain import Identifier
+from echel.domain.value_objects import Identifier
 from echel.schemas import SchemaRegistry
 from echel.storage.layout import CanonicalRepository, RepositoryError
 
@@ -110,6 +110,13 @@ class RecordWritePlan:
         }
 
 
+@dataclass(frozen=True)
+class LoadedRecord:
+    record: dict[str, Any]
+    expectation: RecordExpectation
+    path: Path
+
+
 class CanonicalRecordStore:
     """Schema-validating, atomic writes for one canonical record at a time."""
 
@@ -126,6 +133,25 @@ class CanonicalRecordStore:
             return RecordExpectation.absent()
         current, digest = self._read_current(path)
         return RecordExpectation.at_revision(current["revision"], digest)
+
+    def load(self, record_type: str, record_id: str) -> LoadedRecord:
+        """Load one canonical identity with the precondition needed to update it."""
+
+        path = self._identity_path(record_type, record_id)
+        if not path.is_file():
+            raise RepositoryError("ECHEL-RECORD-NOT-FOUND", path, f"record {record_id!r} does not exist")
+        record, digest = self._read_current(path)
+        if record.get("record_type") != record_type or record.get("id") != record_id:
+            raise RepositoryError(
+                "ECHEL-RECORD-IDENTITY-MISMATCH",
+                path,
+                "stored record identity does not match its canonical path",
+            )
+        return LoadedRecord(
+            record=record,
+            expectation=RecordExpectation.at_revision(record["revision"], digest),
+            path=path,
+        )
 
     def preview_write(
         self, record: dict[str, Any], expectation: RecordExpectation | None = None
@@ -251,7 +277,9 @@ class CanonicalRecordStore:
         return current, digest
 
     def _record_path(self, record: dict[str, Any]) -> Path:
-        record_type = str(record["record_type"])
+        return self._identity_path(str(record["record_type"]), str(record["id"]))
+
+    def _identity_path(self, record_type: str, record_id: str) -> Path:
         location = RECORD_LOCATIONS.get(record_type)
         if location is None:
             raise RepositoryError(
@@ -260,7 +288,7 @@ class CanonicalRecordStore:
                 f"no canonical location for {record_type!r}",
             )
         collection, namespace = location
-        identifier = Identifier(str(record["id"]))
+        identifier = Identifier(record_id)
         if identifier.namespace != namespace:
             raise RepositoryError(
                 "ECHEL-ID-NAMESPACE-MISMATCH",
