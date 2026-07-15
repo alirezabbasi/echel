@@ -28,3 +28,7 @@ Index format `echel-index/v1` is internal and disposable, not a compatibility
 promise. It may be replaced without a product-data migration as long as the
 logical query behavior remains equivalent and canonical reconstruction remains
 complete.
+
+Application consumers should use the [query and impact APIs](query-and-impact-apis.md),
+which rehydrate canonical provenance and explain traversal semantics, instead of
+treating raw index rows as product knowledge.

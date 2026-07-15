@@ -152,6 +152,12 @@ class DisposableIndex:
             raise IndexError("ECHEL-INDEX-DISCARD", self.path, str(exc)) from exc
         return existed
 
+    def assert_current(self) -> None:
+        """Validate that this projection still represents current canonical bytes."""
+
+        with self._open_current():
+            pass
+
     def search(
         self, query: str, *, record_type: str | None = None, limit: int = 20
     ) -> tuple[SearchHit, ...]:
