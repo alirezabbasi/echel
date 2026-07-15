@@ -21,7 +21,7 @@ RECORD_COLLECTIONS = (
 )
 
 
-@dataclass(frozen=True)
+@dataclass
 class RepositoryError(RuntimeError):
     code: str
     path: Path

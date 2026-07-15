@@ -11,7 +11,7 @@ from uuid import uuid4
 
 from echel.domain import Identifier
 from echel.storage.layout import RepositoryError
-from echel.storage.records import CanonicalRecordStore, RecordWritePlan
+from echel.storage.records import CanonicalRecordStore, RecordExpectation, RecordWritePlan
 
 
 @dataclass(frozen=True)
@@ -87,6 +87,7 @@ class TransactionJournal:
                         "record_id": record_plan.record_id,
                         "path": str(record_plan.path.relative_to(self.store.repository.root)),
                         "digest": record_plan.digest,
+                        "expected": record_plan.expectation.to_dict(),
                         "staged": staged_name,
                     }
                 )
@@ -193,7 +194,7 @@ class TransactionJournal:
             raise RepositoryError(
                 "ECHEL-TRANSACTION-EMPTY", self.root, "a transaction requires at least one record"
             )
-        plans = [self.store.preview_write(record) for record in records]
+        plans = [self.store.preview_write(record, self.store.observe(record)) for record in records]
         paths = [plan.path for plan in plans]
         if len(paths) != len(set(paths)):
             raise RepositoryError(
@@ -211,13 +212,21 @@ class TransactionJournal:
                     "ECHEL-TRANSACTION-STAGED-CORRUPT", staged, "staged content digest does not match"
                 )
             record = json.loads(content)
-            plan = self.store.preview_write(record)
+            expected_data = entry.get("expected")
+            if not isinstance(expected_data, dict):
+                raise RepositoryError(
+                    "ECHEL-TRANSACTION-JOURNAL", transaction / "journal.json", "missing precondition"
+                )
+            expectation = RecordExpectation(
+                revision=expected_data.get("revision"), digest=expected_data.get("digest")
+            )
+            plan = self.store.preview_write(record, expectation)
             expected = self.store.repository.root / entry["path"]
             if plan.path != expected or plan.record_id != entry["record_id"]:
                 raise RepositoryError(
                     "ECHEL-TRANSACTION-STAGED-CORRUPT", staged, "staged record identity or path changed"
                 )
-            self.store.write(record)
+            self.store.write(record, expectation)
 
     def _transaction_path(self, transaction_id: str) -> Path:
         identifier = self._identifier(transaction_id)

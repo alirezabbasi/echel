@@ -9,7 +9,12 @@ import unittest
 from unittest.mock import patch
 
 from echel.schemas import SchemaValidationError
-from echel.storage import CanonicalRecordStore, CanonicalRepository, RepositoryError
+from echel.storage import (
+    CanonicalRecordStore,
+    CanonicalRepository,
+    RecordExpectation,
+    RepositoryError,
+)
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -29,7 +34,7 @@ class AtomicRecordWriteTests(unittest.TestCase):
             store = self.make_store(workspace)
             paths = []
             for record in VALID_RECORDS:
-                plan = store.write(record)
+                plan = store.write(record, RecordExpectation.absent())
                 paths.append(plan.path)
                 self.assertTrue(plan.path.is_file())
                 self.assertTrue(plan.path.resolve().is_relative_to(workspace.resolve()))
@@ -41,7 +46,7 @@ class AtomicRecordWriteTests(unittest.TestCase):
     def test_preview_validates_and_explains_without_mutation(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             store = self.make_store(Path(directory))
-            plan = store.preview_write(VALID_RECORDS[1])
+            plan = store.preview_write(VALID_RECORDS[1], RecordExpectation.absent())
             self.assertFalse(plan.path.exists())
             self.assertFalse(plan.replacing)
             self.assertTrue(plan.changed)
@@ -54,7 +59,7 @@ class AtomicRecordWriteTests(unittest.TestCase):
             invalid = deepcopy(VALID_RECORDS[1])
             invalid.pop("provenance")
             with self.assertRaises(SchemaValidationError):
-                store.write(invalid)
+                store.write(invalid, RecordExpectation.absent())
             self.assertEqual([], list(store.repository.records.rglob("*.json")))
             self.assertEqual([], list(store.repository.records.rglob("*.tmp")))
 
@@ -62,7 +67,7 @@ class AtomicRecordWriteTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             store = self.make_store(Path(directory))
             original = VALID_RECORDS[1]
-            path = store.write(original).path
+            path = store.write(original, RecordExpectation.absent()).path
             previous_bytes = path.read_bytes()
             replacement = deepcopy(original)
             replacement["revision"] = 2
@@ -70,7 +75,7 @@ class AtomicRecordWriteTests(unittest.TestCase):
 
             with patch.object(os, "replace", side_effect=OSError("interrupted")):
                 with self.assertRaises(RepositoryError) as caught:
-                    store.write(replacement)
+                    store.write(replacement, store.observe(original))
 
             self.assertEqual("ECHEL-RECORD-WRITE", caught.exception.code)
             self.assertEqual(previous_bytes, path.read_bytes())
@@ -80,10 +85,10 @@ class AtomicRecordWriteTests(unittest.TestCase):
     def test_failed_first_write_leaves_no_record_or_temporary_file(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             store = self.make_store(Path(directory))
-            plan = store.preview_write(VALID_RECORDS[2])
+            plan = store.preview_write(VALID_RECORDS[2], RecordExpectation.absent())
             with patch.object(os, "replace", side_effect=PermissionError("denied")):
                 with self.assertRaises(RepositoryError):
-                    store.write(VALID_RECORDS[2])
+                    store.write(VALID_RECORDS[2], RecordExpectation.absent())
             self.assertFalse(plan.path.exists())
             self.assertEqual([], list(plan.path.parent.glob("*.tmp")))
 
@@ -91,11 +96,11 @@ class AtomicRecordWriteTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             store = self.make_store(Path(directory))
             record = VALID_RECORDS[4]
-            first = store.write(record)
+            first = store.write(record, RecordExpectation.absent())
             expected = (json.dumps(record, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode()
             self.assertEqual(expected, first.path.read_bytes())
             with patch.object(os, "replace") as replace:
-                second = store.write(deepcopy(record))
+                second = store.write(deepcopy(record), store.observe(record))
             replace.assert_not_called()
             self.assertTrue(second.replacing)
             self.assertFalse(second.changed)
@@ -107,7 +112,7 @@ class AtomicRecordWriteTests(unittest.TestCase):
             record = deepcopy(VALID_RECORDS[1])
             record["id"] = "decision:need"
             with self.assertRaises(RepositoryError) as caught:
-                store.preview_write(record)
+                store.preview_write(record, RecordExpectation.absent())
             self.assertEqual("ECHEL-ID-NAMESPACE-MISMATCH", caught.exception.code)
 
     def test_collection_swap_after_discovery_cannot_redirect_write(self) -> None:
@@ -117,7 +122,7 @@ class AtomicRecordWriteTests(unittest.TestCase):
             claims.rmdir()
             claims.symlink_to(Path(outside_dir), target_is_directory=True)
             with self.assertRaises(RepositoryError) as caught:
-                store.write(VALID_RECORDS[1])
+                store.write(VALID_RECORDS[1], RecordExpectation.absent())
             self.assertEqual("ECHEL-REPOSITORY-ESCAPE", caught.exception.code)
             self.assertEqual([], list(Path(outside_dir).iterdir()))
 

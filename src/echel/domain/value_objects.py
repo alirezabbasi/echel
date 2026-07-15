@@ -10,7 +10,7 @@ _IDENTIFIER_PATTERN = re.compile(
 )
 
 
-@dataclass(frozen=True)
+@dataclass
 class DomainValidationError(ValueError):
     """A stable domain-boundary failure suitable for machine and human callers."""
 

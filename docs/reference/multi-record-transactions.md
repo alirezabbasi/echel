@@ -5,7 +5,8 @@ journal under `.echel/transactions/`. It does not claim that several filesystem
 renames are physically atomic. Instead, it makes the commit decision explicit
 and guarantees one deterministic recovery direction.
 
-1. `preview` schema-validates every record, rejects duplicate destinations, and
+1. `preview` schema-validates every record, captures its revision/digest
+   precondition, rejects duplicate destinations, and
    explains the proposed transaction without mutation.
 2. `prepare` writes staged deterministic record bytes and a versioned manifest,
    then atomically installs the complete prepared journal.
@@ -22,4 +23,5 @@ allowed while prepared.
 
 Transaction journals are operational recovery state, not product knowledge and
 not an alternate source of truth. They do not accept records, confer authority,
-or define revision conflicts. Optimistic concurrency is introduced by E2-016.
+or define knowledge authority. Canonical optimistic-concurrency preconditions are
+persisted in the journal and rechecked during commit and recovery.

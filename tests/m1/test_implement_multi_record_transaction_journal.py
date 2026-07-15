@@ -44,7 +44,9 @@ class TransactionJournalTests(unittest.TestCase):
             self.assertEqual(3, result.record_count)
             self.assertFalse((journal.root / "complete").exists())
             for record in VALID_RECORDS[1:4]:
-                self.assertFalse(journal.store.preview_write(record).changed)
+                self.assertFalse(
+                    journal.store.preview_write(record, journal.store.observe(record)).changed
+                )
 
     def test_explicit_rollback_discards_prepared_intent_without_record_changes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -69,12 +71,12 @@ class TransactionJournalTests(unittest.TestCase):
             original_write = journal.store.write
             calls = 0
 
-            def interrupted(record):
+            def interrupted(record, expectation):
                 nonlocal calls
                 calls += 1
                 if calls == 2:
                     raise RepositoryError("ECHEL-RECORD-WRITE", Path("simulated"), "interrupted")
-                return original_write(record)
+                return original_write(record, expectation)
 
             with patch.object(journal.store, "write", side_effect=interrupted):
                 with self.assertRaises(RepositoryError) as caught:
@@ -82,13 +84,23 @@ class TransactionJournalTests(unittest.TestCase):
             self.assertEqual("ECHEL-TRANSACTION-INCOMPLETE", caught.exception.code)
             state = json.loads((journal.root / "recover" / "journal.json").read_text())
             self.assertEqual("committing", state["state"])
-            self.assertFalse(journal.store.preview_write(VALID_RECORDS[1]).changed)
-            self.assertTrue(journal.store.preview_write(VALID_RECORDS[2]).changed)
+            self.assertFalse(
+                journal.store.preview_write(
+                    VALID_RECORDS[1], journal.store.observe(VALID_RECORDS[1])
+                ).changed
+            )
+            self.assertTrue(
+                journal.store.preview_write(
+                    VALID_RECORDS[2], journal.store.observe(VALID_RECORDS[2])
+                ).changed
+            )
 
             result = journal.recover()[0]
             self.assertEqual("committed", result.outcome)
             for record in VALID_RECORDS[1:4]:
-                self.assertFalse(journal.store.preview_write(record).changed)
+                self.assertFalse(
+                    journal.store.preview_write(record, journal.store.observe(record)).changed
+                )
 
     def test_commit_decision_cannot_be_rolled_back(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

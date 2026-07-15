@@ -27,7 +27,7 @@ ENTITY_DEFINITIONS = {
 }
 
 
-@dataclass(frozen=True)
+@dataclass
 class SchemaValidationError(ValueError):
     code: str
     path: str
